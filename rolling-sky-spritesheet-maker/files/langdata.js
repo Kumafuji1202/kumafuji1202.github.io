@@ -112,6 +112,9 @@ var lang = new LanguageManager(
                 "midGroundTopColor": "Top color",
                 "midGroundBottomColor": "Bottom color",
                 "midGroundWindows": "Add windows",
+                "midGroundWindowsTop": "Windows top color",
+                "midGroundWindowsMiddle": "Windows middle color",
+                "midGroundWindowsBottom": "Windows bottom color",
                 
                 "finishLineSettingHeading": "Finish line settings",
                 "finishLineColorA": "Color A",
@@ -423,6 +426,9 @@ var lang = new LanguageManager(
                 "midGroundTopColor": "上端の色",
                 "midGroundBottomColor": "下端の色",
                 "midGroundWindows": "窓の追加",
+                "midGroundWindowsTop": "窓上端",
+                "midGroundWindowsMiddle": "窓中央",
+                "midGroundWindowsBottom": "窓下端",
                 
                 "finishLineSettingHeading": "ゴールテープの設定",
                 "finishLineColorA": "色A",
