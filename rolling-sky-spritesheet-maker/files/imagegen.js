@@ -2103,6 +2103,18 @@ window.addEventListener("load", function () {
         }
     }
 
-    document.getElementById("generateButton").addEventListener("click", generateTextures, true);
+    function updateSaveURLs(){
+        document.getElementById("downloadGeneral").setAttribute("href",canvasGeneral.toDataURL());
+        document.getElementById("downloadFragile").setAttribute("href",canvasFragile.toDataURL());
+        document.getElementById("downloadFragileActive").setAttribute("href",canvasFragileActive.toDataURL());
+        document.getElementById("downloadMover").setAttribute("href",canvasMover.toDataURL());
+        document.getElementById("downloadMoverAuto").setAttribute("href",canvasMoverAuto.toDataURL());
+        document.getElementById("downloadEnemy").setAttribute("href",canvasEnemy.toDataURL());
+    }
+    document.getElementById("generateButton").addEventListener("click", function(){
+        generateTextures();
+        updateSaveURLs();
+    }, true);
     generateTextures();
+    updateSaveURLs();
 }, true);
