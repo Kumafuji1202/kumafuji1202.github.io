@@ -68,8 +68,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement" data-translation-key="appTitle"></h1>
-
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0</span></h1>
             <p id="creatorName">
                 by Kumafuji1202
             </p>
@@ -100,7 +99,7 @@
             <form class="appElement appForm" id="fileBox">
                 <label for="loadSavedTheme" data-translation-key="loadSavedTheme" class="button blockLink"></label>
                 <input type="file" id="loadSavedTheme" accept=".rstheme">
-                <a id="saveTheme" class="button blockLink" data-translation-key="saveTheme">Download General</a>
+                <a id="saveTheme" class="button blockLink" data-translation-key="saveTheme" download="My Theme.rstheme"></a>
                 <label><span data-translation-key="themeName"></span><input type="text" id="themeName" value="My Theme"></label>
                 <div id="loadStatus"></div>
                 <script>
@@ -148,8 +147,8 @@
         <div id="formContainer">
             <div id="formNav">
                 <ul>
-                    <li id="tilesTab" class="selectedTab"><span data-translation-key="tilesTab">tiles</span></li>
-                    <li id="enemyTab"><span data-translation-key="enemyTab">enemy</span></li>
+                    <li id="tilesTab" class="selectedTab"><span data-translation-key="tilesTab">Tiles</span></li>
+                    <li id="enemyTab"><span data-translation-key="enemyTab">Enemy</span></li>
                 </ul>
                 <script>
                     window.addEventListener("load", function() {
@@ -276,11 +275,11 @@
                         <!-- ガラス床の設定 -->
                         <h2 data-translation-key="fragileSettingHeading"></h2>
                         <label><span data-translation-key="fragileColor"></span><input type="color" id="fragileColor" value="#73BBBF"></label>
+                        <label><span data-translation-key="fragileActiveColor"></span><input type="color" id="fragileActiveColor" value="#60A0A2"></label><br>
                         <label><span data-translation-key="fragileLineColor"></span><input type="color" id="fragileLineColor" value="#9FE0FF"></label>
-                        <label><span data-translation-key="fragileSideColor"></span><input type="color" id="fragileSideColor" value="#91BCC6"></label><br>
-                        <label><span data-translation-key="fragileActiveColor"></span><input type="color" id="fragileActiveColor" value="#60A0A2"></label>
-                        <label><span data-translation-key="fragileActiveLineColor"></span><input type="color" id="fragileActiveLineColor" value="#9CDFFF"></label>
-                        <label><span data-translation-key="fragileActiveSideColor"></span><input type="color" id="fragileActiveSideColor" value="#91BCC6"></label>
+                        <label><span data-translation-key="fragileActiveLineColor"></span><input type="color" id="fragileActiveLineColor" value="#9CDFFF"></label><br>
+                        <label><span data-translation-key="fragileSideColor"></span><input type="color" id="fragileSideColor" value="#91BCC6"></label>
+                        <label><span data-translation-key="fragileActiveSideColor"></span><input type="color" id="fragileActiveSideColor" value="#91BCC6"></label><br>
                         <fieldset id="fragileStyleForm" class="selectForm" data-default-form="fragileCustomizationDefaultContent" data-form-selector="fragileStyle">
                             <legend>
                                 <label><span data-translation-key="fragileStyle"></span>
@@ -374,8 +373,11 @@
                         <!-- 通過オブジェクト(Midground)の設定 -->
                         <h2 data-translation-key="midGroundSettingHeading"></h2>
                         <label><span data-translation-key="midGroundTopColor"></span><input type="color" id="midGroundTopColor" value="#21C7D0"></label>
-                        <label><span data-translation-key="midGroundBottomColor"></span><input type="color" id="midGroundBottomColor" value="#12D8E1"></label>
-                        <label><span data-translation-key="midGroundWindows"></span><input type="checkbox" id="midGroundWindows"></label>
+                        <label><span data-translation-key="midGroundBottomColor"></span><input type="color" id="midGroundBottomColor" value="#12D8E1"></label><br>
+                        <label><span data-translation-key="midGroundWindows"></span><input type="checkbox" id="midGroundWindows"></label><br>
+                        <label><span data-translation-key="midGroundWindowsTop"></span><input type="color" id="midGroundWindowsTop" value="#AAEAEE"></label><br>
+                        <label><span data-translation-key="midGroundWindowsMiddle"></span><input type="color" id="midGroundWindowsMiddle" value="#AAEAEE"></label><br>
+                        <label><span data-translation-key="midGroundWindowsBottom"></span><input type="color" id="midGroundWindowsBottom" value="#77E8EE"></label>
 
                         <!-- ゴールテープの設定 -->
                         <h2 data-translation-key="finishLineSettingHeading"></h2>
@@ -1114,6 +1116,7 @@
                                                         if (previousElem !== null) {
                                                             rowList.insertBefore(rowElem, previousElem);
                                                         }
+                                                        updateJSONFromForm();
                                                     }, true);
 
                                                     //「下に移動」ボタン
@@ -1127,6 +1130,7 @@
                                                         } else {
                                                             rowList.insertBefore(rowElem, nextNextElem);
                                                         }
+                                                        updateJSONFromForm();
                                                     }, true);
 
                                                     //「複製」ボタン
@@ -1134,14 +1138,37 @@
                                                         var newRow = rowElem.cloneNode(true);
                                                         rowList.insertBefore(newRow, rowElem);
                                                         initRow(newRow);
+                                                        updateJSONFromForm();
                                                     }, true);
                                                     //「削除」ボタン
                                                     buttons[3].addEventListener("click", function() {
                                                         if (window.confirm(lang.callText("rowRemovalConfirmation"))) rowElem.remove();
+                                                        updateJSONFromForm();
                                                     }, true);
                                                 }
+                                                
+                                                function updateJSONFromForm(){
+                                                    var json = "[";
+                                                    Array.from(rowList.children).forEach(function(row, pos, arr) {
+                                                        json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
+                                                        if (pos+1 != arr.length) json += ", ";
+                                                    });
+                                                    json += "]";
+                                                    document.getElementById("stripeJSONData").value = json;
+                                                }
+                                                
+                                                function updateFormFromJSON(){
+                                                    var jsonObj = JSON.parse(document.getElementById("stripeJSONData").value);
+                                                    jsonObj.forEach(function(row){
+                                                        var newRow = addNewRow();
+                                                        newRow.children[0].children[0].value = row.light;
+                                                        newRow.children[1].children[0].value = row.medium;
+                                                        newRow.children[2].children[0].value = row.dark;
+                                                        newRow.children[3].children[0].value = row.width;
+                                                    });
+                                                }
 
-                                                Array.from(document.getElementById("BLStripes").children).forEach(function(row) {
+                                                Array.from(rowList.children).forEach(function(row) {
                                                     initRow(row);
                                                 });
 
@@ -1150,8 +1177,12 @@
                                                     newRow.innerHTML = document.getElementById("BLStripeRowTemplate").innerHTML;
                                                     rowList.appendChild(newRow);
                                                     initRow(newRow);
+                                                    return newRow;
                                                 }
-                                                document.getElementById("addStripe").addEventListener("click", addNewRow, true);
+                                                document.getElementById("addStripe").addEventListener("click", function(){
+                                                    initRow(addNewRow());
+                                                }, true);
+                                                otherUpdateFunctions.push(updateFormFromJSON);
                                             }, true);
 
                                         </script>
@@ -1204,7 +1235,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <input type="hidden" id="stripeJSONData">
+                                    <input type="hidden" id="stripeJSONData" value="[{&quot;light&quot;: &quot;#31EFEF&quot;, &quot;medium&quot;: &quot;#31EFEF&quot;, &quot;dark&quot;: &quot;#1EE8E7&quot;, &quot;width&quot;: &quot;#22&quot;}]">
                                     <a class="formSmallButton" id="addStripe">+</a><br>
                                     <label><span data-translation-key="BLStripeLine"></span><input type="checkbox" id="BLStripeLine" checked data-off-or-input="BLStripeLineLabel"></label>
                                     <label id="BLStripeLineLabel"><span data-translation-key="UsedColor"></span><input type="color" id="BLStripeLineColor" value="#524542"></label><br>
