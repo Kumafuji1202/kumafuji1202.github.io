@@ -70,7 +70,7 @@
         <div id="header-content">
             <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0</span></h1>
             <p id="creatorName">
-                by Kumafuji1202
+                by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
 
             <form id="languageForm" class="appElement appForm">
@@ -96,20 +96,6 @@
 
     <div id="main">
         <div id="output">
-            <form class="appElement appForm" id="fileBox">
-                <label for="loadSavedTheme" data-translation-key="loadSavedTheme" class="button blockLink"></label>
-                <input type="file" id="loadSavedTheme" accept=".rstheme">
-                <a id="saveTheme" class="button blockLink" data-translation-key="saveTheme" download="My Theme.rstheme"></a>
-                <label><span data-translation-key="themeName"></span><input type="text" id="themeName" value="My Theme"></label>
-                <div id="loadStatus"></div>
-                <script>
-                    window.addEventListener("load", function(){
-                        document.getElementById("themeName").addEventListener("input", function(){
-                            document.getElementById("saveTheme").setAttribute("download", document.getElementById("themeName").value + ".rstheme");
-                        }, true);
-                    });
-                </script>
-            </form>
             <div id="generalTextureOutput" class="outputContainer appElement">
                 <span data-translation-key="filenameGeneral"></span><br>
                 <canvas id="generalOutput" width="512" height="512" data-translation-key="canvasAltText">
@@ -149,6 +135,7 @@
                 <ul>
                     <li id="tilesTab" class="selectedTab"><span data-translation-key="tilesTab">Tiles</span></li>
                     <li id="enemyTab"><span data-translation-key="enemyTab">Enemy</span></li>
+                    <li id="saveTab"><span data-translation-key="saveTab">Save/Load</span></li>
                 </ul>
                 <script>
                     window.addEventListener("load", function() {
@@ -157,12 +144,24 @@
                             document.getElementById("tilesForm").classList.remove("hidden");
                             document.getElementById("enemyTab").classList.remove("selectedTab");
                             document.getElementById("enemyForm").classList.add("hidden");
+                            document.getElementById("saveTab").classList.remove("selectedTab");
+                            document.getElementById("saveForm").classList.add("hidden");
                         });
                         document.getElementById("enemyTab").addEventListener("click", function() {
                             document.getElementById("tilesTab").classList.remove("selectedTab");
                             document.getElementById("tilesForm").classList.add("hidden");
                             document.getElementById("enemyTab").classList.add("selectedTab");
                             document.getElementById("enemyForm").classList.remove("hidden");
+                            document.getElementById("saveTab").classList.remove("selectedTab");
+                            document.getElementById("saveForm").classList.add("hidden");
+                        });
+                        document.getElementById("saveTab").addEventListener("click", function() {
+                            document.getElementById("tilesTab").classList.remove("selectedTab");
+                            document.getElementById("tilesForm").classList.add("hidden");
+                            document.getElementById("enemyTab").classList.remove("selectedTab");
+                            document.getElementById("enemyForm").classList.add("hidden");
+                            document.getElementById("saveTab").classList.add("selectedTab");
+                            document.getElementById("saveForm").classList.remove("hidden");
                         });
                     });
 
@@ -676,7 +675,7 @@
                                 <div id="desertSubBForm">
                                     <table>
                                         <tr>
-                                            <th>front</th>
+                                            <th data-translation-key="front"></th>
                                             <td><input type="color" id="palmTreeTrunk1" value="#BD6733"></td>
                                         </tr>
                                         <tr>
@@ -687,7 +686,7 @@
                                             <td><input type="color" id="palmTreeTrunk3" value="#A24F21"></td>
                                         </tr>
                                         <tr>
-                                            <th>back</th>
+                                            <th data-translation-key="back"></th>
                                             <td><input type="color" id="palmTreeTrunk4" value="#8C4215"></td>
                                         </tr>
                                     </table>
@@ -1146,20 +1145,20 @@
                                                         updateJSONFromForm();
                                                     }, true);
                                                 }
-                                                
-                                                function updateJSONFromForm(){
+
+                                                function updateJSONFromForm() {
                                                     var json = "[";
                                                     Array.from(rowList.children).forEach(function(row, pos, arr) {
                                                         json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
-                                                        if (pos+1 != arr.length) json += ", ";
+                                                        if (pos + 1 != arr.length) json += ", ";
                                                     });
                                                     json += "]";
                                                     document.getElementById("stripeJSONData").value = json;
                                                 }
-                                                
-                                                function updateFormFromJSON(){
+
+                                                function updateFormFromJSON() {
                                                     var jsonObj = JSON.parse(document.getElementById("stripeJSONData").value);
-                                                    jsonObj.forEach(function(row){
+                                                    jsonObj.forEach(function(row) {
                                                         var newRow = addNewRow();
                                                         newRow.children[0].children[0].value = row.light;
                                                         newRow.children[1].children[0].value = row.medium;
@@ -1179,7 +1178,7 @@
                                                     initRow(newRow);
                                                     return newRow;
                                                 }
-                                                document.getElementById("addStripe").addEventListener("click", function(){
+                                                document.getElementById("addStripe").addEventListener("click", function() {
                                                     initRow(addNewRow());
                                                 }, true);
                                                 otherUpdateFunctions.push(updateFormFromJSON);
@@ -1302,6 +1301,28 @@
                                 </div>
                             </fieldset>
                         </div>
+                    </div>
+                    <div class="appElement appForm hidden" id="saveForm">
+                        <label for="loadSavedTheme" data-translation-key="loadSavedTheme" class="button blockLink"></label>
+                        <input type="file" id="loadSavedTheme" accept=".rstheme">
+                        <a id="saveTheme" class="button blockLink" data-translation-key="saveTheme" download="My Theme.rstheme"></a>
+                        <label><span data-translation-key="themeName"></span><input type="text" id="themeName" value="My Theme"></label>
+                        <div id="loadStatus"></div>
+                        <script>
+                            window.addEventListener("load", function() {
+                                document.getElementById("themeName").addEventListener("input", function() {
+                                    document.getElementById("saveTheme").setAttribute("download", document.getElementById("themeName").value + ".rstheme");
+                                }, true);
+                            });
+
+                        </script>
+
+                        <a id="downloadGeneral" class="button blockLink" data-translation-key="downloadGeneral" download="General.png"></a>
+                        <a id="downloadFragile" class="button blockLink" data-translation-key="downloadFragile" download="Fragile.png"></a>
+                        <a id="downloadFragileActive" class="button blockLink" data-translation-key="downloadFragileActive" download="FragileActive.png"></a>
+                        <a id="downloadMover" class="button blockLink" data-translation-key="downloadMover" download="Mover.png"></a>
+                        <a id="downloadMoverAuto" class="button blockLink" data-translation-key="downloadMoverAuto" download="MoverAuto.png"></a>
+                        <a id="downloadEnemy" class="button blockLink" data-translation-key="downloadEnemy" download="Enemy.png"></a>
                     </div>
                     <!-- 生成ボタン -->
                     <div id="formFooter">
