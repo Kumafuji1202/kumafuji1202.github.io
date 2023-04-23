@@ -1,6 +1,10 @@
 /* フォントをSenに設定 */
+@font-face{
+    font-family: "SenBold";
+    src: url(sen-bold.ttf) format("truetype");
+}
 html {
-    font-family: "Sen";
+    font-family: "SenBold";
 }
 
 input {
@@ -11,8 +15,6 @@ select {
     font-family: inherit;
 }
 
-option {
-}
 /* フォーマットのための無駄なマージンパディングを削除 */
 html{
     margin: 0;
