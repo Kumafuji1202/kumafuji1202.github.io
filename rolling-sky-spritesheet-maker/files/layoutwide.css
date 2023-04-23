@@ -48,10 +48,10 @@
     cursor: pointer;
 }
 #formNav li.selectedTab{
-    height: calc(100% - 1px);
+    height: calc(100% - 0px);
 }
 #formNav li:not(.selectedTab){
-    height: calc(100% - 2px);
+    height: calc(100% - 1px);
 }
 #formNav li span{
     display: inline;
