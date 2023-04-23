@@ -4,16 +4,19 @@ var lang = new LanguageManager(
             langCode: "en",
             translations: {
                 "appTitle": "Rolling Sky Spritesheet Generator",
-                "generateButton": "Generate",
+                "generateButton": "Generate Spritesheets",
                 "selectLang": "Select Language",
                 "selectDesign": "Select color mode",
                 "lightMode": "Light Mode",
                 "darkMode": "Dark Mode",
                 "tilesTab": "Tiles",
                 "enemyTab": "Enemy",
+                "saveTab": "Save/Load",
                 "UsedColor": "Color",
                 "active": "Active",
                 "inactive": "Inactive",
+                "front": "Front",
+                "back": "Back",
                 "recommendedImgSize": "(Recommended image size: ",
                 "importImages": "Import texture images",
                 "texturePartUnavailable": "This part is unavailable with current top right part settings.",
@@ -293,8 +296,8 @@ var lang = new LanguageManager(
                 "useRiserLine": "Use riser edge line",
 
                 "saveTheme": "Save theme in JSON format",
-                "themeName": "テーマの名前(保存されたファイルの名前にのみ使用されます。)",
-                "loadSavedTheme": "load saved theme(experimental)",
+                "themeName": "Theme name(only used for the file name)",
+                "loadSavedTheme": "Load saved theme",
 
                 "filenameGeneral": "General",
                 "filenameFragile": "Fragile",
@@ -309,7 +312,14 @@ var lang = new LanguageManager(
                 "loadFileComplete": "Successfully loaded the file",
                 "loadError": "An error occured while loading the file",
                 "loadSavedThemeConfirmation": "Are you sure you want to replace current setting?",
-                "imgRemoveConfirmation": "Are you sure you want to remove this imported image?"
+                "imgRemoveConfirmation": "Are you sure you want to remove this imported image?",
+                
+                "downloadGeneral": "Download General",
+                "downloadFragile": "Download Fragile",
+                "downloadFragileActive": "Download FragileActive",
+                "downloadMover": "Download Mover",
+                "downloadMoverAuto": "Download MoverAuto",
+                "downloadEnemy": "Download Enemy"
             }
                 },
 
@@ -325,9 +335,12 @@ var lang = new LanguageManager(
                 "darkMode": "ダークモード",
                 "tilesTab": "床",
                 "enemyTab": "障害物",
+                "saveTab": "保存",
                 "UsedColor": "使用色",
                 "active": "起動時",
                 "inactive": "未起動時",
+                "front": "手前",
+                "back": "奥",
                 "recommendedImgSize": "(推奨画像サイズ: ",
                 "importImages": "画像をインポート",
                 "texturePartUnavailable": "現在の右上部分の設定ではこの領域は使用できません。",
@@ -626,7 +639,14 @@ var lang = new LanguageManager(
                 "loadFileComplete": "ファイルの読み込みに成功しました",
                 "loadError": "エラーが発生しました",
                 "loadSavedThemeConfirmation": "既にある設定を削除しますか?",
-                "imgRemoveConfirmation": "インポート画像を削除しますか?"
+                "imgRemoveConfirmation": "インポート画像を削除しますか?",
+                
+                "downloadGeneral": "Generalをダウンロード",
+                "downloadFragile": "Fragileをダウンロード",
+                "downloadFragileActive": "FragileActiveをダウンロード",
+                "downloadMover": "Moverをダウンロード",
+                "downloadMoverAuto": "MoverAutoをダウンロード",
+                "downloadEnemy": "Enemyをダウンロード"
             }
                 }
             ]);
