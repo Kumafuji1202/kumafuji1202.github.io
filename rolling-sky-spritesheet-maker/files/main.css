@@ -1,7 +1,7 @@
 /* フォントをSenに設定 */
 @font-face{
     font-family: "SenBold";
-    src: url(sen-bold.ttf) format("truetype");
+    src: url(Sen-Bold.ttf) format("truetype");
 }
 html {
     font-family: "SenBold";
