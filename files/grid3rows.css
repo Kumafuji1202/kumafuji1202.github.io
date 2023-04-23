@@ -1,0 +1,46 @@
+#output{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    aspect-ratio: 1 / 1;
+}
+#generalTextureOutput{
+    grid-column-start: 1;
+    grid-row-start: 1;
+}
+#enemyTextureOutput{
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+#fragileTextureOutput{
+    grid-column-start: 2;
+    grid-row-start: 1;
+}
+#fragileActiveTextureOutput{
+    grid-column-start: 3;
+    grid-row-start: 1;
+}
+#moverTextureOutput{
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+#moverAutoTextureOutput{
+    grid-column-start: 3;
+    grid-row-start: 2;
+}
+#ballTextureOutput{
+    grid-column-start: 1;
+    grid-row-start: 3;
+}
+#fileBox{
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+#notfooter{
+    grid-column-start: 3;
+    grid-row-start: 3;
+}
+/*
+G |F |FA
+E |M |MA
+B |FB|NF
+*/

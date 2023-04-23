@@ -1,0 +1,104 @@
+#header {
+    background-position: center top;
+}
+
+html[data-theme=light] #header {
+    background-image: url(Background84%20-%20repeatable.png);
+    border-bottom-color: #000000;
+}
+
+html[data-theme=dark] #header {
+    background: linear-gradient(#121217, #67111c);
+    background-image: url(Background68.png);
+    background-position: center -50px;
+    border-bottom-color: #804000;
+    color: #00c0c0;
+
+}
+
+/*formnav*/
+html[data-theme=light] #formNav {
+    background-color: #c0ffff;
+    border-bottom-color: #000000;
+}
+
+html[data-theme=dark] #formNav {
+    background-color: #100010;
+    border-bottom-color: #ffffff;
+}
+
+html[data-theme=light] #formNav li {
+    border: 1px solid #000000;
+}
+html[data-theme=dark] #formNav li {
+    border: 1px solid #ffffff;
+}
+html[data-theme=light] #formNav li.selectedTab {
+    background: linear-gradient(#ffffff,#A9F1F7);
+    border-bottom: none;
+}
+html[data-theme=dark] #formNav li.selectedTab {
+    background: linear-gradient(#211442,#050408);
+    border-bottom: none;
+}
+html[data-theme=light] #formNav li:not(.selectedTab) {
+    background-color: #a0a0a0;
+    color: #ffffff;
+}
+html[data-theme=dark] #formNav li:not(.selectedTab) {
+    background-color: #202020;
+    color: #a0a0a0;
+}
+
+/*formbody*/
+html[data-theme=light] #formBody {
+    background-image: url(Background8.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+}
+
+html[data-theme=light] #formContainer {
+    border-right-color: #000000;
+}
+
+html[data-theme=dark] #formBody {
+    background-image: url(Background48.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: #0d1a1e;
+}
+
+html[data-theme=dark] #formContainer {
+    border-right-color: #804000;
+    color: #c080ff;
+}
+
+html[data-theme=light] #output {
+    background-image: url(Background100.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+html[data-theme=dark] #output {
+    background-image: url(Background29.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+html[data-theme=dark] #output > * {
+    color: #00ffff;
+}
+
+html[data-theme=dark] select {
+    background: none;
+    color: inherit;
+}
+
+html[data-theme=dark] option {
+    background-color: #000000;
+}
+
+html[data-theme=dark] input[type=checkbox] {
+    background-color: #000000;
+}

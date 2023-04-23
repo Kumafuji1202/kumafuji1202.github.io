@@ -1,0 +1,94 @@
+input[type=color] {
+    background-color: inherit;
+    border: none;
+    cursor: inherit;
+}
+
+input[type=number] {
+    background-color: white;
+}
+
+.disabledLabel {
+    cursor: not-allowed;
+    color: gray;
+}
+
+.blockLink {
+    display: block;
+}
+
+.notCustom,
+.hidden {
+    display: none;
+}
+
+.middleText * {
+    vertical-align: middle;
+}
+
+.button, .formSmallButton {
+    border: 1px solid #000000;
+    padding: 3px;
+    width: max-content;
+    background: linear-gradient(#b0b0b0, #707070);
+    color: white;
+    text-decoration: none;
+    margin-top: 5px;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.formSmallButton{
+    display: inline-block;
+    width: 15px;
+}
+
+.button:hover,
+.formSmallButton:hover {
+    background: linear-gradient(#d0d0d0, #909090);
+}
+
+.button:active,
+.formSmallButton:active {
+    background: linear-gradient(#909090, #d0d0d0);
+}
+
+.button::selection,
+.formSmallButton::selection{
+    background-color: inherit;
+    color: inherit;
+}
+
+canvas {
+    border: 1px solid #000000;
+}
+
+#output canvas,
+#formContainer canvas,
+.imgImport {
+    background-image: url(transparent.png);
+}
+
+td {
+    text-align: center;
+}
+
+ol,
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.selectForm > *:not(.selectedForm):not(legend) {
+    display: none;
+}
+
+label > span[data-translation-key]:first-child::after {
+    content: ":";
+}
+
+input[type=file] {
+    display: none;
+}
