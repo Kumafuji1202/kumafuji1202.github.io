@@ -614,12 +614,6 @@ window.addEventListener("load", function () {
         contextFragileActive.globalAlpha = 1;
         contextFragileActive.lineWidth = 4;
 
-        //側面
-        contextFragile.fillStyle = document.getElementById("fragileSideColor").value;
-        contextFragile.fillRect(298.5, 183, 30, 30);
-        contextFragileActive.fillStyle = document.getElementById("fragileActiveSideColor").value;
-        contextFragileActive.fillRect(298.5, 183, 30, 30);
-
         //線
         contextFragile.strokeStyle = document.getElementById("fragileLineColor").value;
         contextFragileActive.strokeStyle = document.getElementById("fragileActiveLineColor").value;
@@ -742,6 +736,32 @@ window.addEventListener("load", function () {
         midGroundGradient.addColorStop(1, document.getElementById("midGroundBottomColor").value);
         contextFragile.fillStyle = midGroundGradient;
         contextFragile.fillRect(170, 0, 170, 170);
+        
+        //Midgroundの窓
+        if (document.getElementById("midGroundWindows").checked){
+            let windowGrad = contextFragile.createLinearGradient(0,27,0,141);
+            windowGrad.addColorStop(0,document.getElementById("midGroundWindowsTop").value);
+            windowGrad.addColorStop(0.5,document.getElementById("midGroundWindowsMiddle").value);
+            windowGrad.addColorStop(1,document.getElementById("midGroundWindowsBottom").value);
+            contextFragile.fillStyle = windowGrad;
+            let windowLayout = [
+                [true, false, true],
+                [true, true, true],
+                [false, true, true],
+                [true, true, true],
+                [true, false, true],
+                [true, true, true],
+                [true, true, false],
+                [true, false, true]
+            ];
+            for (let windowRow = 0; windowRow < 8; windowRow++){
+                for (let windowCol = 0; windowCol < 3; windowCol++){
+                    if (windowLayout[windowRow][windowCol]){
+                        contextFragile.fillRect(238+14*windowCol,27+15*windowRow,10,10);
+                    }
+                }
+            }
+        }
 
         //低画質ジェム
         contextFragile.fillStyle = document.getElementById("gemColor").value;
@@ -801,8 +821,11 @@ window.addEventListener("load", function () {
         contextFragileActive.clearRect(0, 77, 340, 16);
 
         //補助パレット
-        //TODO: ここにコンテキストの描画上書き設定の変更を入れる
+        contextFragile.globalAlpha = contextFragile.globalAlpha = 0xc0 / 0xff;
 
+        contextFragile.clearRect(238,184,60,31);
+        contextFragileActive.clearRect(238,184,60,31);
+        
         contextFragile.fillStyle = document.getElementById("fragileVariation1").value;
         contextFragileActive.fillStyle = document.getElementById("frgActiveVariation1").value;
         contextFragile.fillRect(237, 183, 31, 31);
@@ -813,6 +836,7 @@ window.addEventListener("load", function () {
         contextFragile.fillRect(268, 183, 31, 31);
         contextFragileActive.fillRect(268, 183, 31, 31);
 
+        contextFragile.globalAlpha = contextFragile.globalAlpha = 1;
         contextFragile.fillStyle = document.getElementById("fragileVariation3").value;
         contextFragileActive.fillStyle = document.getElementById("frgActiveVariation3").value;
         contextFragile.fillRect(268, 213, 31, 31);
@@ -828,6 +852,11 @@ window.addEventListener("load", function () {
         multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextFragile, fiveSquares);
         multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextFragileActive, fiveSquares);
 
+        //側面
+        contextFragile.fillStyle = document.getElementById("fragileSideColor").value;
+        contextFragile.fillRect(298.5, 183, 30, 30);
+        contextFragileActive.fillStyle = document.getElementById("fragileActiveSideColor").value;
+        contextFragileActive.fillRect(298.5, 183, 30, 30);
 
         //////////////
         //ここからMoverとMoverAuto
@@ -2077,4 +2106,3 @@ window.addEventListener("load", function () {
     document.getElementById("generateButton").addEventListener("click", generateTextures, true);
     generateTextures();
 }, true);
-console.log("TODO: l1068 結晶の木の本体を描く");
