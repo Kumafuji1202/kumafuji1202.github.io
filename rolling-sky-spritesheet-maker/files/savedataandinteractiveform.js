@@ -70,9 +70,20 @@ var dataFormat = [
     
     {id:"midGroundTopColor", prop:"value"},
     {id:"midGroundBottomColor", prop:"value"},
+    {id:"midGroundWindows", prop:"checked"},
+    {id:"midGroundWindowsTop", prop:"value"},
+    {id:"midGroundWindowsMiddle", prop:"value"},
+    {id:"midGroundWindowsBottom", prop:"value"},
+    
+    {id:"finishLineInactiveColorA", prop:"value"},
+    {id:"finishLineInactiveColorB", prop:"value"},
+    {id:"finishLineActiveColorA", prop:"value"},
+    {id:"finishLineActiveColorB", prop:"value"},
+    {id:"finishLineActiveLine", prop:"value"},
     
     {id:"gemColor", prop:"value"},
     {id:"gemLineColor", prop:"value"},
+    {id:"gemLightColor", prop:"value"},
     
     //ここからEnemy,
     //A
@@ -231,7 +242,6 @@ var dataFormat = [
     {id:"useRiserLine", prop:"checked"},
     {id:"riserLine2", prop:"value"},
 ];
-
 var otherUpdateFunctions = [];
 
 window.addEventListener("load", function(){
@@ -336,6 +346,8 @@ window.addEventListener("load", function(){
                     }
                 });
                 
+                if (data.enemyStripes) document.getElementById("stripeJSONData").value=JSON.stringify(data.enemyStripes);
+                
                 updateAllSelectForms();
             });
             savedDataFileReader.addEventListener("error", function () {
@@ -348,11 +360,15 @@ window.addEventListener("load", function(){
     function generateSaveData() {
         var json = "{";
         dataFormat.forEach(function (set, num) {
-            if (num != 0) json += ",";
-            json += "\n\t\"" + set.id + "\": \"" + document.getElementById(set.id)[set.prop] + "\"";
+            json += "\n\t\"" + set.id + "\": \"" + document.getElementById(set.id)[set.prop] + "\",";
         });
+        json += "\n\t\"enemyStripes\": " + document.getElementById("stripeJSONData").value;
         json += "\n}";
         document.getElementById("saveTheme").setAttribute("href", "data:text/plain;base64," + btoa(json));
     }
     document.getElementById("generateButton").addEventListener("click", generateSaveData, true);
+    
+    dataFormat.forEach(function (set){
+        if (!(["src"]).includes(set.prop)) document.getElementById(set.id).addEventListener("change", generateSaveData,true);
+    });
 }, true);
