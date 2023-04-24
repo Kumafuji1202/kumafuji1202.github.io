@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*update no. 2*/
+/*update no. 3*/
 #header {
     background-position: center top;
 }
@@ -18,10 +18,10 @@ html[data-theme=dark] #header {
 
 }
 
-html[data-theme=light] a:not(.button) {
+html[data-theme=light] a:not(.button, .formSmallButton) {
     color: #8000ff;
 }
-html[data-theme=dark] a:not(.button) {
+html[data-theme=dark] a:not(.button, .formSmallButton) {
     color: #ffff00;
 }
 
