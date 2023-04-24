@@ -1,3 +1,4 @@
+//update no. 2
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -788,6 +789,7 @@ window.addEventListener("load", function () {
         multipleLines([19, 15, 11, 7, 3, 1], [0.25, 0.25, 0.25, 0.5, 0.5, 1], contextFragile, gemPath);
 
         //ゴールテープ
+        contextFragileActive.clearRect(0, 0, 340, 170);
         contextFragileActive.globalAlpha = 0xc0 / 0xff;
         for (let flPos = 0; flPos < 12; flPos++) {
             let flUnitLeftEnd = flPos == 0 ? 0 : 38 + 264 * (flPos - 1) / 10;
@@ -817,8 +819,6 @@ window.addEventListener("load", function () {
         }
         contextFragileActive.strokeStyle = document.getElementById("finishLineActiveLine").value;
         multipleLines([7, 3], [0.5, 1], contextFragileActive, flLinePath);
-
-        contextFragileActive.clearRect(0, 77, 340, 16);
 
         //補助パレット
         contextFragile.globalAlpha = contextFragile.globalAlpha = 0xc0 / 0xff;
