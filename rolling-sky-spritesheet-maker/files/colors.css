@@ -1,3 +1,5 @@
+@charset "utf-8";
+/*update no. 1*/
 #header {
     background-position: center top;
 }
@@ -14,6 +16,13 @@ html[data-theme=dark] #header {
     border-bottom-color: #804000;
     color: #00c0c0;
 
+}
+
+html[data-theme=light] a {
+    color: #8000ff;
+}
+html[data-theme=dark] a {
+    color: #ffff00;
 }
 
 /*formnav*/
