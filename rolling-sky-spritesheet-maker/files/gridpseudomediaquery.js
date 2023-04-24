@@ -1,3 +1,4 @@
+//update no. 1
 var currentGridStyle = 3,
     currentCanvasSize = 512;
 window.addEventListener("load", function () {
@@ -42,26 +43,3 @@ window.addEventListener("load", function () {
     changeGridStyle();
     transformCanvases();
 }, true);
-
-function amogus(){
-    document.documentElement.innerHTML = "ඞ";
-    window.alert("ඞ");
-    window.setInterval(function(){
-        var sus = "";
-        if (Math.random() < 0.999){
-            for (var suus = 0; suus < Math.floor(5+10*Math.random()); suus++){
-                sus += (["amogus ", "sus ", "ඞ ", "when the imposter is sus ", "SUS ", "SHHHH "])[Math.floor(6*Math.random())];
-            }
-        }else{
-            sus = "Try running ewjrbjdour(\"among_us_sus\")";
-        }
-        console.log(sus);
-        document.documentElement.innerHTML += "<br>" + sus;
-    }, 100);
-    return "sus";
-}
-function ewjrbjdour(wjbhibbqvuiv){
-    if (wjbhibbqvuiv === "among_us_sus"){
-        return;
-    }
-}
