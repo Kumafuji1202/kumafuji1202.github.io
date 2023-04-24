@@ -1,4 +1,4 @@
-//update no. 1
+//update no. 2
 var lang = new LanguageManager(
             [{
             langName: "English",
@@ -296,9 +296,9 @@ var lang = new LanguageManager(
                 "BLStripeLine": "Put lines between stripes",
                 "useRiserLine": "Use riser edge line",
 
-                "saveTheme": "Save theme in JSON format",
-                "themeName": "Theme name(only used for the file name)",
-                "loadSavedTheme": "Load saved theme",
+                "saveTheme": "Save project in JSON format",
+                "themeName": "Project name(only used for the file name)",
+                "loadSavedTheme": "Load saved project",
 
                 "filenameGeneral": "General",
                 "filenameFragile": "Fragile",
