@@ -1,4 +1,5 @@
 /*
+update no. 1
 langList[
     <各自の要素>
     {
