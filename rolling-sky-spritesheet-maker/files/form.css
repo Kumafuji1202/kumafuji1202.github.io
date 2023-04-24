@@ -1,3 +1,5 @@
+@charset "utf-8";
+/*update no. 1*/
 input[type=color] {
     background-color: inherit;
     border: none;
@@ -64,10 +66,15 @@ canvas {
     border: 1px solid #000000;
 }
 
-#output canvas,
-#formContainer canvas,
-.imgImport {
+html[data-theme=light] #output canvas,
+html[data-theme=light] #formContainer canvas,
+html[data-theme=light] .imgImport {
     background-image: url(transparent.png);
+}
+html[data-theme=dark] #output canvas,
+html[data-theme=dark] #formContainer canvas,
+html[data-theme=dark] .imgImport {
+    background-image: url(transparentbg-dark.png);
 }
 
 td {
