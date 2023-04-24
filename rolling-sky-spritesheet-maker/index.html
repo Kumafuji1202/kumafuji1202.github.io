@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- update no. 1-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -12,7 +13,7 @@
     <link id="colorstylesheet" rel="stylesheet" href="files/colors.css">
     <link id="gridLayout2" rel="stylesheet" href="files/grid2rows.css">
     <link id="gridLayout3" rel="stylesheet" href="files/grid3rows.css">
-    <script id="languageLibrary" src="files/lang.js"></script>
+    <script id="languageLibrary" src="../lang.js"></script>
     <script id="languageData" src="files/langdata.js"></script>
     <script id="imageGenerator" src="files/imagegen.js"></script>
     <script id="saveLoadSystem" src="files/savedataandinteractiveform.js"></script>
@@ -21,7 +22,22 @@
         window.addEventListener("load", function() {
             document.getElementById("designSelectBox").addEventListener("change", function() {
                 document.documentElement.setAttribute("data-theme", document.getElementById("designSelectBox").value);
+                localStorage.setItem("colorTheme", document.getElementById("designSelectBox").value);
             }, true);
+            var themCol = localStorage.getItem("colorTheme");
+            if (themCol){
+                document.documentElement.setAttribute("data-theme", themCol);
+                document.getElementById("designSelectBox").value = themCol;
+            }
+            
+            document.getElementById("languageSelectBox").addEventListener("change", function() {
+                localStorage.setItem("language", document.getElementById("languageSelectBox").value);
+            }, true);
+            var langSet = localStorage.getItem("language");
+            if (langSet){
+                lang.useLanguage(langSet);
+                document.getElementById("languageSelectBox").value = langSet;
+            }
         }, true);
 
     </script>
@@ -75,6 +91,7 @@
 
             <form id="languageForm" class="appElement appForm">
                 <label>
+                    🌎
                     <span data-translation-key="selectLang"></span>
                     <select id="languageSelectBox">
                     </select>
@@ -82,6 +99,7 @@
             </form>
             <form id="colorForm" class="appElement appForm">
                 <label>
+                    ☀☽
                     <span data-translation-key="selectDesign"></span>
                     <select id="designSelectBox">
                         <option value="light" data-translation-key="lightMode">
