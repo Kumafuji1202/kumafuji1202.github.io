@@ -1,3 +1,4 @@
+//update no. 1
 var lang = new LanguageManager(
             [{
             langName: "English",
@@ -624,7 +625,7 @@ var lang = new LanguageManager(
 
                 "saveTheme": "テーマをJSON形式で保存",
                 "themeName": "テーマの名前(保存されたファイルの名前にのみ使用されます。)",
-                "loadSavedTheme": "保存したテーマを読み込む(α版)",
+                "loadSavedTheme": "保存したテーマを読み込む",
 
                 "filenameGeneral": "General(通常床・立体)",
                 "filenameFragile": "Fragile(ガラス床)",
