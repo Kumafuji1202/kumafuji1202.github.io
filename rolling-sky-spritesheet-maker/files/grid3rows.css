@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*update no. 1*/
+/*update no. 2*/
 #output{
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -8,34 +8,24 @@
 #generalTextureOutput{
     grid-row-start: 1;
     grid-column-start: 1;
-    grid-column-end: 2;
 }
 #enemyTextureOutput{
     grid-row-start: 1;
     grid-column-start: 2;
-    grid-column-end: 3;
 }
 #fragileTextureOutput{
     grid-row-start: 2;
     grid-column-start: 1;
-    grid-column-end: 2;
 }
 #fragileActiveTextureOutput{
     grid-row-start: 2;
     grid-column-start: 2;
-    grid-column-end: 3;
 }
 #moverTextureOutput{
     grid-row-start: 3;
     grid-column-start: 1;
-    grid-column-end: 2;
 }
 #moverAutoTextureOutput{
     grid-row-start: 3;
     grid-column-start: 2;
-    grid-column-end: 3;
-}
-#ballTextureOutput{
-    grid-row-start: 4;
-    grid-column-start: 1;
 }
