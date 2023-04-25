@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*update no. 3*/
+/*update no. 4*/
 #header {
     background-position: center top;
 }
@@ -87,12 +87,14 @@ html[data-theme=light] #output {
     background-image: url(Background100.png);
     background-size: 100%;
     background-repeat: no-repeat;
+    background-color: #FFEDAA;
 }
 
 html[data-theme=dark] #output {
     background-image: url(Background29.png);
     background-size: 100%;
     background-repeat: no-repeat;
+    background-color: #000E0D;
 }
 
 html[data-theme=dark] #output > * {
