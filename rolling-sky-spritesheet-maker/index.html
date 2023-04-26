@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- update no. 2-->
+<!-- update no. 3-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -25,16 +25,16 @@
                 localStorage.setItem("colorTheme", document.getElementById("designSelectBox").value);
             }, true);
             var themCol = localStorage.getItem("colorTheme");
-            if (themCol){
+            if (themCol) {
                 document.documentElement.setAttribute("data-theme", themCol);
                 document.getElementById("designSelectBox").value = themCol;
             }
-            
+
             document.getElementById("languageSelectBox").addEventListener("change", function() {
                 localStorage.setItem("language", document.getElementById("languageSelectBox").value);
             }, true);
             var langSet = localStorage.getItem("language");
-            if (langSet){
+            if (langSet) {
                 lang.useLanguage(langSet);
                 document.getElementById("languageSelectBox").value = langSet;
             }
@@ -84,7 +84,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.1</span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.2</span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -197,13 +197,22 @@
                         <!-- 普通床の側面 -->
                         <label><span data-translation-key="groundSideColor"></span><input type="color" id="groundSideColor" value="#C37E39"></label>
                         <!-- 普通床の端のスタイル -->
-                        <label><span data-translation-key="groundEdgeStyle"></span>
-                            <select id="groundEdgeStyle">
-                                <option data-translation-key="groundEdgeStyleNone" value="none"></option>
-                                <option data-translation-key="groundEdgeStyleCut" value="cut"></option>
-                                <option data-translation-key="groundEdgeStyleOutline" value="outlined"></option>
-                            </select>
-                        </label><br>
+                        <fieldset id="groundStyleForm" class="selectForm" data-default-form="groundEdgeDefaultContent" data-form-selector="groundEdgeStyle">
+                            <legend>
+                                <label><span data-translation-key="groundEdgeStyle"></span>
+                                    <select id="groundEdgeStyle">
+                                        <option data-translation-key="groundEdgeStyleNone" value="none"></option>
+                                        <option data-translation-key="groundEdgeStyleCut" value="cut"></option>
+                                        <option data-translation-key="groundEdgeStyleOutline" value="outlined" data-option-form="outlinedGeneralCustomizationForm"></option>
+                                    </select>
+                                </label>
+                            </legend>
+                            <div id="groundEdgeDefaultContent" data-translation-key="groundEdgeDefaultContent"></div>
+                            <div id="outlinedGeneralCustomizationForm">
+                                <label><span data-translation-key="outlinedGroundOutlineColor"></span><input type="color" id="outlinedGroundOutlineColor" value="#E9A442"></label><br>
+                                <label><span data-translation-key="outlinedGroundEdgeColor"></span><input type="color" id="outlinedGroundEdgeColor" value="#DB943F"></label><br>
+                            </div>
+                        </fieldset>
                         <!-- 火山風グラデーション -->
                         <label><span data-translation-key="volcanicGradient"></span><input type="checkbox" id="enableVolcanicGradient" data-off-or-input="volcanoSettingLabel"></label>
                         <label class="disabledLabel" id="volcanoSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="volcanicGradientColor" disabled value="#E2A132"></label>
@@ -1176,6 +1185,7 @@
 
                                                 function updateFormFromJSON() {
                                                     var jsonObj = JSON.parse(document.getElementById("stripeJSONData").value);
+                                                    rowList.innerHTML = "";
                                                     jsonObj.forEach(function(row) {
                                                         var newRow = addNewRow();
                                                         newRow.children[0].children[0].value = row.light;
@@ -1252,7 +1262,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <input type="hidden" id="stripeJSONData" value="[{&quot;light&quot;: &quot;#31EFEF&quot;, &quot;medium&quot;: &quot;#31EFEF&quot;, &quot;dark&quot;: &quot;#1EE8E7&quot;, &quot;width&quot;: &quot;#22&quot;}]">
+                                    <input type="hidden" id="stripeJSONData" value="[{&quot;light&quot;: &quot;#31EFEF&quot;, &quot;medium&quot;: &quot;#26EBE9&quot;, &quot;dark&quot;: &quot;#1EE8E7&quot;, &quot;width&quot;: &quot;22&quot;}]">
                                     <a class="formSmallButton" id="addStripe">+</a><br>
                                     <label><span data-translation-key="BLStripeLine"></span><input type="checkbox" id="BLStripeLine" checked data-off-or-input="BLStripeLineLabel"></label>
                                     <label id="BLStripeLineLabel"><span data-translation-key="UsedColor"></span><input type="color" id="BLStripeLineColor" value="#524542"></label><br>
