@@ -1,4 +1,4 @@
-//update no. 1
+//update no. 2
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
 var dataFormat = [
@@ -6,6 +6,8 @@ var dataFormat = [
     {id:"groundLineColor", prop:"value"},
     {id:"groundSideColor", prop:"value"},
     {id:"groundEdgeStyle", prop:"value"},
+    {id:"outlinedGroundOutlineColor", prop:"value"},
+    {id:"outlinedGroundEdgeColor", prop:"value"},
     {id:"enableVolcanicGradient", prop:"checked"},
     {id:"volcanicGradientColor", prop:"value"},
     {id:"doubleLines", prop:"checked"},
@@ -29,6 +31,8 @@ var dataFormat = [
     {id:"inactiveJumppadGlow", prop:"checked"},
     {id:"inactiveJumppadGlowColor", prop:"value"},
     {id:"gspJumppad", prop:"value"},
+    {id:"gpJumppadInactive", prop:"value"},
+    {id:"gpJumppadActive", prop:"value"},
     
     {id:"fragileColor", prop:"value"},
     {id:"fragileLineColor", prop:"value"},
