@@ -1,4 +1,4 @@
-//update no. 2
+//update no. 3
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -125,6 +125,162 @@ window.addEventListener("load", function () {
         contextGeneral.fillRect(268, 183, 31, 31);
         contextGeneral.fillStyle = neverGonnaTellALieAndHurtYou[2];
         contextGeneral.fillRect(268, 213, 31, 31);
+
+        //火山スタイルのグラデーション
+        if (document.getElementById("enableVolcanicGradient").checked) {
+            let spbibok = contextGeneral.createRadialGradient(353.5, 158, 146, 353.5, 158, 206.5);
+            spbibok.addColorStop(0, weAreNoStrangersToLove);
+            spbibok.addColorStop(1, document.getElementById("volcanicGradientColor").value);
+            contextGeneral.fillStyle = spbibok;
+            contextGeneral.fillRect(353.5, 12.5, 146, 146);
+        }
+
+        //線の描画(パス定義)
+        var groundLinesPath = new Path2D();
+        if (youWouldntGetThisFromAnyOtherGuy != "cut") {
+            groundLinesPath.addPath(sixSquares);
+        } else { //角落ちの枠線。
+            //ここのコードをローカル関数か何かを使って簡素化できないかな…
+            //基本的に左上隅スタート
+            //右上段
+            groundLinesPath.moveTo(353.5, 27);
+            groundLinesPath.lineTo(353.5, 144);
+            groundLinesPath.lineTo(368, 158.5);
+            groundLinesPath.lineTo(485, 158.5);
+            groundLinesPath.lineTo(493.5, 149);
+            groundLinesPath.lineTo(493.5, 18.5);
+            groundLinesPath.lineTo(362, 18.5);
+            groundLinesPath.closePath();
+            //左中段
+            groundLinesPath.moveTo(18.5, 191);
+            groundLinesPath.lineTo(18.5, 319);
+            groundLinesPath.lineTo(27, 328.5);
+            groundLinesPath.lineTo(158.5, 328.5);
+            groundLinesPath.lineTo(158.5, 182.5);
+            groundLinesPath.lineTo(27, 182.5);
+            groundLinesPath.closePath();
+            //右中段
+            groundLinesPath.moveTo(353.5, 197);
+            groundLinesPath.lineTo(353.5, 328.5);
+            groundLinesPath.lineTo(485, 328.5);
+            groundLinesPath.lineTo(493.5, 319);
+            groundLinesPath.lineTo(493.5, 191);
+            groundLinesPath.lineTo(485, 182.5);
+            groundLinesPath.lineTo(368, 182.5);
+            groundLinesPath.closePath();
+            //左下段
+            groundLinesPath.moveTo(12.5, 368);
+            groundLinesPath.lineTo(12.5, 485);
+            groundLinesPath.lineTo(21, 493.5);
+            groundLinesPath.lineTo(150, 493.5);
+            groundLinesPath.lineTo(158.5, 485);
+            groundLinesPath.lineTo(158.5, 353.5);
+            groundLinesPath.lineTo(27, 353.5);
+            groundLinesPath.closePath();
+            //中下段
+            groundLinesPath.moveTo(182.5, 353.5);
+            groundLinesPath.lineTo(182.5, 485);
+            groundLinesPath.lineTo(196, 498.5);
+            groundLinesPath.lineTo(314, 498.5);
+            groundLinesPath.lineTo(328.5, 485);
+            groundLinesPath.lineTo(328.5, 353.5);
+            groundLinesPath.closePath();
+            //右下段
+            groundLinesPath.moveTo(353.5, 353.5);
+            groundLinesPath.lineTo(353.5, 485);
+            groundLinesPath.lineTo(362, 493.5);
+            groundLinesPath.lineTo(490, 493.5);
+            groundLinesPath.lineTo(498.5, 485);
+            groundLinesPath.lineTo(498.5, 368);
+            groundLinesPath.lineTo(485, 353.5);
+            groundLinesPath.closePath();
+        }
+        groundLinesPath.moveTo(182.5, 182.5);
+        groundLinesPath.lineTo(182.5, 328.5);
+        groundLinesPath.lineTo(328.5, 328.5);
+
+        var jumppadInactiveLinesPath = new Path2D();
+        jumppadInactiveLinesPath.rect(182.5, 12.5, 146, 146);
+        var jumppadActiveLinesPath = new Path2D();
+        jumppadActiveLinesPath.rect(12.5, 12.5, 146, 146);
+
+        //線の描画(処理)
+        contextGeneral.strokeStyle = youKnowTheRulesAndSoDoI;
+        if (document.getElementById("doubleLines").checked) { //線を2段にする
+            multipleLines([15, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
+        } else {
+            multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
+        }
+
+        contextGeneral.strokeStyle = youKnowTheRulesAndSoDoI;
+        multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextGeneral, fiveSquares);
+
+        contextGeneral.globalAlpha = 1;
+        contextGeneral.fillStyle = aFullCommitmentIsWhatImThinkingOf;
+        contextGeneral.fillRect(299, 183, 31, 31);
+        contextGeneral.fillStyle = neverGonnaTellALieAndHurtYou[3];
+        contextGeneral.fillRect(299, 214, 31, 31);
+
+        function drawCutCorner(isLeft, isTop, x, y) {
+            var xSize = isLeft ? 43 : -43;
+            var ySize = isTop ? 43 : -43;
+            contextGeneral.beginPath();
+            contextGeneral.moveTo(x, y);
+            contextGeneral.lineTo(x, y + ySize);
+            contextGeneral.lineTo(x + xSize, y);
+            contextGeneral.closePath();
+            contextGeneral.fill();
+        }
+
+        //角落ち床の描画
+        if (youWouldntGetThisFromAnyOtherGuy == "cut") {
+            contextGeneral.fillStyle = youKnowTheRulesAndSoDoI;
+            //左の太い線
+            contextGeneral.fillRect(4.5, 192, 16, 128);
+            //下の太い線
+            contextGeneral.fillRect(22, 491.5, 128, 16);
+            contextGeneral.fillRect(363, 491.5, 128, 16);
+            //右の太い線
+            contextGeneral.fillRect(491.5, 20, 16, 299);
+            //上の太い線
+            contextGeneral.fillRect(363, 4.5, 128, 16);
+            //左中段
+            drawCutCorner(true, true, 0, 171);
+            drawCutCorner(true, false, 0, 340);
+            //左下段
+            drawCutCorner(true, true, 0, 341);
+            drawCutCorner(true, false, 0, 512);
+            drawCutCorner(false, false, 170, 512);
+            //中下段
+            drawCutCorner(true, false, 171, 512);
+            drawCutCorner(false, false, 340, 512);
+            //右上段
+            drawCutCorner(true, true, 341, 0);
+            drawCutCorner(true, false, 341, 170);
+            drawCutCorner(false, true, 512, 0);
+            drawCutCorner(false, false, 512, 170);
+            //右中段
+            drawCutCorner(true, true, 341, 171);
+            drawCutCorner(false, true, 512, 171);
+            drawCutCorner(false, false, 512, 340);
+            //右下段
+            drawCutCorner(true, false, 341, 512);
+            drawCutCorner(false, true, 512, 341);
+            drawCutCorner(false, false, 512, 512);
+        }
+        
+        //縁取り付き床の描画
+        if (youWouldntGetThisFromAnyOtherGuy == "outlined"){
+            contextGeneral.fillStyle = document.getElementById("outlinedGroundOutlineColor").value;
+            contextGeneral.strokeStyle = document.getElementById("outlinedGroundEdgeColor").value;
+            contextGeneral.fill(tileOutlinePath);
+            multipleLines([4,1], [0.5,1], contextGeneral, tileOutlinePath);
+            contextGeneral.save();
+            contextGeneral.clip(tileOutlinePath);
+            multipleLines([4,1], [0.5,1], contextGeneral, sixSquares);
+            contextGeneral.restore();
+        }
+        
         //ジャンプ床//
         contextGeneral.fillStyle = IJustWannaTellHowImFeeling;
         contextGeneral.fillRect(182.5, 12.5, 146, 146);
@@ -331,118 +487,7 @@ window.addEventListener("load", function () {
             }
             multipleLines([40, 30, 17, 10], [0.125, 0.125, 0.125, 0.125], contextGeneral, ajgPath);
         }
-
-        //火山スタイルのグラデーション
-        if (document.getElementById("enableVolcanicGradient").checked) {
-            let spbibok = contextGeneral.createRadialGradient(353.5, 158, 146, 353.5, 158, 206.5);
-            spbibok.addColorStop(0, weAreNoStrangersToLove);
-            spbibok.addColorStop(1, document.getElementById("volcanicGradientColor").value);
-            contextGeneral.fillStyle = spbibok;
-            contextGeneral.fillRect(353.5, 12.5, 146, 146);
-        }
-
-        //線の描画(パス定義)
-        var groundLinesPath = new Path2D();
-        if (youWouldntGetThisFromAnyOtherGuy != "cut") {
-            groundLinesPath.addPath(sixSquares);
-        } else { //角落ちの枠線。
-            //ここのコードをローカル関数か何かを使って簡素化できないかな…
-            //基本的に左上隅スタート
-            //右上段
-            groundLinesPath.moveTo(353.5, 27);
-            groundLinesPath.lineTo(353.5, 144);
-            groundLinesPath.lineTo(368, 158.5);
-            groundLinesPath.lineTo(485, 158.5);
-            groundLinesPath.lineTo(493.5, 149);
-            groundLinesPath.lineTo(493.5, 18.5);
-            groundLinesPath.lineTo(362, 18.5);
-            groundLinesPath.closePath();
-            //左中段
-            groundLinesPath.moveTo(18.5, 191);
-            groundLinesPath.lineTo(18.5, 319);
-            groundLinesPath.lineTo(27, 328.5);
-            groundLinesPath.lineTo(158.5, 328.5);
-            groundLinesPath.lineTo(158.5, 182.5);
-            groundLinesPath.lineTo(27, 182.5);
-            groundLinesPath.closePath();
-            //右中段
-            groundLinesPath.moveTo(353.5, 197);
-            groundLinesPath.lineTo(353.5, 328.5);
-            groundLinesPath.lineTo(485, 328.5);
-            groundLinesPath.lineTo(493.5, 319);
-            groundLinesPath.lineTo(493.5, 191);
-            groundLinesPath.lineTo(485, 182.5);
-            groundLinesPath.lineTo(368, 182.5);
-            groundLinesPath.closePath();
-            //左下段
-            groundLinesPath.moveTo(12.5, 368);
-            groundLinesPath.lineTo(12.5, 485);
-            groundLinesPath.lineTo(21, 493.5);
-            groundLinesPath.lineTo(150, 493.5);
-            groundLinesPath.lineTo(158.5, 485);
-            groundLinesPath.lineTo(158.5, 353.5);
-            groundLinesPath.lineTo(27, 353.5);
-            groundLinesPath.closePath();
-            //中下段
-            groundLinesPath.moveTo(182.5, 353.5);
-            groundLinesPath.lineTo(182.5, 485);
-            groundLinesPath.lineTo(196, 498.5);
-            groundLinesPath.lineTo(314, 498.5);
-            groundLinesPath.lineTo(328.5, 485);
-            groundLinesPath.lineTo(328.5, 353.5);
-            groundLinesPath.closePath();
-            //右下段
-            groundLinesPath.moveTo(353.5, 353.5);
-            groundLinesPath.lineTo(353.5, 485);
-            groundLinesPath.lineTo(362, 493.5);
-            groundLinesPath.lineTo(490, 493.5);
-            groundLinesPath.lineTo(498.5, 485);
-            groundLinesPath.lineTo(498.5, 368);
-            groundLinesPath.lineTo(485, 353.5);
-            groundLinesPath.closePath();
-        }
-        groundLinesPath.moveTo(182.5, 182.5);
-        groundLinesPath.lineTo(182.5, 328.5);
-        groundLinesPath.lineTo(328.5, 328.5);
-
-        var jumppadInactiveLinesPath = new Path2D();
-        jumppadInactiveLinesPath.rect(182.5, 12.5, 146, 146);
-        var jumppadActiveLinesPath = new Path2D();
-        jumppadActiveLinesPath.rect(12.5, 12.5, 146, 146);
-
-        //線の描画(処理)
-        contextGeneral.strokeStyle = youKnowTheRulesAndSoDoI;
-        if (document.getElementById("doubleLines").checked) { //線を2段にする
-            multipleLines([15, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
-        } else {
-            multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
-        }
-
-
-        contextGeneral.strokeStyle = neverGonnaGiveYouUp;
-        multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadInactiveLinesPath);
-        contextGeneral.strokeStyle = neverGonnaLetYouDown;
-        multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadActiveLinesPath);
-
-        contextGeneral.strokeStyle = youKnowTheRulesAndSoDoI;
-        multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextGeneral, fiveSquares);
-
-        contextGeneral.globalAlpha = 1;
-        contextGeneral.fillStyle = aFullCommitmentIsWhatImThinkingOf;
-        contextGeneral.fillRect(299, 183, 31, 31);
-        contextGeneral.fillStyle = neverGonnaTellALieAndHurtYou[3];
-        contextGeneral.fillRect(299, 214, 31, 31);
-
-        function drawCutCorner(isLeft, isTop, x, y) {
-            var xSize = isLeft ? 43 : -43;
-            var ySize = isTop ? 43 : -43;
-            contextGeneral.beginPath();
-            contextGeneral.moveTo(x, y);
-            contextGeneral.lineTo(x, y + ySize);
-            contextGeneral.lineTo(x + xSize, y);
-            contextGeneral.closePath();
-            contextGeneral.fill();
-        }
+        
         //角落ちジャンプ床の描画
         if (jumppadStyle == "cut") {
             contextGeneral.fillStyle = neverGonnaGiveYouUp;
@@ -463,43 +508,6 @@ window.addEventListener("load", function () {
             drawCutCorner(false, true, 170, 0);
             //未起動右下
             drawCutCorner(false, false, 170, 170);
-        }
-
-        //角落ち床の描画
-        if (youWouldntGetThisFromAnyOtherGuy == "cut") {
-            contextGeneral.fillStyle = youKnowTheRulesAndSoDoI;
-            //左の太い線
-            contextGeneral.fillRect(4.5, 192, 16, 128);
-            //下の太い線
-            contextGeneral.fillRect(22, 491.5, 128, 16);
-            contextGeneral.fillRect(363, 491.5, 128, 16);
-            //右の太い線
-            contextGeneral.fillRect(491.5, 20, 16, 299);
-            //上の太い線
-            contextGeneral.fillRect(363, 4.5, 128, 16);
-            //左中段
-            drawCutCorner(true, true, 0, 171);
-            drawCutCorner(true, false, 0, 340);
-            //左下段
-            drawCutCorner(true, true, 0, 341);
-            drawCutCorner(true, false, 0, 512);
-            drawCutCorner(false, false, 170, 512);
-            //中下段
-            drawCutCorner(true, false, 171, 512);
-            drawCutCorner(false, false, 340, 512);
-            //右上段
-            drawCutCorner(true, true, 341, 0);
-            drawCutCorner(true, false, 341, 170);
-            drawCutCorner(false, true, 512, 0);
-            drawCutCorner(false, false, 512, 170);
-            //右中段
-            drawCutCorner(true, true, 341, 171);
-            drawCutCorner(false, true, 512, 171);
-            drawCutCorner(false, false, 512, 340);
-            //右下段
-            drawCutCorner(true, false, 341, 512);
-            drawCutCorner(false, true, 512, 341);
-            drawCutCorner(false, false, 512, 512);
         }
 
         //ジャンプ床四角模様の描画
@@ -595,6 +603,12 @@ window.addEventListener("load", function () {
         contextGeneral.fillStyle = neverGonnaMakeYouCry;
         contextGeneral.fillRect(116, 30, 25, 25);
         contextGeneral.fillRect(116, 30, 25, 25);
+
+        //ジャンプ床の線の描画
+        contextGeneral.strokeStyle = neverGonnaGiveYouUp;
+        multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadInactiveLinesPath);
+        contextGeneral.strokeStyle = neverGonnaLetYouDown;
+        multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadActiveLinesPath);
 
         //////////////
         //ここからFragileとFragileActive
