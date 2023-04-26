@@ -1,4 +1,4 @@
-//update no. 2
+//update no. 3
 var lang = new LanguageManager(
             [{
             langName: "English",
@@ -32,6 +32,9 @@ var lang = new LanguageManager(
                 "groundEdgeStyleNone": "No decoration",
                 "groundEdgeStyleCut": "Cut corners",
                 "groundEdgeStyleOutline": "With outlines",
+                "groundEdgeDefaultContent": "No customization for this ground pattern available",
+                "outlinedGroundOutlineColor": "Outline",
+                "outlinedGroundEdgeColor": "Tile group edge line",
                 "volcanicGradient": "Use Volcano-style gradient",
                 "lineAura": "Line aura",
 
@@ -78,7 +81,7 @@ var lang = new LanguageManager(
                 "generalVariation3": "Variation 3",
                 "generalVariation4": "Variation 4",
 
-                "fragileSettingHeading": "Fragile Settings",
+                "fragileSettingHeading": "Fragile settings",
                 "fragileColor": "Fragile color",
                 "fragileActiveColor": "Fragile color(active)",
                 "fragileLineColor": "Fragile edge color",
@@ -127,7 +130,7 @@ var lang = new LanguageManager(
                 "finishLineActive": "Active",
                 "finishLineActiveLine": "Active edge line",
 
-                "gemSettingHeading": "Low quality gem settings",
+                "gemSettingHeading": "Low/Middle quality gem settings",
                 "gemColor": "Gem color",
                 "gemLineColor": "Gem line color",
                 "gemLightColor": "Gem lighter color",
@@ -135,7 +138,7 @@ var lang = new LanguageManager(
                 //ここからEnemy
                 "objectPreview": "Object preview",
 
-                "lightSettingHeading": "Light setting (A)",
+                "lightSettingHeading": "Light settings (A)",
                 "radialLightSettingHeading": "Radial Light (A1)",
                 "lightOuterColor": "Outer Color",
                 "lightInnerColor": "Inner Color",
@@ -144,7 +147,7 @@ var lang = new LanguageManager(
                 "linearLightASettingHeading": "Linear Light A(A2): Used for laser",
                 "linearLightBSettingHeading": "Linear Light B(A3): Used for spotlight, UFO, Sci-Tech laser",
 
-                "topRightSettingHeading": "Primary theme area setting (B)",
+                "topRightSettingHeading": "Primary theme area settings (B)",
                 "topRightType": "Usage",
 
                 "topRightFloater": "Floater (fl)",
@@ -192,7 +195,7 @@ var lang = new LanguageManager(
                 "originalSpinCubeColorB": "Lower left, upper right",
                 "frontRhombus": "Import here",
                 
-                "subBSettingHeading": "Secondary theme area setting",
+                "subBSettingHeading": "Secondary theme area settings",
                 "subBType": "Usage",
                 "subBNoPattern": "No pattern",
                 "subBClassicalRoller": "Classical roller",
@@ -200,7 +203,7 @@ var lang = new LanguageManager(
                 "subBDesert": "Palm tree trunk",
                 
                 
-                "flipTileSettingHeading": "Flipper tile setting",
+                "flipTileSettingHeading": "Flipper tile settings",
                 "flipTileType": "Flipper tile type",
                 "flipperObverse": "Obverse",
                 "flipperReverse": "Reverse",
@@ -227,7 +230,7 @@ var lang = new LanguageManager(
                 "flipperFrameColor": "Frame",
                 "flipperSideColor": "Flipper side color",
                 
-                "mainStripeSettingHeading": "Main stripe setting (C)",
+                "mainStripeSettingHeading": "Main stripe settings (C)",
                 "mainStripeThickness": "Main stripe thickness",
                 "mainStripeThick": "Thick (T=25, I=46.22)",
                 "mainStripeNormal": "Normal (T=13, I=25.77)",
@@ -248,8 +251,8 @@ var lang = new LanguageManager(
                 "mainStripeTone3": "Tone 3",
                 "addCenterLine": "Add center line",
 
-                "middleLeftSettingHeading": "Main color A setting (D)",
-                "middleRightSettingHeading": "Main color B setting (E)",
+                "middleLeftSettingHeading": "Primary general palette settings (D)",
+                "middleRightSettingHeading": "Secondary general palette settings (E)",
                 "middleLeftTone1": "Tone 1 (D1)",
                 "middleLeftTone2": "Tone 2 (D2)",
                 "middleLeftTone3": "Tone 3 (D3)",
@@ -266,7 +269,7 @@ var lang = new LanguageManager(
                 "face": "Face",
                 "line": "Line",
                 
-                "bottomLeftSettingHeading": "Bottom left setting (F)",
+                "bottomLeftSettingHeading": "Bottom left settings (F)",
                 "BLLightColor": "Light",
                 "BLMediumColor": "Medium",
                 "BLDarkColor": "Dark",
@@ -281,7 +284,7 @@ var lang = new LanguageManager(
                 "rowRemovalConfirmation": "Are you sure you want to remove this row?",
                 "skyCastleBLTriangleTip": "Triangle tips",
                 
-                "bottomRightSettingHeading": "Bottom right setting (G)",
+                "bottomRightSettingHeading": "Bottom right settings (G)",
                 "bottomRightRiserOutlined": "Outlined riser",
                 "bottomRightRiserRound": "Round riser",
                 "riserTopMain": "Riser top primary color",
@@ -356,6 +359,9 @@ var lang = new LanguageManager(
                 "groundEdgeStyleNone": "装飾無し",
                 "groundEdgeStyleCut": "角落ち",
                 "groundEdgeStyleOutline": "縁取り有り",
+                "groundEdgeDefaultContent": "この通常床の模様にはカスタマイズオプションがありません",
+                "outlinedGroundOutlineColor": "端の帯",
+                "outlinedGroundEdgeColor": "端の線",
                 "volcanicGradient": "火山風グラデーション",
                 "lineAura": "線を2重にする",
 
@@ -397,10 +403,10 @@ var lang = new LanguageManager(
                 "inactiveJumppadGlow": "非起動時のジャンプ床面部分の発光",
 
                 "generalVariationHeading": "補助パレットの設定",
-                "generalVariation1": "変化1",
-                "generalVariation2": "変化2",
-                "generalVariation3": "変化3",
-                "generalVariation4": "変化4",
+                "generalVariation1": "トーン1",
+                "generalVariation2": "トーン2",
+                "generalVariation3": "トーン3",
+                "generalVariation4": "トーン4",
 
                 "fragileSettingHeading": "ガラス床の設定",
                 "fragileColor": "ガラス床の色",
@@ -412,8 +418,8 @@ var lang = new LanguageManager(
                 "fragileStyle": "模様",
                 "fragileStylePlain": "模様無し",
                 "fragileStyleStripes": "縞模様の縁",
-                "fragileStyleCave": "角の装飾",
-                "fragileStyleBubbles": "六角形の泡",
+                "fragileStyleCave": "角の装飾(洞窟)",
+                "fragileStyleBubbles": "六角形の泡(化学)",
                 "fragileCustomizationDefaultContent": "このガラス床の模様にはカスタマイズオプションがありません",
                 "fragileStripeColor": "縞模様の色",
                 "fragileActiveStripeColor": "縞模様の色(起動時)",
@@ -451,7 +457,7 @@ var lang = new LanguageManager(
                 "finishLineActive": "到達後",
                 "finishLineActiveLine": "到達後のブロック辺の線",
 
-                "gemSettingHeading": "低品質ジェムの設定",
+                "gemSettingHeading": "低/中品質ジェムの設定",
                 "gemColor": "基本色",
                 "gemLineColor": "線の色",
                 "gemLightColor": "明るい色",
@@ -610,8 +616,8 @@ var lang = new LanguageManager(
                 "skyCastleBLTriangleTip": "三角形の小片",
                 
                 "bottomRightSettingHeading": "右下の設定 (G)",
-                "bottomRightRiserOutlined": "Riser A",
-                "bottomRightRiserRound": "Riser B",
+                "bottomRightRiserOutlined": "線の入ったRiser",
+                "bottomRightRiserRound": "滑らかなRiser",
                 "riserTopMain": "Riser上面基本色",
                 "riserTopInactiveLine": "Riser上面アクセント色(未起動)",
                 "riserTopActiveLine": "Riser上面アクセント色(起動)",
