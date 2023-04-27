@@ -1,4 +1,4 @@
-//update no. 2
+//update no. 3
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
 var dataFormat = [
@@ -248,7 +248,7 @@ var dataFormat = [
     {id:"riserLine2", prop:"value"},
 ];
 var otherUpdateFunctions = [];
-
+var generateSaveData = () => {};
 window.addEventListener("load", function(){
     function runAllOAFs(){
         otherUpdateFunctions.forEach(function(func){
@@ -362,7 +362,7 @@ window.addEventListener("load", function(){
         }
     }, true);
 
-    function generateSaveData() {
+    function generateSaveDataInner() {
         var json = "{";
         dataFormat.forEach(function (set, num) {
             json += "\n\t\"" + set.id + "\": \"" + document.getElementById(set.id)[set.prop] + "\",";
@@ -371,9 +371,11 @@ window.addEventListener("load", function(){
         json += "\n}";
         document.getElementById("saveTheme").setAttribute("href", "data:text/plain;base64," + btoa(json));
     }
-    document.getElementById("generateButton").addEventListener("click", generateSaveData, true);
+    document.getElementById("generateButton").addEventListener("click", generateSaveDataInner, true);
     
     dataFormat.forEach(function (set){
-        if (!(["src"]).includes(set.prop)) document.getElementById(set.id).addEventListener("change", generateSaveData,true);
+        if (!(["src"]).includes(set.prop)) document.getElementById(set.id).addEventListener("change", generateSaveDataInner,true);
     });
+    
+    generateSaveData = generateSaveDataInner;
 }, true);
