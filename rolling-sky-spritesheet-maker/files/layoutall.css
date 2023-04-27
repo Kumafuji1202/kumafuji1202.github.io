@@ -1,0 +1,80 @@
+@charset "utf-8";
+/*update no. 1*/
+#header, #header-bg{
+    position: absolute;
+    height: 150px;
+    top: 0;
+    width: 100%;
+}
+#header{
+    border-bottom-width: 5px;
+    border-bottom-style: ridge;
+}
+#creatorName{
+    position: absolute;
+    top: 50px;
+}
+#languageForm{
+    position: absolute;
+    top: 80px;
+}
+#colorForm{
+    position: absolute;
+    top: 110px;
+}
+#formNav{
+    margin:0;
+    padding:0;
+    height:30px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+#formNav ul{
+    height:100%;
+}
+#formNav li{
+    position:static;
+    margin-top:0;
+    display:inline-block;
+    width: 100px;
+    text-align: center;
+    border-radius: 5px 5px 0px 0px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#formNav li.selectedTab{
+    height: calc(100% - 0px);
+}
+#formNav li:not(.selectedTab){
+    height: calc(100% - 1px);
+}
+#formNav li span{
+    display: inline;
+    vertical-align: middle;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+#main{
+    position: absolute;
+    top: 155px;
+    height: calc(100% - 155px);
+    width: 100%;
+    display: block;
+}
+#header form{
+    margin-bottom: 10px;
+}
+/*ここよりグリッドの設定*/
+#output{
+    display: grid;
+}
+#output > * > canvas{
+    transform: scale(1);
+    transform-origin: left top;
+}
+#output>*{
+    border: 1px solid #000000;
+    overflow: hidden;
+}
