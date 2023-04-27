@@ -1,4 +1,4 @@
-//update no. 4
+//update no. 5
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -84,29 +84,29 @@ window.addEventListener("load", function () {
         //設定を変数に入れる//
         //通常床
         //groundColor
-        var weAreNoStrangersToLove = document.getElementById("groundColor").value;
+        var gc = document.getElementById("groundColor").value;
         //ground line
-        var youKnowTheRulesAndSoDoI = document.getElementById("groundLineColor").value;
+        var gl = document.getElementById("groundLineColor").value;
         //普通床の側面
-        var aFullCommitmentIsWhatImThinkingOf = document.getElementById("groundSideColor").value;
+        var gs = document.getElementById("groundSideColor").value;
         //普通床の模様
-        var youWouldntGetThisFromAnyOtherGuy = document.getElementById("groundEdgeStyle").value;
+        var gStyle = document.getElementById("groundEdgeStyle").value;
         //ジャンプ床の色
-        var IJustWannaTellHowImFeeling = document.getElementById("jumppadColor").value;
+        var jc = document.getElementById("jumppadColor").value;
         //起動時のジャンプ床の色
-        var gottaMakeYouUnderstand = document.getElementById("jumppadColorActive").value;
+        var ajc = document.getElementById("jumppadColorActive").value;
         //ジャンプ床の線
-        var neverGonnaGiveYouUp = document.getElementById("jumppadLineColor").value;
+        var jl = document.getElementById("jumppadLineColor").value;
         //起動時のジャンプ床の線
-        var neverGonnaLetYouDown = document.getElementById("jumppadLineColorActive").value;
+        var ajl = document.getElementById("jumppadLineColorActive").value;
         //ジャンプ床の側面
-        var neverGonnaRunAroundAndDesertYou = document.getElementById("jumppadSideColor").value;
+        var js = document.getElementById("jumppadSideColor").value;
         //起動時のジャンプ床の側面
-        var neverGonnaMakeYouCry = document.getElementById("jumppadSideColorActive").value;
+        var ajs = document.getElementById("jumppadSideColorActive").value;
         //ジャンプ床のスタイル
         var jumppadStyle = document.getElementById("jumppadStyle").value;
         //ogp
-        var neverGonnaTellALieAndHurtYou = [document.getElementById("groundVariation1").value, document.getElementById("groundVariation2").value, document.getElementById("groundVariation3").value, document.getElementById("groundVariation4").value]; //objectGeneralPaletted
+        var ogp = [document.getElementById("groundVariation1").value, document.getElementById("groundVariation2").value, document.getElementById("groundVariation3").value, document.getElementById("groundVariation4").value]; //objectGeneralPaletted
 
         //コンテキストの初期化//
         contextGeneral.lineCap = "round";
@@ -115,21 +115,21 @@ window.addEventListener("load", function () {
 
         //面の描画//
         //背景//
-        contextGeneral.fillStyle = weAreNoStrangersToLove;
+        contextGeneral.fillStyle = gc;
         contextGeneral.fillRect(0, 0, canvasGeneral.width, canvasGeneral.height);
         //立体用パレット//
 
-        contextGeneral.fillStyle = neverGonnaTellALieAndHurtYou[0];
+        contextGeneral.fillStyle = ogp[0];
         contextGeneral.fillRect(237, 183, 31, 31);
-        contextGeneral.fillStyle = neverGonnaTellALieAndHurtYou[1];
+        contextGeneral.fillStyle = ogp[1];
         contextGeneral.fillRect(268, 183, 31, 31);
-        contextGeneral.fillStyle = neverGonnaTellALieAndHurtYou[2];
+        contextGeneral.fillStyle = ogp[2];
         contextGeneral.fillRect(268, 213, 31, 31);
 
         //火山スタイルのグラデーション
         if (document.getElementById("enableVolcanicGradient").checked) {
             let spbibok = contextGeneral.createRadialGradient(353.5, 158, 146, 353.5, 158, 206.5);
-            spbibok.addColorStop(0, weAreNoStrangersToLove);
+            spbibok.addColorStop(0, gc);
             spbibok.addColorStop(1, document.getElementById("volcanicGradientColor").value);
             contextGeneral.fillStyle = spbibok;
             contextGeneral.fillRect(353.5, 12.5, 146, 146);
@@ -137,7 +137,7 @@ window.addEventListener("load", function () {
 
         //線の描画(パス定義)
         var groundLinesPath = new Path2D();
-        if (youWouldntGetThisFromAnyOtherGuy != "cut") {
+        if (gStyle != "cut") {
             groundLinesPath.addPath(sixSquares);
         } else { //角落ちの枠線。
             //ここのコードをローカル関数か何かを使って簡素化できないかな…
@@ -205,20 +205,20 @@ window.addEventListener("load", function () {
         jumppadActiveLinesPath.rect(12.5, 12.5, 146, 146);
 
         //線の描画(処理)
-        contextGeneral.strokeStyle = youKnowTheRulesAndSoDoI;
+        contextGeneral.strokeStyle = gl;
         if (document.getElementById("doubleLines").checked) { //線を2段にする
             multipleLines([15, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
         } else {
             multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
         }
 
-        contextGeneral.strokeStyle = youKnowTheRulesAndSoDoI;
+        contextGeneral.strokeStyle = gl;
         multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextGeneral, fiveSquares);
 
         contextGeneral.globalAlpha = 1;
-        contextGeneral.fillStyle = aFullCommitmentIsWhatImThinkingOf;
+        contextGeneral.fillStyle = gs;
         contextGeneral.fillRect(299, 183, 31, 31);
-        contextGeneral.fillStyle = neverGonnaTellALieAndHurtYou[3];
+        contextGeneral.fillStyle = ogp[3];
         contextGeneral.fillRect(299, 214, 31, 31);
 
         function drawCutCorner(isLeft, isTop, x, y) {
@@ -233,8 +233,8 @@ window.addEventListener("load", function () {
         }
 
         //角落ち床の描画
-        if (youWouldntGetThisFromAnyOtherGuy == "cut") {
-            contextGeneral.fillStyle = youKnowTheRulesAndSoDoI;
+        if (gStyle == "cut") {
+            contextGeneral.fillStyle = gl;
             //左の太い線
             contextGeneral.fillRect(4.5, 192, 16, 128);
             //下の太い線
@@ -270,7 +270,7 @@ window.addEventListener("load", function () {
         }
         
         //縁取り付き床の描画
-        if (youWouldntGetThisFromAnyOtherGuy == "outlined"){
+        if (gStyle == "outlined"){
             contextGeneral.fillStyle = document.getElementById("outlinedGroundOutlineColor").value;
             contextGeneral.strokeStyle = document.getElementById("outlinedGroundEdgeColor").value;
             contextGeneral.fill(tileOutlinePath);
@@ -282,9 +282,9 @@ window.addEventListener("load", function () {
         }
         
         //ジャンプ床//
-        contextGeneral.fillStyle = IJustWannaTellHowImFeeling;
+        contextGeneral.fillStyle = jc;
         contextGeneral.fillRect(182.5, 12.5, 146, 146);
-        contextGeneral.fillStyle = gottaMakeYouUnderstand;
+        contextGeneral.fillStyle = ajc;
         contextGeneral.fillRect(12.5, 12.5, 146, 146);
 
         //市松模様のジャンプ床の描画
@@ -477,7 +477,7 @@ window.addEventListener("load", function () {
 
         //ジャンプ床の発光を描画//
         if (!document.getElementById("disableActiveJumppadGlow").checked) {
-            contextGeneral.strokeStyle = neverGonnaLetYouDown;
+            contextGeneral.strokeStyle = ajl;
 
             var ajgPath = new Path2D();
             if (jumppadStyle != "cut") {
@@ -498,7 +498,7 @@ window.addEventListener("load", function () {
         
         //角落ちジャンプ床の描画
         if (jumppadStyle == "cut") {
-            contextGeneral.fillStyle = neverGonnaGiveYouUp;
+            contextGeneral.fillStyle = jl;
             //未起動左上
             drawCutCorner(true, true, 171, 0);
             //未起動左下
@@ -507,7 +507,7 @@ window.addEventListener("load", function () {
             drawCutCorner(false, true, 340, 0);
             //未起動右下
             drawCutCorner(false, false, 340, 170);
-            contextGeneral.fillStyle = neverGonnaLetYouDown;
+            contextGeneral.fillStyle = ajl;
             //起動左上
             drawCutCorner(true, true, 0, 0);
             //起動左下
@@ -534,7 +534,7 @@ window.addEventListener("load", function () {
         if (jumppadStyle == "rworld") {
             let grad = contextGeneral.createRadialGradient(85, 85, 10, 85, 85, 31);
             grad.addColorStop(0, document.getElementById("gpJumppadActive").value);
-            grad.addColorStop(1, gottaMakeYouUnderstand);
+            grad.addColorStop(1, ajc);
             contextGeneral.fillStyle = grad;
             contextGeneral.beginPath();
             contextGeneral.arc(85, 85, 28, 0, 2 * Math.PI, false);
@@ -560,8 +560,8 @@ window.addEventListener("load", function () {
         if (["grid", "chemistry", "citrus"].includes(jumppadStyle)) {
             let activeJumppadGradient = contextGeneral.createRadialGradient(97.5, 97.5, 50, 97.5, 97.5, 130);
             contextGeneral.lineWidth = 3;
-            activeJumppadGradient.addColorStop(0, neverGonnaLetYouDown + "40");
-            activeJumppadGradient.addColorStop(1, neverGonnaLetYouDown);
+            activeJumppadGradient.addColorStop(0, ajl + "40");
+            activeJumppadGradient.addColorStop(1, ajl);
             contextGeneral.strokeStyle = activeJumppadGradient;
             for (let definitelyNotACounterVariable = 0; definitelyNotACounterVariable < 5; definitelyNotACounterVariable++) {
                 contextGeneral.beginPath();
@@ -598,7 +598,7 @@ window.addEventListener("load", function () {
                 for (let Let = 0; Let < 2; Let++) {
                     let leT = Let * 170;
                     let lEt = new Path2D();
-                    contextGeneral.strokeStyle = ([neverGonnaLetYouDown, document.getElementById("inactiveGridColor").value])[Let];
+                    contextGeneral.strokeStyle = ([ajl, document.getElementById("inactiveGridColor").value])[Let];
                     lEt.rect(37 + leT, 37, 96, 96);
                     multipleLines([11, 7, 5, 2], [0.25, 0.5, 0.5, 1], contextGeneral, lEt);
                 }
@@ -606,16 +606,16 @@ window.addEventListener("load", function () {
         }
 
         //ジャンプ床の側面の描画
-        contextGeneral.fillStyle = neverGonnaRunAroundAndDesertYou;
+        contextGeneral.fillStyle = js;
         contextGeneral.fillRect(286, 30, 25, 25);
-        contextGeneral.fillStyle = neverGonnaMakeYouCry;
+        contextGeneral.fillStyle = ajs;
         contextGeneral.fillRect(116, 30, 25, 25);
         contextGeneral.fillRect(116, 30, 25, 25);
 
         //ジャンプ床の線の描画
-        contextGeneral.strokeStyle = neverGonnaGiveYouUp;
+        contextGeneral.strokeStyle = jl;
         multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadInactiveLinesPath);
-        contextGeneral.strokeStyle = neverGonnaLetYouDown;
+        contextGeneral.strokeStyle = ajl;
         multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadActiveLinesPath);
 
         //////////////
@@ -884,7 +884,7 @@ window.addEventListener("load", function () {
         //ここからMoverとMoverAuto
 
         //面
-        var moverColor = document.getElementById("moverSameColor").checked ? weAreNoStrangersToLove : document.getElementById("moverMainColor").value;
+        var moverColor = document.getElementById("moverSameColor").checked ? gc : document.getElementById("moverMainColor").value;
         contextMover.fillStyle = moverColor;
         contextMoverAuto.fillStyle = moverColor;
         contextMover.fillRect(0, 0, 512, 512);
