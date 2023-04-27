@@ -1,4 +1,4 @@
-//update no. 3
+//update no. 4
 var lang = new LanguageManager(
             [{
             langName: "English",
@@ -62,6 +62,7 @@ var lang = new LanguageManager(
                 "jumppadStyleWanderingHabits": "Kanji \"放浪癖\"(Low Life)",
                 "jumppadStyleCitrus": "Citrus(Cotton Candy)",
                 "jumppadStyleRollingWorld": "Circle+rhombus(Rolling World)",
+                "jumppadStyleSimpleCircle": "Simple circle(Faith)",
                 "jumppadCustomizationDefaultContent": "No customization for this jumppad pattern available",
                 "fanmadePatternStyleDisclaimer": "この模様は本家ローリングスカイには存在しない模様であり、あくまでもこのツール作者が似せて作ったものなので正確な寸法では(多分)ありません。",
                 "squaresJumppadInactiveInner": "Jumppad square color(inner)",
@@ -389,6 +390,7 @@ var lang = new LanguageManager(
                 "jumppadStyleWanderingHabits": "「放浪癖」(Low Life)",
                 "jumppadStyleCitrus": "柑橘断面(キャンディフロス)",
                 "jumppadStyleRollingWorld": "円+四角(Rolling World)",
+                "jumppadStyleSimpleCircle": "円(Faith)",
                 "jumppadCustomizationDefaultContent": "このジャンプ床の模様にはカスタマイズオプションがありません",
                 "fanmadePatternStyleDisclaimer": "この模様は本家ローリングスカイには存在しない模様であり、あくまでもこのツール作者が似せて作ったものなので正確な寸法では(多分)ありません。",
                 "squaresJumppadInactiveInner": "四角の内側の色",
