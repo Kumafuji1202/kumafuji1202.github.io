@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- update no. 3-->
+<!-- update no. 4-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -9,6 +9,7 @@
     <meta name="pagename" content="Rolling Sky Spritesheet Generator">
     <link id="mainStylesheet" rel="stylesheet" href="files/main.css">
     <link id="formstylesheet" rel="stylesheet" href="files/form.css">
+    <link id="layoutstylesheet" rel="stylesheet" href="files/layoutall.css">
     <link id="layoutstylesheet" rel="stylesheet" href="files/layoutwide.css">
     <link id="colorstylesheet" rel="stylesheet" href="files/colors.css">
     <link id="gridLayout2" rel="stylesheet" href="files/grid2rows.css">
@@ -84,7 +85,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.2</span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.3</span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -255,15 +256,25 @@
                                         </optgroup>
                                         <optgroup data-translation-key="jumppadStyleFanmade" label="">
                                             <!--<option data-translation-key="jumppadStyleCave" value="cave"></option>-->
+                                            <!-- 参考: Rolling Fanmade - Cave -->
                                             <option data-translation-key="jumppadStyleChemistry" value="chemistry" data-option-form="gridJumppadCustomizationForm"></option>
+                                            <!-- 参考: Professional Block - Chemistry -->
                                             <option data-translation-key="jumppadStyleDynamicHill" value="dhill" data-option-form="generalPatternedJumppadCustomizationForm"></option>
-                                            <!--<option data-translation-key="jumppadStyleScale" value="scale" data-option-form="generalPatternedJumppadCustomizationForm"></option> The Ocean-->
+                                            <!-- 参考: Professional Block - Dynamic Hill -->
+                                            <!--<option data-translation-key="jumppadStyleScale" value="scale" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
+                                            <!-- 参考: Rolling Zealous - Ocean -->
                                             <option data-translation-key="jumppadStyleCitrus" value="citrus" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                            <!--<option data-translation-key="jumppadStyleHourglass" value="hourglass"></option> The Time-->
+                                            <!-- 参考: Rolling Universe - Cotton Candy -->
+                                            <!--<option data-translation-key="jumppadStyleHourglass" value="hourglass"></option>-->
+                                            <!-- 参考: Rolling Universe - The Time -->
                                             <option data-translation-key="jumppadStyleWanderingHabits" value="wander" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                            <!--<option data-translation-key="jumppadStyleSimpleCircle" value="simplecircle" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option> Faith-->
-                                            <!--<option data-translation-key="jumppadStyleExplorers" value="explorers" data-option-form="generalPatternedJumppadCustomizationForm"></option> Explorers-->
+                                            <!-- 参考: Rolling Universe - Low Life -->
+                                            <!--<option data-translation-key="jumppadStyleSimpleCircle" value="simplecircle" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>-->
+                                            <!-- 参考: Rolling Universe - Faith -->
+                                            <!--<option data-translation-key="jumppadStyleExplorers" value="explorers" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
+                                            <!-- 参考: Rolling Fanmade - Explorers -->
                                             <option data-translation-key="jumppadStyleRollingWorld" value="rworld" data-option-form="generalPatternedJumppadCustomizationForm"></option>
+                                            <!-- 参考: Rolling World -->
                                         </optgroup>
                                         <!--<optgroup data-translation-key="jumppadStyleCustom">
                                             <option data-translation-key="jumppadStyleStar" value="star"></option>
@@ -1130,6 +1141,9 @@
 
                                                 function initRow(rowElem) {
                                                     if (rowElem.nodeType !== Node.ELEMENT_NODE) return;
+                                                    for (let control = 0; control < 3; control++){
+                                                        rowElem.children[control].children[0].addEventListener("change", updateJSONFromForm);
+                                                    }
                                                     var buttons = rowElem.children[4].children;
 
                                                     //「上に移動」ボタン
@@ -1181,6 +1195,7 @@
                                                     });
                                                     json += "]";
                                                     document.getElementById("stripeJSONData").value = json;
+                                                    generateSaveData();
                                                 }
 
                                                 function updateFormFromJSON() {
