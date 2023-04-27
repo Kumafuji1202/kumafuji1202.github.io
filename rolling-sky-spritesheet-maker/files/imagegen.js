@@ -1,4 +1,4 @@
-//update no. 3
+//update no. 4
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -465,6 +465,14 @@ window.addEventListener("load", function () {
                 contextGeneral.lineTo(255 + innerCircleRadius * Math.sin(ugul * Math.PI / 4), 85 - innerCircleRadius * Math.cos(ugul * Math.PI / 4));
             }
             contextGeneral.stroke();
+        }
+        
+        //ただの丸()
+        if (jumppadStyle == "simplecircle"){
+                let circPath = new Path2D();
+                circPath.arc(255, 85, 45, 0, 2*Math.PI, false);
+                contextGeneral.strokeStyle = document.getElementById("gspJumppad").value;
+                multipleLines([20,16,12, 7, 4], [0.25, 0.25, 0.5, 0.5, 1], contextGeneral, circPath);
         }
 
         //ジャンプ床の発光を描画//
