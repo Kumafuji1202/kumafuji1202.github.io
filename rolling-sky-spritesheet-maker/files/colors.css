@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*update no. 4*/
+/*update no. 5*/
 #header {
     background-position: center top;
 }
@@ -106,7 +106,7 @@ html[data-theme=dark] select {
     color: inherit;
 }
 
-html[data-theme=dark] option {
+html[data-theme=dark] option, html[data-theme=dark] optgroup {
     background-color: #000000;
 }
 
