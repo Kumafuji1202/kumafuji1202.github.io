@@ -303,7 +303,6 @@ window.addEventListener("load", function () {
             contextGeneral.fillRect(62.5, 109.5, 47, 47);
 
             if (document.getElementById("inactiveJumppadGlow").checked) {
-                contextGeneral.strokeStyle = document.getElementById("inactiveJumppadGlowColor").value;
                 const gradWidIn = 35; //グラデーションの内側の端が縁部分からどれだけ離れているか
                 const gradWidOut = 60; //グラデーションオブジェクト自体の長さ
                 let grad = [//内から外へ
@@ -317,8 +316,8 @@ window.addEventListener("load", function () {
                 contextGeneral.createRadialGradient(328-gradWidIn, 158-gradWidIn, 0, 328-gradWidIn, 158-gradWidIn, gradWidOut),//右下
             ];
             grad.forEach(function (grad) {
-                grad.addColorStop(0, ajl+"00");
-                grad.addColorStop(1, ajl);
+                grad.addColorStop(0, document.getElementById("inactiveJumppadGlowColor").value+"00");
+                grad.addColorStop(1, document.getElementById("inactiveJumppadGlowColor").value);
             });
             contextGeneral.fillStyle = grad[0];
             contextGeneral.fillRect(182, 12+gradWidIn, gradWidIn, 146-2*gradWidIn);
