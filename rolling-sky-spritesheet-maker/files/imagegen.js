@@ -1,4 +1,4 @@
-//update no. 5
+//update no. 6
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -268,19 +268,19 @@ window.addEventListener("load", function () {
             drawCutCorner(false, true, 512, 341);
             drawCutCorner(false, false, 512, 512);
         }
-        
+
         //縁取り付き床の描画
-        if (gStyle == "outlined"){
+        if (gStyle == "outlined") {
             contextGeneral.fillStyle = document.getElementById("outlinedGroundOutlineColor").value;
             contextGeneral.strokeStyle = document.getElementById("outlinedGroundEdgeColor").value;
             contextGeneral.fill(tileOutlinePath);
-            multipleLines([4,1], [0.5,1], contextGeneral, tileOutlinePath);
+            multipleLines([4, 1], [0.5, 1], contextGeneral, tileOutlinePath);
             contextGeneral.save();
             contextGeneral.clip(tileOutlinePath);
-            multipleLines([4,1], [0.5,1], contextGeneral, sixSquares);
+            multipleLines([4, 1], [0.5, 1], contextGeneral, sixSquares);
             contextGeneral.restore();
         }
-        
+
         //ジャンプ床//
         contextGeneral.fillStyle = jc;
         contextGeneral.fillRect(182.5, 12.5, 146, 146);
@@ -466,36 +466,53 @@ window.addEventListener("load", function () {
             }
             contextGeneral.stroke();
         }
-        
+
         //ただの丸()
-        if (jumppadStyle == "simplecircle"){
-                let circPath = new Path2D();
-                circPath.arc(255, 85, 45, 0, 2*Math.PI, false);
-                contextGeneral.strokeStyle = document.getElementById("gspJumppad").value;
-                multipleLines([20,16,12, 7, 4], [0.25, 0.25, 0.5, 0.5, 1], contextGeneral, circPath);
+        if (jumppadStyle == "simplecircle") {
+            let circPath = new Path2D();
+            circPath.arc(255, 85, 45, 0, 2 * Math.PI, false);
+            contextGeneral.strokeStyle = document.getElementById("gspJumppad").value;
+            multipleLines([20, 16, 12, 7, 4], [0.25, 0.25, 0.5, 0.5, 1], contextGeneral, circPath);
         }
 
         //ジャンプ床の発光を描画//
         if (!document.getElementById("disableActiveJumppadGlow").checked) {
-            contextGeneral.strokeStyle = ajl;
+            const gradWidIn = 35; //グラデーションの内側の端が縁部分からどれだけ離れているか
+            const gradWidOut = 60; //グラデーションオブジェクト自体の長さ
+            let grad = [//内から外へ
+                contextGeneral.createLinearGradient(12+gradWidIn, 0, 12+gradWidIn-gradWidOut, 0),//左
+                contextGeneral.createLinearGradient(0, 12+gradWidIn, 0, 12+gradWidIn-gradWidOut),//上
+                contextGeneral.createLinearGradient(158-gradWidIn, 0, 158-gradWidIn+gradWidOut, 0),//右
+                contextGeneral.createLinearGradient(0, 158-gradWidIn, 0, 158-gradWidIn+gradWidOut),//下
+                contextGeneral.createRadialGradient(12+gradWidIn, 12+gradWidIn, 0, 12+gradWidIn, 12+gradWidIn, gradWidOut),//左上
+                contextGeneral.createRadialGradient(158-gradWidIn, 12+gradWidIn, 0, 158-gradWidIn, 12+gradWidIn, gradWidOut),//右上
+                contextGeneral.createRadialGradient(12+gradWidIn, 158-gradWidIn, 0, 12+gradWidIn, 158-gradWidIn, gradWidOut),//左下
+                contextGeneral.createRadialGradient(158-gradWidIn, 158-gradWidIn, 0, 158-gradWidIn, 158-gradWidIn, gradWidOut),//右下
+            ];
+            grad.forEach(function (grad) {
+                grad.addColorStop(0, ajl+"00");
+                grad.addColorStop(1, ajl);
+            });
+            contextGeneral.fillStyle = grad[0];
+            contextGeneral.fillRect(12, 12+gradWidIn, gradWidIn, 146-2*gradWidIn);
+            contextGeneral.fillStyle = grad[2];
+            contextGeneral.fillRect(158, 12+gradWidIn, -gradWidIn, 146-2*gradWidIn);
 
-            var ajgPath = new Path2D();
-            if (jumppadStyle != "cut") {
-                ajgPath.rect(12.5, 12.5, 146, 146);
-            } else { //158.5
-                ajgPath.moveTo(12.5, 27); //15.5
-                ajgPath.lineTo(12.5, 143);
-                ajgPath.lineTo(27, 158.5);
-                ajgPath.lineTo(143, 158.5);
-                ajgPath.lineTo(158.5, 143);
-                ajgPath.lineTo(158.5, 27);
-                ajgPath.lineTo(143, 12.5);
-                ajgPath.lineTo(27, 12.5);
-                ajgPath.closePath();
-            }
-            multipleLines([40, 30, 17, 10], [0.125, 0.125, 0.125, 0.125], contextGeneral, ajgPath);
+            contextGeneral.fillStyle = grad[1];
+            contextGeneral.fillRect(12+gradWidIn, 12, 146-2*gradWidIn, gradWidIn);
+            contextGeneral.fillStyle = grad[3];
+            contextGeneral.fillRect(12+gradWidIn, 158, 146-2*gradWidIn, -gradWidIn);
+
+            contextGeneral.fillStyle = grad[4];
+            contextGeneral.fillRect(12, 12, gradWidIn, gradWidIn);
+            contextGeneral.fillStyle = grad[5];
+            contextGeneral.fillRect(158, 12, -gradWidIn, gradWidIn);
+            contextGeneral.fillStyle = grad[6];
+            contextGeneral.fillRect(12, 158, gradWidIn, -gradWidIn);
+            contextGeneral.fillStyle = grad[7];
+            contextGeneral.fillRect(158, 158, -gradWidIn, -gradWidIn);
         }
-        
+
         //角落ちジャンプ床の描画
         if (jumppadStyle == "cut") {
             contextGeneral.fillStyle = jl;
@@ -707,7 +724,7 @@ window.addEventListener("load", function () {
             hexagonAdditionalThick.addPath(createHexagonPath(475, 473, 12));
             contextFragileActive.lineWidth = 4;
             contextFragileActive.stroke(hexagonAdditionalThick);
-            
+
             let hexagonAdditionalThin = new Path2D();
             hexagonAdditionalThin.addPath(createHexagonPath(33, 234, 8));
             hexagonAdditionalThin.addPath(createHexagonPath(63, 479, 8));
@@ -759,13 +776,13 @@ window.addEventListener("load", function () {
         midGroundGradient.addColorStop(1, document.getElementById("midGroundBottomColor").value);
         contextFragile.fillStyle = midGroundGradient;
         contextFragile.fillRect(170, 0, 170, 170);
-        
+
         //Midgroundの窓
-        if (document.getElementById("midGroundWindows").checked){
-            let windowGrad = contextFragile.createLinearGradient(0,27,0,141);
-            windowGrad.addColorStop(0,document.getElementById("midGroundWindowsTop").value);
-            windowGrad.addColorStop(0.5,document.getElementById("midGroundWindowsMiddle").value);
-            windowGrad.addColorStop(1,document.getElementById("midGroundWindowsBottom").value);
+        if (document.getElementById("midGroundWindows").checked) {
+            let windowGrad = contextFragile.createLinearGradient(0, 27, 0, 141);
+            windowGrad.addColorStop(0, document.getElementById("midGroundWindowsTop").value);
+            windowGrad.addColorStop(0.5, document.getElementById("midGroundWindowsMiddle").value);
+            windowGrad.addColorStop(1, document.getElementById("midGroundWindowsBottom").value);
             contextFragile.fillStyle = windowGrad;
             let windowLayout = [
                 [true, false, true],
@@ -777,10 +794,10 @@ window.addEventListener("load", function () {
                 [true, true, false],
                 [true, false, true]
             ];
-            for (let windowRow = 0; windowRow < 8; windowRow++){
-                for (let windowCol = 0; windowCol < 3; windowCol++){
-                    if (windowLayout[windowRow][windowCol]){
-                        contextFragile.fillRect(238+14*windowCol,27+15*windowRow,10,10);
+            for (let windowRow = 0; windowRow < 8; windowRow++) {
+                for (let windowCol = 0; windowCol < 3; windowCol++) {
+                    if (windowLayout[windowRow][windowCol]) {
+                        contextFragile.fillRect(238 + 14 * windowCol, 27 + 15 * windowRow, 10, 10);
                     }
                 }
             }
@@ -845,9 +862,9 @@ window.addEventListener("load", function () {
         //補助パレット
         contextFragile.globalAlpha = contextFragile.globalAlpha = 0xc0 / 0xff;
 
-        contextFragile.clearRect(238,184,60,31);
-        contextFragileActive.clearRect(238,184,60,31);
-        
+        contextFragile.clearRect(238, 184, 60, 31);
+        contextFragileActive.clearRect(238, 184, 60, 31);
+
         contextFragile.fillStyle = document.getElementById("fragileVariation1").value;
         contextFragileActive.fillStyle = document.getElementById("frgActiveVariation1").value;
         contextFragile.fillRect(237, 183, 31, 31);
@@ -2125,15 +2142,15 @@ window.addEventListener("load", function () {
         }
     }
 
-    function updateSaveURLs(){
-        document.getElementById("downloadGeneral").setAttribute("href",canvasGeneral.toDataURL());
-        document.getElementById("downloadFragile").setAttribute("href",canvasFragile.toDataURL());
-        document.getElementById("downloadFragileActive").setAttribute("href",canvasFragileActive.toDataURL());
-        document.getElementById("downloadMover").setAttribute("href",canvasMover.toDataURL());
-        document.getElementById("downloadMoverAuto").setAttribute("href",canvasMoverAuto.toDataURL());
-        document.getElementById("downloadEnemy").setAttribute("href",canvasEnemy.toDataURL());
+    function updateSaveURLs() {
+        document.getElementById("downloadGeneral").setAttribute("href", canvasGeneral.toDataURL());
+        document.getElementById("downloadFragile").setAttribute("href", canvasFragile.toDataURL());
+        document.getElementById("downloadFragileActive").setAttribute("href", canvasFragileActive.toDataURL());
+        document.getElementById("downloadMover").setAttribute("href", canvasMover.toDataURL());
+        document.getElementById("downloadMoverAuto").setAttribute("href", canvasMoverAuto.toDataURL());
+        document.getElementById("downloadEnemy").setAttribute("href", canvasEnemy.toDataURL());
     }
-    document.getElementById("generateButton").addEventListener("click", function(){
+    document.getElementById("generateButton").addEventListener("click", function () {
         generateTextures();
         updateSaveURLs();
     }, true);
