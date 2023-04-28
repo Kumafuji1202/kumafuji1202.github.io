@@ -1,4 +1,4 @@
-//update no. 6
+//update no. 7
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -304,9 +304,40 @@ window.addEventListener("load", function () {
 
             if (document.getElementById("inactiveJumppadGlow").checked) {
                 contextGeneral.strokeStyle = document.getElementById("inactiveJumppadGlowColor").value;
-                var ijgPath = new Path2D();
-                ijgPath.rect(182.5, 12.5, 146, 146);
-                multipleLines([40, 36, 28, 22, 18, 12, 10], [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.5], contextGeneral, ijgPath);
+                const gradWidIn = 35; //グラデーションの内側の端が縁部分からどれだけ離れているか
+                const gradWidOut = 60; //グラデーションオブジェクト自体の長さ
+                let grad = [//内から外へ
+                contextGeneral.createLinearGradient(182+gradWidIn, 0, 12+gradWidIn-gradWidOut, 0),//左
+                contextGeneral.createLinearGradient(170, 12+gradWidIn, 0, 12+gradWidIn-gradWidOut),//上
+                contextGeneral.createLinearGradient(182-gradWidIn, 0, 158-gradWidIn+gradWidOut, 0),//右
+                contextGeneral.createLinearGradient(170, 158-gradWidIn, 0, 158-gradWidIn+gradWidOut),//下
+                contextGeneral.createRadialGradient(182+gradWidIn, 12+gradWidIn, 0, 12+gradWidIn, 12+gradWidIn, gradWidOut),//左上
+                contextGeneral.createRadialGradient(328-gradWidIn, 12+gradWidIn, 0, 158-gradWidIn, 12+gradWidIn, gradWidOut),//右上
+                contextGeneral.createRadialGradient(182+gradWidIn, 158-gradWidIn, 0, 12+gradWidIn, 158-gradWidIn, gradWidOut),//左下
+                contextGeneral.createRadialGradient(328-gradWidIn, 158-gradWidIn, 0, 158-gradWidIn, 158-gradWidIn, gradWidOut),//右下
+            ];
+            grad.forEach(function (grad) {
+                grad.addColorStop(0, ajl+"00");
+                grad.addColorStop(1, ajl);
+            });
+            contextGeneral.fillStyle = grad[0];
+            contextGeneral.fillRect(182, 12+gradWidIn, gradWidIn, 146-2*gradWidIn);
+            contextGeneral.fillStyle = grad[2];
+            contextGeneral.fillRect(328, 12+gradWidIn, -gradWidIn, 146-2*gradWidIn);
+
+            contextGeneral.fillStyle = grad[1];
+            contextGeneral.fillRect(182+gradWidIn, 12, 146-2*gradWidIn, gradWidIn);
+            contextGeneral.fillStyle = grad[3];
+            contextGeneral.fillRect(182+gradWidIn, 158, 146-2*gradWidIn, -gradWidIn);
+
+            contextGeneral.fillStyle = grad[4];
+            contextGeneral.fillRect(182, 12, gradWidIn, gradWidIn);
+            contextGeneral.fillStyle = grad[5];
+            contextGeneral.fillRect(328, 12, -gradWidIn, gradWidIn);
+            contextGeneral.fillStyle = grad[6];
+            contextGeneral.fillRect(182, 158, gradWidIn, -gradWidIn);
+            contextGeneral.fillStyle = grad[7];
+            contextGeneral.fillRect(328, 158, -gradWidIn, -gradWidIn);
             }
         }
 
