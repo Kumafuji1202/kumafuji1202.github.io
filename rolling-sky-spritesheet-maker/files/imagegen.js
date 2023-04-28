@@ -307,9 +307,9 @@ window.addEventListener("load", function () {
                 const gradWidOut = 60; //グラデーションオブジェクト自体の長さ
                 let grad = [//内から外へ
                 contextGeneral.createLinearGradient(182+gradWidIn, 0, 182+gradWidIn-gradWidOut, 0),//左
-                contextGeneral.createLinearGradient(170, 12+gradWidIn, 0, 12+gradWidIn-gradWidOut),//上
-                contextGeneral.createLinearGradient(182-gradWidIn, 0, 328-gradWidIn+gradWidOut, 0),//右
-                contextGeneral.createLinearGradient(170, 158-gradWidIn, 0, 158-gradWidIn+gradWidOut),//下
+                contextGeneral.createLinearGradient(0, 12+gradWidIn, 0, 12+gradWidIn-gradWidOut),//上
+                contextGeneral.createLinearGradient(328-gradWidIn, 0, 328-gradWidIn+gradWidOut, 0),//右
+                contextGeneral.createLinearGradient(0, 158-gradWidIn, 0, 158-gradWidIn+gradWidOut),//下
                 contextGeneral.createRadialGradient(182+gradWidIn, 12+gradWidIn, 0, 182+gradWidIn, 12+gradWidIn, gradWidOut),//左上
                 contextGeneral.createRadialGradient(328-gradWidIn, 12+gradWidIn, 0, 328-gradWidIn, 12+gradWidIn, gradWidOut),//右上
                 contextGeneral.createRadialGradient(182+gradWidIn, 158-gradWidIn, 0, 182+gradWidIn, 158-gradWidIn, gradWidOut),//左下
