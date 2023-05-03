@@ -1,5 +1,6 @@
 @charset "utf-8";
-/*update no. 5*/
+
+/*update no. 6*/
 #header {
     background-position: center top;
 }
@@ -21,6 +22,7 @@ html[data-theme=dark] #header {
 html[data-theme=light] a:not(.button, .formSmallButton) {
     color: #8000ff;
 }
+
 html[data-theme=dark] a:not(.button, .formSmallButton) {
     color: #ffff00;
 }
@@ -39,21 +41,26 @@ html[data-theme=dark] #formNav {
 html[data-theme=light] #formNav li {
     border: 1px solid #000000;
 }
+
 html[data-theme=dark] #formNav li {
     border: 1px solid #ffffff;
 }
+
 html[data-theme=light] #formNav li.selectedTab {
-    background: linear-gradient(#ffffff,#A9F1F7);
+    background: linear-gradient(#ffffff, #A9F1F7);
     border-bottom: none;
 }
+
 html[data-theme=dark] #formNav li.selectedTab {
-    background: linear-gradient(#211442,#050408);
+    background: linear-gradient(#211442, #050408);
     border-bottom: none;
 }
+
 html[data-theme=light] #formNav li:not(.selectedTab) {
     background-color: #a0a0a0;
     color: #ffffff;
 }
+
 html[data-theme=dark] #formNav li:not(.selectedTab) {
     background-color: #202020;
     color: #a0a0a0;
@@ -106,10 +113,24 @@ html[data-theme=dark] select {
     color: inherit;
 }
 
-html[data-theme=dark] option, html[data-theme=dark] optgroup {
+html[data-theme=dark] option,
+html[data-theme=dark] optgroup {
     background-color: #000000;
 }
 
 html[data-theme=dark] input[type=checkbox] {
     background-color: #000000;
+}
+
+
+html[data-theme=light] .listTable,
+html[data-theme=light] .listTable th,
+html[data-theme=light] .listTable td {
+    border-color: #000000;
+}
+
+html[data-theme=dark] .listTable,
+html[data-theme=dark] .listTable th,
+html[data-theme=dark] .listTable td {
+    border-color: #c0c0c0;
 }
