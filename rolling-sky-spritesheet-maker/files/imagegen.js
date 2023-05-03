@@ -1,4 +1,4 @@
-//update no. 7
+//update no. 8
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -507,8 +507,8 @@ window.addEventListener("load", function () {
 
         //ジャンプ床の発光を描画//
         if (!document.getElementById("disableActiveJumppadGlow").checked) {
-            const gradWidIn = 35; //グラデーションの内側の端が縁部分からどれだけ離れているか
-            const gradWidOut = 60; //グラデーションオブジェクト自体の長さ
+            const gradWidIn = 50; //グラデーションの内側の端が縁部分からどれだけ離れているか
+            const gradWidOut = 85; //グラデーションオブジェクト自体の長さ35,69
             let grad = [//内から外へ
                 contextGeneral.createLinearGradient(12+gradWidIn, 0, 12+gradWidIn-gradWidOut, 0),//左
                 contextGeneral.createLinearGradient(0, 12+gradWidIn, 0, 12+gradWidIn-gradWidOut),//上
@@ -521,6 +521,7 @@ window.addEventListener("load", function () {
             ];
             grad.forEach(function (grad) {
                 grad.addColorStop(0, ajl+"00");
+                grad.addColorStop(0.25, ajl+"20");
                 grad.addColorStop(1, ajl);
             });
             contextGeneral.fillStyle = grad[0];
@@ -714,7 +715,6 @@ window.addEventListener("load", function () {
                 sky.moveTo(353.5, 182.5);
                 sky.closePath();
                 sky.stroke();
-                sky.strokeRect(182.5, 182.5, 146, 146);
                 if (document.getElementById("fragileStyle").value == "cave") {
                     sky.beginPath();
                     sky.moveTo(391, 23);
@@ -1042,6 +1042,7 @@ window.addEventListener("load", function () {
         contextMoverAuto.fillStyle = document.getElementById("moverAutoSideColor").value;
         contextMoverAuto.fillRect(298.5, 183, 30, 30);
 
+        //////////////
         //ここからEnemy
         contextEnemy.clearRect(0, 0, 512, 512);
         contextEnemy.lineJoin = "miter";
@@ -1089,7 +1090,6 @@ window.addEventListener("load", function () {
         //B,G
         switch (document.getElementById("topRightType").value) {
             case "floater": {
-                /* sk */
                 //fl1
                 contextEnemy.lineWidth = 1;
                 contextEnemy.fillStyle = document.getElementById("floaterMainColor").value;
@@ -1153,7 +1153,6 @@ window.addEventListener("load", function () {
             }
             break;
         case "crystal": {
-            /* sksksks */
 
             //cr1
             contextEnemy.fillStyle = document.getElementById("russianTowerTop").value;
@@ -1287,6 +1286,43 @@ window.addEventListener("load", function () {
             }
         }
         break;
+            case "neon":{
+                //3
+                contextEnemy.fillStyle = document.getElementById("neonAccentA").value;
+                contextEnemy.fillRect(256, 64, 32, 32);
+                //4
+                contextEnemy.fillStyle = document.getElementById("neonAccentB1").value;
+                contextEnemy.fillRect(288, 64, 16, 16);
+                contextEnemy.fillStyle = document.getElementById("neonAccentB2").value;
+                contextEnemy.fillRect(288, 80, 16, 16);
+                contextEnemy.fillStyle = document.getElementById("neonAccentB3").value;
+                contextEnemy.fillRect(304, 64, 16, 32);
+                //5
+                contextEnemy.fillStyle = document.getElementById("neonAccentC1").value;
+                contextEnemy.fillRect(256, 96, 32, 32);
+                contextEnemy.fillStyle = document.getElementById("neonAccentC2").value;
+                contextEnemy.fillRect(288, 96, 32, 32);
+                //6
+                contextEnemy.fillStyle = document.getElementById("neonAccentD").value;
+                contextEnemy.fillRect(256, 128, 64, 32);
+                //9
+                contextEnemy.fillStyle = document.getElementById("neonRobotGear1").value;
+                contextEnemy.fillRect(320, 64, 32, 32);
+                contextEnemy.fillStyle = document.getElementById("neonRobotGear2").value;
+                contextEnemy.fillRect(320, 96, 32, 32);
+                contextEnemy.fillStyle = document.getElementById("neonRobotGear3").value;
+                contextEnemy.fillRect(352, 64, 32, 32);
+                contextEnemy.fillStyle = document.getElementById("neonRobotGear4").value;
+                contextEnemy.fillRect(352, 96, 32, 16);
+                contextEnemy.fillStyle = document.getElementById("neonRobotGear5").value;
+                contextEnemy.fillRect(352, 112, 32, 16);
+                //13
+                contextEnemy.fillStyle = document.getElementById("neonRobotCordFront").value;
+                contextEnemy.fillRect(384, 64, 32, 32);
+                contextEnemy.fillStyle = document.getElementById("neonRobotCordSide").value;
+                contextEnemy.fillRect(384, 96, 32, 32);
+            }
+                break;
         default:
         }
 
@@ -1318,6 +1354,7 @@ window.addEventListener("load", function () {
             contextEnemy.stroke();
             if (!noRestore) contextEnemy.restore();
         }
+        
         //B下部
         if (document.getElementById("subBAvailable").value == "true") {
             if (document.getElementById("subBType").value == "plain") {
@@ -1335,6 +1372,8 @@ window.addEventListener("load", function () {
                 }
             }
         }
+        
+        
         //翻転床
         if (document.getElementById("flipTileAvailable").value == "true") {
             //表とУра
@@ -1619,10 +1658,51 @@ window.addEventListener("load", function () {
             contextEnemy.fillStyle = document.getElementById("flipperSideColor").value;
             contextEnemy.fillRect(320, 128, 64, 64);
         }
+        
+        //半ジャンプ
+        if (document.getElementById("smallJumpAvailable").value == "true") {
+            contextEnemy.fillStyle = document.getElementById("smallJumpActiveTop").value;
+            contextEnemy.fillRect(256, 0, 58, 32);
+            contextEnemy.fillStyle = document.getElementById("smallJumpInactiveTop").value;
+            contextEnemy.fillRect(256, 32, 58, 32);
+            contextEnemy.fillStyle = document.getElementById("smallJumpActiveSide").value;
+            contextEnemy.fillRect(314, 0, 6, 32);
+            contextEnemy.fillStyle = document.getElementById("smallJumpInactiveSide").value;
+            contextEnemy.fillRect(314, 32, 6, 32);
+        }
 
+        
         //ネオンボックス
         if (document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-neonbox-available")) {
-            contextEnemy.drawImage(neonBoxImg, 448, 0);
+            contextEnemy.fillStyle = "#434A5B";
+            contextEnemy.fillRect(448, 0, 64, 16);
+            contextEnemy.fillStyle = "#FFFFFF";
+            contextEnemy.fillRect(448, 16, 64, 16);
+            
+            let grad = contextEnemy.createLinearGradient(448,0,512,0);
+            grad.addColorStop(0, "#0A6DED");
+            grad.addColorStop(1, "#50E2FA");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 32, 64, 32);
+            
+            grad = contextEnemy.createLinearGradient(448,0,512,0);
+            grad.addColorStop(0, "#FF8002");
+            grad.addColorStop(1, "#F8FB8F");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 64, 64, 32);
+            
+            grad = contextEnemy.createLinearGradient(448,0,512,0);
+            grad.addColorStop(0, "#A826F9");
+            grad.addColorStop(1, "#FE7EDB");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 96, 64, 32);
+            
+            grad = contextEnemy.createLinearGradient(448,0,512,0);
+            grad.addColorStop(0, "#058865");
+            grad.addColorStop(1, "#B0DE59");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 128, 64, 32);
+            //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
         }
 
         //C
