@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*update no. 1*/
+/*update no. 3*/
 input[type=color] {
     background-color: inherit;
     border: none;
@@ -92,10 +92,18 @@ ul {
     display: none;
 }
 
-label > span[data-translation-key]:first-child::after {
+label > span:first-child::after {
     content: ":";
 }
 
 input[type=file] {
     display: none;
+}
+
+.listTable > tbody th, .listTable > tbody td{
+    text-align: left;
+    vertical-align: top;
+}
+.listTable, .listTable th, .listTable td {
+    border: 1px solid;
 }
