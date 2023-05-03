@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- update no. 7-->
+<!-- update no. 8-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -85,7 +85,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.5</span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.6</span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -484,6 +484,7 @@
                                     <label>
                                         <span data-translation-key="topRightType"></span>
                                         <select id="topRightType">
+                                            <option data-translation-key="topRightNeon" value="neon" data-option-form="neonCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                             <option data-translation-key="topRightFloater" value="floater" data-option-form="floaterCustomizationForm" data-subB-available></option>
                                             <option data-translation-key="topRightCrystal" value="crystal" data-option-form="crystalTRCustomizationForm" data-subB-available></option>
                                             <option data-translation-key="topRightGeometry" value="geometry" data-option-form="geometryCustomizationForm" data-flipper-available data-neonbox-available></option>
@@ -654,9 +655,125 @@
                                 </div>
                                 <!--
                                 <div id="1upCustomizationForm"></div>
-                                <div id="ancientCustomizationForm"></div>
-                                <div id="neonCustomizationForm"></div>
-                                <div id="egyptCustomizationForm"></div>
+                                <div id="ancientCustomizationForm"></div>-->
+                                <div id="neonCustomizationForm">
+                                    <h2 data-translation-key="obstacleAccentColors"></h2>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th><span data-translation-key="tone#"></span>1</th>
+                                                <th><span data-translation-key="tone#"></span>2</th>
+                                                <th><span data-translation-key="tone#"></span>3</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>1(dz3)</th>
+                                                <td><input type="color" id="neonAccentA" value="#F93DCB"></td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>2(dz4)</th>
+                                                <td><input type="color" id="neonAccentB1" value="#75FDF9"></td>
+                                                <td><input type="color" id="neonAccentB2" value="#57C1EF"></td>
+                                                <td><input type="color" id="neonAccentB3" value="#319FCE"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>3(dz5)</th>
+                                                <td><input type="color" id="neonAccentC1" value="#3CD4F1"></td>
+                                                <td><input type="color" id="neonAccentC2" value="#3C88F1"></td>
+                                                <td>-</td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>4(dz6)</th>
+                                                <td><input type="color" id="neonAccentD" value="#F4D121"></td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <span data-translation-key="colorUsageList"></span><br>
+                                    <table class="listTable">
+                                        <thead>
+                                            <tr>
+                                                <th data-translation-key="object"></th>
+                                                <th data-translation-key="part"></th>
+                                                <th data-translation-key="UsedColor"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th data-translation-key="objName424"></th>
+                                                <td data-translation-key="neonObjCore"></td>
+                                                <td>dz4</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="3" data-translation-key="objName426"></th>
+                                                <td data-translation-key="neonObjUpperLines"></td>
+                                                <td>dz4</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="neonObjLight"></td>
+                                                <td>dz6-&gt;3-&gt;5-&gt;6</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="neonObjLowerLines"></td>
+                                                <td>dz6</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2" data-translation-key="objName427"></th>
+                                                <td data-translation-key="neonObjEye"></td>
+                                                <td>dz3</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="neonObjEmission"></td>
+                                                <td>dz4</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2" data-translation-key="objName429"></th>
+                                                <td data-translation-key="neonObjWing"></td>
+                                                <td>dz4</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="neonObjLowerLines"></td>
+                                                <td>dz5</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2" data-translation-key="objName430"></th>
+                                                <td data-translation-key="neonObjFrontSquareLines"></td>
+                                                <td>dz3</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="neonObjLitKeys"></td>
+                                                <td>dz4</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2" data-translation-key="objName431"></th>
+                                                <td data-translation-key="neonObjCore"></td>
+                                                <td>dz4</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="neonObjOtherGlow"></td>
+                                                <td>dz5</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <span data-translation-key="neonRobotGears"></span>
+                                    <ol>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="neonRobotGear1" value="#47F5EC"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="neonRobotGear2" value="#08C9C0"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="neonRobotGear3" value="#00AFBD"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="neonRobotGear4" value="#007594"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="neonRobotGear5" value="#005168"></label></li>
+                                    </ol>
+                                    <span data-translation-key="neonRobotCord"></span>
+                                    <label><span data-translation-key="front"></span><input type="color" id="neonRobotCordFront" value="#FCBB52"></label>
+                                    <label><span data-translation-key="side"></span><input type="color" id="neonRobotCordSide" value="#FF9012"></label>
+                                </div>
+                                <!--<div id="egyptCustomizationForm"></div>
                                 <div id="aloneCustomizationForm"></div>
                                 <div id="fadedCustomizationForm"></div>
                                 -->
@@ -667,25 +784,6 @@
                             <h2 data-translation-key="subBSettingHeading"></h2>
                             <input type="hidden" id="subBAvailable" value="true"> <!-- 複数個所で使うのでここで受け渡しをする -->
                             <div id="subBUnavailableMessage" data-translation-key="texturePartUnavailable"></div>
-                            <script>
-                                window.addEventListener("load", function() {
-                                    function checkIfsubBIsAvailable() {
-                                        var issubBAvailable = document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-subB-available");
-                                        document.getElementById("subBAvailable").value = issubBAvailable;
-                                        if (issubBAvailable) {
-                                            document.getElementById("subBUnavailableMessage").classList.add("hidden");
-                                            document.getElementById("subBForm").classList.remove("hidden");
-                                        } else {
-                                            document.getElementById("subBForm").classList.add("hidden");
-                                            document.getElementById("subBUnavailableMessage").classList.remove("hidden");
-                                        }
-                                    }
-                                    checkIfsubBIsAvailable();
-                                    document.getElementById("topRightType").addEventListener("change", checkIfsubBIsAvailable);
-                                    otherUpdateFunctions.push(checkIfsubBIsAvailable);
-                                });
-
-                            </script>
                             <fieldset id="subBForm" class="selectForm" data-default-form="subBCustomizationDefaultContent" data-form-selector="subBType">
                                 <legend>
                                     <label><span data-translation-key="subBType"></span>
@@ -742,19 +840,26 @@
                                         <label>
                                             <span data-translation-key="flipTileType"></span>
                                             <select id="flipTileType">
-                                                <option data-translation-key="flipTileCube" value="cube"></option>
-                                                <!-- 立方スタイル: 色A=前後の枠と左右の内側三角 色B=左右の枠と前後の内側三角 -->
-                                                <option data-translation-key="flipTileChecker" value="checker"></option>
-                                                <!-- トランプスタイル: 色A=左奥と右手前 色B=右奥と左手前 -->
-                                                <option data-translation-key="flipTileHolly" value="holly"></option>
-                                                <option data-translation-key="flipTileRhombus" value="rhombus"></option>
-                                                <option data-translation-key="flipTileSquares" value="squares"></option>
-                                                <option data-translation-key="flipTileULines" value="uLines"></option>
-                                                <!-- マイクロチップスタイル: 色A=線 色B=背景 -->
-                                                <option data-translation-key="flipTileStar" value="star"></option>
-                                                <option data-translation-key="flipTileSemicircles" value="semicircles"></option>
-                                                <!-- ケプラースタイル: 色B=左奥と右手前 色C=右奥と左手前 -->
-                                                <!--<option data-translation-key="flipTileCheckerEdged" value="checkeredged"></option>-->
+                                                <optgroup data-translation-key="flipperStyleFromRS" label="">
+                                                    <option data-translation-key="flipTileCube" value="cube"></option>
+                                                    <!-- 立方スタイル: 色A=前後の枠と左右の内側三角 色B=左右の枠と前後の内側三角 -->
+                                                    <option data-translation-key="flipTileChecker" value="checker"></option>
+                                                    <!-- トランプスタイル: 色A=左奥と右手前 色B=右奥と左手前 -->
+                                                    <option data-translation-key="flipTileHolly" value="holly"></option>
+                                                    <option data-translation-key="flipTileRhombus" value="rhombus"></option>
+                                                    <option data-translation-key="flipTileSquares" value="squares"></option>
+                                                    <option data-translation-key="flipTileULines" value="uLines"></option>
+                                                    <!-- マイクロチップスタイル: 色A=線 色B=背景 -->
+                                                    <option data-translation-key="flipTileStar" value="star"></option>
+                                                    <option data-translation-key="flipTileSemicircles" value="semicircles"></option>
+                                                    <!-- ケプラースタイル: 色B=左奥と右手前 色C=右奥と左手前 -->
+                                                    <!--<option data-translation-key="flipTileCheckerFortune" value="fortune"></option>-->
+                                                    <!-- ajrスタイル-->
+                                                </optgroup>
+                                                <!--
+                                                <optgroup data-translation-key="flipperStyleFanmade" label="">
+                                                    <option data-translation-key="flipTileCheckerEdged" value="checkeredged"></option>
+                                                </optgroup>-->
                                                 <!-- 3D Spacial Zoneスタイル-->
                                                 <option data-translation-key="flipTileCits" value="cits"></option>
                                                 <!-- 天空の城風(自作) -->
@@ -802,7 +907,7 @@
                                                     "rhombus": {
                                                         colorCount: 3,
                                                         translationKeys: [
-                                                            "flipperBGColor",
+                                                            "backgroundColor",
                                                             "flipperFrameColor",
                                                             "rhombusFlipperRhombusColor"
                                                         ]
@@ -863,25 +968,6 @@
                                         });
 
                                     </script>
-                                    <script>
-                                        window.addEventListener("load", function() {
-                                            function checkIfFlipTilesAreAvailable() {
-                                                var isFlipTileAvailable = document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-flipper-available");
-                                                document.getElementById("flipTileAvailable").value = isFlipTileAvailable;
-                                                if (isFlipTileAvailable) {
-                                                    document.getElementById("flipTileUnavailableMessage").classList.add("hidden");
-                                                    document.getElementById("flipTileForm").classList.remove("hidden");
-                                                } else {
-                                                    document.getElementById("flipTileForm").classList.add("hidden");
-                                                    document.getElementById("flipTileUnavailableMessage").classList.remove("hidden");
-                                                }
-                                            }
-                                            checkIfFlipTilesAreAvailable();
-                                            document.getElementById("topRightType").addEventListener("change", checkIfFlipTilesAreAvailable);
-                                            otherUpdateFunctions.push(checkIfFlipTilesAreAvailable);
-                                        });
-
-                                    </script>
                                     <div id="flipperColorForm">
                                         <div>
                                             <span data-translation-key="FlipperColor1"></span>
@@ -929,6 +1015,35 @@
                                     </div>
                                 </fieldset>
                                 <label><span data-translation-key="flipperSideColor"></span><input type="color" id="flipperSideColor" value="#81675D"></label><br>
+                            </div>
+                        </div>
+                        <!-- 半ジャンプ床 -->
+                        <div id="enemySJump">
+                            <h2 data-translation-key="smallJumpSettingHeading"></h2>
+                            <input type="hidden" id="smallJumpAvailable" value="true"> <!-- 複数個所で使うのでここで受け渡しをする -->
+                            <div id="smallJumpUnavailableMessage" data-translation-key="texturePartUnavailable"></div>
+                            <div id="smallJumpForm">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td></td>
+                                            <th data-translation-key="inactive"></th>
+                                            <th data-translation-key="active"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th data-translation-key="top"></th>
+                                            <td><input type="color" id="smallJumpInactiveTop" value="#F59E62"></td>
+                                            <td><input type="color" id="smallJumpActiveTop" value="#FCC993"></td>
+                                        </tr>
+                                        <tr>
+                                            <th data-translation-key="side"></th>
+                                            <td><input type="color" id="smallJumpInactiveSide" value="#B0564F"></td>
+                                            <td><input type="color" id="smallJumpActiveSide" value="#FFFFFF"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <!-- C -->
@@ -1141,7 +1256,7 @@
 
                                                 function initRow(rowElem) {
                                                     if (rowElem.nodeType !== Node.ELEMENT_NODE) return;
-                                                    for (let control = 0; control < 3; control++){
+                                                    for (let control = 0; control < 3; control++) {
                                                         rowElem.children[control].children[0].addEventListener("change", updateJSONFromForm);
                                                     }
                                                     var buttons = rowElem.children[4].children;
