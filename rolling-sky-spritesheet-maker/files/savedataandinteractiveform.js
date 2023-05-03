@@ -1,4 +1,4 @@
-//update no. 3
+//update no. 4
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
 var dataFormat = [
@@ -142,6 +142,21 @@ var dataFormat = [
     {id:"originalSpinCubeColorA", prop:"value"},
     {id:"originalSpinCubeColorB", prop:"value"},
     {id:"spinCubeImg", prop:"src"},
+    //dz
+    {id:"neonAccentA", prop:"value"},
+    {id:"neonAccentB1", prop:"value"},
+    {id:"neonAccentB2", prop:"value"},
+    {id:"neonAccentB3", prop:"value"},
+    {id:"neonAccentC1", prop:"value"},
+    {id:"neonAccentC2", prop:"value"},
+    {id:"neonAccentD", prop:"value"},
+    {id:"neonRobotGear1", prop:"value"},
+    {id:"neonRobotGear2", prop:"value"},
+    {id:"neonRobotGear3", prop:"value"},
+    {id:"neonRobotGear4", prop:"value"},
+    {id:"neonRobotGear5", prop:"value"},
+    {id:"neonRobotCordFront", prop:"value"},
+    {id:"neonRobotCordSide", prop:"value"},
     //subB
     {id:"subBType", prop:"value"},
     {id:"noPatternSubBColor", prop:"value"},
@@ -166,6 +181,11 @@ var dataFormat = [
     {id:"flipperColor5Reverse", prop:"value"},
     {id:"flipperObverseImg", prop:"src"},
     {id:"flipperReverseImg", prop:"src"},
+    //ミニジャンプ
+    {id:"smallJumpInactiveTop", prop:"value"},
+    {id:"smallJumpInactiveSide", prop:"value"},
+    {id:"smallJumpActiveTop", prop:"value"},
+    {id:"smallJumpActiveSide", prop:"value"},
     //C
     {id:"mainStripeThickness", prop:"value"},
     {id:"mainStripeCustomThickness", prop:"value"},
@@ -378,4 +398,29 @@ window.addEventListener("load", function(){
     });
     
     generateSaveData = generateSaveDataInner;
+    
+    //ここからhtml各セクションのスクリプト
+    function checkIfCommonObjsAreAvailable() {
+        var TRCheck = (attr, formID, unavailableMsg, hiddenInput) => {
+            var isAvailable = document.getElementById("topRightType").selectedOptions[0].hasAttribute(attr);
+            document.getElementById(hiddenInput).value = isAvailable;
+            if (isAvailable) {
+                document.getElementById(unavailableMsg).classList.add("hidden");
+                document.getElementById(formID).classList.remove("hidden");
+            }else{
+                document.getElementById(formID).classList.add("hidden");
+                document.getElementById(unavailableMsg).classList.remove("hidden");
+            }
+            return isAvailable;
+        };
+        //subB
+        TRCheck("data-subB-available", "subBForm", "subBUnavailableMessage", "subBAvailable");
+        //Flip
+        TRCheck("data-flipper-available", "flipTileForm", "flipTileUnavailableMessage", "flipTileAvailable");
+        //Flip
+        TRCheck("data-minijump-available", "smallJumpForm", "smallJumpUnavailableMessage", "smallJumpAvailable");
+    }
+    checkIfCommonObjsAreAvailable();
+    document.getElementById("topRightType").addEventListener("change", checkIfCommonObjsAreAvailable);
+    otherUpdateFunctions.push(checkIfCommonObjsAreAvailable);
 }, true);
