@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- update no. 9-->
+<!-- update no. 10-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -85,7 +85,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.6</span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.7</span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -864,6 +864,7 @@
                                                 <option data-translation-key="flipTileCits" value="cits"></option>
                                                 <!-- 天空の城風(自作) -->
                                                 <option data-translation-key="importImages" value="import"></option>
+                                                <!--<option data-translation-key="flipTileFaleGround" value="fakeground"></option>-->
                                             </select>
                                         </label>
                                     </legend>
@@ -871,14 +872,21 @@
                                         window.addEventListener("load", function() {
                                             function changeFlipTileForm() {
                                                 var flipTileType = document.getElementById("flipTileType").value;
-                                                var notTheSamePattern = ["import"];
+                                                var notTheSamePattern = ["import", "fakeground"];
                                                 if (notTheSamePattern.includes(flipTileType)) {
                                                     document.getElementById("flipperColorForm").classList.add("hidden");
-                                                    document.getElementById("importFlipperCustomizationForm").classList.remove("hidden");
+                                                    if (flipTileType == "import"){
+                                                        document.getElementById("flipperNoCustomization").classList.add("hidden");
+                                                        document.getElementById("importFlipperCustomizationForm").classList.remove("hidden");
+                                                    }else{
+                                                        document.getElementById("importFlipperCustomizationForm").classList.add("hidden");
+                                                        document.getElementById("flipperNoCustomization").classList.remove("hidden");
+                                                    }
                                                     return;
                                                 }
                                                 document.getElementById("flipperColorForm").classList.remove("hidden");
                                                 document.getElementById("importFlipperCustomizationForm").classList.add("hidden");
+                                                document.getElementById("flipperNoCustomization").classList.add("hidden");
                                                 const flipTileData = {
                                                     "cube": {
                                                         colorCount: 2,
@@ -968,6 +976,7 @@
                                         });
 
                                     </script>
+                                    <div id="flipperNoCustomization" data-translation-key="jumppadCustomizationDefaultContent"></div>
                                     <div id="flipperColorForm">
                                         <div>
                                             <span data-translation-key="FlipperColor1"></span>
