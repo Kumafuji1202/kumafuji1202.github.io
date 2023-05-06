@@ -1,4 +1,4 @@
-//update no. 8
+//update no. 9
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -1096,13 +1096,13 @@ window.addEventListener("load", function () {
                 contextEnemy.fillRect(192, 0, 320, 128);
                 contextEnemy.strokeStyle = document.getElementById("floaterInactiveEdgeColor").value;
                 contextEnemy.beginPath();
-                contextEnemy.moveTo(269, 114);
+                contextEnemy.moveTo(269, 115.5);
                 contextEnemy.lineTo(320, 12.5);
-                contextEnemy.lineTo(371, 114);
+                contextEnemy.lineTo(371, 115.5);
                 contextEnemy.closePath();
-                contextEnemy.moveTo(397, 114);
+                contextEnemy.moveTo(397, 115.5);
                 contextEnemy.lineTo(448, 12.5);
-                contextEnemy.lineTo(499, 114);
+                contextEnemy.lineTo(499, 115.5);
                 contextEnemy.closePath();
                 contextEnemy.fill();
                 contextEnemy.stroke();
@@ -1112,11 +1112,11 @@ window.addEventListener("load", function () {
                 contextEnemy.beginPath();
                 contextEnemy.moveTo(205, 12.5);
                 contextEnemy.lineTo(307, 12.5);
-                contextEnemy.lineTo(256, 114);
+                contextEnemy.lineTo(256, 115.5);
                 contextEnemy.closePath();
                 contextEnemy.moveTo(332, 12.5);
                 contextEnemy.lineTo(434, 12.5);
-                contextEnemy.lineTo(383, 114);
+                contextEnemy.lineTo(383, 115.5);
                 contextEnemy.closePath();
                 contextEnemy.fill();
                 contextEnemy.stroke();
@@ -1137,14 +1137,14 @@ window.addEventListener("load", function () {
                     contextEnemy.closePath();
                     contextEnemy.moveTo(k + 246, 95.5);
                     contextEnemy.lineTo(k + 266, 95.5);
-                    contextEnemy.lineTo(k + 256, 114);
+                    contextEnemy.lineTo(k + 256, 115.5);
                     //縁
-                    contextEnemy.moveTo(k + 269, 114);
+                    contextEnemy.moveTo(k + 269, 115.5);
                     contextEnemy.lineTo(k + 320, 12.5);
-                    contextEnemy.lineTo(k + 371, 114);
-                    contextEnemy.lineTo(k + 351, 114);
+                    contextEnemy.lineTo(k + 371, 115.5);
+                    contextEnemy.lineTo(k + 351, 115.5);
                     contextEnemy.lineTo(k + 320, 53);
-                    contextEnemy.lineTo(k + 289, 114);
+                    contextEnemy.lineTo(k + 289, 115.5);
                     contextEnemy.closePath();
                     contextEnemy.fill();
                     //fl4
@@ -1652,6 +1652,23 @@ window.addEventListener("load", function () {
                 contextEnemy.translate(-384, -32);
                 contextEnemy.drawImage(document.getElementById("flipperReverseImg"), 384, 0, 64, 64);
                 contextEnemy.drawImage(document.getElementById("flipperObverseImg"), 320, 0, 64, 64);
+                contextEnemy.restore();
+            }
+            //インポート画像
+            if (flipperType == "fakeground") {
+                contextEnemy.save();
+                let fgFlipperPath = new Path2D();
+                fgFlipperPath.rect(320, 0, 128, 64);
+                
+                contextEnemy.fillStyle = gc;
+                contextEnemy.clip(fgFlipperPath);
+                contextEnemy.fill(fgFlipperPath);
+                
+                fgFlipperPath.moveTo(384,0);
+                fgFlipperPath.lineTo(384,64);
+                
+                contextEnemy.strokeStyle = gl;
+                multipleLines([6,4], [0.5, 5], contextEnemy, fgFlipperPath);
                 contextEnemy.restore();
             }
             //側面
