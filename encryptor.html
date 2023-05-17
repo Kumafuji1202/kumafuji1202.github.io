@@ -81,9 +81,9 @@
                     };
 
                 if (txt.charAt(0) == "r") {
-                    document.getElementById("main").value = CryptoJS.TripleDES.decrypt(txt, key, iv).toString(CryptoJS.enc.Utf8);
+                    document.getElementById("data").value = CryptoJS.TripleDES.decrypt(txt, key, iv).toString(CryptoJS.enc.Utf8);
                 } else {
-                    document.getElementById("main").value = CryptoJS.TripleDES.encrypt(txt, key, iv).toString();
+                    document.getElementById("data").value = CryptoJS.TripleDES.encrypt(txt, key, iv).toString();
                 }
             });
         });
