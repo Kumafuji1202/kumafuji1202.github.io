@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <title>ローリングスカイステージデータ暗号化/復号ツール</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="pagename" content="ローリングスカイステージデータ暗号化/復号ツール">
+    <style>
+        html {
+            background-image: url(resource/Background62.png);
+            background-size: cover;
+            top: 0;
+        }
+
+        html,
+        body {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            color: #e0fff0;
+        }
+
+        #main {
+            border: 5px solid #303030;
+            border-radius: 10px;
+            width: 450px;
+            height: 250px;
+            resize: vertical;
+            max-width: 100%;
+            background-color: aliceblue;
+        }
+
+        * {
+            scroll-behavior: smooth;
+            font-family: regular;
+        }
+
+        #container {
+            margin: auto auto;
+            width: 700px;
+            height: calc(100% - 20px);
+            background-color: #80808080;
+            text-align: center;
+            padding: 10px;
+        }
+
+        button {
+            border-radius: 3px;
+            border: 3px solid #303030;
+            background: linear-gradient(#a0e0b0, #80c0a0);
+        }
+
+        button:hover {
+            background: linear-gradient(#e0fff0, #a0c0b0);
+        }
+
+        button:active {
+            background: linear-gradient(#a0c0b0, #e0fff0);
+        }
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        window.addEventListener("load", function() {
+            document.getElementById("actionButton").addEventListener("click", function() {
+                let txt = document.getElementById("data").value;
+                if (txt == "") return;
+
+                let key = {
+                        words: [842019125, 808792632],
+                        sigBytes: 8
+                    },
+                    iv = {
+                        iv: {
+                            words: [825373492, 892745528],
+                            sigBytes: 8
+                        },
+                        mode: CryptoJS.mode.CBC
+                    };
+
+                if (txt.charAt(0) == "r") {
+                    document.getElementById("main").value = CryptoJS.TripleDES.decrypt(txt, key, iv).toString(CryptoJS.enc.Utf8);
+                } else {
+                    document.getElementById("main").value = CryptoJS.TripleDES.encrypt(txt, key, iv).toString();
+                }
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <h1>ローリングスカイステージデータ暗号化/復号ツール</h1>
+        <p>
+            使い方は簡単!<br>
+            ステージのテキストデータを下にペーストしてボタンを押すだけ
+        </p>
+        <div>
+            <textarea id="data" placeholder="ここにステージデータを入力..."></textarea>
+        </div>
+        <button id="actionButton">暗号化/復号</button>
+    </div>
+</body>
