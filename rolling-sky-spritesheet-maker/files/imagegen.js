@@ -1,4 +1,4 @@
-//update no. 10
+//update no. 11
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -289,8 +289,6 @@ window.addEventListener("load", function () {
         contextGeneral.strokeStyle = gl;
         multipleLines(lineArrays.width, lineArrays.alpha, contextGeneral, groundLinesPath);
 
-        contextGeneral.strokeStyle = gl;
-        multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextGeneral, fiveSquares);
 
         //立体用パレット//
 
@@ -300,6 +298,8 @@ window.addEventListener("load", function () {
         contextGeneral.fillRect(268, 183, 31, 31);
         contextGeneral.fillStyle = ogp[2];
         contextGeneral.fillRect(268, 213, 31, 31);
+        contextGeneral.strokeStyle = gl;
+        multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextGeneral, fiveSquares);
 
         contextGeneral.globalAlpha = 1;
         contextGeneral.fillStyle = gs;
