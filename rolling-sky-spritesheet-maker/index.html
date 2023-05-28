@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- update no. 10-->
+<!-- update no. 11-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -16,8 +16,8 @@
     <link id="gridLayout3" rel="stylesheet" href="files/grid3rows.css">
     <script id="languageLibrary" src="../lang.js"></script>
     <script id="languageData" src="files/langdata.js"></script>
-    <script id="imageGenerator" src="files/imagegen.js"></script>
     <script id="saveLoadSystem" src="files/savedataandinteractiveform.js"></script>
+    <script id="imageGenerator" src="files/imagegen.js"></script>
     <script id="pseudoMediaQuery" src="files/gridpseudomediaquery.js"></script>
     <script id="colorModeChanger">
         window.addEventListener("load", function() {
@@ -42,7 +42,7 @@
         }, true);
 
     </script>
-    <script>
+    <script id="imageLoadingSystem">
         window.addEventListener("load", function() {
             document.querySelectorAll("input[type=file][data-loading-process]").forEach(function(elem) {
                 elem.addEventListener("change", function() {
@@ -72,7 +72,7 @@
         }, true);
 
     </script>
-    <script>
+    <script id="confirmer">
         window.addEventListener('beforeunload', function(e) {
             e.preventDefault();
             e.returnValue = '';
@@ -85,7 +85,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;">v1.0.7</span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.0.8</a></span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -145,8 +145,6 @@
                 <canvas id="enemyOutput" width="512" height="512">
                 </canvas>
             </div>
-            <div id="notfooter" class="outputContainer appElement">
-            </div>
         </div>
 
         <div id="formContainer">
@@ -190,262 +188,398 @@
                 <form id="form-content">
                     <div id="tilesForm" class="appElement appForm">
                         <!-- 普通床の設定 -->
-                        <h2 data-translation-key="groundSettingsHeading">Ground settings</h2>
-                        <!-- 普通床の色 -->
-                        <label><span data-translation-key="groundColor"></span><input type="color" id="groundColor" value="#FCB642"></label>
-                        <!-- 普通床の線 -->
-                        <label><span data-translation-key="groundLineColor"></span><input type="color" id="groundLineColor" value="#E79E4A"></label>
-                        <!-- 普通床の側面 -->
-                        <label><span data-translation-key="groundSideColor"></span><input type="color" id="groundSideColor" value="#C37E39"></label>
-                        <!-- 普通床の端のスタイル -->
-                        <fieldset id="groundStyleForm" class="selectForm" data-default-form="groundEdgeDefaultContent" data-form-selector="groundEdgeStyle">
-                            <legend>
-                                <label><span data-translation-key="groundEdgeStyle"></span>
-                                    <select id="groundEdgeStyle">
-                                        <option data-translation-key="groundEdgeStyleNone" value="none"></option>
-                                        <option data-translation-key="groundEdgeStyleCut" value="cut"></option>
-                                        <option data-translation-key="groundEdgeStyleOutline" value="outlined" data-option-form="outlinedGeneralCustomizationForm"></option>
-                                    </select>
-                                </label>
-                            </legend>
-                            <div id="groundEdgeDefaultContent" data-translation-key="groundEdgeDefaultContent"></div>
-                            <div id="outlinedGeneralCustomizationForm">
-                                <label><span data-translation-key="outlinedGroundOutlineColor"></span><input type="color" id="outlinedGroundOutlineColor" value="#E9A442"></label><br>
-                                <label><span data-translation-key="outlinedGroundEdgeColor"></span><input type="color" id="outlinedGroundEdgeColor" value="#DB943F"></label><br>
-                            </div>
-                        </fieldset>
-                        <!-- 火山風グラデーション -->
-                        <label><span data-translation-key="volcanicGradient"></span><input type="checkbox" id="enableVolcanicGradient" data-off-or-input="volcanoSettingLabel"></label>
-                        <label class="disabledLabel" id="volcanoSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="volcanicGradientColor" disabled value="#E2A132"></label>
-                        <br>
-                        <!-- 線を2重にする設定 -->
-                        <label><span data-translation-key="lineAura"></span><input type="checkbox" id="doubleLines"></label><br>
+                        <div id="groundSettings">
+                            <h2 data-translation-key="groundSettingsHeading">Ground settings</h2>
+                            <!-- 普通床の色 -->
+                            <label><span data-translation-key="groundColor"></span><input type="color" id="groundColor" value="#FCB642"></label>
+                            <!-- 普通床の線 -->
+                            <label><span data-translation-key="groundLineColor"></span><input type="color" id="groundLineColor" value="#E79E4A"></label>
+                            <!-- 普通床の側面 -->
+                            <label><span data-translation-key="groundSideColor"></span><input type="color" id="groundSideColor" value="#C37E39"></label>
+                            <!-- 普通床の端のスタイル -->
+                            <fieldset id="groundStyleForm" class="selectForm" data-default-form="groundEdgeDefaultContent" data-form-selector="groundEdgeStyle">
+                                <legend>
+                                    <label><span data-translation-key="groundEdgeStyle"></span>
+                                        <select id="groundEdgeStyle">
+                                            <option data-translation-key="groundEdgeStyleNone" value="none"></option>
+                                            <option data-translation-key="groundEdgeStyleCut" value="cut"></option>
+                                            <option data-translation-key="groundEdgeStyleOutline" value="outlined" data-option-form="outlinedGeneralCustomizationForm"></option>
+                                        </select>
+                                    </label>
+                                </legend>
+                                <div id="groundEdgeDefaultContent" data-translation-key="groundEdgeDefaultContent"></div>
+                                <div id="outlinedGeneralCustomizationForm">
+                                    <label><span data-translation-key="outlinedGroundOutlineColor"></span><input type="color" id="outlinedGroundOutlineColor" value="#E9A442"></label><br>
+                                    <label><span data-translation-key="outlinedGroundEdgeColor"></span><input type="color" id="outlinedGroundEdgeColor" value="#DB943F"></label><br>
+                                </div>
+                            </fieldset>
+                            <!-- 線設定 -->
+                            <label>
+                                <span data-translation-key="lineStyle"></span>
+                                <select id="lineStyle">
+                                    <option data-translation-key="lineStyleNormal" value="normal"></option>
+                                    <option data-translation-key="lineStyleDouble" value="double"></option>
+                                    <option data-translation-key="lineStyleThin" value="thin"></option>
+                                    <option data-translation-key="lineStyleSharp" value="sharp"></option>
+                                    <option data-translation-key="lineStyleGlowing" value="glowing"></option>
+                                </select>
+                            </label><br>
+                            <!-- 火山風グラデーション -->
+                            <label><span data-translation-key="volcanicGradient"></span><input type="checkbox" id="enableVolcanicGradient" data-off-or-input="volcanoSettingLabel"></label>
+                            <label class="disabledLabel" id="volcanoSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="volcanicGradientColor" disabled value="#E2A132"></label>
+                            <br>
+                        </div>
 
                         <!-- ジャンプ床の設定 -->
-                        <h2 data-translation-key="jumppadSettingsHeading">Jumppad settings</h2>
-                        <!-- ジャンプ床の色 -->
-                        <label><span data-translation-key="jumppadColor"></span><input type="color" id="jumppadColor" value="#FC873F"></label>
-                        <!-- ジャンプ床のON時色 -->
-                        <label><span data-translation-key="jumppadColorActive"></span><input type="color" id="jumppadColorActive" value="#FFAB2B"></label>
-                        <br>
-                        <!-- ジャンプ床のOFF時の線 -->
-                        <label><span data-translation-key="jumppadLineColor"></span><input type="color" id="jumppadLineColor" value="#EF7939"></label>
-                        <!-- ジャンプ床のON時の線 -->
-                        <label><span data-translation-key="jumppadLineColorActive"></span><input type="color" id="jumppadLineColorActive" value="#FFFF00"></label><br>
-                        <!-- ジャンプ床のOFF時側面 -->
-                        <label><span data-translation-key="jumppadSideColor"></span><input type="color" id="jumppadSideColor" value="#D66F3F"></label>
-                        <!-- ジャンプ床のON時側面 -->
-                        <label><span data-translation-key="jumppadSideColorActive"></span><input type="color" id="jumppadSideColorActive" value="#FFFF00"></label><br>
+                        <div id="jumppadSettings">
+                            <h2 data-translation-key="jumppadSettingsHeading">Jumppad settings</h2>
+                            <!-- ジャンプ床の色 -->
+                            <label><span data-translation-key="jumppadColor"></span><input type="color" id="jumppadColor" value="#FC873F"></label>
+                            <!-- ジャンプ床のON時色 -->
+                            <label><span data-translation-key="jumppadColorActive"></span><input type="color" id="jumppadColorActive" value="#FFAB2B"></label>
+                            <br>
+                            <!-- ジャンプ床のOFF時の線 -->
+                            <label><span data-translation-key="jumppadLineColor"></span><input type="color" id="jumppadLineColor" value="#EF7939"></label>
+                            <!-- ジャンプ床のON時の線 -->
+                            <label><span data-translation-key="jumppadLineColorActive"></span><input type="color" id="jumppadLineColorActive" value="#FFFF00"></label><br>
+                            <!-- ジャンプ床のOFF時側面 -->
+                            <label><span data-translation-key="jumppadSideColor"></span><input type="color" id="jumppadSideColor" value="#D66F3F"></label>
+                            <!-- ジャンプ床のON時側面 -->
+                            <label><span data-translation-key="jumppadSideColorActive"></span><input type="color" id="jumppadSideColorActive" value="#FFFF00"></label><br>
 
-                        <!-- 起動時のジャンプ床面部分の発光を無効化 -->
-                        <label><span data-translation-key="disableActiveJumppadGlow"></span><input type="checkbox" id="disableActiveJumppadGlow"></label><br>
+                            <!-- 起動時のジャンプ床面部分の発光を無効化 -->
+                            <label><span data-translation-key="disableActiveJumppadGlow"></span><input type="checkbox" id="disableActiveJumppadGlow"></label><br>
 
-                        <!-- ジャンプ床のスタイル -->
-                        <fieldset id="jumppadStyleForm" class="selectForm" data-default-form="jumppadCustomizationDefaultContent" data-form-selector="jumppadStyle">
-                            <legend>
-                                <label><span data-translation-key="jumppadStyle"></span>
-                                    <select id="jumppadStyle">
-                                        <option data-translation-key="jumppadStyleNormal" value="none"></option>
-                                        <optgroup data-translation-key="jumppadStyleFromRS" label="">
-                                            <option data-translation-key="jumppadStyleCut" value="cut"></option>
-                                            <option data-translation-key="jumppadStyleGrid" value="grid" data-option-form="gridJumppadCustomizationForm"></option>
-                                            <option data-translation-key="jumppadStyleSquares" value="squares" data-option-form="squaresJumppadCustomizationForm"></option>
-                                            <option data-translation-key="jumppadStyleChina" value="china" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                            <option data-translation-key="jumppadStyleChecker" value="checker" data-option-form="checkerJumppadCustomizationForm"></option>
-                                            <!--<option data-translation-key="jumppadStyleHexagons" value="hexagon"></option>-->
-                                        </optgroup>
-                                        <optgroup data-translation-key="jumppadStyleFanmade" label="">
-                                            <!--<option data-translation-key="jumppadStyleCave" value="cave"></option>-->
-                                            <!-- 参考: Rolling Fanmade - Cave -->
-                                            <option data-translation-key="jumppadStyleChemistry" value="chemistry" data-option-form="gridJumppadCustomizationForm"></option>
-                                            <!-- 参考: Professional Block - Chemistry -->
-                                            <option data-translation-key="jumppadStyleDynamicHill" value="dhill" data-option-form="generalPatternedJumppadCustomizationForm"></option>
-                                            <!-- 参考: Professional Block - Dynamic Hill -->
-                                            <!--<option data-translation-key="jumppadStyleScale" value="scale" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
-                                            <!-- 参考: Rolling Zealous - Ocean -->
-                                            <option data-translation-key="jumppadStyleCitrus" value="citrus" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                            <!-- 参考: Rolling Universe - Cotton Candy -->
-                                            <!--<option data-translation-key="jumppadStyleHourglass" value="hourglass"></option>-->
-                                            <!-- 参考: Rolling Universe - The Time -->
-                                            <option data-translation-key="jumppadStyleWanderingHabits" value="wander" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                            <!-- 参考: Rolling Universe - Low Life -->
-                                            <option data-translation-key="jumppadStyleSimpleCircle" value="simplecircle" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                            <!-- 参考: Rolling Universe - Faith -->
-                                            <!--<option data-translation-key="jumppadStyleExplorers" value="explorers" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
-                                            <!-- 参考: Rolling Fanmade - Explorers -->
-                                            <option data-translation-key="jumppadStyleRollingWorld" value="rworld" data-option-form="generalPatternedJumppadCustomizationForm"></option>
-                                            <!-- 参考: Rolling World -->
-                                        </optgroup>
-                                        <!--<optgroup data-translation-key="jumppadStyleCustom">
+                            <!-- ジャンプ床のスタイル -->
+                            <fieldset id="jumppadStyleForm" class="selectForm" data-default-form="jumppadCustomizationDefaultContent" data-form-selector="jumppadStyle">
+                                <legend>
+                                    <label><span data-translation-key="jumppadStyle"></span>
+                                        <select id="jumppadStyle">
+                                            <option data-translation-key="jumppadStyleNormal" value="none"></option>
+                                            <optgroup data-translation-key="patternStyleFromRS" label="">
+                                                <option data-translation-key="jumppadStyleCut" value="cut"></option>
+                                                <option data-translation-key="jumppadStyleGrid" value="grid" data-option-form="gridJumppadCustomizationForm"></option>
+                                                <option data-translation-key="jumppadStyleSquares" value="squares" data-option-form="squaresJumppadCustomizationForm"></option>
+                                                <option data-translation-key="jumppadStyleChina" value="china" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
+                                                <option data-translation-key="jumppadStyleChecker" value="checker" data-option-form="checkerJumppadCustomizationForm"></option>
+                                                <!--<option data-translation-key="jumppadStyleHexagons" value="hexagon"></option>-->
+                                            </optgroup>
+                                            <optgroup data-translation-key="patternStyleFanmade" label="">
+                                                <!--<option data-translation-key="jumppadStyleCave" value="cave"></option>-->
+                                                <!-- 参考: Rolling Fanmade - Cave -->
+                                                <option data-translation-key="jumppadStyleChemistry" value="chemistry" data-option-form="gridJumppadCustomizationForm"></option>
+                                                <!-- 参考: Professional Block - Chemistry -->
+                                                <option data-translation-key="jumppadStyleDynamicHill" value="dhill" data-option-form="generalPatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Professional Block - Dynamic Hill -->
+                                                <!--<option data-translation-key="jumppadStyleScale" value="scale" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
+                                                <!-- 参考: Rolling Zealous - Ocean -->
+                                                <option data-translation-key="jumppadStyleCitrus" value="citrus" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Universe - Cotton Candy -->
+                                                <!--<option data-translation-key="jumppadStyleHourglass" value="hourglass"></option>-->
+                                                <!-- 参考: Rolling Universe - The Time -->
+                                                <option data-translation-key="jumppadStyleWanderingHabits" value="wander" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Universe - Low Life -->
+                                                <option data-translation-key="jumppadStyleSimpleCircle" value="simplecircle" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Universe - Faith -->
+                                                <!--<option data-translation-key="jumppadStyleExplorers" value="explorers" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
+                                                <!-- 参考: Rolling Fanmade - Explorers -->
+                                                <option data-translation-key="jumppadStyleRollingWorld" value="rworld" data-option-form="generalPatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling World -->
+                                            </optgroup>
+                                            <!--<optgroup data-translation-key="jumppadStyleCustom">
                                             <option data-translation-key="jumppadStyleStar" value="star"></option>
-                                        </optgroup>-->
-                                    </select>
-                                </label>
-                            </legend>
-                            <div id="jumppadCustomizationDefaultContent" data-translation-key="jumppadCustomizationDefaultContent" class="selectedForm"></div>
-                            <div id="generalSinglePatternedJumppadCustomizationForm">
-                                <label><span data-translation-key="patternColor"></span><input type="color" id="gspJumppad" value="#ffff00"></label><br>
-                            </div>
-                            <div id="generalPatternedJumppadCustomizationForm">
-                                <span data-translation-key="patternColor"></span>
-                                <label><span data-translation-key="inactive"></span><input type="color" id="gpJumppadInactive" value="#FFAF7A"></label>
-                                <label><span data-translation-key="active"></span><input type="color" id="gpJumppadActive" value="#FDFF94"></label>
-                            </div>
-                            <div id="gridJumppadCustomizationForm">
-                                <label><span data-translation-key="activeOnlyGrid"></span><input type="checkbox" id="activeOnlyGrid" data-off-or-input="inactiveJumppadGridLabel" data-offorinput-inverted></label>
-                                <label id="inactiveJumppadGridLabel"><span data-translation-key="inactiveGridColor"></span><input type="color" id="inactiveGridColor" value="#EF7939"></label>
-                            </div>
-                            <div id="squaresJumppadCustomizationForm">
-                                <label><span data-translation-key="squaresJumppadInactiveInner"></span><input type="color" id="squaresJumppadInactiveInner" value="#FC873F"></label><br>
-                                <label><span data-translation-key="squaresJumppadInactiveOuter"></span><input type="color" id="squaresJumppadInactiveOuter" value="#FFAF7A"></label><br>
-                                <label><span data-translation-key="squaresJumppadActiveInner"></span><input type="color" id="squaresJumppadActiveInner" value="#FFAB2B"></label><br>
-                                <label><span data-translation-key="squaresJumppadActiveOuter"></span><input type="color" id="squaresJumppadActiveOuter" value="#FDFF94"></label>
-                            </div>
-                            <div id="checkerJumppadCustomizationForm">
-                                <label><span data-translation-key="checkerJumppadInactiveEdge"></span><input type="color" id="checkerJumppadInactiveEdge" value="#E27832"></label><br>
-                                <label><span data-translation-key="checkerJumppadActiveEdge"></span><input type="color" id="checkerJumppadActiveEdge" value="#F29D26"></label><br>
-                                <label><span data-translation-key="inactiveJumppadGlow"></span><input type="checkbox" id="inactiveJumppadGlow" checked data-off-or-input="inactiveJumppadGlowLabel"></label>
-                                <label id="inactiveJumppadGlowLabel"><span data-translation-key="UsedColor"></span><input type="color" id="inactiveJumppadGlowColor" value="#FFFFFF"></label>
-                            </div>
-                        </fieldset>
+                                        </optgroup>
+                                        -->
+                                            <option data-translation-key="importImages" value="import" data-option-form="importJumppadCustomizationForm"></option>
+                                        </select>
+                                    </label>
+                                </legend>
+                                <div id="jumppadCustomizationDefaultContent" data-translation-key="jumppadCustomizationDefaultContent" class="selectedForm"></div>
+                                <div id="generalSinglePatternedJumppadCustomizationForm">
+                                    <label><span data-translation-key="patternColor"></span><input type="color" id="gspJumppad" value="#ffff00"></label><br>
+                                </div>
+                                <div id="generalPatternedJumppadCustomizationForm">
+                                    <span data-translation-key="patternColor"></span>
+                                    <label><span data-translation-key="inactive"></span><input type="color" id="gpJumppadInactive" value="#FFAF7A"></label>
+                                    <label><span data-translation-key="active"></span><input type="color" id="gpJumppadActive" value="#FDFF94"></label>
+                                </div>
+                                <div id="gridJumppadCustomizationForm">
+                                    <label><span data-translation-key="activeOnlyGrid"></span><input type="checkbox" id="activeOnlyGrid" data-off-or-input="inactiveJumppadGridLabel" data-offorinput-inverted></label>
+                                    <label id="inactiveJumppadGridLabel"><span data-translation-key="inactiveGridColor"></span><input type="color" id="inactiveGridColor" value="#EF7939"></label>
+                                </div>
+                                <div id="squaresJumppadCustomizationForm">
+                                    <label><span data-translation-key="squaresJumppadInactiveInner"></span><input type="color" id="squaresJumppadInactiveInner" value="#FC873F"></label><br>
+                                    <label><span data-translation-key="squaresJumppadInactiveOuter"></span><input type="color" id="squaresJumppadInactiveOuter" value="#FFAF7A"></label><br>
+                                    <label><span data-translation-key="squaresJumppadActiveInner"></span><input type="color" id="squaresJumppadActiveInner" value="#FFAB2B"></label><br>
+                                    <label><span data-translation-key="squaresJumppadActiveOuter"></span><input type="color" id="squaresJumppadActiveOuter" value="#FDFF94"></label>
+                                </div>
+                                <div id="checkerJumppadCustomizationForm">
+                                    <label><span data-translation-key="checkerJumppadInactiveEdge"></span><input type="color" id="checkerJumppadInactiveEdge" value="#E27832"></label><br>
+                                    <label><span data-translation-key="checkerJumppadActiveEdge"></span><input type="color" id="checkerJumppadActiveEdge" value="#F29D26"></label><br>
+                                    <label><span data-translation-key="inactiveJumppadGlow"></span><input type="checkbox" id="inactiveJumppadGlow" checked data-off-or-input="inactiveJumppadGlowLabel"></label>
+                                    <label id="inactiveJumppadGlowLabel"><span data-translation-key="UsedColor"></span><input type="color" id="inactiveJumppadGlowColor" value="#FFFFFF"></label>
+                                </div>
+                                <div id="importJumppadCustomizationForm">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th data-translation-key="active"></th>
+                                                <th data-translation-key="inactive"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th data-translation-key="importImages"></th>
+                                                <td><label for="jumppadActiveImportControl"><img height="146" width="146" id="jumppadActiveImg" class="imgImport"></label></td>
+                                                <td><label for="jumppadInactiveImportControl"><img height="146" width="146" id="jumppadInactiveImg" class="imgImport"></label></td>
+                                            </tr>
+                                            <input id="jumppadActiveImportControl" type="file" accept="image/*" data-loading-process="jumppadActiveImportControlLoadingProgress" data-load-destination="jumppadActiveImg" data-img-clear-button="jumppadActiveImgClear">
+                                            <input id="jumppadInactiveImportControl" type="file" accept="image/*" data-loading-process="jumppadInactiveImportControlLoadingProgress" data-load-destination="jumppadInactiveImg" data-img-clear-button="jumppadInactiveImgClear">
+                                            <tr>
+                                                <th data-translation-key="importStatus"></th>
+                                                <td><span id="jumppadActiveImportControlLoadingProgress">-</span></td>
+                                                <td><span id="jumppadInactiveImportControlLoadingProgress">-</span></td>
+                                            </tr>
+                                            <tr>
+                                                <th data-translation-key="removeImage"></th>
+                                                <td><a id="jumppadActiveImgClear">X</a></td>
+                                                <td><a id="jumppadInactiveImgClear">X</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <span data-translation-key="recommendedImgSize"></span>146x146)
+                                    <p data-translation-key="jumpTextureUsageExpl"></p>
+                                    <div data-translation-key="objectPreview"></div>
+                                    <canvas id="jumpPadPreview" width="340" height="180"></canvas>
+                                </div>
+                            </fieldset>
+                        </div>
 
                         <!-- ガラス床の設定 -->
-                        <h2 data-translation-key="fragileSettingHeading"></h2>
-                        <label><span data-translation-key="fragileColor"></span><input type="color" id="fragileColor" value="#73BBBF"></label>
-                        <label><span data-translation-key="fragileActiveColor"></span><input type="color" id="fragileActiveColor" value="#60A0A2"></label><br>
-                        <label><span data-translation-key="fragileLineColor"></span><input type="color" id="fragileLineColor" value="#9FE0FF"></label>
-                        <label><span data-translation-key="fragileActiveLineColor"></span><input type="color" id="fragileActiveLineColor" value="#9CDFFF"></label><br>
-                        <label><span data-translation-key="fragileSideColor"></span><input type="color" id="fragileSideColor" value="#91BCC6"></label>
-                        <label><span data-translation-key="fragileActiveSideColor"></span><input type="color" id="fragileActiveSideColor" value="#91BCC6"></label><br>
-                        <fieldset id="fragileStyleForm" class="selectForm" data-default-form="fragileCustomizationDefaultContent" data-form-selector="fragileStyle">
-                            <legend>
-                                <label><span data-translation-key="fragileStyle"></span>
-                                    <select id="fragileStyle">
-                                        <option value="stripes" data-translation-key="fragileStyleStripes" data-option-form="stripesFragilecustomizationForm"></option>
-                                        <option value="plain" data-translation-key="fragileStylePlain"></option>
-                                        <option value="cave" data-translation-key="fragileStyleCave"></option>
-                                        <option value="bubbles" data-translation-key="fragileStyleBubbles"></option>
-                                    </select>
-                                </label>
-                            </legend>
-                            <div id="fragileCustomizationDefaultContent" data-translation-key="fragileCustomizationDefaultContent" class="selectedForm">
-                            </div>
-                            <div id="stripesFragilecustomizationForm">
-                                <label><span data-translation-key="fragileStripeColor"></span><input type="color" id="fragileStripeColor" value="#ADE5EF"></label><br>
-                                <label><span data-translation-key="fragileActiveStripeColor"></span><input type="color" id="fragileActiveStripeColor" value="#C0F0FC"></label><br>
-                            </div>
-                        </fieldset>
+                        <div id="fragileSettings">
+                            <h2 data-translation-key="fragileSettingHeading"></h2>
+                            <table class="colorSettingTable">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <th data-translation-key="inactive"></th>
+                                        <th data-translation-key="active"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <!-- 上面の色 -->
+                                        <th data-translation-key="top"></th>
+                                        <td><label><input type="color" id="fragileColor" value="#73BBBF"></label></td>
+                                        <td><label><input type="color" id="fragileActiveColor" value="#60A0A2"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 線の色 -->
+                                        <th data-translation-key="line"></th>
+                                        <td><label><input type="color" id="fragileLineColor" value="#9FE0FF"></label></td>
+                                        <td><label><input type="color" id="fragileActiveLineColor" value="#9CDFFF"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 側面の色 -->
+                                        <th data-translation-key="side"></th>
+                                        <td><label><input type="color" id="fragileSideColor" value="#91BCC6"></label></td>
+                                        <td><label><input type="color" id="fragileActiveSideColor" value="#91BCC6"></label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <fieldset id="fragileStyleForm" class="selectForm" data-default-form="fragileEdgeCustomizationDefaultContent" data-form-selector="fragileStyle">
+                                <legend>
+                                    <label><span data-translation-key="fragileStyle"></span>
+                                        <select id="fragileStyle">
+                                            <option value="plain" data-translation-key="fragileStylePlain"></option>
+                                            <optgroup data-translation-key="patternStyleFromRS" label="">
+                                                <option value="stripes" data-translation-key="fragileStyleStripes" data-option-form="stripesFragilecustomizationForm" selected></option>
+                                                <option value="boxes" data-translation-key="fragileStyleallLines"></option>
+                                            </optgroup>
+                                            <optgroup data-translation-key="patternStyleFanmade" label="">
+                                                <option value="cave" data-translation-key="fragileStyleCave"></option>
+                                                <option value="bubbles" data-translation-key="fragileStyleBubbles"></option>
+                                                <option value="double" data-translation-key="fragileLineStyleDouble"></option>
+                                            </optgroup>
+                                        </select>
+                                    </label>
+                                </legend>
+                                <div id="fragileEdgeCustomizationDefaultContent" data-translation-key="fragileCustomizationDefaultContent" class="selectedForm">
+                                </div>
+                                <div id="stripesFragilecustomizationForm">
+                                    <label><span data-translation-key="fragileStripeColor"></span><input type="color" id="fragileStripeColor" value="#ADE5EF"></label><br>
+                                    <label><span data-translation-key="fragileActiveStripeColor"></span><input type="color" id="fragileActiveStripeColor" value="#C0F0FC"></label><br>
+                                </div>
+                            </fieldset>
+
+                            <fieldset id="fragileInnerDecoForm" class="selectForm" data-default-form="fragileInnerDecoDefaultContent" data-form-selector="fragileInnerStyle">
+                                <legend>
+                                    <label><span data-translation-key="fragileInnerStyle"></span>
+                                        <select id="fragileInnerStyle">
+                                            <option value="none" data-translation-key="fragileStyleNoDeco"></option>
+                                            <option value="snowflake" data-translation-key="fragileStyleSnowflake" data-option-form="fragileInnerDecoSingleColor"></option>
+                                        </select>
+                                    </label>
+                                </legend>
+                                <div id="fragileInnerDecoDefaultContent" data-translation-key="fragileCustomizationDefaultContent" class="selectedForm">
+                                </div>
+                                <div id="fragileInnerDecoSingleColor">
+                                    <label><span data-translation-key="inactive"></span><input type="color" id="fragileInnerInactiveDecoColor" value="#E0F8CE"></label><br>
+                                    <label><span data-translation-key="active"></span><input type="color" id="fragileInnerActiveDecoColor" value="#C0F0FC"></label><br>
+                                </div>
+                            </fieldset>
+                        </div>
 
                         <!-- 補助パレットの設定 -->
-                        <h2 data-translation-key="generalVariationHeading"></h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Ground</th>
-                                    <th>Fragile</th>
-                                    <th>FragileActive</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th data-translation-key="generalVariation1"></th>
-                                    <td><input type="color" id="groundVariation1" value="#E79F42"></td>
-                                    <td><input type="color" id="fragileVariation1" value="#6697A9"></td>
-                                    <td><input type="color" id="frgActiveVariation1" value="#8FC1C1"></td>
-                                </tr>
-                                <tr>
-                                    <th data-translation-key="generalVariation2"></th>
-                                    <td><input type="color" id="groundVariation2" value="#E9A442"></td>
-                                    <td><input type="color" id="fragileVariation2" value="#98D2DA"></td>
-                                    <td><input type="color" id="frgActiveVariation2" value="#92C9C9"></td>
-                                </tr>
-                                <tr>
-                                    <th data-translation-key="generalVariation3"></th>
-                                    <td><input type="color" id="groundVariation3" value="#DB943F"></td>
-                                    <td><input type="color" id="fragileVariation3" value="#9AD7E7"></td>
-                                    <td><input type="color" id="frgActiveVariation3" value="#98D3E2"></td>
-                                </tr>
-                                <tr>
-                                    <th data-translation-key="generalVariation4"></th>
-                                    <td><input type="color" id="groundVariation4" value="#CB873C"></td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div id="generalVariationSettings">
+                            <h2 data-translation-key="generalVariationHeading"></h2>
+                            <p data-translation-key="generalPaletteSummary">
+                            </p>
+                            <table class="colorSettingTable">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Ground</th>
+                                        <th>Fragile</th>
+                                        <th>FragileActive</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th data-translation-key="generalVariation1"></th>
+                                        <td><input type="color" id="groundVariation1" value="#E79F42"></td>
+                                        <td><input type="color" id="fragileVariation1" value="#6697A9"></td>
+                                        <td><input type="color" id="frgActiveVariation1" value="#8FC1C1"></td>
+                                    </tr>
+                                    <tr>
+                                        <th data-translation-key="generalVariation2"></th>
+                                        <td><input type="color" id="groundVariation2" value="#E9A442"></td>
+                                        <td><input type="color" id="fragileVariation2" value="#98D2DA"></td>
+                                        <td><input type="color" id="frgActiveVariation2" value="#92C9C9"></td>
+                                    </tr>
+                                    <tr>
+                                        <th data-translation-key="generalVariation3"></th>
+                                        <td><input type="color" id="groundVariation3" value="#DB943F"></td>
+                                        <td><input type="color" id="fragileVariation3" value="#9AD7E7"></td>
+                                        <td><input type="color" id="frgActiveVariation3" value="#98D3E2"></td>
+                                    </tr>
+                                    <tr>
+                                        <th data-translation-key="generalVariation4"></th>
+                                        <td><input type="color" id="groundVariation4" value="#CB873C"></td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
                         <!-- 移動床の設定 -->
-                        <h2 data-translation-key="moverSettingHeading"></h2>
-                        <!-- 色 -->
-                        <label><span data-translation-key="moverSameColor"></span><input type="checkbox" id="moverSameColor" data-off-or-input="moverMainColorLabel" data-offorinput-inverted checked></label>
-                        <label class="disabledLabel" id="moverMainColorLabel"><span data-translation-key="UsedColor"></span><input type="color" id="moverMainColor" disabled value="#00FF00"></label><br>
-                        <label><span data-translation-key="moverLineColor"></span><input type="color" id="moverLineColor" value="#E79E4A"></label>
-                        <label><span data-translation-key="moverAutoLineColor"></span><input type="color" id="moverAutoLineColor" value="#E79E4A"></label><br>
-
-                        <!-- 縁の色 -->
-                        <label><span data-translation-key="moverOutlineColor"></span><input type="color" id="moverOutlineColor" value="#FC873F"></label>
-                        <label><span data-translation-key="moverAutoOutlineColor"></span><input type="color" id="moverAutoOutlineColor" value="#08E0DB"></label><br>
-
-                        <!-- 縁の境目の色 -->
-                        <label><span data-translation-key="moverOutlineBorderColor"></span><input type="color" id="moverOutlineBorderColor" value="#EC7C39"></label>
-                        <label><span data-translation-key="moverAutoOutlineBorderColor"></span><input type="color" id="moverAutoOutlineBorderColor" value="#29B2B5"></label><br>
-
-                        <!-- 側面 -->
-                        <label><span data-translation-key="moverSideColor"></span><input type="color" id="moverSideColor" value="#DB6F31"></label>
-                        <label><span data-translation-key="moverAutoSideColor"></span><input type="color" id="moverAutoSideColor" value="#23B4B2"></label><br>
-
-                        <!-- 起動三角 -->
-                        <label><span data-translation-key="moverActiveArrowColor"></span><input type="color" id="moverActiveArrowColor" value="#FFAB2B"></label>
-                        <label><span data-translation-key="moverAutoActiveArrowColor"></span><input type="color" id="moverAutoActiveArrowColor" value="#36E7E4"></label><br>
-
-                        <!-- 起動三角の縁 -->
-                        <label><span data-translation-key="moverActiveArrowBorderColor"></span><input type="color" id="moverActiveArrowBorderColor" value="#FFEB08"></label>
-                        <label><span data-translation-key="moverAutoActiveArrowBorderColor"></span><input type="color" id="moverAutoActiveArrowBorderColor" value="#9FF7F7"></label><br>
-
-                        <label><span data-translation-key="moverArrowTopColor"></span><input type="color" id="moverArrowTopColor" value="#E9A442"></label>
-                        <label><span data-translation-key="moverArrowUpperSideColor"></span><input type="color" id="moverArrowUpperSideColor" value="#DB943F"></label>
-                        <label><span data-translation-key="moverArrowSideColor"></span><input type="color" id="moverArrowSideColor" value="#CB873C"></label>
+                        <div id="moverSettings">
+                            <h2 data-translation-key="moverSettingHeading"></h2>
+                            <!-- 色 -->
+                            <label><span data-translation-key="moverSameColor"></span><input type="checkbox" id="moverSameColor" data-off-or-input="moverMainColorLabel" data-offorinput-inverted checked></label>
+                            <label class="disabledLabel" id="moverMainColorLabel"><span data-translation-key="UsedColor"></span><input type="color" id="moverMainColor" disabled value="#00FF00"></label><br>
+                            <!-- 強制線無効化 -->
+                            <label><span data-translation-key="moverNoOutlines"></span><input type="checkbox" id="moverNoOutlines"></label><br>
+                            <table class="colorSettingTable">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <th data-translation-key="mover"></th>
+                                        <th data-translation-key="automover"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <!-- 線の色 -->
+                                        <th data-translation-key="line"></th>
+                                        <td><label><input type="color" id="moverLineColor" value="#E79E4A"></label></td>
+                                        <td><label><input type="color" id="moverAutoLineColor" value="#E79E4A"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 縁の色 -->
+                                        <th data-translation-key="moverOutlineColor"></th>
+                                        <td><label><input type="color" id="moverOutlineColor" value="#FC873F"></label></td>
+                                        <td><label><input type="color" id="moverAutoOutlineColor" value="#08E0DB"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 縁の境目の色 -->
+                                        <th data-translation-key="moverOutlineBorderColor"></th>
+                                        <td><label><input type="color" id="moverOutlineBorderColor" value="#EC7C39"></label></td>
+                                        <td><label><input type="color" id="moverAutoOutlineBorderColor" value="#29B2B5"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 側面 -->
+                                        <th data-translation-key="side"></th>
+                                        <td><label><input type="color" id="moverSideColor" value="#DB6F31"></label></td>
+                                        <td><label><input type="color" id="moverAutoSideColor" value="#23B4B2"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 起動三角 -->
+                                        <th data-translation-key="moverActiveArrowColor"></th>
+                                        <td><label><input type="color" id="moverActiveArrowColor" value="#FFAB2B"></label></td>
+                                        <td><label><input type="color" id="moverAutoActiveArrowColor" value="#36E7E4"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <!-- 起動三角の縁 -->
+                                        <th data-translation-key="moverActiveArrowBorderColor"></th>
+                                        <td><label><input type="color" id="moverActiveArrowBorderColor" value="#FFEB08"></label></td>
+                                        <td><label><input type="color" id="moverAutoActiveArrowBorderColor" value="#9FF7F7"></label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <label><span data-translation-key="moverArrowTopColor"></span><input type="color" id="moverArrowTopColor" value="#E9A442"></label>
+                            <label><span data-translation-key="moverArrowUpperSideColor"></span><input type="color" id="moverArrowUpperSideColor" value="#DB943F"></label>
+                            <label><span data-translation-key="moverArrowSideColor"></span><input type="color" id="moverArrowSideColor" value="#CB873C"></label>
+                        </div>
 
                         <!-- 通過オブジェクト(Midground)の設定 -->
-                        <h2 data-translation-key="midGroundSettingHeading"></h2>
-                        <label><span data-translation-key="midGroundTopColor"></span><input type="color" id="midGroundTopColor" value="#21C7D0"></label>
-                        <label><span data-translation-key="midGroundBottomColor"></span><input type="color" id="midGroundBottomColor" value="#12D8E1"></label><br>
-                        <label><span data-translation-key="midGroundWindows"></span><input type="checkbox" id="midGroundWindows"></label><br>
-                        <label><span data-translation-key="midGroundWindowsTop"></span><input type="color" id="midGroundWindowsTop" value="#AAEAEE"></label><br>
-                        <label><span data-translation-key="midGroundWindowsMiddle"></span><input type="color" id="midGroundWindowsMiddle" value="#AAEAEE"></label><br>
-                        <label><span data-translation-key="midGroundWindowsBottom"></span><input type="color" id="midGroundWindowsBottom" value="#77E8EE"></label>
+                        <div id="midgroundSettings">
+                            <h2 data-translation-key="midGroundSettingHeading"></h2>
+                            <label><span data-translation-key="midGroundTopColor"></span><input type="color" id="midGroundTopColor" value="#21C7D0"></label>
+                            <label><span data-translation-key="midGroundBottomColor"></span><input type="color" id="midGroundBottomColor" value="#12D8E1"></label><br>
+                            <label><span data-translation-key="midGroundWindows"></span><input type="checkbox" id="midGroundWindows"></label><br>
+                            <label><span data-translation-key="midGroundWindowsTop"></span><input type="color" id="midGroundWindowsTop" value="#AAEAEE"></label><br>
+                            <label><span data-translation-key="midGroundWindowsMiddle"></span><input type="color" id="midGroundWindowsMiddle" value="#AAEAEE"></label><br>
+                            <label><span data-translation-key="midGroundWindowsBottom"></span><input type="color" id="midGroundWindowsBottom" value="#77E8EE"></label>
+                        </div>
 
                         <!-- ゴールテープの設定 -->
-                        <h2 data-translation-key="finishLineSettingHeading"></h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th data-translation-key="finishLineColorA"></th>
-                                    <th data-translation-key="finishLineColorB"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th data-translation-key="finishLineInactive"></th>
-                                    <td><input type="color" id="finishLineInactiveColorA" value="#FEC39F"></td>
-                                    <td><input type="color" id="finishLineInactiveColorB" value="#FEDBA2"></td>
-                                </tr>
-                                <tr>
-                                    <th data-translation-key="finishLineActive"></th>
-                                    <td><input type="color" id="finishLineActiveColorA" value="#FFC99C"></td>
-                                    <td><input type="color" id="finishLineActiveColorB" value="#FEE29B"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <label><span data-translation-key="finishLineActiveLine"></span><input type="color" id="finishLineActiveLine" value="#FFFC82"></label>
+                        <div id="finishLineSettings">
+                            <h2 data-translation-key="finishLineSettingHeading"></h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th data-translation-key="finishLineColorA"></th>
+                                        <th data-translation-key="finishLineColorB"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th data-translation-key="finishLineInactive"></th>
+                                        <td><input type="color" id="finishLineInactiveColorA" value="#FEC39F"></td>
+                                        <td><input type="color" id="finishLineInactiveColorB" value="#FEDBA2"></td>
+                                    </tr>
+                                    <tr>
+                                        <th data-translation-key="finishLineActive"></th>
+                                        <td><input type="color" id="finishLineActiveColorA" value="#FFC99C"></td>
+                                        <td><input type="color" id="finishLineActiveColorB" value="#FEE29B"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <label><span data-translation-key="finishLineActiveLine"></span><input type="color" id="finishLineActiveLine" value="#FFFC82"></label>
+                        </div>
 
                         <!-- ジェムの設定 -->
-                        <h2 data-translation-key="gemSettingHeading"></h2>
-                        <label><span data-translation-key="gemColor"></span><input type="color" id="gemColor" value="#FF5F44"></label><br>
-                        <label><span data-translation-key="gemLineColor"></span><input type="color" id="gemLineColor" value="#FF7952"></label><br>
-                        <label><span data-translation-key="gemLightColor"></span><input type="color" id="gemLightColor" value="#FF5F44"></label>
+                        <div id="lowGemSettings">
+                            <h2 data-translation-key="gemSettingHeading"></h2>
+                            <label><span data-translation-key="gemColor"></span><input type="color" id="gemColor" value="#FF5F44"></label><br>
+                            <label><span data-translation-key="gemLineColor"></span><input type="color" id="gemLineColor" value="#FF7952"></label><br>
+                            <label><span data-translation-key="gemLightColor"></span><input type="color" id="gemLightColor" value="#FF5F44"></label>
+                        </div>
                     </div>
 
                     <div id="enemyForm" class="appElement appForm hidden">
@@ -582,7 +716,7 @@
                                             <table>
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
+                                                        <td></td>
                                                         <th data-translation-key="cubeStructureTop"></th>
                                                         <th data-translation-key="cubeStructureFront"></th>
                                                     </tr>
@@ -704,6 +838,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <tr>
+                                                <th data-translation-key="objNameNeonRoller"></th>
+                                                <td data-translation-key="neonObjThinLines"></td>
+                                                <td>dz4</td>
+                                            </tr>
                                             <tr>
                                                 <th data-translation-key="objName424"></th>
                                                 <td data-translation-key="neonObjCore"></td>
@@ -827,6 +966,8 @@
                                         </tr>
                                     </table>
                                 </div>
+                                <div id="kungfuSubBForm">
+                                </div>
                             </fieldset>
                         </div>
                         <!-- 反転床 -->
@@ -840,7 +981,7 @@
                                         <label>
                                             <span data-translation-key="flipTileType"></span>
                                             <select id="flipTileType">
-                                                <optgroup data-translation-key="flipperStyleFromRS" label="">
+                                                <optgroup data-translation-key="patternStyleFromRS" label="">
                                                     <option data-translation-key="flipTileCube" value="cube"></option>
                                                     <!-- 立方スタイル: 色A=前後の枠と左右の内側三角 色B=左右の枠と前後の内側三角 -->
                                                     <option data-translation-key="flipTileChecker" value="checker"></option>
@@ -856,126 +997,20 @@
                                                     <!--<option data-translation-key="flipTileCheckerFortune" value="fortune"></option>-->
                                                     <!-- ajrスタイル-->
                                                 </optgroup>
-                                                <!--
-                                                <optgroup data-translation-key="flipperStyleFanmade" label="">
+                                                <optgroup data-translation-key="patternStyleFanmade" label="">
                                                     <option data-translation-key="flipTileCheckerEdged" value="checkeredged"></option>
-                                                </optgroup>-->
-                                                <!-- 3D Spacial Zoneスタイル-->
+                                                    <!-- 3D Spacial Zoneスタイル-->
+                                                    <option data-translation-key="flipTileHeart" value="heart"></option>
+                                                    <!-- RWスタイル-->
+                                                </optgroup>
                                                 <option data-translation-key="flipTileCits" value="cits"></option>
                                                 <!-- 天空の城風(自作) -->
+                                                <option data-translation-key="flipTileFakeGround" value="fakeground"></option>
                                                 <option data-translation-key="importImages" value="import"></option>
-                                                <!--<option data-translation-key="flipTileFaleGround" value="fakeground"></option>-->
                                             </select>
                                         </label>
+                                        <!-- 新しく追加したらsavadataandinteractiveform.jsも更新する-->
                                     </legend>
-                                    <script>
-                                        window.addEventListener("load", function() {
-                                            function changeFlipTileForm() {
-                                                var flipTileType = document.getElementById("flipTileType").value;
-                                                var notTheSamePattern = ["import", "fakeground"];
-                                                if (notTheSamePattern.includes(flipTileType)) {
-                                                    document.getElementById("flipperColorForm").classList.add("hidden");
-                                                    if (flipTileType == "import"){
-                                                        document.getElementById("flipperNoCustomization").classList.add("hidden");
-                                                        document.getElementById("importFlipperCustomizationForm").classList.remove("hidden");
-                                                    }else{
-                                                        document.getElementById("importFlipperCustomizationForm").classList.add("hidden");
-                                                        document.getElementById("flipperNoCustomization").classList.remove("hidden");
-                                                    }
-                                                    return;
-                                                }
-                                                document.getElementById("flipperColorForm").classList.remove("hidden");
-                                                document.getElementById("importFlipperCustomizationForm").classList.add("hidden");
-                                                document.getElementById("flipperNoCustomization").classList.add("hidden");
-                                                const flipTileData = {
-                                                    "cube": {
-                                                        colorCount: 2,
-                                                        translationKeys: [
-                                                            "cubeFlipperColorA",
-                                                            "cubeFlipperColorB"
-                                                        ]
-                                                    },
-                                                    "checker": {
-                                                        colorCount: 2,
-                                                        translationKeys: [
-                                                            "checkerFlipperColorA",
-                                                            "checkerFlipperColorB"
-                                                        ]
-                                                    },
-                                                    "holly": {
-                                                        colorCount: 5,
-                                                        translationKeys: [
-                                                            "backgroundColor",
-                                                            "flipperFrameColor",
-                                                            "hollyFlipperPetalColor1",
-                                                            "hollyFlipperPetalColor2",
-                                                            "hollyFlipperSpotColor"
-                                                        ]
-                                                    },
-                                                    "rhombus": {
-                                                        colorCount: 3,
-                                                        translationKeys: [
-                                                            "backgroundColor",
-                                                            "flipperFrameColor",
-                                                            "rhombusFlipperRhombusColor"
-                                                        ]
-                                                    },
-                                                    "squares": {
-                                                        colorCount: 2,
-                                                        translationKeys: [
-                                                            "backgroundColor",
-                                                            "patternColor"
-                                                        ]
-                                                    },
-                                                    "uLines": {
-                                                        colorCount: 2,
-                                                        translationKeys: [
-                                                            "backgroundColor",
-                                                            "patternColor"
-                                                        ]
-                                                    },
-                                                    "star": {
-                                                        colorCount: 2,
-                                                        translationKeys: [
-                                                            "backgroundColor",
-                                                            "patternColor"
-                                                        ]
-                                                    },
-                                                    "semicircles": {
-                                                        colorCount: 3,
-                                                        translationKeys: [
-                                                            "demisemicirclesFlipperCenterColor",
-                                                            "demisemicirclesFlipperColorB",
-                                                            "demisemicirclesFlipperColorC"
-                                                        ]
-                                                    },
-                                                    "cits": {
-                                                        colorCount: 3,
-                                                        translationKeys: [
-                                                            "backgroundColor",
-                                                            "flipperFrameColor",
-                                                            "patternColor"
-                                                        ]
-                                                    }
-                                                };
-                                                var currentFlipData = flipTileData[flipTileType];
-                                                Array.from(document.getElementById("flipperColorForm").children).forEach(function(div, num) {
-                                                    if (num > currentFlipData.colorCount - 1) {
-                                                        div.classList.add("hidden");
-                                                        return;
-                                                    }
-                                                    div.classList.remove("hidden");
-                                                    var labelElem = div.children[0];
-                                                    labelElem.setAttribute("data-translation-key", currentFlipData.translationKeys[num]);
-                                                    labelElem.innerHTML = lang.callText(currentFlipData.translationKeys[num]);
-                                                });
-                                            }
-                                            changeFlipTileForm();
-                                            document.getElementById("flipTileType").addEventListener("change", changeFlipTileForm);
-                                            otherUpdateFunctions.push(changeFlipTileForm);
-                                        });
-
-                                    </script>
                                     <div id="flipperNoCustomization" data-translation-key="jumppadCustomizationDefaultContent"></div>
                                     <div id="flipperColorForm">
                                         <div>
@@ -1104,35 +1139,6 @@
                                     <label><span data-translation-key="mainStripeFront"></span><input type="color" id="mainStripe1ToneFront" value="#29DBD6"></label><br>
                                 </div>
                                 <label><span data-translation-key="addCenterLine"></span><input type="checkbox" id="addCenterLine"></label><br>
-                                <script>
-                                    window.addEventListener("load", function() {
-                                        function updateMSCF() {
-                                            var code = "0000";
-                                            switch (document.getElementById("mainStripeColorSteps").value) {
-                                                case "monotone":
-                                                    code = "0001";
-                                                    break;
-                                                case "twotones":
-                                                    code = "1100";
-                                                    break;
-                                                case "threetonesthickmiddle":
-                                                case "threetonesthinmiddle":
-                                                    code = "1110";
-                                            }
-                                            for (var i = 0; i < 4; i++) {
-                                                if (code.charAt(i) === "0") {
-                                                    document.getElementById("mainStripeColorForm" + (i + 1)).classList.add("hidden");
-                                                } else {
-                                                    document.getElementById("mainStripeColorForm" + (i + 1)).classList.remove("hidden");
-                                                }
-                                            }
-                                        }
-                                        updateMSCF();
-                                        otherUpdateFunctions.push(updateMSCF);
-                                        document.getElementById("mainStripeColorSteps").addEventListener("change", updateMSCF, true);
-                                    }, true);
-
-                                </script>
                             </fieldset>
                         </div>
                         <!-- D -->
@@ -1258,100 +1264,6 @@
                                     </table>
                                     <h2 data-translation-key="BLStripes" style="margin:0;"></h2>
                                     <table>
-                                        <script>
-                                            window.addEventListener("load", function() {
-
-                                                var rowList = document.getElementById("BLStripes");
-
-                                                function initRow(rowElem) {
-                                                    if (rowElem.nodeType !== Node.ELEMENT_NODE) return;
-                                                    for (let control = 0; control < 3; control++) {
-                                                        rowElem.children[control].children[0].addEventListener("change", updateJSONFromForm);
-                                                    }
-                                                    var buttons = rowElem.children[4].children;
-
-                                                    //「上に移動」ボタン
-                                                    buttons[0].addEventListener("click", function() {
-                                                        var previousElem = null;
-                                                        previousElem = rowElem.previousElementSibling;
-                                                        /*while (previousElem !== null && previousElem.nodeType !== Node.ELEMENT_NODE) {
-                                                            previousElem = previousElem.previousSibling;
-                                                        }*/
-                                                        if (previousElem !== null) {
-                                                            rowList.insertBefore(rowElem, previousElem);
-                                                        }
-                                                        updateJSONFromForm();
-                                                    }, true);
-
-                                                    //「下に移動」ボタン
-                                                    buttons[1].addEventListener("click", function() {
-                                                        var nextElem = null;
-                                                        nextElem = rowElem.nextElementSibling;
-                                                        if (nextElem == null) return; //すでに最後なら何もする必要はない
-                                                        var nextNextElem = nextElem.nextElementSibling;
-                                                        if (nextNextElem == null) { //2つ後の要素が無いなら最後尾に移動することになる
-                                                            rowList.appendChild(rowElem);
-                                                        } else {
-                                                            rowList.insertBefore(rowElem, nextNextElem);
-                                                        }
-                                                        updateJSONFromForm();
-                                                    }, true);
-
-                                                    //「複製」ボタン
-                                                    buttons[2].addEventListener("click", function() {
-                                                        var newRow = rowElem.cloneNode(true);
-                                                        rowList.insertBefore(newRow, rowElem);
-                                                        initRow(newRow);
-                                                        updateJSONFromForm();
-                                                    }, true);
-                                                    //「削除」ボタン
-                                                    buttons[3].addEventListener("click", function() {
-                                                        if (window.confirm(lang.callText("rowRemovalConfirmation"))) rowElem.remove();
-                                                        updateJSONFromForm();
-                                                    }, true);
-                                                }
-
-                                                function updateJSONFromForm() {
-                                                    var json = "[";
-                                                    Array.from(rowList.children).forEach(function(row, pos, arr) {
-                                                        json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
-                                                        if (pos + 1 != arr.length) json += ", ";
-                                                    });
-                                                    json += "]";
-                                                    document.getElementById("stripeJSONData").value = json;
-                                                    generateSaveData();
-                                                }
-
-                                                function updateFormFromJSON() {
-                                                    var jsonObj = JSON.parse(document.getElementById("stripeJSONData").value);
-                                                    rowList.innerHTML = "";
-                                                    jsonObj.forEach(function(row) {
-                                                        var newRow = addNewRow();
-                                                        newRow.children[0].children[0].value = row.light;
-                                                        newRow.children[1].children[0].value = row.medium;
-                                                        newRow.children[2].children[0].value = row.dark;
-                                                        newRow.children[3].children[0].value = row.width;
-                                                    });
-                                                }
-
-                                                Array.from(rowList.children).forEach(function(row) {
-                                                    initRow(row);
-                                                });
-
-                                                function addNewRow() {
-                                                    var newRow = document.createElement("tr");
-                                                    newRow.innerHTML = document.getElementById("BLStripeRowTemplate").innerHTML;
-                                                    rowList.appendChild(newRow);
-                                                    initRow(newRow);
-                                                    return newRow;
-                                                }
-                                                document.getElementById("addStripe").addEventListener("click", function() {
-                                                    initRow(addNewRow());
-                                                }, true);
-                                                otherUpdateFunctions.push(updateFormFromJSON);
-                                            }, true);
-
-                                        </script>
                                         <style>
                                             #BLStripes>tr:first-child .buttonMoveUp,
                                             #BLStripes>tr:last-child .buttonMoveDown {
