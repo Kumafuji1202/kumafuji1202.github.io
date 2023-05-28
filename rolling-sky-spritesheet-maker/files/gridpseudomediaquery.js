@@ -1,4 +1,4 @@
-//update no. 1
+//update no. 2
 var currentGridStyle = 3,
     currentCanvasSize = 512;
 window.addEventListener("load", function () {
@@ -28,7 +28,7 @@ window.addEventListener("load", function () {
     }
 
     function transformCanvases() {
-        var h = document.getElementById("generalTextureOutput").offsetWidth - 14;
+        var h = document.getElementById("generalTextureOutput").offsetWidth - 18;
         if (h !== currentCanvasSize) {
             document.querySelectorAll("#output>*>canvas").forEach(function (the) {
                 the.setAttribute("style", "transform: scale(" + h / 512 + ");");
