@@ -1,4 +1,4 @@
-//update no. 9
+//update no. 10
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -64,6 +64,46 @@ window.addEventListener("load", function () {
         }
         context.restore();
     }
+
+    function rectInnerGlow(sx, sy, width, height, gradationInnerWidth, gradationWidth, outerColor, context) {
+        var gradWidIn = gradationInnerWidth; //グラデーションの内側の端が縁部分からどれだけ離れているか
+        var gradWidOut = gradationWidth; //グラデーションオブジェクト自体の長さ35,69
+        var ex = sx + width;
+        var ey = sy + height;
+        var grad = [ //内から外へ
+                contextGeneral.createLinearGradient(sx + gradWidIn, 0, sx + gradWidIn - gradWidOut, 0), //左
+                contextGeneral.createLinearGradient(0, sy + gradWidIn, 0, sy + gradWidIn - gradWidOut), //上
+                contextGeneral.createLinearGradient(ex - gradWidIn, 0, ex - gradWidIn + gradWidOut, 0), //右
+                contextGeneral.createLinearGradient(0, ey - gradWidIn, 0, ey - gradWidIn + gradWidOut), //下
+                contextGeneral.createRadialGradient(sx + gradWidIn, sy + gradWidIn, 0, sx + gradWidIn, sy + gradWidIn, gradWidOut), //左上
+                contextGeneral.createRadialGradient(ex - gradWidIn, sy + gradWidIn, 0, ex - gradWidIn, sy + gradWidIn, gradWidOut), //右上
+                contextGeneral.createRadialGradient(sx + gradWidIn, ey - gradWidIn, 0, sx + gradWidIn, ey - gradWidIn, gradWidOut), //左下
+                contextGeneral.createRadialGradient(ex - gradWidIn, ey - gradWidIn, 0, ex - gradWidIn, ey - gradWidIn, gradWidOut), //右下
+            ];
+        grad.forEach(function (grad) {
+            grad.addColorStop(0, outerColor + "00");
+            grad.addColorStop(0.25, outerColor + "20");
+            grad.addColorStop(1, outerColor);
+        });
+        context.fillStyle = grad[0];
+        context.fillRect(sx, sy + gradWidIn, gradWidIn, height - 2 * gradWidIn);
+        context.fillStyle = grad[2];
+        context.fillRect(ex, sy + gradWidIn, -gradWidIn, height - 2 * gradWidIn);
+
+        context.fillStyle = grad[1];
+        context.fillRect(sx + gradWidIn, sy, width - 2 * gradWidIn, gradWidIn);
+        context.fillStyle = grad[3];
+        context.fillRect(sx + gradWidIn, ey, width - 2 * gradWidIn, -gradWidIn);
+
+        context.fillStyle = grad[4];
+        context.fillRect(sx, sy, gradWidIn, gradWidIn);
+        context.fillStyle = grad[5];
+        context.fillRect(ex, sy, -gradWidIn, gradWidIn);
+        context.fillStyle = grad[6];
+        context.fillRect(sx, ey, gradWidIn, -gradWidIn);
+        context.fillStyle = grad[7];
+        context.fillRect(ex, ey, -gradWidIn, -gradWidIn);
+    }
     var neonBoxImg = new Image();
     neonBoxImg.src = "files/neonBoxTemplate.png";
 
@@ -76,9 +116,18 @@ window.addEventListener("load", function () {
         return path;
     }
 
+    var groundLinesPath;
+    var lineArrays = {};
 
     //テクスチャを生成
-    function generateTextures() {
+    function generateAllTextures() {
+        generateGeneral();
+        generateFragiles();
+        generateMovers();
+        generateEnemy();
+    }
+
+    function generateGeneral() {
         //////////////
         //ここからGeneral
         //設定を変数に入れる//
@@ -106,25 +155,40 @@ window.addEventListener("load", function () {
         //ジャンプ床のスタイル
         var jumppadStyle = document.getElementById("jumppadStyle").value;
         //ogp
-        var ogp = [document.getElementById("groundVariation1").value, document.getElementById("groundVariation2").value, document.getElementById("groundVariation3").value, document.getElementById("groundVariation4").value]; //objectGeneralPaletted
+        var ogp = [document.getElementById("groundVariation1").value, document.getElementById("groundVariation2").value, document.getElementById("groundVariation3").value, document.getElementById("groundVariation4").value];
+        //objectGeneralPaletted
+        //線スタイル
+        var ls = document.getElementById("lineStyle").value;
 
         //コンテキストの初期化//
         contextGeneral.lineCap = "round";
         contextGeneral.lineJoin = "round";
         contextGeneral.clearRect(0, 0, 512, 512);
 
+        //線の太さを決める
+        switch (ls) {
+            case "double":
+                lineArrays.width = [15, 13, 7, 5];
+                lineArrays.alpha = [0.1875, 0.1875, 0.375, 1];
+                break;
+            case "thin":
+                lineArrays.width = [5, 3];
+                lineArrays.alpha = [0.125, 1];
+                break;
+            case "sharp":
+                lineArrays.width = [3, 1];
+                lineArrays.alpha = [0.5, 1];
+                break;
+            default: //"normal"もここに属する
+                lineArrays.width = [9, 7, 5];
+                lineArrays.alpha = [0.25, 0.375, 1];
+                break;
+        }
+
         //面の描画//
         //背景//
         contextGeneral.fillStyle = gc;
         contextGeneral.fillRect(0, 0, canvasGeneral.width, canvasGeneral.height);
-        //立体用パレット//
-
-        contextGeneral.fillStyle = ogp[0];
-        contextGeneral.fillRect(237, 183, 31, 31);
-        contextGeneral.fillStyle = ogp[1];
-        contextGeneral.fillRect(268, 183, 31, 31);
-        contextGeneral.fillStyle = ogp[2];
-        contextGeneral.fillRect(268, 213, 31, 31);
 
         //火山スタイルのグラデーション
         if (document.getElementById("enableVolcanicGradient").checked) {
@@ -136,7 +200,7 @@ window.addEventListener("load", function () {
         }
 
         //線の描画(パス定義)
-        var groundLinesPath = new Path2D();
+        groundLinesPath = new Path2D();
         if (gStyle != "cut") {
             groundLinesPath.addPath(sixSquares);
         } else { //角落ちの枠線。
@@ -205,15 +269,37 @@ window.addEventListener("load", function () {
         jumppadActiveLinesPath.rect(12.5, 12.5, 146, 146);
 
         //線の描画(処理)
-        contextGeneral.strokeStyle = gl;
-        if (document.getElementById("doubleLines").checked) { //線を2段にする
-            multipleLines([15, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
-        } else {
-            multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, groundLinesPath);
+        if (["glowing", "sharp"].includes(ls)) { //内部に発光させる
+            let innerWidth = 0;
+            let outerWidth = 0;
+            switch (ls) {
+                case "glowing":
+                    innerWidth = 25;
+                    outerWidth = 40;
+                    break;
+                case "sharp":
+                    innerWidth = 12;
+                    outerWidth = 27;
+                    break;
+            }
+            for (let i = 0; i < 7; i++) {
+                rectInnerGlow(12.5 + 170 * ([2, 0, 1, 2, 0, 1, 2])[i], 12.5 + 170 * ([0, 1, 1, 1, 2, 2, 2])[i], 146, 146, innerWidth, outerWidth, gl, contextGeneral);
+            }
         }
+        contextGeneral.strokeStyle = gl;
+        multipleLines(lineArrays.width, lineArrays.alpha, contextGeneral, groundLinesPath);
 
         contextGeneral.strokeStyle = gl;
         multipleLines([7, 5, 3, 1], [0.25, 0.5, 0.75, 1], contextGeneral, fiveSquares);
+
+        //立体用パレット//
+
+        contextGeneral.fillStyle = ogp[0];
+        contextGeneral.fillRect(237, 183, 31, 31);
+        contextGeneral.fillStyle = ogp[1];
+        contextGeneral.fillRect(268, 183, 31, 31);
+        contextGeneral.fillStyle = ogp[2];
+        contextGeneral.fillRect(268, 213, 31, 31);
 
         contextGeneral.globalAlpha = 1;
         contextGeneral.fillStyle = gs;
@@ -282,10 +368,86 @@ window.addEventListener("load", function () {
         }
 
         //ジャンプ床//
-        contextGeneral.fillStyle = jc;
-        contextGeneral.fillRect(182.5, 12.5, 146, 146);
-        contextGeneral.fillStyle = ajc;
-        contextGeneral.fillRect(12.5, 12.5, 146, 146);
+        if (jumppadStyle != "import") {
+            contextGeneral.fillStyle = jc;
+            contextGeneral.fillRect(182.5, 12.5, 146, 146);
+            contextGeneral.fillStyle = ajc;
+            contextGeneral.fillRect(12.5, 12.5, 146, 146);
+        } else { //インポートジャンプ床
+            contextGeneral.drawImage(document.getElementById("jumppadInactiveImg"), 182.5, 12.5, 146, 146);
+            contextGeneral.drawImage(document.getElementById("jumppadActiveImg"), 12.5, 12.5, 146, 146);
+            let jpPrevCxt = document.getElementById("jumpPadPreview").getContext("2d");
+
+            jpPrevCxt.clearRect(0, 0, jpPrevCxt.canvas.width, jpPrevCxt.canvas.height);
+
+            jpPrevCxt.textBaseline = "alphabetic";
+            jpPrevCxt.fillStyle = "#000000";
+            jpPrevCxt.textAlign = "center";
+            jpPrevCxt.font = "18px Sen";
+            jpPrevCxt.fillText(lang.callText("active"), 85, 20, 300);
+            jpPrevCxt.fillText(lang.callText("inactive"), 255, 20, 300);
+
+            let activeJPCenterX = 85;
+            let activeJPCenterY = 100;
+            let inactiveJPCenterX = 255;
+            let inactiveJPCenterY = 100;
+            //起動左上
+            jpPrevCxt.save();
+            jpPrevCxt.translate(activeJPCenterX, activeJPCenterY);
+            jpPrevCxt.rotate(Math.PI / 2);
+            jpPrevCxt.translate(-activeJPCenterX, -activeJPCenterY);
+            jpPrevCxt.beginPath();
+            jpPrevCxt.moveTo(activeJPCenterX - 73, activeJPCenterY - 73);
+            jpPrevCxt.lineTo(activeJPCenterX - 73, activeJPCenterY + 73);
+            jpPrevCxt.lineTo(activeJPCenterX + 73, activeJPCenterY + 73);
+            jpPrevCxt.closePath();
+            jpPrevCxt.clip();
+            jpPrevCxt.drawImage(document.getElementById("jumppadActiveImg"), activeJPCenterX - 73, activeJPCenterY - 73, 146, 146);
+            jpPrevCxt.restore();
+
+            //右下
+            jpPrevCxt.save();
+            jpPrevCxt.translate(activeJPCenterX, activeJPCenterY);
+            jpPrevCxt.rotate(-Math.PI / 2);
+            jpPrevCxt.translate(-activeJPCenterX, -activeJPCenterY);
+            jpPrevCxt.beginPath();
+            jpPrevCxt.moveTo(activeJPCenterX - 73, activeJPCenterY - 73);
+            jpPrevCxt.lineTo(activeJPCenterX - 73, activeJPCenterY + 73);
+            jpPrevCxt.lineTo(activeJPCenterX + 73, activeJPCenterY + 73);
+            jpPrevCxt.closePath();
+            jpPrevCxt.clip();
+            jpPrevCxt.drawImage(document.getElementById("jumppadActiveImg"), activeJPCenterX - 73, activeJPCenterY - 73, 146, 146);
+            jpPrevCxt.restore();
+
+
+            //未起動左上
+            jpPrevCxt.save();
+            jpPrevCxt.translate(inactiveJPCenterX, inactiveJPCenterY);
+            jpPrevCxt.rotate(Math.PI / 2);
+            jpPrevCxt.translate(-inactiveJPCenterX, -inactiveJPCenterY);
+            jpPrevCxt.beginPath();
+            jpPrevCxt.moveTo(inactiveJPCenterX - 73, inactiveJPCenterY - 73);
+            jpPrevCxt.lineTo(inactiveJPCenterX - 73, inactiveJPCenterY + 73);
+            jpPrevCxt.lineTo(inactiveJPCenterX + 73, inactiveJPCenterY + 73);
+            jpPrevCxt.closePath();
+            jpPrevCxt.clip();
+            jpPrevCxt.drawImage(document.getElementById("jumppadInactiveImg"), inactiveJPCenterX - 73, inactiveJPCenterY - 73, 146, 146);
+            jpPrevCxt.restore();
+
+            //右下
+            jpPrevCxt.save();
+            jpPrevCxt.translate(inactiveJPCenterX, inactiveJPCenterY);
+            jpPrevCxt.rotate(-Math.PI / 2);
+            jpPrevCxt.translate(-inactiveJPCenterX, -inactiveJPCenterY);
+            jpPrevCxt.beginPath();
+            jpPrevCxt.moveTo(inactiveJPCenterX - 73, inactiveJPCenterY - 73);
+            jpPrevCxt.lineTo(inactiveJPCenterX - 73, inactiveJPCenterY + 73);
+            jpPrevCxt.lineTo(inactiveJPCenterX + 73, inactiveJPCenterY + 73);
+            jpPrevCxt.closePath();
+            jpPrevCxt.clip();
+            jpPrevCxt.drawImage(document.getElementById("jumppadInactiveImg"), inactiveJPCenterX - 73, inactiveJPCenterY - 73, 146, 146);
+            jpPrevCxt.restore();
+        }
 
         //市松模様のジャンプ床の描画
         if (jumppadStyle == "checker") {
@@ -305,38 +467,38 @@ window.addEventListener("load", function () {
             if (document.getElementById("inactiveJumppadGlow").checked) {
                 const gradWidIn = 35; //グラデーションの内側の端が縁部分からどれだけ離れているか
                 const gradWidOut = 60; //グラデーションオブジェクト自体の長さ
-                let grad = [//内から外へ
-                contextGeneral.createLinearGradient(182+gradWidIn, 0, 182+gradWidIn-gradWidOut, 0),//左
-                contextGeneral.createLinearGradient(0, 12+gradWidIn, 0, 12+gradWidIn-gradWidOut),//上
-                contextGeneral.createLinearGradient(328-gradWidIn, 0, 328-gradWidIn+gradWidOut, 0),//右
-                contextGeneral.createLinearGradient(0, 158-gradWidIn, 0, 158-gradWidIn+gradWidOut),//下
-                contextGeneral.createRadialGradient(182+gradWidIn, 12+gradWidIn, 0, 182+gradWidIn, 12+gradWidIn, gradWidOut),//左上
-                contextGeneral.createRadialGradient(328-gradWidIn, 12+gradWidIn, 0, 328-gradWidIn, 12+gradWidIn, gradWidOut),//右上
-                contextGeneral.createRadialGradient(182+gradWidIn, 158-gradWidIn, 0, 182+gradWidIn, 158-gradWidIn, gradWidOut),//左下
-                contextGeneral.createRadialGradient(328-gradWidIn, 158-gradWidIn, 0, 328-gradWidIn, 158-gradWidIn, gradWidOut),//右下
+                let grad = [ //内から外へ
+                contextGeneral.createLinearGradient(182 + gradWidIn, 0, 182 + gradWidIn - gradWidOut, 0), //左
+                contextGeneral.createLinearGradient(0, 12 + gradWidIn, 0, 12 + gradWidIn - gradWidOut), //上
+                contextGeneral.createLinearGradient(328 - gradWidIn, 0, 328 - gradWidIn + gradWidOut, 0), //右
+                contextGeneral.createLinearGradient(0, 158 - gradWidIn, 0, 158 - gradWidIn + gradWidOut), //下
+                contextGeneral.createRadialGradient(182 + gradWidIn, 12 + gradWidIn, 0, 182 + gradWidIn, 12 + gradWidIn, gradWidOut), //左上
+                contextGeneral.createRadialGradient(328 - gradWidIn, 12 + gradWidIn, 0, 328 - gradWidIn, 12 + gradWidIn, gradWidOut), //右上
+                contextGeneral.createRadialGradient(182 + gradWidIn, 158 - gradWidIn, 0, 182 + gradWidIn, 158 - gradWidIn, gradWidOut), //左下
+                contextGeneral.createRadialGradient(328 - gradWidIn, 158 - gradWidIn, 0, 328 - gradWidIn, 158 - gradWidIn, gradWidOut), //右下
             ];
-            grad.forEach(function (grad) {
-                grad.addColorStop(0, document.getElementById("inactiveJumppadGlowColor").value+"00");
-                grad.addColorStop(1, document.getElementById("inactiveJumppadGlowColor").value);
-            });
-            contextGeneral.fillStyle = grad[0];
-            contextGeneral.fillRect(182, 12+gradWidIn, gradWidIn, 146-2*gradWidIn);
-            contextGeneral.fillStyle = grad[2];
-            contextGeneral.fillRect(328, 12+gradWidIn, -gradWidIn, 146-2*gradWidIn);
+                grad.forEach(function (grad) {
+                    grad.addColorStop(0, document.getElementById("inactiveJumppadGlowColor").value + "00");
+                    grad.addColorStop(1, document.getElementById("inactiveJumppadGlowColor").value);
+                });
+                contextGeneral.fillStyle = grad[0];
+                contextGeneral.fillRect(182, 12 + gradWidIn, gradWidIn, 146 - 2 * gradWidIn);
+                contextGeneral.fillStyle = grad[2];
+                contextGeneral.fillRect(328, 12 + gradWidIn, -gradWidIn, 146 - 2 * gradWidIn);
 
-            contextGeneral.fillStyle = grad[1];
-            contextGeneral.fillRect(182+gradWidIn, 12, 146-2*gradWidIn, gradWidIn);
-            contextGeneral.fillStyle = grad[3];
-            contextGeneral.fillRect(182+gradWidIn, 158, 146-2*gradWidIn, -gradWidIn);
+                contextGeneral.fillStyle = grad[1];
+                contextGeneral.fillRect(182 + gradWidIn, 12, 146 - 2 * gradWidIn, gradWidIn);
+                contextGeneral.fillStyle = grad[3];
+                contextGeneral.fillRect(182 + gradWidIn, 158, 146 - 2 * gradWidIn, -gradWidIn);
 
-            contextGeneral.fillStyle = grad[4];
-            contextGeneral.fillRect(182, 12, gradWidIn, gradWidIn);
-            contextGeneral.fillStyle = grad[5];
-            contextGeneral.fillRect(328, 12, -gradWidIn, gradWidIn);
-            contextGeneral.fillStyle = grad[6];
-            contextGeneral.fillRect(182, 158, gradWidIn, -gradWidIn);
-            contextGeneral.fillStyle = grad[7];
-            contextGeneral.fillRect(328, 158, -gradWidIn, -gradWidIn);
+                contextGeneral.fillStyle = grad[4];
+                contextGeneral.fillRect(182, 12, gradWidIn, gradWidIn);
+                contextGeneral.fillStyle = grad[5];
+                contextGeneral.fillRect(328, 12, -gradWidIn, gradWidIn);
+                contextGeneral.fillStyle = grad[6];
+                contextGeneral.fillRect(182, 158, gradWidIn, -gradWidIn);
+                contextGeneral.fillStyle = grad[7];
+                contextGeneral.fillRect(328, 158, -gradWidIn, -gradWidIn);
             }
         }
 
@@ -507,41 +669,7 @@ window.addEventListener("load", function () {
 
         //ジャンプ床の発光を描画//
         if (!document.getElementById("disableActiveJumppadGlow").checked) {
-            const gradWidIn = 50; //グラデーションの内側の端が縁部分からどれだけ離れているか
-            const gradWidOut = 85; //グラデーションオブジェクト自体の長さ35,69
-            let grad = [//内から外へ
-                contextGeneral.createLinearGradient(12+gradWidIn, 0, 12+gradWidIn-gradWidOut, 0),//左
-                contextGeneral.createLinearGradient(0, 12+gradWidIn, 0, 12+gradWidIn-gradWidOut),//上
-                contextGeneral.createLinearGradient(158-gradWidIn, 0, 158-gradWidIn+gradWidOut, 0),//右
-                contextGeneral.createLinearGradient(0, 158-gradWidIn, 0, 158-gradWidIn+gradWidOut),//下
-                contextGeneral.createRadialGradient(12+gradWidIn, 12+gradWidIn, 0, 12+gradWidIn, 12+gradWidIn, gradWidOut),//左上
-                contextGeneral.createRadialGradient(158-gradWidIn, 12+gradWidIn, 0, 158-gradWidIn, 12+gradWidIn, gradWidOut),//右上
-                contextGeneral.createRadialGradient(12+gradWidIn, 158-gradWidIn, 0, 12+gradWidIn, 158-gradWidIn, gradWidOut),//左下
-                contextGeneral.createRadialGradient(158-gradWidIn, 158-gradWidIn, 0, 158-gradWidIn, 158-gradWidIn, gradWidOut),//右下
-            ];
-            grad.forEach(function (grad) {
-                grad.addColorStop(0, ajl+"00");
-                grad.addColorStop(0.25, ajl+"20");
-                grad.addColorStop(1, ajl);
-            });
-            contextGeneral.fillStyle = grad[0];
-            contextGeneral.fillRect(12, 12+gradWidIn, gradWidIn, 146-2*gradWidIn);
-            contextGeneral.fillStyle = grad[2];
-            contextGeneral.fillRect(158, 12+gradWidIn, -gradWidIn, 146-2*gradWidIn);
-
-            contextGeneral.fillStyle = grad[1];
-            contextGeneral.fillRect(12+gradWidIn, 12, 146-2*gradWidIn, gradWidIn);
-            contextGeneral.fillStyle = grad[3];
-            contextGeneral.fillRect(12+gradWidIn, 158, 146-2*gradWidIn, -gradWidIn);
-
-            contextGeneral.fillStyle = grad[4];
-            contextGeneral.fillRect(12, 12, gradWidIn, gradWidIn);
-            contextGeneral.fillStyle = grad[5];
-            contextGeneral.fillRect(158, 12, -gradWidIn, gradWidIn);
-            contextGeneral.fillStyle = grad[6];
-            contextGeneral.fillRect(12, 158, gradWidIn, -gradWidIn);
-            contextGeneral.fillStyle = grad[7];
-            contextGeneral.fillRect(158, 158, -gradWidIn, -gradWidIn);
+            rectInnerGlow(12, 12, 146, 146, 50, 85, ajl, contextGeneral);
         }
 
         //角落ちジャンプ床の描画
@@ -665,9 +793,16 @@ window.addEventListener("load", function () {
         multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadInactiveLinesPath);
         contextGeneral.strokeStyle = ajl;
         multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadActiveLinesPath);
+        if (jumppadStyle == "import") {
+            rectInnerGlow(12, 27, 146, 146, 50, 85, ajl, document.getElementById("jumpPadPreview").getContext("2d"));
+        }
+    }
 
+    function generateFragiles() {
         //////////////
         //ここからFragileとFragileActive
+        var fs = document.getElementById("fragileStyle").value;
+
         contextFragile.lineCap = "round";
         contextFragile.lineJoin = "round";
         contextFragile.clearRect(0, 0, 512, 512);
@@ -681,41 +816,88 @@ window.addEventListener("load", function () {
         contextFragileActive.globalAlpha = 0xc0 / 0xff;
         contextFragileActive.fillRect(0, 0, 512, 512);
         contextFragile.globalAlpha = 1;
-        contextFragile.lineWidth = 4;
         contextFragileActive.globalAlpha = 1;
-        contextFragileActive.lineWidth = 4;
 
+        //雪模様
+        if (document.getElementById("fragileInnerStyle").value == "snowflake") {
+            let drawSnowflake = (context, xpos, ypos) => {
+                let turn = (x, y, angle) => {
+                    return {
+                        x: x * Math.cos(angle) - y * Math.sin(angle),
+                        y: x * Math.sin(angle) + y * Math.cos(angle)
+                    };
+                };
+                context.lineWidth = 10;
+                context.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    let angle = (i / 3 - 0.25) * Math.PI;
+
+                    context.moveTo(xpos, ypos);
+
+                    let pos = turn(0, 45, angle);
+                    context.lineTo(xpos + pos.x, ypos + pos.y);
+
+                    pos = turn(-14, 35, angle);
+                    context.moveTo(xpos + pos.x, ypos + pos.y);
+                    pos = turn(0, 28, angle);
+                    context.lineTo(xpos + pos.x, ypos + pos.y);
+                    pos = turn(14, 35, angle);
+                    context.lineTo(xpos + pos.x, ypos + pos.y);
+                }
+                context.stroke();
+            }
+            contextFragile.strokeStyle = document.getElementById("fragileInnerInactiveDecoColor").value;
+            contextFragileActive.strokeStyle = document.getElementById("fragileInnerActiveDecoColor").value;
+            for (let i = 0; i < 7; i++) {
+                drawSnowflake(contextFragile, 85 + 170 * ([2, 0, 2, 0, 1, 2])[i], 85 + 170 * ([0, 1, 1, 2, 2, 2])[i]);
+                drawSnowflake(contextFragileActive, 85 + 170 * ([2, 0, 2, 0, 1, 2])[i], 85 + 170 * ([0, 1, 1, 2, 2, 2])[i]);
+            }
+            for (let i = 0; i < 2; i++) {
+                let c = ([contextFragile, contextFragileActive])[i];
+                c.save();
+                c.beginPath();
+                c.moveTo(170, 170);
+                c.lineTo(170, 340);
+                c.lineTo(340, 340);
+                c.closePath();
+                c.clip();
+                drawSnowflake(c, 255, 255);
+                c.restore();
+            }
+        }
         //線
+        contextFragile.lineWidth = 4;
+        contextFragileActive.lineWidth = 4;
         contextFragile.strokeStyle = document.getElementById("fragileLineColor").value;
         contextFragileActive.strokeStyle = document.getElementById("fragileActiveLineColor").value;
+        //fs = "double";
 
-        function rolling(sky) {
-            if (document.getElementById("fragileStyle").value == "stripes") {
+        function rolling(sky, m) {
+            if (fs == "stripes" || (fs == "boxes" && m)) {
                 sky.stroke(sixSquares);
                 sky.strokeRect(182.5, 182.5, 146, 146);
-                sky.lineWidth = 2;
-                sky.stroke(tileOutlinePath);
+                if (fs != "boxes") {
+                    sky.lineWidth = 2;
+                    sky.stroke(tileOutlinePath);
+                }
             } else {
                 sky.beginPath();
                 sky.moveTo(12.5, 182.5);
                 sky.lineTo(12.5, 353.5);
                 sky.moveTo(12.5, 499.5);
-                sky.lineTo(159.5, 499.5);
-                sky.moveTo(352, 499.5);
+                sky.lineTo(182.5, 499.5);
+                sky.moveTo(328.5, 499.5);
                 sky.lineTo(499.5, 499.5);
                 sky.moveTo(340, 12.5);
                 sky.lineTo(499.5, 12.5);
                 sky.lineTo(499.5, 353.5);
-                sky.moveTo(182.5, 499.5);
-                sky.closePath();
-                sky.moveTo(328.5, 499.5);
-                sky.closePath();
                 sky.moveTo(353.5, 158.5);
                 sky.closePath();
                 sky.moveTo(353.5, 182.5);
                 sky.closePath();
                 sky.stroke();
-                if (document.getElementById("fragileStyle").value == "cave") {
+
+                if (fs == "cave") {
                     sky.beginPath();
                     sky.moveTo(391, 23);
                     sky.lineTo(489, 23);
@@ -725,7 +907,7 @@ window.addEventListener("load", function () {
                     sky.lineTo(479, 53);
                     sky.stroke();
                 }
-                if (document.getElementById("fragileStyle").value == "bubbles") {
+                if (fs == "bubbles") {
                     let hexagonsThick = new Path2D();
                     hexagonsThick.addPath(createHexagonPath(207, 305, 12));
                     hexagonsThick.addPath(createHexagonPath(475, 38, 12));
@@ -740,14 +922,35 @@ window.addEventListener("load", function () {
                     sky.lineWidth = 3;
                     sky.stroke(hexagonsThin);
                 }
+                if (fs == "double") {
+                    sky.beginPath();
+                    sky.moveTo(22, 182.5);
+                    sky.lineTo(22, 363);
+                    sky.lineTo(12.5, 363);
+                    sky.moveTo(12.5, 490);
+                    sky.lineTo(192, 490);
+                    sky.lineTo(192, 499.5);
+                    sky.moveTo(319, 499.5);
+                    sky.lineTo(319, 490);
+                    sky.lineTo(499.5, 490);
+                    sky.moveTo(340, 22);
+                    sky.lineTo(490, 22);
+                    sky.lineTo(490, 363);
+                    sky.lineTo(499.5, 363);
+                    sky.moveTo(353.5, 149);
+                    sky.lineTo(363, 149);
+                    sky.lineTo(363, 192);
+                    sky.lineTo(353.5, 192);
+                    sky.stroke();
+                }
             }
         }
 
-        rolling(contextFragile);
-        rolling(contextFragileActive);
+        rolling(contextFragile, false);
+        rolling(contextFragileActive, true);
 
         //化学スタイルActive時の追加
-        if (document.getElementById("fragileStyle").value == "bubbles") {
+        if (fs == "bubbles") {
             let hexagonAdditionalThick = new Path2D();
             hexagonAdditionalThick.addPath(createHexagonPath(37, 205, 12));
             hexagonAdditionalThick.addPath(createHexagonPath(35, 473, 12));
@@ -764,7 +967,7 @@ window.addEventListener("load", function () {
         }
 
         //端の模様
-        if (document.getElementById("fragileStyle").value == "stripes") {
+        if (fs == "stripes") {
             contextFragile.save();
             contextFragileActive.save();
 
@@ -926,9 +1129,13 @@ window.addEventListener("load", function () {
         contextFragile.fillRect(298.5, 183, 30, 30);
         contextFragileActive.fillStyle = document.getElementById("fragileActiveSideColor").value;
         contextFragileActive.fillRect(298.5, 183, 30, 30);
+    }
 
+    function generateMovers() {
         //////////////
         //ここからMoverとMoverAuto
+        var gc = document.getElementById("groundColor").value;
+        var ls = document.getElementById("lineStyle").value;
 
         //面
         var moverColor = document.getElementById("moverSameColor").checked ? gc : document.getElementById("moverMainColor").value;
@@ -949,28 +1156,45 @@ window.addEventListener("load", function () {
         //同じコードを何回も書いている気がする
         function just(Do, it) {
             Do.strokeStyle = it;
-            //線を2段にする
-            if (document.getElementById("doubleLines").checked) {
-                multipleLines([15, 13, 7, 5], [0.1875, 0.1875, 0.375, 1], Do, moverLinePath);
-            } else {
-                multipleLines([9, 7, 5], [0.25, 0.375, 1], Do, moverLinePath);
+
+            if (["glowing", "sharp"].includes(ls)) { //内部に発光させる
+                let innerWidth = 0;
+                let outerWidth = 0;
+                switch (ls) {
+                    case "glowing":
+                        innerWidth = 25;
+                        outerWidth = 40;
+                        break;
+                    case "sharp":
+                        innerWidth = 12;
+                        outerWidth = 27;
+                        break;
+                }
+                for (let i = 0; i < 7; i++) {
+                    rectInnerGlow(12.5 + 170 * ([2, 0, 1, 2, 0, 1, 2])[i], 12.5 + 170 * ([0, 1, 1, 1, 2, 2, 2])[i], 146, 146, innerWidth, outerWidth, it, Do);
+                }
             }
+            Do.strokeStyle = it;
+            multipleLines(lineArrays.width, lineArrays.alpha, Do, groundLinesPath);
         }
 
         just(contextMover, moverLine);
-        just(contextMoverAuto, moverLine);
+        just(contextMoverAuto, moverAutoLine);
 
         //縁
-        contextMover.lineWidth = 4;
-        contextMoverAuto.lineWidth = 4;
-        contextMover.fillStyle = document.getElementById("moverOutlineColor").value;
-        contextMoverAuto.fillStyle = document.getElementById("moverAutoOutlineColor").value;
-        contextMover.strokeStyle = document.getElementById("moverOutlineBorderColor").value;
-        contextMoverAuto.strokeStyle = document.getElementById("moverAutoOutlineBorderColor").value;
-        contextMover.fill(tileOutlinePath);
-        contextMover.stroke(tileOutlinePath);
-        contextMoverAuto.fill(tileOutlinePath);
-        contextMoverAuto.stroke(tileOutlinePath);
+        let moverNoOutlines = document.getElementById("moverNoOutlines").checked;
+        if (!moverNoOutlines) {
+            contextMover.lineWidth = 4;
+            contextMoverAuto.lineWidth = 4;
+            contextMover.fillStyle = document.getElementById("moverOutlineColor").value;
+            contextMoverAuto.fillStyle = document.getElementById("moverAutoOutlineColor").value;
+            contextMover.strokeStyle = document.getElementById("moverOutlineBorderColor").value;
+            contextMoverAuto.strokeStyle = document.getElementById("moverAutoOutlineBorderColor").value;
+            contextMover.fill(tileOutlinePath);
+            contextMover.stroke(tileOutlinePath);
+            contextMoverAuto.fill(tileOutlinePath);
+            contextMoverAuto.stroke(tileOutlinePath);
+        }
 
         //三角
         contextMover.fillStyle = document.getElementById("moverOutlineColor").value;
@@ -1037,11 +1261,13 @@ window.addEventListener("load", function () {
         contextMoverAuto.fillRect(299, 214, 31, 31);
 
         //側面
-        contextMover.fillStyle = document.getElementById("moverSideColor").value;
+        contextMover.fillStyle = moverNoOutlines ? gs : document.getElementById("moverSideColor").value;
         contextMover.fillRect(298.5, 183, 30, 30);
-        contextMoverAuto.fillStyle = document.getElementById("moverAutoSideColor").value;
+        contextMoverAuto.fillStyle = moverNoOutlines ? gs : document.getElementById("moverAutoSideColor").value;
         contextMoverAuto.fillRect(298.5, 183, 30, 30);
+    }
 
+    function generateEnemy() {
         //////////////
         //ここからEnemy
         contextEnemy.clearRect(0, 0, 512, 512);
@@ -1286,43 +1512,43 @@ window.addEventListener("load", function () {
             }
         }
         break;
-            case "neon":{
-                //3
-                contextEnemy.fillStyle = document.getElementById("neonAccentA").value;
-                contextEnemy.fillRect(256, 64, 32, 32);
-                //4
-                contextEnemy.fillStyle = document.getElementById("neonAccentB1").value;
-                contextEnemy.fillRect(288, 64, 16, 16);
-                contextEnemy.fillStyle = document.getElementById("neonAccentB2").value;
-                contextEnemy.fillRect(288, 80, 16, 16);
-                contextEnemy.fillStyle = document.getElementById("neonAccentB3").value;
-                contextEnemy.fillRect(304, 64, 16, 32);
-                //5
-                contextEnemy.fillStyle = document.getElementById("neonAccentC1").value;
-                contextEnemy.fillRect(256, 96, 32, 32);
-                contextEnemy.fillStyle = document.getElementById("neonAccentC2").value;
-                contextEnemy.fillRect(288, 96, 32, 32);
-                //6
-                contextEnemy.fillStyle = document.getElementById("neonAccentD").value;
-                contextEnemy.fillRect(256, 128, 64, 32);
-                //9
-                contextEnemy.fillStyle = document.getElementById("neonRobotGear1").value;
-                contextEnemy.fillRect(320, 64, 32, 32);
-                contextEnemy.fillStyle = document.getElementById("neonRobotGear2").value;
-                contextEnemy.fillRect(320, 96, 32, 32);
-                contextEnemy.fillStyle = document.getElementById("neonRobotGear3").value;
-                contextEnemy.fillRect(352, 64, 32, 32);
-                contextEnemy.fillStyle = document.getElementById("neonRobotGear4").value;
-                contextEnemy.fillRect(352, 96, 32, 16);
-                contextEnemy.fillStyle = document.getElementById("neonRobotGear5").value;
-                contextEnemy.fillRect(352, 112, 32, 16);
-                //13
-                contextEnemy.fillStyle = document.getElementById("neonRobotCordFront").value;
-                contextEnemy.fillRect(384, 64, 32, 32);
-                contextEnemy.fillStyle = document.getElementById("neonRobotCordSide").value;
-                contextEnemy.fillRect(384, 96, 32, 32);
-            }
-                break;
+        case "neon": {
+            //3
+            contextEnemy.fillStyle = document.getElementById("neonAccentA").value;
+            contextEnemy.fillRect(256, 64, 32, 32);
+            //4
+            contextEnemy.fillStyle = document.getElementById("neonAccentB1").value;
+            contextEnemy.fillRect(288, 64, 16, 16);
+            contextEnemy.fillStyle = document.getElementById("neonAccentB2").value;
+            contextEnemy.fillRect(288, 80, 16, 16);
+            contextEnemy.fillStyle = document.getElementById("neonAccentB3").value;
+            contextEnemy.fillRect(304, 64, 16, 32);
+            //5
+            contextEnemy.fillStyle = document.getElementById("neonAccentC1").value;
+            contextEnemy.fillRect(256, 96, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("neonAccentC2").value;
+            contextEnemy.fillRect(288, 96, 32, 32);
+            //6
+            contextEnemy.fillStyle = document.getElementById("neonAccentD").value;
+            contextEnemy.fillRect(256, 128, 64, 64);
+            //9
+            contextEnemy.fillStyle = document.getElementById("neonRobotGear1").value;
+            contextEnemy.fillRect(320, 64, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("neonRobotGear2").value;
+            contextEnemy.fillRect(320, 96, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("neonRobotGear3").value;
+            contextEnemy.fillRect(352, 64, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("neonRobotGear4").value;
+            contextEnemy.fillRect(352, 96, 32, 16);
+            contextEnemy.fillStyle = document.getElementById("neonRobotGear5").value;
+            contextEnemy.fillRect(352, 112, 32, 16);
+            //13
+            contextEnemy.fillStyle = document.getElementById("neonRobotCordFront").value;
+            contextEnemy.fillRect(384, 64, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("neonRobotCordSide").value;
+            contextEnemy.fillRect(384, 96, 32, 32);
+        }
+        break;
         default:
         }
 
@@ -1354,7 +1580,7 @@ window.addEventListener("load", function () {
             contextEnemy.stroke();
             if (!noRestore) contextEnemy.restore();
         }
-        
+
         //B下部
         if (document.getElementById("subBAvailable").value == "true") {
             if (document.getElementById("subBType").value == "plain") {
@@ -1372,8 +1598,8 @@ window.addEventListener("load", function () {
                 }
             }
         }
-        
-        
+
+
         //翻転床
         if (document.getElementById("flipTileAvailable").value == "true") {
             //表とУра
@@ -1396,6 +1622,8 @@ window.addEventListener("load", function () {
                     }
                 }
             };
+            //テスト用↓
+            //flipperType = "heart";
             //立方スタイル
             doTheFlipper("cube", 2, function (c, u, b, e) {
                 c.fillStyle = b[0];
@@ -1619,6 +1847,48 @@ window.addEventListener("load", function () {
                 s.fill();
                 return r;
             });
+            //3D spacial zone
+            doTheFlipper("checkeredged", 2, function (z, o, n, e) {
+                z.fillStyle = n[0];
+                z.fillRect(o, 0, 64, 64);
+                z.fillStyle = n[1];
+                z.beginPath();
+                z.moveTo(o, 0);
+                z.lineTo(o + 32, 32);
+                z.lineTo(o, 64);
+                z.closePath();
+                z.moveTo(o + 64, 0);
+                z.lineTo(o + 32, 32);
+                z.lineTo(o + 64, 64);
+                z.closePath();
+                z.fill();
+                for (let tbpos = 0; tbpos < 4; tbpos++) {
+                    for (let lrpos = 0; lrpos < 4; lrpos++) {
+                        z.fillStyle = n[(tbpos + lrpos) % 2];
+                        z.fillRect(o + 8 + 12 * lrpos, 8 + 12 * tbpos, 12, 12);
+                    }
+                }
+                return e;
+            });
+            //RW風
+            doTheFlipper("heart", 3, function (c, i, t, s) {
+                c.fillStyle = t[0];
+                c.fillRect(i, 0, 64, 64);
+                c.strokeStyle = t[1];
+                c.lineWidth = 3;
+                c.strokeRect(i + 4, 4, 56, 56);
+
+                c.fillStyle = t[2];
+                c.beginPath();
+                c.moveTo(i + 32, 10);
+                c.bezierCurveTo(i + 50, 24, i + 54, 28, i + 53, 40);
+                c.bezierCurveTo(i + 52, 53, i + 36, 55, i + 32, 47);
+                c.bezierCurveTo(i + 28, 55, i + 12, 53, i + 11, 40);
+                c.bezierCurveTo(i + 11, 28, i + 13, 24, i + 32, 10);
+                c.closePath();
+                c.fill();
+                return s;
+            });
             //天空の城風
             doTheFlipper("cits", 3, function (c, i, t, s) {
                 c.fillStyle = t[0];
@@ -1644,6 +1914,18 @@ window.addEventListener("load", function () {
                 c.fill();
                 return s;
             });
+            //偽の床
+            doTheFlipper("fakeground", 2, function (f, a, k, e) {
+                let fgFlipperPath = new Path2D();
+                fgFlipperPath.rect(a, 0, 64, 64);
+
+                f.fillStyle = k[0];
+                f.fill(fgFlipperPath);
+
+                f.strokeStyle = k[1];
+                multipleLines([6, 4], [0.5, 5], f, fgFlipperPath);
+                return e;
+            });
             //インポート画像
             if (flipperType == "import") {
                 contextEnemy.save();
@@ -1654,28 +1936,11 @@ window.addEventListener("load", function () {
                 contextEnemy.drawImage(document.getElementById("flipperObverseImg"), 320, 0, 64, 64);
                 contextEnemy.restore();
             }
-            //インポート画像
-            if (flipperType == "fakeground") {
-                contextEnemy.save();
-                let fgFlipperPath = new Path2D();
-                fgFlipperPath.rect(320, 0, 128, 64);
-                
-                contextEnemy.fillStyle = gc;
-                contextEnemy.clip(fgFlipperPath);
-                contextEnemy.fill(fgFlipperPath);
-                
-                fgFlipperPath.moveTo(384,0);
-                fgFlipperPath.lineTo(384,64);
-                
-                contextEnemy.strokeStyle = gl;
-                multipleLines([6,4], [0.5, 5], contextEnemy, fgFlipperPath);
-                contextEnemy.restore();
-            }
             //側面
             contextEnemy.fillStyle = document.getElementById("flipperSideColor").value;
             contextEnemy.fillRect(320, 128, 64, 64);
         }
-        
+
         //半ジャンプ
         if (document.getElementById("smallJumpAvailable").value == "true") {
             contextEnemy.fillStyle = document.getElementById("smallJumpActiveTop").value;
@@ -1688,33 +1953,33 @@ window.addEventListener("load", function () {
             contextEnemy.fillRect(314, 32, 6, 32);
         }
 
-        
+
         //ネオンボックス
         if (document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-neonbox-available")) {
             contextEnemy.fillStyle = "#434A5B";
             contextEnemy.fillRect(448, 0, 64, 16);
             contextEnemy.fillStyle = "#FFFFFF";
             contextEnemy.fillRect(448, 16, 64, 16);
-            
-            let grad = contextEnemy.createLinearGradient(448,0,512,0);
+
+            let grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
             grad.addColorStop(0, "#0A6DED");
             grad.addColorStop(1, "#50E2FA");
             contextEnemy.fillStyle = grad;
             contextEnemy.fillRect(448, 32, 64, 32);
-            
-            grad = contextEnemy.createLinearGradient(448,0,512,0);
+
+            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
             grad.addColorStop(0, "#FF8002");
             grad.addColorStop(1, "#F8FB8F");
             contextEnemy.fillStyle = grad;
             contextEnemy.fillRect(448, 64, 64, 32);
-            
-            grad = contextEnemy.createLinearGradient(448,0,512,0);
+
+            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
             grad.addColorStop(0, "#A826F9");
             grad.addColorStop(1, "#FE7EDB");
             contextEnemy.fillStyle = grad;
             contextEnemy.fillRect(448, 96, 64, 32);
-            
-            grad = contextEnemy.createLinearGradient(448,0,512,0);
+
+            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
             grad.addColorStop(0, "#058865");
             grad.addColorStop(1, "#B0DE59");
             contextEnemy.fillStyle = grad;
@@ -2278,9 +2543,41 @@ window.addEventListener("load", function () {
         document.getElementById("downloadEnemy").setAttribute("href", canvasEnemy.toDataURL());
     }
     document.getElementById("generateButton").addEventListener("click", function () {
-        generateTextures();
+        generateAllTextures();
         updateSaveURLs();
     }, true);
-    generateTextures();
+
+    let assignCanvas = (groupName, generateFunc) => {
+            let assignFunc = () => {
+                generateFunc();
+                updateSaveURLs();
+            }
+            document.querySelectorAll("#" + groupName + " input:not([data-no-instant-update]), #" + groupName + " select:not([data-no-instant-update])").forEach(function (elem) {
+                elem.addEventListener("change", assignFunc);
+            });
+            document.querySelectorAll("#" + groupName + " a.formSmallButton:not([data-no-instant-update])").forEach(function (elem) {
+                elem.addEventListener("click", assignFunc);
+            });
+        },
+        updateGenMvr = () => {
+            generateGeneral();
+            generateMovers();
+        };
+    assignCanvas("groundSettings", updateGenMvr);
+    assignCanvas("jumppadSettings", generateGeneral);
+    assignCanvas("fragileSettings", generateFragiles);
+    assignCanvas("moverSettings", generateMovers);
+    assignCanvas("midgroundSettings", generateFragiles);
+    assignCanvas("finishLineSettings", generateFragiles);
+    assignCanvas("lowGemSettings", generateFragiles);
+    assignCanvas("enemyForm", generateEnemy);
+
+    document.querySelectorAll("#generalVariationSettings input[id^=ground]").forEach(function (elem) {
+        elem.addEventListener("change", generateGeneral);
+    });
+    document.querySelectorAll("#generalVariationSettings input[id^=fr]").forEach(function (elem) {
+        elem.addEventListener("change", generateFragiles);
+    });
+    generateAllTextures();
     updateSaveURLs();
 }, true);
