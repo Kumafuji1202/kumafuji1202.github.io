@@ -1,6 +1,8 @@
 //update no. 4
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
+var versionName = "1.0.8";
+var versionNum = 8;
 var dataFormat = [
     {id:"groundColor", prop:"value"},
     {id:"groundLineColor", prop:"value"},
@@ -10,7 +12,6 @@ var dataFormat = [
     {id:"outlinedGroundEdgeColor", prop:"value"},
     {id:"enableVolcanicGradient", prop:"checked"},
     {id:"volcanicGradientColor", prop:"value"},
-    {id:"doubleLines", prop:"checked"},
     
     {id:"jumppadColor", prop:"value"},
     {id:"jumppadColorActive", prop:"value"},
@@ -33,6 +34,9 @@ var dataFormat = [
     {id:"gspJumppad", prop:"value"},
     {id:"gpJumppadInactive", prop:"value"},
     {id:"gpJumppadActive", prop:"value"},
+    {id:"lineStyle", prop:"value"},
+    {id:"jumppadActiveImg", prop:"src"},
+    {id:"jumppadInactiveImg", prop:"src"},
     
     {id:"fragileColor", prop:"value"},
     {id:"fragileLineColor", prop:"value"},
@@ -43,6 +47,9 @@ var dataFormat = [
     {id:"fragileStyle", prop:"value"},
     {id:"fragileStripeColor", prop:"value"},
     {id:"fragileActiveStripeColor", prop:"value"},
+    {id:"fragileInnerStyle", prop:"value"},
+    {id:"fragileInnerInactiveDecoColor", prop:"value"},
+    {id:"fragileInnerActiveDecoColor", prop:"value"},
     
     {id:"groundVariation1", prop:"value"},
     {id:"groundVariation2", prop:"value"},
@@ -56,6 +63,7 @@ var dataFormat = [
     {id:"frgActiveVariation3", prop:"value"},
     
     {id:"moverSameColor", prop:"checked"},
+    {id:"moverNoOutlines", prop:"checked"},
     {id:"moverMainColor", prop:"value"},
     {id:"moverLineColor", prop:"value"},
     {id:"moverAutoLineColor", prop:"value"},
@@ -368,7 +376,15 @@ window.addEventListener("load", function(){
                             default:
                                 document.getElementById(set.id).setAttribute(set.prop, data[set.id]);
                         }
+                    }else{
+                        //ここから互換性用のコード
+                        if (set.id == "lineStyle"){
+                            document.getElementById(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
+                        }
                     }
+                    
+                    
+                    
                 });
                 
                 if (data.enemyStripes) document.getElementById("stripeJSONData").value=JSON.stringify(data.enemyStripes);
@@ -383,7 +399,7 @@ window.addEventListener("load", function(){
     }, true);
 
     function generateSaveDataInner() {
-        var json = "{";
+        var json = "{\n\t\"version\": \"" + versionName + "\",\n\t\"versionNum\": " + versionNum + ",";
         dataFormat.forEach(function (set, num) {
             json += "\n\t\"" + set.id + "\": \"" + document.getElementById(set.id)[set.prop] + "\",";
         });
@@ -423,4 +439,249 @@ window.addEventListener("load", function(){
     checkIfCommonObjsAreAvailable();
     document.getElementById("topRightType").addEventListener("change", checkIfCommonObjsAreAvailable);
     otherUpdateFunctions.push(checkIfCommonObjsAreAvailable);
+    
+    //
+    
+    //反転床の更新
+    function changeFlipTileForm() {
+        var flipTileType = document.getElementById("flipTileType").value;
+        var notTheSamePattern = ["import"];
+        if (notTheSamePattern.includes(flipTileType)) {
+            document.getElementById("flipperColorForm").classList.add("hidden");
+            document.getElementById("flipperNoCustomization").classList.add("hidden");
+            document.getElementById("importFlipperCustomizationForm").classList.remove("hidden");
+            return;
+        }
+        document.getElementById("flipperColorForm").classList.remove("hidden");
+        document.getElementById("importFlipperCustomizationForm").classList.add("hidden");
+        document.getElementById("flipperNoCustomization").classList.add("hidden");
+        var flipTileData = {
+            "cube": {
+                colorCount: 2,
+                translationKeys: [
+                    "cubeFlipperColorA",
+                    "cubeFlipperColorB"
+                ]
+            },
+            "checker": {
+                colorCount: 2,
+                translationKeys: [
+                    "checkerFlipperColorA",
+                    "checkerFlipperColorB"
+                ]
+            },
+            "holly": {
+                colorCount: 5,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "hollyFlipperPetalColor1",
+                    "hollyFlipperPetalColor2",
+                    "hollyFlipperSpotColor"
+                ]
+            },
+            "rhombus": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "rhombusFlipperRhombusColor"
+                ]
+            },
+            "squares": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "uLines": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "star": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "semicircles": {
+                colorCount: 3,
+                translationKeys: [
+                    "demisemicirclesFlipperCenterColor",
+                    "demisemicirclesFlipperColorB",
+                    "demisemicirclesFlipperColorC"
+                ]
+            },
+            "checkeredged": {
+                colorCount: 2,
+                translationKeys: [
+                    "alternatingEdgeColsFlipperColorA",
+                    "alternatingEdgeColsFlipperColorB"
+                ]
+            },
+            "heart": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "cits": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "fakeground": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor"
+                ]
+            }
+        };
+        var currentFlipData = flipTileData[flipTileType];
+        Array.from(document.getElementById("flipperColorForm").children).forEach(function (div, num) {
+            if (num > currentFlipData.colorCount - 1) {
+                div.classList.add("hidden");
+                return;
+            }
+            div.classList.remove("hidden");
+            var labelElem = div.children[0];
+            labelElem.setAttribute("data-translation-key", currentFlipData.translationKeys[num]);
+            labelElem.innerHTML = lang.callText(currentFlipData.translationKeys[num]);
+        });
+    }
+    changeFlipTileForm();
+    document.getElementById("flipTileType").addEventListener("change", changeFlipTileForm);
+    otherUpdateFunctions.push(changeFlipTileForm);
+    
+    //
+    
+    //メインストライプの更新
+    
+    function updateMSCF() {
+        var code = "0000";
+        switch (document.getElementById("mainStripeColorSteps").value) {
+            case "monotone":
+                code = "0001";
+                break;
+            case "twotones":
+                code = "1100";
+                break;
+            case "threetonesthickmiddle":
+            case "threetonesthinmiddle":
+                code = "1110";
+        }
+        for (var i = 0; i < 4; i++) {
+            if (code.charAt(i) === "0") {
+                document.getElementById("mainStripeColorForm" + (i + 1)).classList.add("hidden");
+            } else {
+                document.getElementById("mainStripeColorForm" + (i + 1)).classList.remove("hidden");
+            }
+        }
+    }
+    updateMSCF();
+    otherUpdateFunctions.push(updateMSCF);
+    document.getElementById("mainStripeColorSteps").addEventListener("change", updateMSCF, true);
+    
+    //
+    
+    //左下の線の更新
+    var rowList = document.getElementById("BLStripes");
+
+    function initRow(rowElem) {
+        if (rowElem.nodeType !== Node.ELEMENT_NODE) return;
+        for (let control = 0; control < 3; control++) {
+            rowElem.children[control].children[0].addEventListener("change", updateJSONFromForm);
+        }
+        var buttons = rowElem.children[4].children;
+
+        //「上に移動」ボタン
+        buttons[0].addEventListener("click", function () {
+            var previousElem = null;
+            previousElem = rowElem.previousElementSibling;
+            /*while (previousElem !== null && previousElem.nodeType !== Node.ELEMENT_NODE) {
+                previousElem = previousElem.previousSibling;
+            }*/
+            if (previousElem !== null) {
+                rowList.insertBefore(rowElem, previousElem);
+            }
+            updateJSONFromForm();
+        }, true);
+
+        //「下に移動」ボタン
+        buttons[1].addEventListener("click", function () {
+            var nextElem = null;
+            nextElem = rowElem.nextElementSibling;
+            if (nextElem == null) return; //すでに最後なら何もする必要はない
+            var nextNextElem = nextElem.nextElementSibling;
+            if (nextNextElem == null) { //2つ後の要素が無いなら最後尾に移動することになる
+                rowList.appendChild(rowElem);
+            } else {
+                rowList.insertBefore(rowElem, nextNextElem);
+            }
+            updateJSONFromForm();
+        }, true);
+
+        //「複製」ボタン
+        buttons[2].addEventListener("click", function () {
+            var newRow = rowElem.cloneNode(true);
+            rowList.insertBefore(newRow, rowElem);
+            initRow(newRow);
+            updateJSONFromForm();
+        }, true);
+        //「削除」ボタン
+        buttons[3].addEventListener("click", function () {
+            if (window.confirm(lang.callText("rowRemovalConfirmation"))) rowElem.remove();
+            updateJSONFromForm();
+        }, true);
+    }
+
+    function updateJSONFromForm() {
+        var json = "[";
+        Array.from(rowList.children).forEach(function (row, pos, arr) {
+            json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
+            if (pos + 1 != arr.length) json += ", ";
+        });
+        json += "]";
+        document.getElementById("stripeJSONData").value = json;
+        generateSaveData();
+    }
+
+    function updateFormFromJSON() {
+        var jsonObj = JSON.parse(document.getElementById("stripeJSONData").value);
+        rowList.innerHTML = "";
+        jsonObj.forEach(function (row) {
+            var newRow = addNewRow();
+            newRow.children[0].children[0].value = row.light;
+            newRow.children[1].children[0].value = row.medium;
+            newRow.children[2].children[0].value = row.dark;
+            newRow.children[3].children[0].value = row.width;
+        });
+    }
+
+    Array.from(rowList.children).forEach(function (row) {
+        initRow(row);
+    });
+
+    function addNewRow() {
+        var newRow = document.createElement("tr");
+        newRow.innerHTML = document.getElementById("BLStripeRowTemplate").innerHTML;
+        rowList.appendChild(newRow);
+        initRow(newRow);
+        return newRow;
+    }
+    document.getElementById("addStripe").addEventListener("click", function () {
+        initRow(addNewRow());
+    }, true);
+    otherUpdateFunctions.push(updateFormFromJSON);
 }, true);
