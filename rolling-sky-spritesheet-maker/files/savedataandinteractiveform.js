@@ -517,6 +517,22 @@ window.addEventListener("load", function(){
                     "demisemicirclesFlipperColorC"
                 ]
             },
+            "ring": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "cross": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
             "checkeredged": {
                 colorCount: 2,
                 translationKeys: [
