@@ -79,20 +79,43 @@
         });
 
     </script>
+    <script id="g">
+        function showFanmades(){
+            document.querySelectorAll("*[data-g]").forEach(function(each){
+                each.setAttribute("data-h", "");
+            });
+            return "ɵ";
+        }
+    </script>
+    <style id="h">
+        *[data-g]:not([data-h]){
+            display: none;
+        }
+    </style>
+    <script id="globeRotater">
+        window.addEventListener("load", function() {
+            var globeEmojis = ["🌏", "🌎", "🌍"];
+            var globeRotat = 0;
+            setInterval(function() {
+                document.getElementById("globeEmoji").innerHTML = globeEmojis[globeRotat++%3];
+            }, 500);
+        });
+
+    </script>
 </head>
 
 <body>
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.0.8</a></span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.0.9</a></span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
 
             <form id="languageForm" class="appElement appForm">
                 <label>
-                    🌎
+                    <span id="globeEmoji">🌍</span>
                     <span data-translation-key="selectLang"></span>
                     <select id="languageSelectBox">
                     </select>
@@ -203,6 +226,7 @@
                                         <select id="groundEdgeStyle">
                                             <option data-translation-key="groundEdgeStyleNone" value="none"></option>
                                             <option data-translation-key="groundEdgeStyleCut" value="cut"></option>
+                                            <option data-translation-key="groundEdgeStyleCutNoEdge" value="cutonly"></option>
                                             <option data-translation-key="groundEdgeStyleOutline" value="outlined" data-option-form="outlinedGeneralCustomizationForm"></option>
                                         </select>
                                     </label>
@@ -222,12 +246,31 @@
                                     <option data-translation-key="lineStyleThin" value="thin"></option>
                                     <option data-translation-key="lineStyleSharp" value="sharp"></option>
                                     <option data-translation-key="lineStyleGlowing" value="glowing"></option>
+                                    <option data-translation-key="lineStyleThick" value="thick"></option>
                                 </select>
                             </label><br>
+                            <!-- 普通床の内部のスタイル -->
                             <!-- 火山風グラデーション -->
                             <label><span data-translation-key="volcanicGradient"></span><input type="checkbox" id="enableVolcanicGradient" data-off-or-input="volcanoSettingLabel"></label>
                             <label class="disabledLabel" id="volcanoSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="volcanicGradientColor" disabled value="#E2A132"></label>
                             <br>
+                            <!--
+                            <fieldset id="groundInnerDecoForm" class="selectForm" data-default-form="groundInnerDecoDefaultContent" data-form-selector="groundInnerStyle">
+                                <legend>
+                                    <label><span data-translation-key="groundInnerStyle"></span>
+                                        <select id="groundInnerStyle">
+                                            <option value="none" data-translation-key="groundStyleNoDeco"></option>
+                                            <option value="metal" data-translation-key="groundStyleMetal" data-option-form="groundInnerDecoSingleColor"></option>
+                                        </select>
+                                    </label>
+                                </legend>
+                                <div id="groundInnerDecoDefaultContent" data-translation-key="fragileCustomizationDefaultContent" class="selectedForm">
+                                </div>
+                                <div id="groundInnerDecoSingleColor">
+                                    <label><span data-translation-key="UsedColor"></span><input type="color" id="groundInnerDecoColor" value="#E9A442"></label><br>
+                                </div>
+                            </fieldset>
+                            -->
                         </div>
 
                         <!-- ジャンプ床の設定 -->
@@ -265,31 +308,33 @@
                                                 <!--<option data-translation-key="jumppadStyleHexagons" value="hexagon"></option>-->
                                             </optgroup>
                                             <optgroup data-translation-key="patternStyleFanmade" label="">
-                                                <!--<option data-translation-key="jumppadStyleCave" value="cave"></option>-->
+                                                <option data-translation-key="jumppadStyleCave" value="cave" data-option-form="generalPatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Fanmade - Cave -->
+                                                <!--<option data-translation-key="jumppadStyleCavePromo" value="cavepromo"></option>-->
                                                 <!-- 参考: Rolling Fanmade - Cave -->
                                                 <option data-translation-key="jumppadStyleChemistry" value="chemistry" data-option-form="gridJumppadCustomizationForm"></option>
                                                 <!-- 参考: Professional Block - Chemistry -->
                                                 <option data-translation-key="jumppadStyleDynamicHill" value="dhill" data-option-form="generalPatternedJumppadCustomizationForm"></option>
                                                 <!-- 参考: Professional Block - Dynamic Hill -->
-                                                <!--<option data-translation-key="jumppadStyleScale" value="scale" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
-                                                <!-- 参考: Rolling Zealous - Ocean -->
-                                                <option data-translation-key="jumppadStyleCitrus" value="citrus" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                                <!-- 参考: Rolling Universe - Cotton Candy -->
-                                                <!--<option data-translation-key="jumppadStyleHourglass" value="hourglass"></option>-->
-                                                <!-- 参考: Rolling Universe - The Time -->
-                                                <option data-translation-key="jumppadStyleWanderingHabits" value="wander" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
-                                                <!-- 参考: Rolling Universe - Low Life -->
                                                 <option data-translation-key="jumppadStyleSimpleCircle" value="simplecircle" data-option-form="generalSinglePatternedJumppadCustomizationForm"></option>
                                                 <!-- 参考: Rolling Universe - Faith -->
                                                 <!--<option data-translation-key="jumppadStyleExplorers" value="explorers" data-option-form="generalPatternedJumppadCustomizationForm"></option>-->
                                                 <!-- 参考: Rolling Fanmade - Explorers -->
-                                                <option data-translation-key="jumppadStyleRollingWorld" value="rworld" data-option-form="generalPatternedJumppadCustomizationForm"></option>
-                                                <!-- 参考: Rolling World -->
+                                                <option data-translation-key="jumppadStyleSparklesComet" value="sparkc" data-option-form="generalActiveOnlyPatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Universe - Comet's Arrival -->
+                                                <!--<option data-translation-key="jumppadStyleSparklesAnniv" value="spark7" data-option-form="generalActiveOnlyPatternedJumppadCustomizationForm"></option>-->
+                                                <!-- 参考: A Dream of 7 Years -->
+                                                <option data-translation-key="jumppadStyleScale" value="scale" data-option-form="generalPatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Zealous - Ocean 改良済み-->
+                                                <option data-translation-key="jumppadStyleSparklesComet" value="sparkc" data-option-form="generalActiveOnlyPatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Universe - Comet's Arrival -->
                                             </optgroup>
                                             <!--<optgroup data-translation-key="jumppadStyleCustom">
                                             <option data-translation-key="jumppadStyleStar" value="star"></option>
                                         </optgroup>
                                         -->
+                                            <option data-translation-key="jumppadStyleDoubleSqLines" value="sqlines" data-option-form="generalInactiveOnlyPatternedJumppadCustomizationForm"></option>
+                                            <!-- 参考: Rolling Universe - Taurus -->
                                             <option data-translation-key="importImages" value="import" data-option-form="importJumppadCustomizationForm"></option>
                                         </select>
                                     </label>
@@ -297,6 +342,14 @@
                                 <div id="jumppadCustomizationDefaultContent" data-translation-key="jumppadCustomizationDefaultContent" class="selectedForm"></div>
                                 <div id="generalSinglePatternedJumppadCustomizationForm">
                                     <label><span data-translation-key="patternColor"></span><input type="color" id="gspJumppad" value="#ffff00"></label><br>
+                                </div>
+                                <div id="generalInactiveOnlyPatternedJumppadCustomizationForm">
+                                    <span data-translation-key="patternColor"></span>
+                                    <label><span data-translation-key="inactive"></span><input type="color" id="giopJumppad" value="#FFAF7A"></label><br>
+                                </div>
+                                <div id="generalActiveOnlyPatternedJumppadCustomizationForm">
+                                    <span data-translation-key="patternColor"></span>
+                                    <label><span data-translation-key="active"></span><input type="color" id="gaopJumppad" value="#FDFF94"></label><br>
                                 </div>
                                 <div id="generalPatternedJumppadCustomizationForm">
                                     <span data-translation-key="patternColor"></span>
@@ -398,11 +451,10 @@
                                                 <option value="stripes" data-translation-key="fragileStyleStripes" data-option-form="stripesFragilecustomizationForm" selected></option>
                                                 <option value="boxes" data-translation-key="fragileStyleallLines"></option>
                                             </optgroup>
-                                            <optgroup data-translation-key="patternStyleFanmade" label="">
+                                            <optgroup data-translation-key="patternStyleFanmade" label="" data-g>
                                                 <option value="cave" data-translation-key="fragileStyleCave"></option>
-                                                <option value="bubbles" data-translation-key="fragileStyleBubbles"></option>
-                                                <option value="double" data-translation-key="fragileLineStyleDouble"></option>
                                             </optgroup>
+                                            <option value="double" data-translation-key="fragileLineStyleDouble"></option>
                                         </select>
                                     </label>
                                 </legend>
@@ -621,7 +673,9 @@
                                             <option data-translation-key="topRightFloater" value="floater" data-option-form="floaterCustomizationForm" data-subB-available></option>
                                             <option data-translation-key="topRightCrystal" value="crystal" data-option-form="crystalTRCustomizationForm" data-subB-available></option>
                                             <option data-translation-key="topRightGeometry" value="geometry" data-option-form="geometryCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightAncient" value="relics" data-option-form="ancientCustomizationForm" data-neonbox-available></option>
                                             <option data-translation-key="topRightNeon" value="neon" data-option-form="neonCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
+                                            <option data-translation-key="topRightHBD" value="hbd" data-option-form="HBDCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                         </select>
                                     </label>
                                 </legend>
@@ -703,7 +757,7 @@
                                 </div>
                                 <div id="geometryCustomizationForm">
                                     <!-- 立方体構造物 -->
-                                    <h2 data-translation-key="cubeStructure"></h2>
+                                    <h3 data-translation-key="cubeStructure"></h3>
                                     <fieldset id="cubeStructureForm" class="selectForm" data-default-form="cubeStructureCustomizationDefaultContent" data-form-selector="cubeStructureType">
                                         <legend>
                                             <span data-translation-key="cubeStructureType"></span>
@@ -758,12 +812,12 @@
                                     <label class="" id="cubeStructureFrameSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="cubeStructureFrameColor" value="#78493C"></label>
 
                                     <!-- 回転八面体(大)内部 -->
-                                    <h2 data-translation-key="largeOctahedronSettingHeading"></h2>
+                                    <h3 data-translation-key="largeOctahedronSettingHeading"></h3>
                                     <label><span data-translation-key="largeOctahedronTriangleSideA"></span><input type="color" id="largeOctahedronTriangleSideA" value="#8CB8B5"></label>
                                     <label><span data-translation-key="largeOctahedronTriangleSideB"></span><input type="color" id="largeOctahedronTriangleSideB" value="#F9E094"></label>
 
                                     <!-- 回転立方体 -->
-                                    <h2 data-translation-key="spinCubeSettingHeading"></h2>
+                                    <h3 data-translation-key="spinCubeSettingHeading"></h3>
                                     <fieldset id="spinCubeForm" class="selectForm" data-default-form="spinCubeCustomizationDefaultContent" data-form-selector="spinCubeType">
                                         <legend>
                                             <span data-translation-key="spinCubeType"></span>
@@ -788,10 +842,45 @@
                                     </fieldset>
                                 </div>
                                 <!--
-                                <div id="1upCustomizationForm"></div>
-                                <div id="ancientCustomizationForm"></div>-->
+                                <div id="1upCustomizationForm"></div>-->
+                                <div id="ancientCustomizationForm">
+                                    <h3 data-translation-key="relicsOwl"></h3>
+                                    <ul>
+                                        <li><label><span data-translation-key="relicsOwlFaceY"></span><input type="color" id="relicsOwlFaceY" value="#363E44"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlEyeOuter"></span><input type="color" id="relicsOwlEyeOuter" value="#7F8A86"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlBody"></span><input type="color" id="relicsOwlBody" value="#B7C3BD"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlLegs"></span><input type="color" id="relicsOwlLegs" value="#8D9C95"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlWings"></span><input type="color" id="relicsOwlWings" value="#5B6162"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlAbdomen"></span><input type="color" id="relicsOwlAbdomen" value="#CBD8D8"></label></li>
+                                    </ul>
+                                    <h3 data-translation-key="relicsJumpDome"></h3>
+                                    <ul>
+                                        <li><label><span data-translation-key="relicsJumpDomeDome"></span><input type="color" id="relicsJumpDomeInner" value="#2FC8D1"></label></li>
+                                        <li><label><span data-translation-key="relicsJumpDomeRing"></span><input type="color" id="relicsJumpDomeRing" value="#DFFA68"></label></li>
+                                        <li><label><span data-translation-key="relicsJumpDomeBottom"></span><input type="color" id="relicsJumpDomeBottom" value="#3A4749"></label></li>
+                                    </ul>
+                                    <h3 data-translation-key="relicsCrystal"></h3>
+                                    <ol>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="relicsCrystal1" value="#D9E7DE"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="relicsCrystal2" value="#C4E1DC"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="relicsCrystal3" value="#A8CEC7"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="relicsCrystal4" value="#8DCAC3"></label></li>
+                                    </ol>
+                                    <h3 data-translation-key="relicsTree"></h3>
+                                    <span data-translation-key="relicsTreeLeaves"></span>:<br>
+                                    <ol>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="relicsTreeLeaves1" value="#94D4D0"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="relicsTreeLeaves2" value="#52AAB2"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="relicsTreeLeaves3" value="#568FA9"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="relicsTreeLeaves4" value="#516788"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="relicsTreeLeaves5" value="#3A4F71"></label></li>
+                                    </ol>
+                                    <span data-translation-key="relicsTreeStem"></span>:<br>
+                                    <label><span data-translation-key="topEnd"></span><input type="color" id="relicsTreeGradationTop" value="#68482E"></label><br>
+                                    <label><span data-translation-key="bottomEnd"></span><input type="color" id="relicsTreeGradationBottom" value="#2D1C15"></label>
+                                </div>
                                 <div id="neonCustomizationForm">
-                                    <h2 data-translation-key="obstacleAccentColors"></h2>
+                                    <h3 data-translation-key="obstacleAccentColors"></h3>
                                     <table>
                                         <thead>
                                             <tr>
@@ -900,7 +989,7 @@
                                         </tbody>
                                     </table>
 
-                                    <span data-translation-key="neonRobotGears"></span>
+                                    <h3 data-translation-key="neonRobotGears"></h3>
                                     <ol>
                                         <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="neonRobotGear1" value="#47F5EC"></label></li>
                                         <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="neonRobotGear2" value="#08C9C0"></label></li>
@@ -908,7 +997,7 @@
                                         <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="neonRobotGear4" value="#007594"></label></li>
                                         <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="neonRobotGear5" value="#005168"></label></li>
                                     </ol>
-                                    <span data-translation-key="neonRobotCord"></span>
+                                    <h3 data-translation-key="neonRobotCord"></h3>
                                     <label><span data-translation-key="front"></span><input type="color" id="neonRobotCordFront" value="#FCBB52"></label>
                                     <label><span data-translation-key="side"></span><input type="color" id="neonRobotCordSide" value="#FF9012"></label>
                                 </div>
@@ -916,6 +1005,111 @@
                                 <div id="aloneCustomizationForm"></div>
                                 <div id="fadedCustomizationForm"></div>
                                 -->
+                                <div id="HBDCustomizationForm">
+                                    <h3 data-translation-key="TRAdditionalPalette"></h3>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th><span><span data-translation-key="tone#"></span>1</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>2</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>3</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>4</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>1(bd1)</th>
+                                                <td><input type="color" id="HBDPaletteA1" value="#5468EA"></td>
+                                                <td><input type="color" id="HBDPaletteA2" value="#3D53DE"></td>
+                                                <td><input type="color" id="HBDPaletteA3" value="#2A3CAD"></td>
+                                                <td><input type="color" id="HBDPaletteA4" value="#2A3394"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>2(bd2)</th>
+                                                <td><input type="color" id="HBDPaletteB1" value="#FFB23E"></td>
+                                                <td><input type="color" id="HBDPaletteB2" value="#F66A2E"></td>
+                                                <td><input type="color" id="HBDPaletteB3" value="#E9531D"></td>
+                                                <td><input type="color" id="HBDPaletteB4" value="#C34A1A"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h3><span data-translation-key="HBDGradation"></span>(bd3)</h3>
+                                    <label><span data-translation-key="topEnd"></span><input type="color" id="HBDGradationTop" value="#FEFAAD"></label><br>
+                                    <label><span data-translation-key="bottomEnd"></span><input type="color" id="HBDGradationBottom" value="#D18A1E"></label>
+                                    <h3 data-translation-key="HBDRainbow"></h3>
+                                    <ol>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="HBDRainbow1" value="#FD718C"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="HBDRainbow2" value="#FD8B48"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="HBDRainbow3" value="#F1FA87"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="HBDRainbow4" value="#56F884"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="HBDRainbow5" value="#46CEFD"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>6</span><input type="color" id="HBDRainbow6" value="#9C5FFD"></label></li>
+                                    </ol>
+
+                                    <span data-translation-key="colorUsageList"></span><br>
+                                    <table class="listTable">
+                                        <thead>
+                                            <tr>
+                                                <th data-translation-key="object"></th>
+                                                <th data-translation-key="part"></th>
+                                                <th data-translation-key="UsedColor"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="objName597"></span> (591,597)</th>
+                                                <td data-translation-key="HBDObjCakeTop"></td>
+                                                <td>bd2</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2"><span data-translation-key="objName601"></span> (601,602)</th>
+                                                <td data-translation-key="HBDObjBridgeFront"></td>
+                                                <td>bd1</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="HBDObj601BD3Parts"></td>
+                                                <td>bd3</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2"><span data-translation-key="objName603"></span> (603)</th>
+                                                <td data-translation-key="HBDObjMsgSide"></td>
+                                                <td>bd1</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="HBDObjMsgFront"></td>
+                                                <td>bd3</td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="objName606"></span> (606-611)</th>
+                                                <td data-translation-key="HBDObjSpots"></td>
+                                                <td>bd3</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2"><span data-translation-key="objName612"></span> (612)</th>
+                                                <td data-translation-key="HBDObjLetterBase"></td>
+                                                <td>bd1</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="HBDObjSpots"></td>
+                                                <td>bd3</td>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="6"><span data-translation-key="objName613"></span> (613,623)</th>
+                                                <td data-translation-key="HBDObj613BD1Parts"></td>
+                                                <td>bd1</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="HBDObjCakeTop"></td>
+                                                <td>bd2</td>
+                                            </tr>
+                                            <tr>
+                                                <td data-translation-key="HBDObj613BD3Parts"></td>
+                                                <td>bd3</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </fieldset>
                         </div>
                         <!-- B11-14 -->
@@ -996,13 +1190,14 @@
                                                     <!-- ケプラースタイル: 色B=左奥と右手前 色C=右奥と左手前 -->
                                                     <!--<option data-translation-key="flipTileCheckerFortune" value="fortune"></option>-->
                                                     <!-- ajrスタイル-->
+                                                    <option data-translation-key="flipTileRing" value="ring"></option>
+                                                    <option data-translation-key="flipTileCross" value="cross"></option>
+                                                    <option data-translation-key="flipTileNuclear" value="nuclear"></option>
                                                 </optgroup>
-                                                <optgroup data-translation-key="patternStyleFanmade" label="">
-                                                    <option data-translation-key="flipTileCheckerEdged" value="checkeredged"></option>
-                                                    <!-- 3D Spacial Zoneスタイル-->
-                                                    <option data-translation-key="flipTileHeart" value="heart"></option>
-                                                    <!-- RWスタイル-->
-                                                </optgroup>
+                                                <option data-translation-key="flipTileCheckerEdged" value="checkeredged" data-g></option>
+                                                <!-- 3D Spacial Zoneスタイル-->
+                                                <option data-translation-key="flipTileHeart" value="heart"></option>
+                                                <!-- RWスタイル, ただし向きは改良 -->
                                                 <option data-translation-key="flipTileCits" value="cits"></option>
                                                 <!-- 天空の城風(自作) -->
                                                 <option data-translation-key="flipTileFakeGround" value="fakeground"></option>
