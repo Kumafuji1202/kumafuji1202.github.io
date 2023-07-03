@@ -1,4 +1,4 @@
-//update no. 11
+//update no. 12
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -21,15 +21,15 @@ window.addEventListener("load", function () {
 
     //General, Fragile, FragileActive, Mover, MoverAutoで使用する床の端のパス
     var tileOutlinePath = new Path2D();
-    tileOutlinePath.rect(-30.5, 139.5, 61, 232);
-    tileOutlinePath.rect(-30.5, 481, 232, 61);
-    tileOutlinePath.rect(310.5, 481, 232, 61);
-    tileOutlinePath.rect(340, 139.5, 31, 61);
+    tileOutlinePath.rect(-30.5, 139.5, 61, 233);
+    tileOutlinePath.rect(-30.5, 482, 232, 61);
+    tileOutlinePath.rect(310.5, 482, 232, 61);
+    tileOutlinePath.rect(341, 140.5, 31, 61);
     tileOutlinePath.moveTo(310.5, -30.5);
     tileOutlinePath.lineTo(310.5, 30.5);
-    tileOutlinePath.lineTo(481, 30.5);
-    tileOutlinePath.lineTo(481, 371);
-    tileOutlinePath.lineTo(542, 371);
+    tileOutlinePath.lineTo(482, 30.5);
+    tileOutlinePath.lineTo(482, 372);
+    tileOutlinePath.lineTo(542, 372);
     tileOutlinePath.lineTo(542, -30.5);
     tileOutlinePath.closePath();
 
@@ -160,6 +160,7 @@ window.addEventListener("load", function () {
         //線スタイル
         var ls = document.getElementById("lineStyle").value;
 
+        
         //コンテキストの初期化//
         contextGeneral.lineCap = "round";
         contextGeneral.lineJoin = "round";
@@ -168,7 +169,7 @@ window.addEventListener("load", function () {
         //線の太さを決める
         switch (ls) {
             case "double":
-                lineArrays.width = [15, 13, 7, 5];
+                lineArrays.width = [13, 11, 6, 4];
                 lineArrays.alpha = [0.1875, 0.1875, 0.375, 1];
                 break;
             case "thin":
@@ -178,6 +179,10 @@ window.addEventListener("load", function () {
             case "sharp":
                 lineArrays.width = [3, 1];
                 lineArrays.alpha = [0.5, 1];
+                break;
+            case "thick":
+                lineArrays.width = [10];
+                lineArrays.alpha = [1];
                 break;
             default: //"normal"もここに属する
                 lineArrays.width = [9, 7, 5];
@@ -201,46 +206,103 @@ window.addEventListener("load", function () {
 
         //線の描画(パス定義)
         groundLinesPath = new Path2D();
-        if (gStyle != "cut") {
+        if (gStyle != "cut" && gStyle != "cutonly") {
             groundLinesPath.addPath(sixSquares);
         } else { //角落ちの枠線。
             //ここのコードをローカル関数か何かを使って簡素化できないかな…
-            //基本的に左上隅スタート
-            //右上段
-            groundLinesPath.moveTo(353.5, 27);
-            groundLinesPath.lineTo(353.5, 144);
-            groundLinesPath.lineTo(368, 158.5);
-            groundLinesPath.lineTo(485, 158.5);
-            groundLinesPath.lineTo(493.5, 149);
-            groundLinesPath.lineTo(493.5, 18.5);
-            groundLinesPath.lineTo(362, 18.5);
-            groundLinesPath.closePath();
-            //左中段
-            groundLinesPath.moveTo(18.5, 191);
-            groundLinesPath.lineTo(18.5, 319);
-            groundLinesPath.lineTo(27, 328.5);
-            groundLinesPath.lineTo(158.5, 328.5);
-            groundLinesPath.lineTo(158.5, 182.5);
-            groundLinesPath.lineTo(27, 182.5);
-            groundLinesPath.closePath();
-            //右中段
-            groundLinesPath.moveTo(353.5, 197);
-            groundLinesPath.lineTo(353.5, 328.5);
-            groundLinesPath.lineTo(485, 328.5);
-            groundLinesPath.lineTo(493.5, 319);
-            groundLinesPath.lineTo(493.5, 191);
-            groundLinesPath.lineTo(485, 182.5);
-            groundLinesPath.lineTo(368, 182.5);
-            groundLinesPath.closePath();
-            //左下段
-            groundLinesPath.moveTo(12.5, 368);
-            groundLinesPath.lineTo(12.5, 485);
-            groundLinesPath.lineTo(21, 493.5);
-            groundLinesPath.lineTo(150, 493.5);
-            groundLinesPath.lineTo(158.5, 485);
-            groundLinesPath.lineTo(158.5, 353.5);
-            groundLinesPath.lineTo(27, 353.5);
-            groundLinesPath.closePath();
+            //基本的に左上隅スタート、反時計回り
+            if (gStyle == "cut") {
+                //右上段
+                groundLinesPath.moveTo(353.5, 27);
+                groundLinesPath.lineTo(353.5, 144);
+                groundLinesPath.lineTo(368, 158.5);
+                groundLinesPath.lineTo(485, 158.5);
+                groundLinesPath.lineTo(493.5, 149);
+                groundLinesPath.lineTo(493.5, 18.5);
+                groundLinesPath.lineTo(362, 18.5);
+                groundLinesPath.closePath();
+                //左中段
+                groundLinesPath.moveTo(18.5, 191);
+                groundLinesPath.lineTo(18.5, 319);
+                groundLinesPath.lineTo(27, 328.5);
+                groundLinesPath.lineTo(158.5, 328.5);
+                groundLinesPath.lineTo(158.5, 182.5);
+                groundLinesPath.lineTo(27, 182.5);
+                groundLinesPath.closePath();
+                //右中段
+                groundLinesPath.moveTo(353.5, 197);
+                groundLinesPath.lineTo(353.5, 328.5);
+                groundLinesPath.lineTo(485, 328.5);
+                groundLinesPath.lineTo(493.5, 319);
+                groundLinesPath.lineTo(493.5, 191);
+                groundLinesPath.lineTo(485, 182.5);
+                groundLinesPath.lineTo(368, 182.5);
+                groundLinesPath.closePath();
+                //左下段
+                groundLinesPath.moveTo(12.5, 368);
+                groundLinesPath.lineTo(12.5, 485);
+                groundLinesPath.lineTo(21, 493.5);
+                groundLinesPath.lineTo(150, 493.5);
+                groundLinesPath.lineTo(158.5, 485);
+                groundLinesPath.lineTo(158.5, 353.5);
+                groundLinesPath.lineTo(27, 353.5);
+                groundLinesPath.closePath();
+                //右下段
+                groundLinesPath.moveTo(353.5, 353.5);
+                groundLinesPath.lineTo(353.5, 485);
+                groundLinesPath.lineTo(362, 493.5);
+                groundLinesPath.lineTo(490, 493.5);
+                groundLinesPath.lineTo(498.5, 485);
+                groundLinesPath.lineTo(498.5, 368);
+                groundLinesPath.lineTo(485, 353.5);
+                groundLinesPath.closePath();
+            }else{
+                //右上段
+                groundLinesPath.moveTo(353.5, 27);
+                groundLinesPath.lineTo(353.5, 144);
+                groundLinesPath.lineTo(368, 158.5);
+                groundLinesPath.lineTo(485, 158.5);
+                groundLinesPath.lineTo(498.5, 144);
+                groundLinesPath.lineTo(498.5, 27);
+                groundLinesPath.lineTo(485, 13.5);
+                groundLinesPath.lineTo(368, 13.5);
+                groundLinesPath.closePath();
+                //左中段
+                groundLinesPath.moveTo(12.5, 197);
+                groundLinesPath.lineTo(12.5, 315);
+                groundLinesPath.lineTo(27, 328.5);
+                groundLinesPath.lineTo(158.5, 328.5);
+                groundLinesPath.lineTo(158.5, 182.5);
+                groundLinesPath.lineTo(27, 182.5);
+                groundLinesPath.closePath();
+                //右中段
+                groundLinesPath.moveTo(353.5, 197);
+                groundLinesPath.lineTo(353.5, 328.5);
+                groundLinesPath.lineTo(485, 328.5);
+                groundLinesPath.lineTo(498.5, 315);
+                groundLinesPath.lineTo(498.5, 197);
+                groundLinesPath.lineTo(485, 182.5);
+                groundLinesPath.lineTo(368, 182.5);
+                groundLinesPath.closePath();
+                //左下段
+                groundLinesPath.moveTo(12.5, 368);
+                groundLinesPath.lineTo(12.5, 485);
+                groundLinesPath.lineTo(26, 498.5);
+                groundLinesPath.lineTo(145, 498.5);
+                groundLinesPath.lineTo(158.5, 485);
+                groundLinesPath.lineTo(158.5, 353.5);
+                groundLinesPath.lineTo(27, 353.5);
+                groundLinesPath.closePath();
+                //右下段
+                groundLinesPath.moveTo(353.5, 353.5);
+                groundLinesPath.lineTo(353.5, 485);
+                groundLinesPath.lineTo(366, 498.5);
+                groundLinesPath.lineTo(485, 498.5);
+                groundLinesPath.lineTo(498.5, 485);
+                groundLinesPath.lineTo(498.5, 368);
+                groundLinesPath.lineTo(485, 353.5);
+                groundLinesPath.closePath();
+            }
             //中下段
             groundLinesPath.moveTo(182.5, 353.5);
             groundLinesPath.lineTo(182.5, 485);
@@ -249,15 +311,7 @@ window.addEventListener("load", function () {
             groundLinesPath.lineTo(328.5, 485);
             groundLinesPath.lineTo(328.5, 353.5);
             groundLinesPath.closePath();
-            //右下段
-            groundLinesPath.moveTo(353.5, 353.5);
-            groundLinesPath.lineTo(353.5, 485);
-            groundLinesPath.lineTo(362, 493.5);
-            groundLinesPath.lineTo(490, 493.5);
-            groundLinesPath.lineTo(498.5, 485);
-            groundLinesPath.lineTo(498.5, 368);
-            groundLinesPath.lineTo(485, 353.5);
-            groundLinesPath.closePath();
+
         }
         groundLinesPath.moveTo(182.5, 182.5);
         groundLinesPath.lineTo(182.5, 328.5);
@@ -330,6 +384,10 @@ window.addEventListener("load", function () {
             contextGeneral.fillRect(491.5, 20, 16, 299);
             //上の太い線
             contextGeneral.fillRect(363, 4.5, 128, 16);
+        }
+        
+        if (["cut", "cutonly"].includes(gStyle)) {
+            contextGeneral.fillStyle = gl;
             //左中段
             drawCutCorner(true, true, 0, 171);
             drawCutCorner(true, false, 0, 340);
@@ -367,6 +425,7 @@ window.addEventListener("load", function () {
             contextGeneral.restore();
         }
 
+        let jpPrevCxt = document.getElementById("jumpPadPreview").getContext("2d");
         //ジャンプ床//
         if (jumppadStyle != "import") {
             contextGeneral.fillStyle = jc;
@@ -376,9 +435,12 @@ window.addEventListener("load", function () {
         } else { //インポートジャンプ床
             contextGeneral.drawImage(document.getElementById("jumppadInactiveImg"), 182.5, 12.5, 146, 146);
             contextGeneral.drawImage(document.getElementById("jumppadActiveImg"), 12.5, 12.5, 146, 146);
-            let jpPrevCxt = document.getElementById("jumpPadPreview").getContext("2d");
 
             jpPrevCxt.clearRect(0, 0, jpPrevCxt.canvas.width, jpPrevCxt.canvas.height);
+
+            jpPrevCxt.fillStyle = gc;
+            jpPrevCxt.fillRect(12, 27, 146, 146);
+            jpPrevCxt.fillRect(182, 27, 146, 146);
 
             jpPrevCxt.textBaseline = "alphabetic";
             jpPrevCxt.fillStyle = "#000000";
@@ -621,6 +683,7 @@ window.addEventListener("load", function () {
         }
 
         //「放浪癖」w
+        /*
         if (jumppadStyle == "wander") {
             contextGeneral.fillStyle = document.getElementById("gspJumppad").value;
             contextGeneral.textAlign = "center";
@@ -658,7 +721,7 @@ window.addEventListener("load", function () {
             }
             contextGeneral.stroke();
         }
-
+        */
         //ただの丸()
         if (jumppadStyle == "simplecircle") {
             let circPath = new Path2D();
@@ -670,6 +733,9 @@ window.addEventListener("load", function () {
         //ジャンプ床の発光を描画//
         if (!document.getElementById("disableActiveJumppadGlow").checked) {
             rectInnerGlow(12, 12, 146, 146, 50, 85, ajl, contextGeneral);
+            if (jumppadStyle == "import") {
+                rectInnerGlow(12, 27, 146, 146, 50, 85, ajl, document.getElementById("jumpPadPreview").getContext("2d"));
+            }
         }
 
         //角落ちジャンプ床の描画
@@ -706,6 +772,32 @@ window.addEventListener("load", function () {
             contextGeneral.fillRect(219.5, 48.5, 73, 73);
         }
 
+        //洞窟
+        if (jumppadStyle == "cave") {
+            contextGeneral.shadowBlur = 10;
+            contextGeneral.strokeStyle = document.getElementById("gpJumppadActive").value;
+            contextGeneral.shadowColor = contextGeneral.strokeStyle;
+            contextGeneral.lineWidth = 12;
+            contextGeneral.beginPath();
+            contextGeneral.arc(85, 85, 35, 0, 2 * Math.PI);
+            contextGeneral.stroke();
+            contextGeneral.lineCap = "butt";
+            contextGeneral.beginPath();
+            contextGeneral.arc(260, 90, 35, 0, 0.5 * Math.PI);
+            contextGeneral.stroke();
+            contextGeneral.beginPath();
+            contextGeneral.arc(250, 90, 35, 0.5 * Math.PI, Math.PI);
+            contextGeneral.stroke();
+            contextGeneral.beginPath();
+            contextGeneral.arc(250, 80, 35, Math.PI, 1.5 * Math.PI);
+            contextGeneral.stroke();
+            contextGeneral.beginPath();
+            contextGeneral.arc(260, 80, 35, 1.5 * Math.PI, 0);
+            contextGeneral.stroke();
+            contextGeneral.shadowBlur = 0;
+            contextGeneral.lineCap = "round";
+        }
+        /*
         //Rolling World
         if (jumppadStyle == "rworld") {
             let grad = contextGeneral.createRadialGradient(85, 85, 10, 85, 85, 31);
@@ -731,7 +823,7 @@ window.addEventListener("load", function () {
                 multipleLines([5, 2], [0.5, 1], contextGeneral, rollingWorldJPPath);
             }
         }
-
+        */
         //ジャンプ床格子模様の描画
         if (["grid", "chemistry", "citrus"].includes(jumppadStyle)) {
             let activeJumppadGradient = contextGeneral.createRadialGradient(97.5, 97.5, 50, 97.5, 97.5, 130);
@@ -781,6 +873,40 @@ window.addEventListener("load", function () {
             }
         }
 
+        //二重四角
+        if (jumppadStyle == "sqlines") {
+            contextGeneral.lineWidth = 3;
+            contextGeneral.strokeStyle = document.getElementById("giopJumppad").value;
+            contextGeneral.strokeRect(197.5, 27.5, 118, 118);
+            contextGeneral.strokeRect(208.5, 38.5, 96, 96);
+        }
+
+        if (jumppadStyle == "scale") {
+            for (let jpStatus = 0; jpStatus < 2; jpStatus++) {
+                let jpXPos = 170 * jpStatus;
+                contextGeneral.save();
+                contextGeneral.beginPath();
+                contextGeneral.rect(12.5 + jpXPos, 12.5, 146, 146);
+                contextGeneral.clip();
+                contextGeneral.lineWidth = 3.5;
+                contextGeneral.strokeStyle = document.getElementById((["gpJumppadActive", "gpJumppadInactive"])[jpStatus]).value;
+                contextGeneral.beginPath();
+                for (let scaleYPos = 0; scaleYPos < 8; scaleYPos++) {
+                    for (let scaleXPos = 0; scaleXPos < 5 + scaleYPos % 2; scaleXPos++) {
+                        contextGeneral.beginPath();
+                        let XCenter = jpXPos + 12.5 + (1 + 2 * scaleXPos - scaleYPos % 2) * 14.6;
+                        let YCenter = 12.5 + 18.25 * scaleYPos;
+                        contextGeneral.moveTo(XCenter - 14.6, YCenter - 1.7);
+                        contextGeneral.arc(XCenter, YCenter, 14.6, Math.PI, 0, true);
+                        contextGeneral.lineTo(XCenter + 14.6, YCenter - 1.7);
+                        contextGeneral.stroke();
+                    }
+                }
+                //contextGeneral.stroke();
+                contextGeneral.restore();
+            }
+        }
+
         //ジャンプ床の側面の描画
         contextGeneral.fillStyle = js;
         contextGeneral.fillRect(286, 30, 25, 25);
@@ -793,8 +919,29 @@ window.addEventListener("load", function () {
         multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadInactiveLinesPath);
         contextGeneral.strokeStyle = ajl;
         multipleLines([9, 7, 5], [0.25, 0.375, 1], contextGeneral, jumppadActiveLinesPath);
-        if (jumppadStyle == "import") {
-            rectInnerGlow(12, 27, 146, 146, 50, 85, ajl, document.getElementById("jumpPadPreview").getContext("2d"));
+        if (jumppadStyle == "import") {}
+
+        //彗星スタイルのキラキラ (線よりも上に描画)
+        if (jumppadStyle == "sparkc") {
+            contextGeneral.fillStyle = document.getElementById("gaopJumppad").value;
+            for (let sprk = 0; sprk < 4; sprk++) {
+                contextGeneral.save();
+                let sprkxpos = ([37, 116, 85, 35])[sprk];
+                let sprkypos = ([131, 145, 115, 68])[sprk];
+                let sprksize = ([62, 40, 26, 48])[sprk] / 2; //外接直径
+                let sprkrot = Math.PI * ([1 / 8, 0, 1 / 4, -1 / 8])[sprk];
+                contextGeneral.translate(sprkxpos, sprkypos);
+                contextGeneral.rotate(sprkrot);
+                contextGeneral.translate(-sprkxpos, -sprkypos);
+                contextGeneral.beginPath();
+                contextGeneral.moveTo(sprkxpos, sprkypos - sprksize);
+                contextGeneral.arc(sprkxpos + sprksize, sprkypos - sprksize, sprksize, Math.PI, 0.5 * Math.PI, true);
+                contextGeneral.arc(sprkxpos + sprksize, sprkypos + sprksize, sprksize, -0.5 * Math.PI, Math.PI, true);
+                contextGeneral.arc(sprkxpos - sprksize, sprkypos + sprksize, sprksize, 0, -0.5 * Math.PI, true);
+                contextGeneral.arc(sprkxpos - sprksize, sprkypos - sprksize, sprksize, 0.5 * Math.PI, 0, true);
+                contextGeneral.fill();
+                contextGeneral.restore();
+            }
         }
     }
 
@@ -1093,7 +1240,7 @@ window.addEventListener("load", function () {
         multipleLines([7, 3], [0.5, 1], contextFragileActive, flLinePath);
 
         //補助パレット
-        contextFragile.globalAlpha = contextFragile.globalAlpha = 0xc0 / 0xff;
+        contextFragile.globalAlpha = contextFragileActive.globalAlpha = 0xc0 / 0xff;
 
         contextFragile.clearRect(238, 184, 60, 31);
         contextFragileActive.clearRect(238, 184, 60, 31);
@@ -1136,6 +1283,7 @@ window.addEventListener("load", function () {
         //ここからMoverとMoverAuto
         var gc = document.getElementById("groundColor").value;
         var ls = document.getElementById("lineStyle").value;
+        contextMover.lineJoin = contextMoverAuto.lineJoin = "round";
 
         //面
         var moverColor = document.getElementById("moverSameColor").checked ? gc : document.getElementById("moverMainColor").value;
@@ -1261,9 +1409,9 @@ window.addEventListener("load", function () {
         contextMoverAuto.fillRect(299, 214, 31, 31);
 
         //側面
-        contextMover.fillStyle = moverNoOutlines ? gs : document.getElementById("moverSideColor").value;
+        contextMover.fillStyle = moverNoOutlines ? document.getElementById("groundSideColor").value : document.getElementById("moverSideColor").value;
         contextMover.fillRect(298.5, 183, 30, 30);
-        contextMoverAuto.fillStyle = moverNoOutlines ? gs : document.getElementById("moverAutoSideColor").value;
+        contextMoverAuto.fillStyle = moverNoOutlines ? document.getElementById("groundSideColor").value : document.getElementById("moverAutoSideColor").value;
         contextMoverAuto.fillRect(298.5, 183, 30, 30);
     }
 
@@ -1549,6 +1697,92 @@ window.addEventListener("load", function () {
             contextEnemy.fillRect(384, 96, 32, 32);
         }
         break;
+        case "relics": {
+            contextEnemy.fillStyle = document.getElementById("relicsOwlFaceY").value;
+            contextEnemy.fillRect(256, 0, 64, 64);
+            contextEnemy.fillStyle = document.getElementById("relicsOwlWings").value;
+            contextEnemy.fillRect(256, 64, 64, 64);
+            contextEnemy.fillStyle = document.getElementById("relicsOwlEyeOuter").value;
+            contextEnemy.fillRect(320, 0, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsOwlBody").value;
+            contextEnemy.fillRect(352, 0, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsOwlLegs").value;
+            contextEnemy.fillRect(320, 32, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsOwlAbdomen").value;
+            contextEnemy.fillRect(320, 64, 64, 64);
+
+            contextEnemy.fillStyle = document.getElementById("relicsCrystal1").value;
+            contextEnemy.fillRect(384, 0, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsCrystal2").value;
+            contextEnemy.fillRect(416, 0, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsCrystal3").value;
+            contextEnemy.fillRect(384, 32, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsCrystal4").value;
+            contextEnemy.fillRect(416, 32, 32, 32);
+
+            contextEnemy.fillStyle = document.getElementById("relicsTreeLeaves1").value;
+            contextEnemy.fillRect(384, 64, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsTreeLeaves2").value;
+            contextEnemy.fillRect(416, 64, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsTreeLeaves3").value;
+            contextEnemy.fillRect(384, 96, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsTreeLeaves4").value;
+            contextEnemy.fillRect(416, 96, 32, 16);
+            contextEnemy.fillStyle = document.getElementById("relicsTreeLeaves5").value;
+            contextEnemy.fillRect(416, 112, 32, 16);
+            let relicsTreeGradation = contextEnemy.createLinearGradient(0, 128, 0, 192);
+            relicsTreeGradation.addColorStop(0, document.getElementById("relicsTreeGradationTop").value);
+            relicsTreeGradation.addColorStop(1, document.getElementById("relicsTreeGradationBottom").value);
+            contextEnemy.fillStyle = relicsTreeGradation;
+            contextEnemy.fillRect(384, 128, 64, 64);
+
+            contextEnemy.fillStyle = document.getElementById("relicsJumpDomeInner").value;
+            contextEnemy.fillRect(256, 128, 64, 64);
+            contextEnemy.fillStyle = document.getElementById("relicsJumpDomeRing").value;
+            contextEnemy.fillRect(320, 128, 64, 32);
+            contextEnemy.fillStyle = document.getElementById("relicsJumpDomeBottom").value;
+            contextEnemy.fillRect(320, 160, 64, 32);
+        }
+        break;
+        case "hbd": {
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteA1").value;
+            contextEnemy.fillRect(256, 64, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteA2").value;
+            contextEnemy.fillRect(288, 64, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteA3").value;
+            contextEnemy.fillRect(256, 96, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteA4").value;
+            contextEnemy.fillRect(288, 96, 32, 32);
+
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteB1").value;
+            contextEnemy.fillRect(256, 128, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteB2").value;
+            contextEnemy.fillRect(288, 128, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteB3").value;
+            contextEnemy.fillRect(256, 160, 32, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDPaletteB4").value;
+            contextEnemy.fillRect(288, 160, 32, 32);
+
+            let HBDGradation = contextEnemy.createLinearGradient(0, 64, 0, 128);
+            HBDGradation.addColorStop(0, document.getElementById("HBDGradationTop").value);
+            HBDGradation.addColorStop(1, document.getElementById("HBDGradationBottom").value);
+            contextEnemy.fillStyle = HBDGradation;
+            contextEnemy.fillRect(320, 64, 64, 64);
+
+            contextEnemy.fillStyle = document.getElementById("HBDRainbow1").value;
+            contextEnemy.fillRect(384, 64, 21, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDRainbow2").value;
+            contextEnemy.fillRect(384, 96, 21, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDRainbow3").value;
+            contextEnemy.fillRect(405, 64, 22, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDRainbow4").value;
+            contextEnemy.fillRect(405, 96, 22, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDRainbow5").value;
+            contextEnemy.fillRect(427, 64, 21, 32);
+            contextEnemy.fillStyle = document.getElementById("HBDRainbow6").value;
+            contextEnemy.fillRect(427, 96, 21, 32);
+        }
+        break;
         default:
         }
 
@@ -1607,7 +1841,7 @@ window.addEventListener("load", function () {
             var doTheFlipper = function (type, colCount, func) {
                 if (flipperType == type) {
                     for (var me = 0; me < 2; me++) {
-                        var nn = me * 64 + 320;
+                        var nn = me * 64 + 321;
                         contextEnemy.save();
                         contextEnemy.beginPath();
                         contextEnemy.rect(nn, 0, 64, 64);
@@ -1623,7 +1857,7 @@ window.addEventListener("load", function () {
                 }
             };
             //テスト用↓
-            //flipperType = "heart";
+            //flipperType = "ring";
             //立方スタイル
             doTheFlipper("cube", 2, function (c, u, b, e) {
                 c.fillStyle = b[0];
@@ -1846,6 +2080,65 @@ window.addEventListener("load", function () {
                 s.fillStyle = a[2];
                 s.fill();
                 return r;
+            });
+            //ホライゾンクルーズ
+            doTheFlipper("ring", 3, function (r, i, n, g) {
+                r.fillStyle = n[0];
+                r.fillRect(i, 0, 64, 64);
+                r.lineWidth = 11;
+                r.strokeStyle = n[2];
+                r.beginPath();
+                r.arc(i + 32, 32, 23, 0, 2 * Math.PI, false);
+                r.stroke();
+                r.lineWidth = 4;
+                r.strokeStyle = n[1];
+                r.strokeRect(i + 2, 2, 60, 60);
+                return g;
+            });
+            //割拠盤上　逐鹿群雄
+            doTheFlipper("cross", 3, function (c, r, o, s) {
+                c.fillStyle = o[1];
+                c.fillRect(r, 0, 64, 64);
+                c.fillStyle = o[0];
+                c.fillRect(r + 4, 4, 56, 56);
+                c.fillStyle = o[2];
+                c.fillRect(r + 16, 14, 31, 36);
+                c.strokeStyle = o[0];
+                c.lineCap = "butt";
+                c.lineWidth = 11;
+                c.beginPath();
+                c.moveTo(r+31.5, 16);
+                c.lineTo(r+31.5, 48);
+                c.stroke();
+                c.lineWidth = 12;
+                c.beginPath();
+                c.moveTo(r+18, 32);
+                c.lineTo(r+45, 32);
+                c.stroke();
+                return s;
+            });
+            //未使用
+            doTheFlipper("nuclear", 3, function(n, u, k, e){
+                n.fillStyle = k[0];
+                n.fillRect(u, 0, 64, 64);
+                n.strokeStyle = k[1];
+                n.lineWidth = 2;
+                n.strokeRect(u + 4, 4, 56, 56);
+
+                n.fillStyle = k[2];
+                n.beginPath();
+                n.arc(u+32, 32, 3.5, 0, 2*Math.PI);
+                n.closePath();
+                n.fill();
+                for(let tr=0; tr < 3; tr++){
+                    let m = tr*2*Math.PI/3;
+                    n.beginPath();
+                    n.arc(u+32,32,19,tr*2*Math.PI/3,(tr*2+1)*Math.PI/3);
+                    n.arc(u+32,32,6,(tr*2+1)*Math.PI/3,tr*2*Math.PI/3, true);
+                    n.closePath();
+                    n.fill();
+                }
+                return e;
             });
             //3D spacial zone
             doTheFlipper("checkeredged", 2, function (z, o, n, e) {
