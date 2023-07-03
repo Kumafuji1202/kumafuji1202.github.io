@@ -468,7 +468,7 @@ var lang = new LanguageManager(
                 "lineStyleThin": "細い",
                 "lineStyleSharp": "鋭い",
                 "lineStyleGlowing": "発光",
-                "lineStyleGlowing": "太い",
+                "lineStyleThick": "太い",
 
                 "jumppadColor": "ジャンプ床の色",
                 "jumppadColorActive": "起動時のジャンプ床の色",
