@@ -1462,6 +1462,40 @@ window.addEventListener("load", function () {
         contextEnemy.fillRect(128, 64, 50, 64);
 
         //B,G
+        
+        //ネオンボックス
+        if (document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-neonbox-available")) {
+            contextEnemy.fillStyle = "#434A5B";
+            contextEnemy.fillRect(448, 0, 64, 16);
+            contextEnemy.fillStyle = "#FFFFFF";
+            contextEnemy.fillRect(448, 16, 64, 16);
+
+            let grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+            grad.addColorStop(0, "#0A6DED");
+            grad.addColorStop(1, "#50E2FA");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 32, 64, 32);
+
+            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+            grad.addColorStop(0, "#FF8002");
+            grad.addColorStop(1, "#F8FB8F");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 64, 64, 32);
+
+            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+            grad.addColorStop(0, "#A826F9");
+            grad.addColorStop(1, "#FE7EDB");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 96, 64, 32);
+
+            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+            grad.addColorStop(0, "#058865");
+            grad.addColorStop(1, "#B0DE59");
+            contextEnemy.fillStyle = grad;
+            contextEnemy.fillRect(448, 128, 64, 32);
+            //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
+        }
+        
         switch (document.getElementById("topRightType").value) {
             case "floater": {
                 //fl1
@@ -2247,38 +2281,6 @@ window.addEventListener("load", function () {
         }
 
 
-        //ネオンボックス
-        if (document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-neonbox-available")) {
-            contextEnemy.fillStyle = "#434A5B";
-            contextEnemy.fillRect(448, 0, 64, 16);
-            contextEnemy.fillStyle = "#FFFFFF";
-            contextEnemy.fillRect(448, 16, 64, 16);
-
-            let grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-            grad.addColorStop(0, "#0A6DED");
-            grad.addColorStop(1, "#50E2FA");
-            contextEnemy.fillStyle = grad;
-            contextEnemy.fillRect(448, 32, 64, 32);
-
-            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-            grad.addColorStop(0, "#FF8002");
-            grad.addColorStop(1, "#F8FB8F");
-            contextEnemy.fillStyle = grad;
-            contextEnemy.fillRect(448, 64, 64, 32);
-
-            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-            grad.addColorStop(0, "#A826F9");
-            grad.addColorStop(1, "#FE7EDB");
-            contextEnemy.fillStyle = grad;
-            contextEnemy.fillRect(448, 96, 64, 32);
-
-            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-            grad.addColorStop(0, "#058865");
-            grad.addColorStop(1, "#B0DE59");
-            contextEnemy.fillStyle = grad;
-            contextEnemy.fillRect(448, 128, 64, 32);
-            //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
-        }
 
         //C
         //各種寸法の設定
