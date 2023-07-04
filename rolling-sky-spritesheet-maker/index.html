@@ -80,24 +80,26 @@
 
     </script>
     <script id="g">
-        function showFanmades(){
-            document.querySelectorAll("*[data-g]").forEach(function(each){
+        function showFanmades() {
+            document.querySelectorAll("*[data-g]").forEach(function(each) {
                 each.setAttribute("data-h", "");
             });
             return "ɵ";
         }
+
     </script>
     <style id="h">
-        *[data-g]:not([data-h]){
+        *[data-g]:not([data-h]) {
             display: none;
         }
+
     </style>
     <script id="globeRotater">
         window.addEventListener("load", function() {
             var globeEmojis = ["🌏", "🌎", "🌍"];
             var globeRotat = 0;
             setInterval(function() {
-                document.getElementById("globeEmoji").innerHTML = globeEmojis[globeRotat++%3];
+                document.getElementById("globeEmoji").innerHTML = globeEmojis[globeRotat++ % 3];
             }, 500);
         });
 
@@ -133,6 +135,33 @@
                     </select>
                 </label>
             </form>
+            <!--
+            <div id="updateInfo">
+                <h1 data-translation-key="recentUpdates"></h1>
+                <ol id="recentVersionList">
+                    <li>
+                        <h2>1.1.0</h2>
+                        <ul>
+                            <li>Added "Recent Updates" section</li>
+                            <li>Fixed 1 issue: rssg-7</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h2>1.0.0</h2>
+                        <ul>
+                            <li>・Added "Ancient" and "3rd Anniversary" for primary theme area setting</li>
+                            <li>・Added ground edge decoration "Cut corner (no thick edge)"</li>
+                            <li>・A small adjustment is done for Ground line setting "Double"</li>
+                            <li>・Added Ground line setting "Thick"</li>
+                            <li>・Removed Jumppad patterns "Citrus" "Square + circle" and "Kanji「放浪癖」" due to being too unique to use</li>
+                            <li>・Added Jumppad patterns "Scale 2.0" "Sparkles" and "Double square"</li>
+                            <li>・A small adjustment is done for tile outline shapes</li>
+                            <li>・Removed Fragile pattern "Hexagon bubbles"</li>
+                            <li>・Added Flipper tile pattern "Ring" and "Cross shield"</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>-->
         </div>
     </header>
 
@@ -326,8 +355,6 @@
                                                 <!-- 参考: A Dream of 7 Years -->
                                                 <option data-translation-key="jumppadStyleScale" value="scale" data-option-form="generalPatternedJumppadCustomizationForm"></option>
                                                 <!-- 参考: Rolling Zealous - Ocean 改良済み-->
-                                                <option data-translation-key="jumppadStyleSparklesComet" value="sparkc" data-option-form="generalActiveOnlyPatternedJumppadCustomizationForm"></option>
-                                                <!-- 参考: Rolling Universe - Comet's Arrival -->
                                             </optgroup>
                                             <!--<optgroup data-translation-key="jumppadStyleCustom">
                                             <option data-translation-key="jumppadStyleStar" value="star"></option>
