@@ -566,7 +566,9 @@ window.addEventListener("load", function () {
 
         //中国風渦巻き模様のジャンプ床
         if (jumppadStyle == "china") {
-            contextGeneral.strokeStyle = document.getElementById("gspJumppad").value;
+            contextGeneral.fillStyle = document.getElementById("chinaJumppadInner").value;
+            contextGeneral.fillRect(220, 50, 72, 71);
+            contextGeneral.strokeStyle = document.getElementById("chinaJumppadPattern").value;
             contextGeneral.lineJoin = "miter";
             contextGeneral.lineWidth = 9;
             contextGeneral.strokeRect(220, 50, 72, 71);
@@ -732,9 +734,9 @@ window.addEventListener("load", function () {
 
         //ジャンプ床の発光を描画//
         if (!document.getElementById("disableActiveJumppadGlow").checked) {
-            rectInnerGlow(12, 12, 146, 146, 50, 85, ajl, contextGeneral);
+            rectInnerGlow(12, 12, 146, 146, 25, 45, ajl, contextGeneral);//50,85
             if (jumppadStyle == "import") {
-                rectInnerGlow(12, 27, 146, 146, 50, 85, ajl, document.getElementById("jumpPadPreview").getContext("2d"));
+                rectInnerGlow(12, 27, 146, 146, 25, 45, ajl, document.getElementById("jumpPadPreview").getContext("2d"));
             }
         }
 
