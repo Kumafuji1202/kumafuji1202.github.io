@@ -381,6 +381,12 @@ window.addEventListener("load", function(){
                         if (set.id == "lineStyle"){
                             document.getElementById(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
                         }
+                        if (set.id == "chinaJumppadPattern"){
+                            document.getElementById(set.id).setAttribute(set.prop, data.gspJumppad);
+                        }
+                        if (set.id == "chinaJumppadInner"){
+                            document.getElementById(set.id).setAttribute(set.prop, data.jumppadColor);
+                        }
                     }
                     
                     
