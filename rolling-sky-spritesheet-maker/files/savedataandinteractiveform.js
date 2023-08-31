@@ -40,6 +40,8 @@ var dataFormat = [
     
     {id:"fragileColor", prop:"value"},
     {id:"fragileLineColor", prop:"value"},
+    {id:"fragileAlpha", prop:"value"},
+    {id:"fragileActiveAlpha", prop:"value"},
     {id:"fragileSideColor", prop:"value"},
     {id:"fragileActiveColor", prop:"value"},
     {id:"fragileActiveLineColor", prop:"value"},
@@ -114,6 +116,8 @@ var dataFormat = [
     {id:"floaterSpikeInnerColor", prop:"value"},
     {id:"floaterInactiveEdgeColor", prop:"value"},
     {id:"floaterActiveEdgeColor", prop:"value"},
+    {id:"floaterInactiveShadowColor", prop:"value"},
+    {id:"floaterActiveShadowColor", prop:"value"},
     //cr
     {id:"russianTowerTop", prop:"value"},
     {id:"russianTowerMiddleTop", prop:"value"},
@@ -223,6 +227,7 @@ var dataFormat = [
     {id:"middleLeftTone6Face", prop:"value"},
     {id:"middleLeftTone6Line", prop:"value"},
     {id:"middleLeftTone7", prop:"value"},
+    {id:"middleLeftLineThickness", prop:"value"},
     //E
     {id:"middleRightTone1Face", prop:"value"},
     {id:"middleRightTone1Line", prop:"value"},
@@ -236,6 +241,7 @@ var dataFormat = [
     {id:"middleRightTone5Line", prop:"value"},
     {id:"middleRightTone6Face", prop:"value"},
     {id:"middleRightTone6Line", prop:"value"},
+    {id:"middleRightLineThickness", prop:"value"},
     //F
     {id:"bottomLeftType", prop:"value"},
     {id:"BLGradationTopLightColor", prop:"value"},
@@ -377,7 +383,8 @@ window.addEventListener("load", function(){
                                 document.getElementById(set.id).setAttribute(set.prop, data[set.id]);
                         }
                     }else{
-                        //ここから互換性用のコード
+                        //ここから互換性用のコードA, dataFormatで要求されたデータが保存データに無いとき処理がここに流れてくる。
+                        //特別に処理がない限り、保存データにあってdataFormatで要求されて[いない]データは無視される。
                         if (set.id == "lineStyle"){
                             document.getElementById(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
                         }
@@ -387,12 +394,16 @@ window.addEventListener("load", function(){
                         if (set.id == "chinaJumppadInner"){
                             document.getElementById(set.id).setAttribute(set.prop, data.jumppadColor);
                         }
+                        if (set.id == "floaterInactiveShadowColor"){
+                            document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
+                        }
+                        if (set.id == "floaterActiveShadowColor"){
+                            document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
+                        }
                     }
-                    
-                    
-                    
                 });
-                
+                //ここから特別処理コードB. ここには1つのセーブデータエントリが複数のコントロールを制御する/に制御されている場合などの処理を書く。
+                //dataFormatに入れなければ、データ生成処理もgenerateSaveDaraUnner()に独自で書かなければならない。
                 if (data.enemyStripes) document.getElementById("stripeJSONData").value=JSON.stringify(data.enemyStripes);
                 
                 updateAllSelectForms();
@@ -422,9 +433,28 @@ window.addEventListener("load", function(){
     generateSaveData = generateSaveDataInner;
     
     //ここからhtml各セクションのスクリプト
+    //Fragile
+    let copyFAlphaFrRange2Num = () => {
+        document.getElementById("fragileAlphaNum").value = document.getElementById("fragileAlpha").value;
+        document.getElementById("fragileActiveAlphaNum").value = document.getElementById("fragileActiveAlpha").value;
+    };
+    otherUpdateFunctions.push(copyFAlphaFrRange2Num);
+    document.getElementById("fragileAlphaNum").addEventListener("input", function(){
+        document.getElementById("fragileAlpha").value = document.getElementById("fragileAlphaNum").value = Number(document.getElementById("fragileAlphaNum").value).clamp(0,255);
+    });
+    document.getElementById("fragileAlpha").addEventListener("input", function(){
+        document.getElementById("fragileAlphaNum").value = document.getElementById("fragileAlpha").value;
+    });
+    document.getElementById("fragileActiveAlphaNum").addEventListener("input", function(){
+        document.getElementById("fragileActiveAlpha").value = document.getElementById("fragileActiveAlphaNum").value = Number(document.getElementById("fragileActiveAlphaNum").value).clamp(0,255);
+    });
+    document.getElementById("fragileActiveAlpha").addEventListener("input", function(){
+        document.getElementById("fragileActiveAlphaNum").value = document.getElementById("fragileActiveAlpha").value;
+    });
+    //ここからEnem
     function checkIfCommonObjsAreAvailable() {
-        var TRCheck = (attr, formID, unavailableMsg, hiddenInput) => {
-            var isAvailable = document.getElementById("topRightType").selectedOptions[0].hasAttribute(attr);
+        var TRCheck = (checkFrom, attr, formID, unavailableMsg, hiddenInput, inverted = false) => {
+            var isAvailable = (inverted^document.getElementById(checkFrom).selectedOptions[0].hasAttribute(attr)) == 1;
             document.getElementById(hiddenInput).value = isAvailable;
             if (isAvailable) {
                 document.getElementById(unavailableMsg).classList.add("hidden");
@@ -436,14 +466,17 @@ window.addEventListener("load", function(){
             return isAvailable;
         };
         //subB
-        TRCheck("data-subB-available", "subBForm", "subBUnavailableMessage", "subBAvailable");
+        TRCheck("topRightType", "data-subB-available", "subBForm", "subBUnavailableMessage", "subBAvailable");
         //Flip
-        TRCheck("data-flipper-available", "flipTileForm", "flipTileUnavailableMessage", "flipTileAvailable");
-        //Flip
-        TRCheck("data-minijump-available", "smallJumpForm", "smallJumpUnavailableMessage", "smallJumpAvailable");
+        TRCheck("topRightType", "data-flipper-available", "flipTileForm", "flipTileUnavailableMessage", "flipTileAvailable");
+        //MiniJ
+        TRCheck("topRightType", "data-minijump-available", "smallJumpForm", "smallJumpUnavailableMessage", "smallJumpAvailable");
+        //BRight
+        TRCheck("subBType", "data-override-risers", "bottomRightForm", "bottomRightUnavailableMessage", "bottomRightAvailable", true);
     }
     checkIfCommonObjsAreAvailable();
     document.getElementById("topRightType").addEventListener("change", checkIfCommonObjsAreAvailable);
+    document.getElementById("subBType").addEventListener("change", checkIfCommonObjsAreAvailable);
     otherUpdateFunctions.push(checkIfCommonObjsAreAvailable);
     
     //
@@ -536,6 +569,29 @@ window.addEventListener("load", function(){
                 translationKeys: [
                     "backgroundColor",
                     "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "nuclear": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "biohazard": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "eight": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
                     "patternColor"
                 ]
             },
