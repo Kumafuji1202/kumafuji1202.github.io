@@ -14,6 +14,8 @@
     <link id="colorstylesheet" rel="stylesheet" href="files/colors.css">
     <link id="gridLayout2" rel="stylesheet" href="files/grid2rows.css">
     <link id="gridLayout3" rel="stylesheet" href="files/grid3rows.css">
+    <link rel="canonical" href="https://kumafuji1202.github.io/rolling-sky-spritesheet-maker/">
+    <script id="library" src="files/utils.js"></script>
     <script id="languageLibrary" src="../lang.js"></script>
     <script id="languageData" src="files/langdata.js"></script>
     <script id="saveLoadSystem" src="files/savedataandinteractiveform.js"></script>
@@ -110,7 +112,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.0</a></span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.1</a></span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -135,33 +137,33 @@
                     </select>
                 </label>
             </form>
-            <!--
             <div id="updateInfo">
                 <h1 data-translation-key="recentUpdates"></h1>
+                <p id="updateNav">
+                    Send feedbacks and recieve update information in this tool's <a href="https://discord.com/channels/400983101507108874/1125786002330505367" target="_blank">official discord thread</a> in <a href="https://discord.gg/rolling-world-400983101507108874" target="_blank">Rolling Lounge</a> server!
+                </p>
                 <ol id="recentVersionList">
                     <li>
-                        <h2>1.1.0</h2>
+                        <h2>1.1.1 (2023 Aug 31)</h2>
+                        <ul>
+                            <li>Added Jumppad pattern "Hexagons"</li>
+                            <li>Added Flip tile pattern "Biohazard" and "8"</li>
+                            <li>Added "shadow" in "Floater" Enemy top right setting</li>
+                            <li>Added option to change line thickness/glow of Enemy main palette sections</li>
+                            <li>Added botton to swap primary/secondary palette color settings</li>
+                            <li>Added botton to change Fragile/FragileActive opacity</li>
+                            <li>Fixed colors of some parts in Dark mode</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h2>1.1.0 (2023 Jul 10)</h2>
                         <ul>
                             <li>Added "Recent Updates" section</li>
                             <li>Fixed 1 issue: rssg-7</li>
                         </ul>
                     </li>
-                    <li>
-                        <h2>1.0.0</h2>
-                        <ul>
-                            <li>・Added "Ancient" and "3rd Anniversary" for primary theme area setting</li>
-                            <li>・Added ground edge decoration "Cut corner (no thick edge)"</li>
-                            <li>・A small adjustment is done for Ground line setting "Double"</li>
-                            <li>・Added Ground line setting "Thick"</li>
-                            <li>・Removed Jumppad patterns "Citrus" "Square + circle" and "Kanji「放浪癖」" due to being too unique to use</li>
-                            <li>・Added Jumppad patterns "Scale 2.0" "Sparkles" and "Double square"</li>
-                            <li>・A small adjustment is done for tile outline shapes</li>
-                            <li>・Removed Fragile pattern "Hexagon bubbles"</li>
-                            <li>・Added Flipper tile pattern "Ring" and "Cross shield"</li>
-                        </ul>
-                    </li>
                 </ol>
-            </div>-->
+            </div>
         </div>
     </header>
 
@@ -283,13 +285,12 @@
                             <label><span data-translation-key="volcanicGradient"></span><input type="checkbox" id="enableVolcanicGradient" data-off-or-input="volcanoSettingLabel"></label>
                             <label class="disabledLabel" id="volcanoSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="volcanicGradientColor" disabled value="#E2A132"></label>
                             <br>
-                            <!--
                             <fieldset id="groundInnerDecoForm" class="selectForm" data-default-form="groundInnerDecoDefaultContent" data-form-selector="groundInnerStyle">
                                 <legend>
                                     <label><span data-translation-key="groundInnerStyle"></span>
                                         <select id="groundInnerStyle">
                                             <option value="none" data-translation-key="groundStyleNoDeco"></option>
-                                            <option value="metal" data-translation-key="groundStyleMetal" data-option-form="groundInnerDecoSingleColor"></option>
+                                            <option value="plates" data-translation-key="groundStylePlates" data-option-form="groundInnerDecoPlatesForm"></option>
                                         </select>
                                     </label>
                                 </legend>
@@ -298,8 +299,13 @@
                                 <div id="groundInnerDecoSingleColor">
                                     <label><span data-translation-key="UsedColor"></span><input type="color" id="groundInnerDecoColor" value="#E9A442"></label><br>
                                 </div>
+                                <div id="groundInnerDecoPlatesForm">
+                                    <label><span data-translation-key="groundInnerDecoPlates"></span><input type="color" id="groundInnerDecoPlates" value="#E9A442"></label><br>
+                                    <label><span data-translation-key="groundInnerDecoPlatePartition"></span><input type="color" id="groundInnerDecoPlatePartition" value="#FFC96B"></label><br>
+                                    <label><span data-translation-key="groundInnerDecoScrewsInner"></span><input type="color" id="groundInnerDecoScrewsInner" value="#E9A442"></label><br>
+                                    <label><span data-translation-key="groundInnerDecoScrewsBorder"></span><input type="color" id="groundInnerDecoScrewsBorder" value="#C98A31"></label><br>
+                                </div>
                             </fieldset>
-                            -->
                         </div>
 
                         <!-- ジャンプ床の設定 -->
@@ -334,7 +340,7 @@
                                                 <option data-translation-key="jumppadStyleSquares" value="squares" data-option-form="squaresJumppadCustomizationForm"></option>
                                                 <option data-translation-key="jumppadStyleChina" value="china" data-option-form="chinaJumppadCustomizationForm"></option>
                                                 <option data-translation-key="jumppadStyleChecker" value="checker" data-option-form="checkerJumppadCustomizationForm"></option>
-                                                <!--<option data-translation-key="jumppadStyleHexagons" value="hexagon"></option>-->
+                                                <option data-translation-key="jumppadStyleHexagons" value="hexagon"></option>-
                                             </optgroup>
                                             <optgroup data-translation-key="patternStyleFanmade" label="">
                                                 <!--<option data-translation-key="jumppadStyleCave" value="cave" data-option-form="generalPatternedJumppadCustomizationForm" data-g></option>-->
@@ -469,6 +475,20 @@
                                         <th data-translation-key="side"></th>
                                         <td><label><input type="color" id="fragileSideColor" value="#91BCC6"></label></td>
                                         <td><label><input type="color" id="fragileActiveSideColor" value="#91BCC6"></label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <h3 data-translation-key="fragileAlpha"></h3>
+                            <table class="colorSettingTable">
+                                <tbody>
+                                    <tr>
+                                        <th><label data-translation-key="inactive"></label></th>
+                                        <td>0<input type="range" min="0" max="255" id="fragileAlpha" value="128">255<input type="number" min="0" max="255" id="fragileAlphaNum" value="128"></td>
+                                    </tr>
+                                    <tr>
+                                        <th><label data-translation-key="active"></label></th>
+                                        <td>0<input type="range" min="0" max="255" id="fragileActiveAlpha" value="128">255<input type="number" min="0" max="255" id="fragileActiveAlphaNum" value="128"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -707,6 +727,19 @@
                                             <option data-translation-key="topRightAncient" value="relics" data-option-form="ancientCustomizationForm" data-neonbox-available></option>
                                             <option data-translation-key="topRightNeon" value="neon" data-option-form="neonCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                             <option data-translation-key="topRightHBD" value="hbd" data-option-form="HBDCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
+                                            <!---->
+                                            <!--
+                                            <option data-translation-key="topRightSpectre" value="spectre" data-option-form="spectreCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightMarshmello" value="marshmello" data-option-form="marshmelloCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightAlone" value="alone" data-option-form="aloneCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightFaded" value="faded" data-option-form="fadedCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightKepler" value="kepler" data-option-form="keplerCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightOcean" value="ocean" data-option-form="oceanCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightMicrochip" value="microchip" data-option-form="microchipCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightVR" value="vr" data-option-form="VRCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightDisco" value="disco" data-option-form="discoCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightSteampunk" value="steampunk" data-option-form="steampunkCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            -->
                                         </select>
                                     </label>
                                 </legend>
@@ -720,7 +753,11 @@
                                     <!-- fl3 -->
                                     <label><span data-translation-key="floaterInactiveEdgeColor"></span><input type="color" id="floaterInactiveEdgeColor" value="#23B4B2"></label><br>
                                     <!-- fl4 -->
-                                    <label><span data-translation-key="floaterActiveEdgeColor"></span><input type="color" id="floaterActiveEdgeColor" value="#31EFEF"></label>
+                                    <label><span data-translation-key="floaterActiveEdgeColor"></span><input type="color" id="floaterActiveEdgeColor" value="#31EFEF"></label><br>
+                                    <!-- fl5 -->
+                                    <label><span data-translation-key="floaterInactiveShadowColor"></span><input type="color" id="floaterInactiveShadowColor" value="#8C847D"></label><br>
+                                    <!-- fl6 -->
+                                    <label><span data-translation-key="floaterActiveShadowColor"></span><input type="color" id="floaterActiveShadowColor" value="#837B75"></label><br>
                                 </div>
                                 <!-- 結晶 cr -->
                                 <div id="crystalTRCustomizationForm">
@@ -786,6 +823,7 @@
                                     <div data-translation-key="objectPreview"></div>
                                     <canvas id="crystalObjPreview" width="400" height="200"></canvas>
                                 </div>
+                                <!-- 幾何 cb -->
                                 <div id="geometryCustomizationForm">
                                     <!-- 立方体構造物 -->
                                     <h3 data-translation-key="cubeStructure"></h3>
@@ -874,6 +912,7 @@
                                 </div>
                                 <!--
                                 <div id="1upCustomizationForm"></div>-->
+                                <!-- 古代 ac -->
                                 <div id="ancientCustomizationForm">
                                     <h3 data-translation-key="relicsOwl"></h3>
                                     <ul>
@@ -910,6 +949,7 @@
                                     <label><span data-translation-key="topEnd"></span><input type="color" id="relicsTreeGradationTop" value="#68482E"></label><br>
                                     <label><span data-translation-key="bottomEnd"></span><input type="color" id="relicsTreeGradationBottom" value="#2D1C15"></label>
                                 </div>
+                                <!-- 眩光 dz -->
                                 <div id="neonCustomizationForm">
                                     <h3 data-translation-key="obstacleAccentColors"></h3>
                                     <table>
@@ -1036,6 +1076,7 @@
                                 <div id="aloneCustomizationForm"></div>
                                 <div id="fadedCustomizationForm"></div>
                                 -->
+                                <!-- 3周年 bd -->
                                 <div id="HBDCustomizationForm">
                                     <h3 data-translation-key="TRAdditionalPalette"></h3>
                                     <table>
@@ -1141,6 +1182,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <!-- マイクロチップ mc -->
                             </fieldset>
                         </div>
                         <!-- B11-14 -->
@@ -1156,10 +1198,10 @@
                                             <option value="classicalroller" data-translation-key="subBClassicalRoller" data-option-form="classicalRollerSubBForm"></option>
                                             <option value="desert" data-translation-key="subBDesert" data-option-form="desertSubBForm"></option>
                                             <!--
+                                            <option value="kungfu" data-translation-key="subBKungfu" data-option-form="kungfuSubBForm"></option>
+                                            <option value="chris" data-translation-key="subBChris" data-option-form="chrisSubBForm" data-override-risers></option>
                                             <option value="halloween" data-translation-key="subBHalloween" data-option-form="halloweenSubBForm"></option>
                                             <option value="space" data-translation-key="subBSpace" data-option-form="spaceSubBForm"></option>
-                                            <option value="kungfu" data-translation-key="subBKungfu" data-option-form="kungfuSubBForm"></option>
-                                            <option value="candy" data-translation-key="subBCandy" data-option-form="candySubBForm" data-override-risers></option>
                                             -->
                                         </select>
                                     </label>
@@ -1193,6 +1235,48 @@
                                 </div>
                                 <div id="kungfuSubBForm">
                                 </div>
+                                <div id="chrisSubBForm">
+                                    <h3 data-translation-key="BRAdditionalPalette"></h3>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th data-translation-key="face"></th>
+                                                <th data-translation-key="line"></th>
+                                                <td></td>
+                                                <th data-translation-key="face"></th>
+                                                <th data-translation-key="line"></th>
+                                                <td></td>
+                                                <th data-translation-key="face"></th>
+                                                <th data-translation-key="line"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="ChrisPaletteATone1"></span>:</th>
+                                                <td><input type="color" id="ChrisPaletteATone1Face" value="#C46934"></td>
+                                                <td><input type="color" id="ChrisPaletteATone1Line" value="#A8653B"></td>
+                                                <th><span data-translation-key="ChrisPaletteATone2"></span>:</th>
+                                                <td><input type="color" id="ChrisPaletteATone2Face" value="#914A27"></td>
+                                                <td><input type="color" id="ChrisPaletteATone2Line" value="#77452A"></td>
+                                                <th><span data-translation-key="ChrisPaletteATone3"></span>:</th>
+                                                <td><input type="color" id="ChrisPaletteATone3Face" value="#763D1C"></td>
+                                                <td><input type="color" id="ChrisPaletteATone3Line" value="#683E24"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="ChrisPaletteBTone1"></span>:</th>
+                                                <td><input type="color" id="ChrisPaletteBTone1Face" value="#09A13B"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone1Line" value="#2A7629"></td>
+                                                <th><span data-translation-key="ChrisPaletteBTone2"></span>:</th>
+                                                <td><input type="color" id="ChrisPaletteBTone2Face" value="#06792E"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone2Line" value="#1F5B20"></td>
+                                                <th><span data-translation-key="ChrisPaletteBTone3"></span>:</th>
+                                                <td><input type="color" id="ChrisPaletteBTone3Face" value="#086021"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone3Line" value="#1C4B19"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </fieldset>
                         </div>
                         <!-- 反転床 -->
@@ -1224,6 +1308,8 @@
                                                     <option data-translation-key="flipTileRing" value="ring"></option>
                                                     <option data-translation-key="flipTileCross" value="cross"></option>
                                                     <option data-translation-key="flipTileNuclear" value="nuclear"></option>
+                                                    <option data-translation-key="flipTileBiohazard" value="biohazard"></option>
+                                                    <option data-translation-key="flipTileEight" value="eight"></option>
                                                 </optgroup>
                                                 <option data-translation-key="flipTileCheckerEdged" value="checkeredged" data-g></option>
                                                 <!-- 3D Spacial Zoneスタイル-->
@@ -1314,6 +1400,23 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                
+                                <!--
+                                <fieldset id="smallJumpPatternForm" class="selectForm" data-default-form="smallJumpCustomizationDefaultContent" data-form-selector="smallJumpType">
+                                    <legend>
+                                        <label><span data-translation-key="smallJumpType"></span>
+                                            <select id="smallJumpType">
+                                                <option value="simple" data-translation-key="smallJumpNoPattern"></option>
+                                                <option value="square" data-translation-key="smallJumpSquare" data-option-form="squareSmallJumpForm"></option>
+                                            </select>
+                                        </label>
+                                    </legend>
+                                    <div id="smallJumpCustomizationDefaultContent" data-translation-key="smallJumpCustomizationDefaultContent">
+                                    </div>
+                                    <div id="squareSmallJumpForm">
+                                    </div>
+                                </fieldset>
+                                -->
                             </div>
                         </div>
                         <!-- C -->
@@ -1410,7 +1513,17 @@
                                 </tbody>
                             </table>
 
-                            <label><span data-translation-key="middleLeftTone7"></span><input type="color" id="middleLeftTone7" value="#08E0DE"></label>
+                            <label><span data-translation-key="middleLeftTone7"></span><input type="color" id="middleLeftTone7" value="#08E0DE"></label><br>
+                            <label>
+                                <span data-translation-key="middlePaletteLineThickness"></span>
+                                <select id="middleLeftLineThickness" value="thick">
+                                    <option data-translation-key="mplNormal" value="normal"></option><!-- 3, 大半 -->
+                                    <option data-translation-key="mplThick" value="thick" selected></option><!-- 7, 丘 -->
+                                    <option data-translation-key="mplThin" value="thin"></option><!-- 1, 空 -->
+                                    <option data-translation-key="mplNoLine" value="none"></option><!-- 線無し -->
+                                    <option data-translation-key="mplGlow" value="glow"></option><!-- 砂漠 -->
+                                </select>
+                            </label>
                         </div>
                         <!-- E -->
                         <div id="enemyE">
@@ -1453,6 +1566,17 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <label>
+                                <span data-translation-key="middlePaletteLineThickness"></span>
+                                <select id="middleRightLineThickness">
+                                    <option data-translation-key="mplNormal" value="normal"></option><!-- 3, 大半 -->
+                                    <option data-translation-key="mplThick" value="thick" selected></option><!-- 7, 丘 -->
+                                    <option data-translation-key="mplThin" value="thin"></option><!-- 1, 空 -->
+                                    <option data-translation-key="mplNoLine" value="none"></option><!-- 線無し -->
+                                    <option data-translation-key="mplGlow" value="glow"></option><!-- 砂漠 -->
+                                </select>
+                            </label><br>
+                            <label><input type="button" id="swapMainPalette" data-translation-key="swapMainPalette"></label>
                         </div>
                         <!-- F -->
                         <div id="enemyF">
@@ -1580,6 +1704,8 @@
                         <!-- G -->
                         <div id="enemyG">
                             <h2 data-translation-key="bottomRightSettingHeading"></h2>
+                            <input type="hidden" id="bottomRightAvailable" value="true"> <!-- 複数個所で使うのでここで受け渡しをする -->
+                            <div id="bottomRightUnavailableMessage" data-translation-key="texturePartUnavailable"></div>
                             <fieldset id="bottomRightForm" class="selectForm" data-default-form="bottomRightCustomizationDefaultContent" data-form-selector="bottomRightType">
                                 <legend>
                                     <select id="bottomRightType">
