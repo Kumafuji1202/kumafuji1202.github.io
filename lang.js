@@ -1,5 +1,5 @@
 /*
-update no. 1
+update no. 2
 langList[
     <各自の要素>
     {
@@ -13,9 +13,11 @@ langList[
 ]
 
 LanguageManagerクラス
+メソッド
+initSelectBox: 言語設定ボックスを初期化
+useLanguage: ページを翻訳
 プロパティ
 langdatabase: 生のデータベースオブジェクト
-useLanguage: ページを翻訳
 initSelectBox: 言語選択ボックスを設定
 callText: 翻訳テキストを呼び出し
 */
@@ -36,6 +38,7 @@ function LanguageManager(langList) {
         });
         if (foundLang === null) throw new Error("no language data for language code \"" + langCode + "\" defined");
         cl = foundLang;
+        document.documentElement.setAttribute("lang", langCode);
         //言語置き換え
         document.querySelectorAll("*[data-translation-key]").forEach(function (elementToTranslate) {
             var propertyToTranslate = "";
@@ -84,6 +87,9 @@ function LanguageManager(langList) {
                         default:
                             throw new Error("\"input\" elements of type \"" + elementToTranslate.getAttribute("type") + "\" have no text to translate.");
                     }
+                    break;
+                case "TEXTAREA":
+                    propertyToTranslate = "placeholder";
                     break;
                 default:
                     propertyToTranslate = "innerHTML";
