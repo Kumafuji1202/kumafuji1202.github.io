@@ -55,6 +55,25 @@ window.addEventListener("load", function () {
     fiveSquares.moveTo(298, 183.5);
     fiveSquares.lineTo(298, 243.5);
 
+    const lineThickness = {
+        "normal": {
+            width: [2],
+            alpha: [1]
+        },
+        "thick": {
+            width: [6, 3, 1],
+            alpha: [0.25, 0.25, 1]
+        },
+        "thin": {
+            width: [1],
+            alpha: [1]
+        },
+        "glow": {
+            width: [20, 16, 12, 8, 4, 2, 1],
+            alpha: [0.0625, 0.0625, 0.128, 0.1905, 0.1905, 0.25, 1]
+        }
+    };
+
     function multipleLines(lineWidthArray, alphaArray, context, path) {
         context.save();
         for (var i = 0; i < lineWidthArray.length; i++) {
@@ -64,6 +83,12 @@ window.addEventListener("load", function () {
         }
         context.restore();
     }
+
+
+    var turn = (x, y, angle) => ({
+        x: x * Math.cos(angle) - y * Math.sin(angle),
+        y: x * Math.sin(angle) + y * Math.cos(angle)
+    });
 
     function rectInnerGlow(sx, sy, width, height, gradationInnerWidth, gradationWidth, outerColor, context) {
         var gradWidIn = gradationInnerWidth; //グラデーションの内側の端が縁部分からどれだけ離れているか
@@ -116,6 +141,22 @@ window.addEventListener("load", function () {
         return path;
     }
 
+    function drawTilePatterns(context, colors, func) {
+        //func(context, xpos(center), ypos(center), colors)
+        for (let i = 0; i < 7; i++) {
+            func(context, 85 + 171 * ([2, 0, 2, 0, 1, 2])[i], 85 + 171 * ([0, 1, 1, 2, 2, 2])[i], colors);
+        }
+        context.save();
+        context.beginPath();
+        context.moveTo(170, 170);
+        context.lineTo(170, 340);
+        context.lineTo(340, 340);
+        context.closePath();
+        context.clip();
+        func(context, 255, 255, colors);
+        context.restore();
+    }
+
     var groundLinesPath;
     var lineArrays = {};
 
@@ -159,8 +200,10 @@ window.addEventListener("load", function () {
         //objectGeneralPaletted
         //線スタイル
         var ls = document.getElementById("lineStyle").value;
+        //内部スタイル
+        var gis = document.getElementById("groundInnerStyle").value;
 
-        
+
         //コンテキストの初期化//
         contextGeneral.lineCap = "round";
         contextGeneral.lineJoin = "round";
@@ -256,7 +299,7 @@ window.addEventListener("load", function () {
                 groundLinesPath.lineTo(498.5, 368);
                 groundLinesPath.lineTo(485, 353.5);
                 groundLinesPath.closePath();
-            }else{
+            } else {
                 //右上段
                 groundLinesPath.moveTo(353.5, 27);
                 groundLinesPath.lineTo(353.5, 144);
@@ -344,6 +387,37 @@ window.addEventListener("load", function () {
         multipleLines(lineArrays.width, lineArrays.alpha, contextGeneral, groundLinesPath);
 
 
+        //床模様の描画//
+        if (gis == "plates") {
+            let drawPlate = (context, xpos, ypos, colors) => {
+                context.fillStyle = colors[0];
+                context.fillRect(xpos - 57, ypos - 57, 114, 114);
+                context.fillStyle = colors[1];
+                context.strokeStyle = colors[2];
+                context.lineWidth = 1;
+                for (let x = -1; x < 2; x += 2) {
+                    for (let y = -1; y < 2; y += 2) {
+                        context.beginPath();
+                        context.arc(xpos + 61 * x, ypos + 61 * y, 4, 0, 2 * Math.PI);
+                        context.fill();
+                        context.stroke();
+                    }
+                }
+                context.lineCap = "butt";
+                context.beginPath();//146
+                context.moveTo(xpos, ypos-56.5);
+                context.lineTo(xpos, ypos+56.5);
+                context.moveTo(xpos-56.5, ypos);
+                context.lineTo(xpos+56.5, ypos);
+                context.lineWidth = 7;
+                context.strokeStyle = document.getElementById("groundInnerDecoPlatePartition").value;
+                context.stroke();
+                context.lineWidth = 4;
+                context.strokeStyle = gc;
+                context.stroke();
+            };
+            drawTilePatterns(contextGeneral, [document.getElementById("groundInnerDecoPlates").value, document.getElementById("groundInnerDecoScrewsInner").value, document.getElementById("groundInnerDecoScrewsBorder").value], drawPlate);
+        }
         //立体用パレット//
 
         contextGeneral.fillStyle = ogp[0];
@@ -385,7 +459,7 @@ window.addEventListener("load", function () {
             //上の太い線
             contextGeneral.fillRect(363, 4.5, 128, 16);
         }
-        
+
         if (["cut", "cutonly"].includes(gStyle)) {
             contextGeneral.fillStyle = gl;
             //左中段
@@ -734,7 +808,7 @@ window.addEventListener("load", function () {
 
         //ジャンプ床の発光を描画//
         if (!document.getElementById("disableActiveJumppadGlow").checked) {
-            rectInnerGlow(12, 12, 146, 146, 25, 45, ajl, contextGeneral);//50,85
+            rectInnerGlow(12, 12, 146, 146, 25, 45, ajl, contextGeneral); //50,85
             if (jumppadStyle == "import") {
                 rectInnerGlow(12, 27, 146, 146, 25, 45, ajl, document.getElementById("jumpPadPreview").getContext("2d"));
             }
@@ -904,9 +978,33 @@ window.addEventListener("load", function () {
                         contextGeneral.stroke();
                     }
                 }
-                //contextGeneral.stroke();
                 contextGeneral.restore();
             }
+        }
+
+        //六角形
+        if (jumppadStyle == "hexagon") {
+            contextGeneral.save();
+            contextGeneral.beginPath();
+            contextGeneral.rect(12.5, 12.5, 146, 146);
+            contextGeneral.clip();
+            contextGeneral.lineWidth = 4.5;
+            contextGeneral.strokeStyle = document.getElementById("gpJumppadActive").value;
+            contextGeneral.beginPath();
+            for (let hexagonYPos = 0; hexagonYPos < 5; hexagonYPos++) {
+                for (let hexagonXPos = 0; hexagonXPos < 4 + (hexagonYPos + 1) % 2; hexagonXPos++) {
+                    contextGeneral.beginPath();
+                    let XCenter = 10.5 + (1 + 2 * hexagonXPos - (hexagonYPos + 1) % 2) * 18.5;
+                    let YCenter = 31 + 33 * hexagonYPos;
+                    contextGeneral.moveTo(XCenter - 18.5, YCenter + 10);
+                    contextGeneral.lineTo(XCenter, YCenter);
+                    contextGeneral.lineTo(XCenter + 18.5, YCenter + 10);
+                    contextGeneral.moveTo(XCenter, YCenter);
+                    contextGeneral.lineTo(XCenter, YCenter - 22);
+                    contextGeneral.stroke();
+                }
+            }
+            contextGeneral.restore();
         }
 
         //ジャンプ床の側面の描画
@@ -959,23 +1057,18 @@ window.addEventListener("load", function () {
         contextFragileActive.lineJoin = "round";
         contextFragileActive.clearRect(0, 0, 512, 512);
         contextFragile.fillStyle = document.getElementById("fragileColor").value;
-        contextFragile.globalAlpha = 0xc0 / 0xff;
+        contextFragile.globalAlpha = document.getElementById("fragileAlpha").value / 0xff;
         contextFragile.fillRect(0, 0, 512, 512);
         contextFragileActive.fillStyle = document.getElementById("fragileActiveColor").value;
-        contextFragileActive.globalAlpha = 0xc0 / 0xff;
+        contextFragileActive.globalAlpha = document.getElementById("fragileActiveAlpha").value / 0xff;
         contextFragileActive.fillRect(0, 0, 512, 512);
         contextFragile.globalAlpha = 1;
         contextFragileActive.globalAlpha = 1;
 
         //雪模様
         if (document.getElementById("fragileInnerStyle").value == "snowflake") {
-            let drawSnowflake = (context, xpos, ypos) => {
-                let turn = (x, y, angle) => {
-                    return {
-                        x: x * Math.cos(angle) - y * Math.sin(angle),
-                        y: x * Math.sin(angle) + y * Math.cos(angle)
-                    };
-                };
+            let drawSnowflake = (context, xpos, ypos, colors) => {
+                context.strokeStyle = colors[0];
                 context.lineWidth = 10;
                 context.beginPath();
                 for (let i = 0; i < 6; i++) {
@@ -994,26 +1087,11 @@ window.addEventListener("load", function () {
                     context.lineTo(xpos + pos.x, ypos + pos.y);
                 }
                 context.stroke();
-            }
-            contextFragile.strokeStyle = document.getElementById("fragileInnerInactiveDecoColor").value;
-            contextFragileActive.strokeStyle = document.getElementById("fragileInnerActiveDecoColor").value;
-            for (let i = 0; i < 7; i++) {
-                drawSnowflake(contextFragile, 85 + 170 * ([2, 0, 2, 0, 1, 2])[i], 85 + 170 * ([0, 1, 1, 2, 2, 2])[i]);
-                drawSnowflake(contextFragileActive, 85 + 170 * ([2, 0, 2, 0, 1, 2])[i], 85 + 170 * ([0, 1, 1, 2, 2, 2])[i]);
-            }
-            for (let i = 0; i < 2; i++) {
-                let c = ([contextFragile, contextFragileActive])[i];
-                c.save();
-                c.beginPath();
-                c.moveTo(170, 170);
-                c.lineTo(170, 340);
-                c.lineTo(340, 340);
-                c.closePath();
-                c.clip();
-                drawSnowflake(c, 255, 255);
-                c.restore();
-            }
+            };
+            drawTilePatterns(contextFragile, [document.getElementById("fragileInnerInactiveDecoColor").value], drawSnowflake);
+            drawTilePatterns(contextFragileActive, [document.getElementById("fragileInnerActiveDecoColor").value], drawSnowflake);
         }
+
         //線
         contextFragile.lineWidth = 4;
         contextFragileActive.lineWidth = 4;
@@ -1464,7 +1542,7 @@ window.addEventListener("load", function () {
         contextEnemy.fillRect(128, 64, 50, 64);
 
         //B,G
-        
+
         //ネオンボックス
         if (document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-neonbox-available")) {
             contextEnemy.fillStyle = "#434A5B";
@@ -1497,7 +1575,7 @@ window.addEventListener("load", function () {
             contextEnemy.fillRect(448, 128, 64, 32);
             //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
         }
-        
+
         switch (document.getElementById("topRightType").value) {
             case "floater": {
                 //fl1
@@ -1531,11 +1609,27 @@ window.addEventListener("load", function () {
                 contextEnemy.fill();
                 contextEnemy.stroke();
 
-                //fl3
-                contextEnemy.fillStyle = document.getElementById("floaterInactiveEdgeColor").value;
+                //fl3,4
                 for (var s = 0; s < 2; s++) {
                     var k = 127 * s;
+                    //影
+                    contextEnemy.lineCap = "round";
+                    contextEnemy.lineWidth = 6;
+                    contextEnemy.strokeStyle = document.getElementById(["floaterInactiveShadowColor", "floaterActiveShadowColor"][s]).value;
+                    contextEnemy.beginPath();
+                    contextEnemy.lineTo(k + 224, 12.5);
+                    contextEnemy.lineTo(k + 214, 31);
+                    contextEnemy.moveTo(k + 288, 12.5);
+                    contextEnemy.lineTo(k + 297, 31);
+                    contextEnemy.moveTo(k + 246, 95.5);
+                    contextEnemy.lineTo(k + 266, 95.5);
+                    contextEnemy.moveTo(k + 351, 115.5);
+                    contextEnemy.lineTo(k + 320, 53);
+                    contextEnemy.lineTo(k + 289, 115.5);
+                    contextEnemy.stroke();
+
                     //ちょび三角
+                    contextEnemy.fillStyle = document.getElementById(["floaterInactiveEdgeColor", "floaterActiveEdgeColor"][s]).value;
                     contextEnemy.beginPath();
                     contextEnemy.moveTo(k + 205, 12.5);
                     contextEnemy.lineTo(k + 224, 12.5);
@@ -1557,9 +1651,8 @@ window.addEventListener("load", function () {
                     contextEnemy.lineTo(k + 289, 115.5);
                     contextEnemy.closePath();
                     contextEnemy.fill();
-                    //fl4
-                    contextEnemy.fillStyle = document.getElementById("floaterActiveEdgeColor").value;
                 }
+                contextEnemy.lineCap = "butt";
             }
             break;
         case "crystal": {
@@ -1867,6 +1960,46 @@ window.addEventListener("load", function () {
                     contextEnemy.fillRect(256 + 64 * clr, 128, 64, 64);
                 }
             }
+            if (document.getElementById("subBType").value == "chris") {
+                var chrisAThickness = lineThickness["normal"];
+                contextEnemy.fillStyle = document.getElementById("ChrisPaletteATone1Face").value;
+                contextEnemy.fillRect(256, 384, 64, 64);
+                contextEnemy.fillStyle = document.getElementById("ChrisPaletteATone2Face").value;
+                contextEnemy.fillRect(320, 384, 64, 64);
+                contextEnemy.fillStyle = document.getElementById("ChrisPaletteATone3Face").value;
+                contextEnemy.fillRect(384, 384, 128, 64);
+                contextEnemy.fillStyle = document.getElementById("ChrisPaletteBTone1Face").value;
+                contextEnemy.fillRect(256, 448, 64, 64);
+                contextEnemy.fillStyle = document.getElementById("ChrisPaletteBTone2Face").value;
+                contextEnemy.fillRect(320, 448, 64, 64);
+                contextEnemy.fillStyle = document.getElementById("ChrisPaletteBTone3Face").value;
+                contextEnemy.fillRect(384, 448, 128, 64);
+
+                let chrisA1Path = new Path2D();
+                chrisA1Path.rect(268 + 0.5, 396 + 0.5, 40, 40);
+                contextEnemy.strokeStyle = document.getElementById("ChrisPaletteATone1Line").value;
+                multipleLines(chrisAThickness.width, chrisAThickness.alpha, contextEnemy, chrisA1Path);
+                let chrisA2Path = new Path2D();
+                chrisA2Path.rect(332 + 0.5, 396 + 0.5, 40, 40);
+                contextEnemy.strokeStyle = document.getElementById("ChrisPaletteATone2Line").value;
+                multipleLines(chrisAThickness.width, chrisAThickness.alpha, contextEnemy, chrisA2Path);
+                let chrisA3Path = new Path2D();
+                chrisA3Path.rect(396 + 0.5, 396 + 0.5, 104, 40);
+                contextEnemy.strokeStyle = document.getElementById("ChrisPaletteATone3Line").value;
+                multipleLines(chrisAThickness.width, chrisAThickness.alpha, contextEnemy, chrisA3Path);
+                let chrisB1Path = new Path2D();
+                chrisB1Path.rect(268 + 0.5, 460 + 0.5, 40, 40);
+                contextEnemy.strokeStyle = document.getElementById("ChrisPaletteBTone1Line").value;
+                multipleLines(chrisAThickness.width, chrisAThickness.alpha, contextEnemy, chrisB1Path);
+                let chrisB2Path = new Path2D();
+                chrisB2Path.rect(332 + 0.5, 460 + 0.5, 40, 40);
+                contextEnemy.strokeStyle = document.getElementById("ChrisPaletteBTone2Line").value;
+                multipleLines(chrisAThickness.width, chrisAThickness.alpha, contextEnemy, chrisB2Path);
+                let chrisB3Path = new Path2D();
+                chrisB3Path.rect(396 + 0.5, 460 + 0.5, 104, 40);
+                contextEnemy.strokeStyle = document.getElementById("ChrisPaletteBTone3Line").value;
+                multipleLines(chrisAThickness.width, chrisAThickness.alpha, contextEnemy, chrisB3Path);
+            }
         }
 
 
@@ -2143,18 +2276,18 @@ window.addEventListener("load", function () {
                 c.lineCap = "butt";
                 c.lineWidth = 11;
                 c.beginPath();
-                c.moveTo(r+31.5, 16);
-                c.lineTo(r+31.5, 48);
+                c.moveTo(r + 31.5, 16);
+                c.lineTo(r + 31.5, 48);
                 c.stroke();
                 c.lineWidth = 12;
                 c.beginPath();
-                c.moveTo(r+18, 32);
-                c.lineTo(r+45, 32);
+                c.moveTo(r + 18, 32);
+                c.lineTo(r + 45, 32);
                 c.stroke();
                 return s;
             });
             //未使用
-            doTheFlipper("nuclear", 3, function(n, u, k, e){
+            doTheFlipper("nuclear", 3, function (n, u, k, e) {
                 n.fillStyle = k[0];
                 n.fillRect(u, 0, 64, 64);
                 n.strokeStyle = k[1];
@@ -2163,18 +2296,76 @@ window.addEventListener("load", function () {
 
                 n.fillStyle = k[2];
                 n.beginPath();
-                n.arc(u+32, 32, 3.5, 0, 2*Math.PI);
+                n.arc(u + 32, 32, 3.5, 0, 2 * Math.PI);
                 n.closePath();
                 n.fill();
-                for(let tr=0; tr < 3; tr++){
-                    let m = tr*2*Math.PI/3;
+                for (let tr = 0; tr < 3; tr++) {
+                    let m = tr * 2 * Math.PI / 3;
                     n.beginPath();
-                    n.arc(u+32,32,19,tr*2*Math.PI/3,(tr*2+1)*Math.PI/3);
-                    n.arc(u+32,32,6,(tr*2+1)*Math.PI/3,tr*2*Math.PI/3, true);
+                    n.arc(u + 32, 32, 19, tr * 2 * Math.PI / 3, (tr * 2 + 1) * Math.PI / 3);
+                    n.arc(u + 32, 32, 6, (tr * 2 + 1) * Math.PI / 3, tr * 2 * Math.PI / 3, true);
                     n.closePath();
                     n.fill();
                 }
                 return e;
+            });
+            //バイオハザード
+            doTheFlipper("biohazard", 3, function (l, a, b, c) {
+                l.fillStyle = b[0];
+                l.fillRect(a, 0, 64, 64);
+                l.strokeStyle = b[1];
+                l.lineWidth = 2;
+                l.strokeRect(a + 4, 4, 56, 56);
+
+                l.strokeStyle = b[2];
+                l.lineWidth = 3;
+                l.beginPath();
+                l.arc(a + 32, 33, 10, 0, 2 * Math.PI);
+                l.stroke();
+                l.fillStyle = b[2];
+                for (let ugul = 0; ugul < 3; ugul++) {
+                    let t = Math.PI * 2 * (ugul / 3);
+                    let pos = [turn(2, 2, t),
+                              turn(1, 4, t),
+                              turn(-1, 22, t),
+                              turn(18, 18, t),
+                              turn(14, 22, t),
+                              turn(6, 22, t),
+                              turn(0, 18, t),
+                              turn(-6, 22, t),
+                              turn(-14, 22, t),
+                              turn(-18, 18, t),
+                              turn(1, 22, t),
+                              turn(-1, 4, t),
+                              turn(-2, 2, t)];
+                    console.log(pos)
+                    l.beginPath();
+                    l.moveTo(a + 32 + pos[0].x, 32 + pos[0].y);
+                    l.bezierCurveTo(a + 32 + pos[1].x, 32 + pos[1].y, a + 32 + pos[2].x, 32 + pos[2].y, a + 32 + pos[3].x, 32 + pos[3].y);
+                    l.bezierCurveTo(a + 32 + pos[4].x, 32 + pos[4].y, a + 32 + pos[5].x, 32 + pos[5].y, a + 32 + pos[6].x, 32 + pos[6].y);
+                    l.bezierCurveTo(a + 32 + pos[7].x, 32 + pos[7].y, a + 32 + pos[8].x, 32 + pos[8].y, a + 32 + pos[9].x, 32 + pos[9].y);
+                    l.bezierCurveTo(a + 32 + pos[10].x, 32 + pos[10].y, a + 32 + pos[11].x, 32 + pos[11].y, a + 32 + pos[12].x, 32 + pos[12].y);
+                    l.closePath();
+                    //l.stroke();
+                    l.fill();
+                }
+                return c;
+            });
+            //8周年
+            doTheFlipper("eight", 3, function (a, c, h, t) {
+                a.fillStyle = h[1];
+                a.fillRect(c, 0, 64, 64);
+                a.fillStyle = h[0];
+                a.fillRect(c + 6.5, 6.5, 51, 51);
+                a.lineWidth = 5;
+                a.strokeStyle = h[1];
+                a.beginPath();
+                a.arc(c + 32, 22.5, 10, 0, 2 * Math.PI, false);
+                a.stroke();
+                a.beginPath();
+                a.arc(c + 32, 41.5, 9, 0, 2 * Math.PI, false);
+                a.stroke();
+                return t;
             });
             //3D spacial zone
             doTheFlipper("checkeredged", 2, function (z, o, n, e) {
@@ -2280,6 +2471,21 @@ window.addEventListener("load", function () {
             contextEnemy.fillRect(314, 0, 6, 32);
             contextEnemy.fillStyle = document.getElementById("smallJumpInactiveSide").value;
             contextEnemy.fillRect(314, 32, 6, 32);
+            let hjStyle = "simple";//document.getElementById("smallJumpType").value;
+            if (hjStyle != "simple") {
+                let isActive = true;
+                let hjx = x => 58 * x;
+                let hjy = y => 32 * y;
+                let hjxpos = x => 256 + hjx(x);
+                let hjypos = y => 32 * isActive + hjy(y);
+                for (let k = 0; k < 2; k++) {
+                    if (hjStyle == "square") {
+                        contextEnemy.fillStyle = document.getElementById("smallJumpInactiveSide").value;
+                        contextEnemy.fillRect(hjxpos(0.1875), hjypos(0.1875), hjx(0.625), hjy(0.625));
+                    }
+                    isActive = false;
+                }
+            }
         }
 
 
@@ -2364,6 +2570,10 @@ window.addEventListener("load", function () {
         }
 
         //D,E
+        //太さ決定
+        var middleLeftLineThickness = lineThickness[document.getElementById("middleLeftLineThickness").value];
+        var middleRightLineThickness = lineThickness[document.getElementById("middleRightLineThickness").value];
+        //描画
         contextEnemy.lineJoin = "round";
         for (var smis = 0; smis < 3; smis++) {
             contextEnemy.fillStyle = document.getElementById("middleLeftTone" + (smis * 2 + 1) + "Face").value;
@@ -2405,14 +2615,18 @@ window.addEventListener("load", function () {
             middleRightRightPath.rect(332 + 0.5, 204 + 64 * smis + 0.5, 40, 40);
             middleRightRightPath.rect(394 + 0.5, 204 + 64 * smis + 0.5, 104, 40);
 
-            contextEnemy.strokeStyle = document.getElementById("middleLeftTone" + (smis * 2 + 1) + "Line").value;
-            multipleLines([6, 3, 1], [0.25, 0.25, 1], contextEnemy, middleLeftLeftPath);
-            contextEnemy.strokeStyle = document.getElementById("middleLeftTone" + (smis * 2 + 2) + "Line").value;
-            multipleLines([6, 3, 1], [0.25, 0.25, 1], contextEnemy, middleLeftRightPath);
-            contextEnemy.strokeStyle = document.getElementById("middleRightTone" + (smis * 2 + 1) + "Line").value;
-            multipleLines([6, 3, 1], [0.25, 0.25, 1], contextEnemy, middleRightLeftPath);
-            contextEnemy.strokeStyle = document.getElementById("middleRightTone" + (smis * 2 + 2) + "Line").value;
-            multipleLines([6, 3, 1], [0.25, 0.25, 1], contextEnemy, middleRightRightPath);
+            if (document.getElementById("middleLeftLineThickness").value != "none") {
+                contextEnemy.strokeStyle = document.getElementById("middleLeftTone" + (smis * 2 + 1) + "Line").value;
+                multipleLines(middleLeftLineThickness.width, middleLeftLineThickness.alpha, contextEnemy, middleLeftLeftPath);
+                contextEnemy.strokeStyle = document.getElementById("middleLeftTone" + (smis * 2 + 2) + "Line").value;
+                multipleLines(middleLeftLineThickness.width, middleLeftLineThickness.alpha, contextEnemy, middleLeftRightPath);
+            }
+            if (document.getElementById("middleRightLineThickness").value != "none") {
+                contextEnemy.strokeStyle = document.getElementById("middleRightTone" + (smis * 2 + 1) + "Line").value;
+                multipleLines(middleRightLineThickness.width, middleRightLineThickness.alpha, contextEnemy, middleRightLeftPath);
+                contextEnemy.strokeStyle = document.getElementById("middleRightTone" + (smis * 2 + 2) + "Line").value;
+                multipleLines(middleRightLineThickness.width, middleRightLineThickness.alpha, contextEnemy, middleRightRightPath);
+            }
 
             contextEnemy.fillStyle = document.getElementById("middleLeftTone7").value;
             contextEnemy.strokeStyle = document.getElementById("middleLeftTone6Line").value;
@@ -2511,99 +2725,100 @@ window.addEventListener("load", function () {
         }
 
         //G
-        contextEnemy.strokeStyle = "#000000";
-        switch (document.getElementById("bottomRightType").value) {
-            case "outlined":
-                contextEnemy.fillStyle = document.getElementById("riserTopMain").value;
-                contextEnemy.fillRect(256, 384, 256, 128);
-                for (var sci = 0; sci < 2; sci++) {
-                    var tech = sci * 128;
-
-                    var riserOctagonPathA = new Path2D();
-                    riserOctagonPathA.moveTo(tech + 292.5, 408.5); //36, 24
-                    riserOctagonPathA.lineTo(tech + 280.5, 420.5);
-                    riserOctagonPathA.lineTo(tech + 280.5, 475.5);
-                    riserOctagonPathA.lineTo(tech + 292.5, 487.5);
-                    riserOctagonPathA.lineTo(tech + 347.5, 487.5);
-                    riserOctagonPathA.lineTo(tech + 359.5, 475.5);
-                    riserOctagonPathA.lineTo(tech + 359.5, 420.5);
-                    riserOctagonPathA.lineTo(tech + 347.5, 408.5);
-                    riserOctagonPathA.closePath();
-                    var riserOctagonPathB = new Path2D();
-                    riserOctagonPathB.moveTo(tech + 281.5, 396.5); //25, 12
-                    riserOctagonPathB.lineTo(tech + 268.5, 409.5);
-                    riserOctagonPathB.lineTo(tech + 268.5, 486.5);
-                    riserOctagonPathB.lineTo(tech + 281.5, 499.5);
-                    riserOctagonPathB.lineTo(tech + 358.5, 499.5);
-                    riserOctagonPathB.lineTo(tech + 371.5, 486.5);
-                    riserOctagonPathB.lineTo(tech + 371.5, 409.5);
-                    riserOctagonPathB.lineTo(tech + 358.5, 396.5);
-                    riserOctagonPathB.closePath();
-
-                    contextEnemy.fillStyle = ([document.getElementById("riserTopInactiveLine").value, document.getElementById("riserTopActiveLine").value])[sci];
-                    contextEnemy.fill(riserOctagonPathA);
+        if (document.getElementById("bottomRightAvailable").value == "true") {
+            contextEnemy.strokeStyle = "#000000";
+            switch (document.getElementById("bottomRightType").value) {
+                case "outlined":
                     contextEnemy.fillStyle = document.getElementById("riserTopMain").value;
-                    contextEnemy.fillRect(tech + 295, 423, 50, 50); //39 -> 78
+                    contextEnemy.fillRect(256, 384, 256, 128);
+                    for (var sci = 0; sci < 2; sci++) {
+                        var tech = sci * 128;
 
-                    contextEnemy.strokeStyle = document.getElementById("riserLine").value;
-                    multipleLines([5, 2], [0.25, 1], contextEnemy, riserOctagonPathA);
-                    multipleLines([5, 2], [0.25, 1], contextEnemy, riserOctagonPathB);
+                        var riserOctagonPathA = new Path2D();
+                        riserOctagonPathA.moveTo(tech + 292.5, 408.5); //36, 24
+                        riserOctagonPathA.lineTo(tech + 280.5, 420.5);
+                        riserOctagonPathA.lineTo(tech + 280.5, 475.5);
+                        riserOctagonPathA.lineTo(tech + 292.5, 487.5);
+                        riserOctagonPathA.lineTo(tech + 347.5, 487.5);
+                        riserOctagonPathA.lineTo(tech + 359.5, 475.5);
+                        riserOctagonPathA.lineTo(tech + 359.5, 420.5);
+                        riserOctagonPathA.lineTo(tech + 347.5, 408.5);
+                        riserOctagonPathA.closePath();
+                        var riserOctagonPathB = new Path2D();
+                        riserOctagonPathB.moveTo(tech + 281.5, 396.5); //25, 12
+                        riserOctagonPathB.lineTo(tech + 268.5, 409.5);
+                        riserOctagonPathB.lineTo(tech + 268.5, 486.5);
+                        riserOctagonPathB.lineTo(tech + 281.5, 499.5);
+                        riserOctagonPathB.lineTo(tech + 358.5, 499.5);
+                        riserOctagonPathB.lineTo(tech + 371.5, 486.5);
+                        riserOctagonPathB.lineTo(tech + 371.5, 409.5);
+                        riserOctagonPathB.lineTo(tech + 358.5, 396.5);
+                        riserOctagonPathB.closePath();
 
-                    var riserTopInnerRectPath = new Path2D();
-                    riserTopInnerRectPath.rect(tech + 295, 423, 50, 50);
-                    multipleLines([5, 2], [0.25, 1], contextEnemy, riserTopInnerRectPath);
-                }
-                break;
-            case "round":
-                contextEnemy.fillStyle = document.getElementById("riserTopOuter").value;
-                contextEnemy.fillRect(256, 384, 256, 128);
-                var roundRectPath = function (x, y, w, h, r) {
-                    var m = new Path2D();
-                    m.moveTo(x + r, y);
-                    m.arc(x + w - r, y + r, r, -0.5 * Math.PI, 0, false);
-                    m.arc(x + w - r, y + w - r, r, 0, 0.5 * Math.PI, false);
-                    m.arc(x + r, y + w - r, r, 0.5 * Math.PI, Math.PI, false);
-                    m.arc(x + r, y + r, r, Math.PI, -0.5 * Math.PI, false);
-                    m.closePath();
-                    return m;
-                }
-                for (var me = 0; me < 2; me++) {
-                    var nn = me * 128;
-                    var outerRoundRectPath = roundRectPath(nn + 282, 410, 76, 76, 7);
-                    var innerRoundRectPath = roundRectPath(nn + 293, 421, 54, 54, 4);
+                        contextEnemy.fillStyle = ([document.getElementById("riserTopInactiveLine").value, document.getElementById("riserTopActiveLine").value])[sci];
+                        contextEnemy.fill(riserOctagonPathA);
+                        contextEnemy.fillStyle = document.getElementById("riserTopMain").value;
+                        contextEnemy.fillRect(tech + 295, 423, 50, 50); //39 -> 78
 
-                    contextEnemy.strokeStyle = ([document.getElementById("riserInactiveTopLine").value, document.getElementById("riserActiveTopLine").value])[me];
-                    multipleLines([7, 5, 3], [0.25, 0.25, 0.75], contextEnemy, outerRoundRectPath);
+                        contextEnemy.strokeStyle = document.getElementById("riserLine").value;
+                        multipleLines([5, 2], [0.25, 1], contextEnemy, riserOctagonPathA);
+                        multipleLines([5, 2], [0.25, 1], contextEnemy, riserOctagonPathB);
 
-                    contextEnemy.globalAlpha = 1;
-                    contextEnemy.fillStyle = ([document.getElementById("riserInactiveTopLine").value, document.getElementById("riserActiveTopLine").value])[me];
-                    contextEnemy.fill(outerRoundRectPath);
-
-                    contextEnemy.strokeStyle = ([document.getElementById("riserInactiveTopInner").value, document.getElementById("riserActiveTopInner").value])[me];
-                    multipleLines([5, 3], [0.25, 0.5], contextEnemy, innerRoundRectPath)
-
-                    contextEnemy.globalAlpha = 1;
-                    contextEnemy.fillStyle = ([document.getElementById("riserInactiveTopInner").value, document.getElementById("riserActiveTopInner").value])[me];
-                    contextEnemy.fill(innerRoundRectPath);
-
-                    if (document.getElementById("useRiserLine").checked) {
-                        contextEnemy.strokeStyle = document.getElementById("riserLine2").value;
-
-                        var riserOuterPath = new Path2D();
-                        riserOuterPath.moveTo(nn + 281.5, 396.5);
-                        riserOuterPath.lineTo(nn + 268.5, 409.5);
-                        riserOuterPath.lineTo(nn + 268.5, 486.5);
-                        riserOuterPath.lineTo(nn + 281.5, 499.5);
-                        riserOuterPath.lineTo(nn + 358.5, 499.5);
-                        riserOuterPath.lineTo(nn + 371.5, 486.5);
-                        riserOuterPath.lineTo(nn + 371.5, 409.5);
-                        riserOuterPath.lineTo(nn + 358.5, 396.5);
-                        riserOuterPath.closePath();
-                        multipleLines([5, 2], [0.25, 1], contextEnemy, riserOuterPath);
+                        var riserTopInnerRectPath = new Path2D();
+                        riserTopInnerRectPath.rect(tech + 295, 423, 50, 50);
+                        multipleLines([5, 2], [0.25, 1], contextEnemy, riserTopInnerRectPath);
                     }
-                }
-        }
+                    break;
+                case "round":
+                    contextEnemy.fillStyle = document.getElementById("riserTopOuter").value;
+                    contextEnemy.fillRect(256, 384, 256, 128);
+                    var roundRectPath = function (x, y, w, h, r) {
+                        var m = new Path2D();
+                        m.moveTo(x + r, y);
+                        m.arc(x + w - r, y + r, r, -0.5 * Math.PI, 0, false);
+                        m.arc(x + w - r, y + w - r, r, 0, 0.5 * Math.PI, false);
+                        m.arc(x + r, y + w - r, r, 0.5 * Math.PI, Math.PI, false);
+                        m.arc(x + r, y + r, r, Math.PI, -0.5 * Math.PI, false);
+                        m.closePath();
+                        return m;
+                    }
+                    for (var me = 0; me < 2; me++) {
+                        var nn = me * 128;
+                        var outerRoundRectPath = roundRectPath(nn + 282, 410, 76, 76, 7);
+                        var innerRoundRectPath = roundRectPath(nn + 293, 421, 54, 54, 4);
 
+                        contextEnemy.strokeStyle = ([document.getElementById("riserInactiveTopLine").value, document.getElementById("riserActiveTopLine").value])[me];
+                        multipleLines([7, 5, 3], [0.25, 0.25, 0.75], contextEnemy, outerRoundRectPath);
+
+                        contextEnemy.globalAlpha = 1;
+                        contextEnemy.fillStyle = ([document.getElementById("riserInactiveTopLine").value, document.getElementById("riserActiveTopLine").value])[me];
+                        contextEnemy.fill(outerRoundRectPath);
+
+                        contextEnemy.strokeStyle = ([document.getElementById("riserInactiveTopInner").value, document.getElementById("riserActiveTopInner").value])[me];
+                        multipleLines([5, 3], [0.25, 0.5], contextEnemy, innerRoundRectPath)
+
+                        contextEnemy.globalAlpha = 1;
+                        contextEnemy.fillStyle = ([document.getElementById("riserInactiveTopInner").value, document.getElementById("riserActiveTopInner").value])[me];
+                        contextEnemy.fill(innerRoundRectPath);
+
+                        if (document.getElementById("useRiserLine").checked) {
+                            contextEnemy.strokeStyle = document.getElementById("riserLine2").value;
+
+                            var riserOuterPath = new Path2D();
+                            riserOuterPath.moveTo(nn + 281.5, 396.5);
+                            riserOuterPath.lineTo(nn + 268.5, 409.5);
+                            riserOuterPath.lineTo(nn + 268.5, 486.5);
+                            riserOuterPath.lineTo(nn + 281.5, 499.5);
+                            riserOuterPath.lineTo(nn + 358.5, 499.5);
+                            riserOuterPath.lineTo(nn + 371.5, 486.5);
+                            riserOuterPath.lineTo(nn + 371.5, 409.5);
+                            riserOuterPath.lineTo(nn + 358.5, 396.5);
+                            riserOuterPath.closePath();
+                            multipleLines([5, 2], [0.25, 1], contextEnemy, riserOuterPath);
+                        }
+                    }
+            }
+        }
         //プレヴュー
         var etrpc; //enemyTRPreviewContext
         //B
@@ -2839,6 +3054,20 @@ window.addEventListener("load", function () {
         document.getElementById("downloadMoverAuto").setAttribute("href", canvasMoverAuto.toDataURL());
         document.getElementById("downloadEnemy").setAttribute("href", canvasEnemy.toDataURL());
     }
+
+    document.getElementById("swapMainPalette").addEventListener("click", function () {
+        for (let leftnum = 1; leftnum <= 6; leftnum++) {
+            let rightnum = [2, 1, 4, 3, 6, 5][leftnum - 1];
+            let temp = document.getElementById("middleLeftTone" + leftnum + "Face").value;
+            document.getElementById("middleLeftTone" + leftnum + "Face").value = document.getElementById("middleRightTone" + rightnum + "Face").value;
+            document.getElementById("middleRightTone" + rightnum + "Face").value = temp;
+            temp = document.getElementById("middleLeftTone" + leftnum + "Line").value;
+            document.getElementById("middleLeftTone" + leftnum + "Line").value = document.getElementById("middleRightTone" + rightnum + "Line").value;
+            document.getElementById("middleRightTone" + rightnum + "Line").value = temp;
+        }
+        document.getElementById("middleLeftTone7").value = document.getElementById("middleLeftTone6Face").value
+        generateEnemy();
+    });
     document.getElementById("generateButton").addEventListener("click", function () {
         generateAllTextures();
         updateSaveURLs();
