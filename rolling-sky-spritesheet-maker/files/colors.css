@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-/*update no. 6*/
+/*update no. 7*/
 #header {
     background-position: center top;
 }
@@ -11,7 +11,7 @@ html[data-theme=light] #header {
 }
 
 html[data-theme=dark] #header {
-    background: linear-gradient(#121217, #67111c);
+    background-color: #121217;
     background-image: url(Background68.png);
     background-position: center -50px;
     border-bottom-color: #804000;
@@ -27,6 +27,23 @@ html[data-theme=dark] a:not(.button, .formSmallButton) {
     color: #ffff00;
 }
 
+html[data-theme=light] #updateInfo {
+    background-image: url(Background96.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    border-color: #f0f0f0;
+}
+html[data-theme=light] #updateInfo a{
+    color: yellow;
+}
+html[data-theme=dark] #updateInfo {
+    background-image: url(Background117.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: paleturquoise;
+    border-color: #a0a0a0;
+}
+
 /*formnav*/
 html[data-theme=light] #formNav {
     background-color: #c0ffff;
@@ -35,7 +52,7 @@ html[data-theme=light] #formNav {
 
 html[data-theme=dark] #formNav {
     background-color: #100010;
-    border-bottom-color: #ffffff;
+    border-bottom-color: #c0c0c0;
 }
 
 html[data-theme=light] #formNav li {
@@ -43,7 +60,7 @@ html[data-theme=light] #formNav li {
 }
 
 html[data-theme=dark] #formNav li {
-    border: 1px solid #ffffff;
+    border: 1px solid #c0c0c0;
 }
 
 html[data-theme=light] #formNav li.selectedTab {
