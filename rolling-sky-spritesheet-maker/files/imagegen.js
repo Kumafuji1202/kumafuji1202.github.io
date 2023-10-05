@@ -1,4 +1,4 @@
-//update no. 12
+//update no. 13
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -155,6 +155,141 @@ window.addEventListener("load", function () {
         context.clip();
         func(context, 255, 255, colors);
         context.restore();
+    }
+
+    function theSunsetGlowThing(left, top, mainCol, darkCol, accCol, type) {
+        contextEnemy.fillStyle = mainCol;
+        contextEnemy.fillRect(left, top, 64, 64);
+        contextEnemy.fillStyle = darkCol;
+        switch (type) {
+            case 0:
+                contextEnemy.beginPath();
+                contextEnemy.moveTo(left + 11, top + 11);
+                contextEnemy.lineTo(left + 32, top + 11);
+                contextEnemy.lineTo(left + 11, top + 32);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 53, top + 11);
+                contextEnemy.lineTo(left + 53, top + 32);
+                contextEnemy.lineTo(left + 32, top + 11);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 11, top + 53);
+                contextEnemy.lineTo(left + 11, top + 32);
+                contextEnemy.lineTo(left + 32, top + 53);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 53, top + 53);
+                contextEnemy.lineTo(left + 32, top + 53);
+                contextEnemy.lineTo(left + 53, top + 32);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 32, top + 21);
+                contextEnemy.lineTo(left + 43, top + 32);
+                contextEnemy.lineTo(left + 32, top + 43);
+                contextEnemy.lineTo(left + 21, top + 32);
+                contextEnemy.closePath();
+                contextEnemy.fill();
+                break;
+            case 1:
+                contextEnemy.beginPath();
+                contextEnemy.moveTo(left + 32, top);
+                contextEnemy.lineTo(left + 48, top + 16);
+                contextEnemy.lineTo(left + 16, top + 16);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 32, top + 64);
+                contextEnemy.lineTo(left + 16, top + 48);
+                contextEnemy.lineTo(left + 48, top + 48);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left, top + 32);
+                contextEnemy.lineTo(left + 16, top + 16);
+                contextEnemy.lineTo(left + 16, top + 48);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 64, top + 32);
+                contextEnemy.lineTo(left + 48, top + 48);
+                contextEnemy.lineTo(left + 48, top + 16);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 16, top + 32);
+                contextEnemy.lineTo(left + 32, top + 16);
+                contextEnemy.lineTo(left + 48, top + 32);
+                contextEnemy.lineTo(left + 32, top + 48);
+                contextEnemy.closePath();
+                contextEnemy.fill();
+                break;
+            case 2:
+                contextEnemy.fillRect(left + 11, top + 11, 42, 11);
+                contextEnemy.fillRect(left + 11, top + 42, 42, 11);
+                break;
+            case 3:
+                contextEnemy.beginPath();
+                contextEnemy.moveTo(left, top);
+                contextEnemy.lineTo(left + 64, top);
+                contextEnemy.lineTo(left + 53, top + 11);
+                contextEnemy.lineTo(left + 11, top + 11);
+                contextEnemy.lineTo(left + 11, top + 53);
+                contextEnemy.lineTo(left, top + 64);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 53, top + 11);
+                contextEnemy.lineTo(left + 53, top + 53);
+                contextEnemy.lineTo(left + 11, top + 53);
+                contextEnemy.closePath();
+                contextEnemy.fill();
+                break;
+        }
+        contextEnemy.lineWidth = 3;
+        contextEnemy.strokeStyle = contextEnemy.fillStyle = accCol;
+        switch (type) {
+            case 0:
+                contextEnemy.beginPath();
+                contextEnemy.moveTo(left + 32, top + 4);
+                contextEnemy.lineTo(left + 60, top + 32);
+                contextEnemy.lineTo(left + 32, top + 60);
+                contextEnemy.lineTo(left + 4, top + 32);
+                contextEnemy.closePath();
+                contextEnemy.stroke();
+                break;
+            case 1:
+                contextEnemy.beginPath();
+                contextEnemy.moveTo(left, top);
+                contextEnemy.lineTo(left + 11, top);
+                contextEnemy.lineTo(left, top + 11);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 64, top);
+                contextEnemy.lineTo(left + 64, top + 11);
+                contextEnemy.lineTo(left + 53, top);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 64, top + 64);
+                contextEnemy.lineTo(left + 53, top + 64);
+                contextEnemy.lineTo(left + 64, top + 53);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left, top + 64);
+                contextEnemy.lineTo(left, top + 53);
+                contextEnemy.lineTo(left + 11, top + 64);
+                contextEnemy.closePath();
+                contextEnemy.fill();
+                break;
+            case 2:
+                contextEnemy.beginPath();
+                contextEnemy.moveTo(left + 5, top);
+                contextEnemy.lineTo(left + 10, top + 5);
+                contextEnemy.lineTo(left + 5, top + 10);
+                contextEnemy.lineTo(left, top + 5);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 59, top);
+                contextEnemy.lineTo(left + 64, top + 5);
+                contextEnemy.lineTo(left + 59, top + 10);
+                contextEnemy.lineTo(left + 54, top + 5);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 59, top + 54);
+                contextEnemy.lineTo(left + 64, top + 59);
+                contextEnemy.lineTo(left + 59, top + 64);
+                contextEnemy.lineTo(left + 54, top + 59);
+                contextEnemy.closePath();
+                contextEnemy.moveTo(left + 5, top + 54);
+                contextEnemy.lineTo(left + 10, top + 59);
+                contextEnemy.lineTo(left + 5, top + 64);
+                contextEnemy.lineTo(left, top + 59);
+                contextEnemy.closePath();
+                contextEnemy.fill();
+                contextEnemy.strokeRect(left + 20, top + 26, 24, 12);
+                break;
+        }
     }
 
     var groundLinesPath;
@@ -404,11 +539,11 @@ window.addEventListener("load", function () {
                     }
                 }
                 context.lineCap = "butt";
-                context.beginPath();//146
-                context.moveTo(xpos, ypos-56.5);
-                context.lineTo(xpos, ypos+56.5);
-                context.moveTo(xpos-56.5, ypos);
-                context.lineTo(xpos+56.5, ypos);
+                context.beginPath(); //146
+                context.moveTo(xpos, ypos - 56.5);
+                context.lineTo(xpos, ypos + 56.5);
+                context.moveTo(xpos - 56.5, ypos);
+                context.lineTo(xpos + 56.5, ypos);
                 context.lineWidth = 7;
                 context.strokeStyle = document.getElementById("groundInnerDecoPlatePartition").value;
                 context.stroke();
@@ -807,10 +942,14 @@ window.addEventListener("load", function () {
         }
 
         //ジャンプ床の発光を描画//
-        if (!document.getElementById("disableActiveJumppadGlow").checked) {
-            rectInnerGlow(12, 12, 146, 146, 25, 45, ajl, contextGeneral); //50,85
+        if (document.getElementById("activeJumppadGlow").value != "none") {
+            let rectInnerGlowWidth = [25, 45];
+            if (document.getElementById("activeJumppadGlow").value == "high") rectInnerGlowWidth = [50, 85];
+            if (document.getElementById("activeJumppadGlow").value == "edge") rectInnerGlowWidth = [14, 14];
+
+            rectInnerGlow(12, 12, 146, 146, rectInnerGlowWidth[0], rectInnerGlowWidth[1], ajl, contextGeneral); //50,85
             if (jumppadStyle == "import") {
-                rectInnerGlow(12, 27, 146, 146, 25, 45, ajl, document.getElementById("jumpPadPreview").getContext("2d"));
+                rectInnerGlow(12, 27, 146, 146, rectInnerGlowWidth[0], rectInnerGlowWidth[1], ajl, document.getElementById("jumpPadPreview").getContext("2d"));
             }
         }
 
@@ -1045,6 +1184,7 @@ window.addEventListener("load", function () {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
     function generateFragiles() {
         //////////////
         //ここからFragileとFragileActive
@@ -1358,6 +1498,7 @@ window.addEventListener("load", function () {
         contextFragileActive.fillRect(298.5, 183, 30, 30);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
     function generateMovers() {
         //////////////
         //ここからMoverとMoverAuto
@@ -1495,6 +1636,7 @@ window.addEventListener("load", function () {
         contextMoverAuto.fillRect(298.5, 183, 30, 30);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
     function generateEnemy() {
         //////////////
         //ここからEnemy
@@ -1512,34 +1654,49 @@ window.addEventListener("load", function () {
         contextEnemy.arc(64, 64, 51, 0, 2 * Math.PI, false);
         contextEnemy.fill();
 
-        //A2
-        var linearLightA = contextEnemy.createLinearGradient(128, 0, 178, 0);
-        //A3
-        var linearLightB = contextEnemy.createLinearGradient(128, 0, 178, 0);
-        if (document.getElementById("linearLightSameColor").checked) {
-            linearLightA.addColorStop(0, document.getElementById("radialLightOuter").value);
-            linearLightA.addColorStop(0.25, document.getElementById("radialLightInner").value);
-            linearLightA.addColorStop(0.5, "#FFFFFF");
-            linearLightA.addColorStop(0.75, document.getElementById("radialLightInner").value);
-            linearLightA.addColorStop(1, document.getElementById("radialLightOuter").value);
-            linearLightB = linearLightA;
-        } else {
-            linearLightA.addColorStop(0, document.getElementById("linearLightAOuter").value);
-            linearLightA.addColorStop(0.3, document.getElementById("linearLightAInner").value);
-            linearLightA.addColorStop(0.5, "#FFFFFF");
-            linearLightA.addColorStop(0.7, document.getElementById("linearLightAInner").value);
-            linearLightA.addColorStop(1, document.getElementById("linearLightAOuter").value);
+        var laserStyle = document.getElementById("linearLightStyle").value;
+        if (laserStyle == "original") {
+            //A2
+            var linearLightA = contextEnemy.createLinearGradient(128, 0, 178, 0);
+            //A3
+            var linearLightB = contextEnemy.createLinearGradient(128, 0, 178, 0);
+            if (document.getElementById("linearLightSameColor").checked) {
+                linearLightA.addColorStop(0, document.getElementById("radialLightOuter").value);
+                linearLightA.addColorStop(0.25, document.getElementById("radialLightInner").value);
+                linearLightA.addColorStop(0.5, "#FFFFFF");
+                linearLightA.addColorStop(0.75, document.getElementById("radialLightInner").value);
+                linearLightA.addColorStop(1, document.getElementById("radialLightOuter").value);
+                linearLightB = linearLightA;
+            } else {
+                linearLightA.addColorStop(0, document.getElementById("linearLightAOuter").value);
+                linearLightA.addColorStop(0.3, document.getElementById("linearLightAInner").value);
+                linearLightA.addColorStop(0.5, "#FFFFFF");
+                linearLightA.addColorStop(0.7, document.getElementById("linearLightAInner").value);
+                linearLightA.addColorStop(1, document.getElementById("linearLightAOuter").value);
 
-            linearLightB.addColorStop(0, document.getElementById("linearLightBOuter").value);
-            linearLightB.addColorStop(0.3, document.getElementById("linearLightBInner").value);
-            linearLightB.addColorStop(0.5, "#FFFFFF");
-            linearLightB.addColorStop(0.7, document.getElementById("linearLightBInner").value);
-            linearLightB.addColorStop(1, document.getElementById("linearLightBOuter").value);
+                linearLightB.addColorStop(0, document.getElementById("linearLightBOuter").value);
+                linearLightB.addColorStop(0.3, document.getElementById("linearLightBInner").value);
+                linearLightB.addColorStop(0.5, "#FFFFFF");
+                linearLightB.addColorStop(0.7, document.getElementById("linearLightBInner").value);
+                linearLightB.addColorStop(1, document.getElementById("linearLightBOuter").value);
+            }
+            contextEnemy.fillStyle = linearLightA;
+            contextEnemy.fillRect(128, 0, 50, 64);
+            contextEnemy.fillStyle = linearLightB;
+            contextEnemy.fillRect(128, 64, 50, 64);
+
+        } else {
+            let g = document.getElementById("linearLightSameColor").checked;
+            contextEnemy.save();
+            contextEnemy.globalAlpha = 0x88 / 0x100;
+            for (let scLaserCounter = 0; scLaserCounter < 5; scLaserCounter++) {
+                contextEnemy.fillStyle = document.getElementById(g ? "radialLightOuter" : "linearLightAOuter").value;
+                contextEnemy.fillRect(128 + 4 * scLaserCounter, 0, 50 - 8 * scLaserCounter, 64);
+                contextEnemy.fillStyle = document.getElementById(g ? "radialLightOuter" : "linearLightBOuter").value;
+                contextEnemy.fillRect(128 + 4 * scLaserCounter, 64, 50 - 8 * scLaserCounter, 64);
+            }
+            contextEnemy.restore();
         }
-        contextEnemy.fillStyle = linearLightA;
-        contextEnemy.fillRect(128, 0, 50, 64);
-        contextEnemy.fillStyle = linearLightB;
-        contextEnemy.fillRect(128, 64, 50, 64);
 
         //B,G
 
@@ -1562,17 +1719,19 @@ window.addEventListener("load", function () {
             contextEnemy.fillStyle = grad;
             contextEnemy.fillRect(448, 64, 64, 32);
 
-            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-            grad.addColorStop(0, "#A826F9");
-            grad.addColorStop(1, "#FE7EDB");
-            contextEnemy.fillStyle = grad;
-            contextEnemy.fillRect(448, 96, 64, 32);
+            if (document.getElementById("topRightType").value != "sunshine") {
+                grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+                grad.addColorStop(0, "#A826F9");
+                grad.addColorStop(1, "#FE7EDB");
+                contextEnemy.fillStyle = grad;
+                contextEnemy.fillRect(448, 96, 64, 32);
+            }
 
             grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
             grad.addColorStop(0, "#058865");
             grad.addColorStop(1, "#B0DE59");
             contextEnemy.fillStyle = grad;
-            contextEnemy.fillRect(448, 128, 64, 32);
+            if (document.getElementById("topRightType").value != "sunshine") contextEnemy.fillRect(448, 128, 64, 32); else contextEnemy.fillRect(448, 96, 64, 32);
             //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
         }
 
@@ -1910,6 +2069,24 @@ window.addEventListener("load", function () {
             contextEnemy.fillRect(427, 64, 21, 32);
             contextEnemy.fillStyle = document.getElementById("HBDRainbow6").value;
             contextEnemy.fillRect(427, 96, 21, 32);
+        }
+        break;
+        case "sunshine": {
+            let sunshineMainColors = [document.getElementById("sunshineMain1").value, document.getElementById("sunshineMain2").value, document.getElementById("sunshineMain3").value];
+            let sunshineDarkColors = [document.getElementById("sunshineDark1").value, document.getElementById("sunshineDark2").value, document.getElementById("sunshineDark3").value];
+            let sunshineAccentColors = [document.getElementById("sunshineAccent1").value, document.getElementById("sunshineAccent2").value, document.getElementById("sunshineAccent3").value];
+            theSunsetGlowThing(256, 0, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 0);
+            theSunsetGlowThing(256, 64, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 1);
+            theSunsetGlowThing(256, 128, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 2);
+            theSunsetGlowThing(320, 0, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 0);
+            theSunsetGlowThing(320, 64, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 1);
+            theSunsetGlowThing(320, 128, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 2);
+            theSunsetGlowThing(384, 0, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 0);
+            theSunsetGlowThing(384, 64, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 1);
+            theSunsetGlowThing(384, 128, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 2);
+            theSunsetGlowThing(448, 128, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 3);
+            theSunsetGlowThing(192, 0, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 3);
+            theSunsetGlowThing(192, 64, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 3);
         }
         break;
         default:
@@ -2250,6 +2427,53 @@ window.addEventListener("load", function () {
                 s.fill();
                 return r;
             });
+            //春節II
+            doTheFlipper("fortune", 2, function (l, u, c, k) {
+                l.lineCap = "round";
+                l.lineJoin = "round";
+                l.fillStyle = c[0];
+                l.fillRect(u, 0, 64, 64);
+
+                l.strokeStyle = c[1];
+
+                l.beginPath();
+                l.moveTo(u + 55, 32);
+                l.arc(u + 32, 32, 23, 0, 2 * Math.PI, false);
+                l.closePath();
+
+                l.moveTo(u + 29, 23);
+                l.lineTo(u + 29, 15);
+                l.arc(u + 32, 32, 17, -9 / 16 * Math.PI, -5 / 6 * Math.PI, true);
+
+                l.moveTo(u + 29, 49);
+                l.lineTo(u + 29, 27);
+                l.arc(u + 32, 32, 17, -11 / 12 * Math.PI, 7 / 8 * Math.PI, true);
+
+                l.moveTo(u + 23, 27);
+                l.lineTo(u + 23, 47);
+
+                l.moveTo(u + 34, 15);
+                l.arc(u + 32, 32, 17, -7 / 16 * Math.PI, -3 / 10 * Math.PI, false);
+
+                l.moveTo(u + 34, 22);
+                l.lineTo(u + 34, 27);
+                l.arc(u + 32, 32, 17, -1 / 12 * Math.PI, -1 / 5 * Math.PI, true);
+                l.closePath();
+
+                l.moveTo(u + 33, 33);
+                l.arc(u + 32, 32, 17, 1 / 64 * Math.PI, 15 / 32 * Math.PI, false);
+                l.closePath();
+
+                l.moveTo(u + 34, 38);
+                l.lineTo(u + 48, 38);
+
+                l.moveTo(u + 40, 33);
+                l.lineTo(u + 40, 45);
+
+                l.lineWidth = 3;
+                l.stroke();
+                return k;
+            });
             //ホライゾンクルーズ
             doTheFlipper("ring", 3, function (r, i, n, g) {
                 r.fillStyle = n[0];
@@ -2446,6 +2670,11 @@ window.addEventListener("load", function () {
                 multipleLines([6, 4], [0.5, 5], f, fgFlipperPath);
                 return e;
             });
+            //陽光ペア風
+            doTheFlipper("sunshine", 3, function (s, n, u, y) {
+                theSunsetGlowThing(n, 0, u[0], u[1], u[2], 0);
+                return s;
+            });
             //インポート画像
             if (flipperType == "import") {
                 contextEnemy.save();
@@ -2471,7 +2700,7 @@ window.addEventListener("load", function () {
             contextEnemy.fillRect(314, 0, 6, 32);
             contextEnemy.fillStyle = document.getElementById("smallJumpInactiveSide").value;
             contextEnemy.fillRect(314, 32, 6, 32);
-            let hjStyle = "simple";//document.getElementById("smallJumpType").value;
+            let hjStyle = "simple"; //document.getElementById("smallJumpType").value;
             if (hjStyle != "simple") {
                 let isActive = true;
                 let hjx = x => 58 * x;
@@ -3078,10 +3307,10 @@ window.addEventListener("load", function () {
                 generateFunc();
                 updateSaveURLs();
             }
-            document.querySelectorAll("#" + groupName + " input:not([data-no-instant-update]), #" + groupName + " select:not([data-no-instant-update])").forEach(function (elem) {
+            document.querySelectorAll("#" + groupName + " input:not([data-no-instant-update]):not([type=button]), #" + groupName + " select:not([data-no-instant-update])").forEach(function (elem) {
                 elem.addEventListener("change", assignFunc);
             });
-            document.querySelectorAll("#" + groupName + " a.formSmallButton:not([data-no-instant-update])").forEach(function (elem) {
+            document.querySelectorAll("#" + groupName + " a.formSmallButton:not([data-no-instant-update]), #" + groupName + " input[type=button]").forEach(function (elem) {
                 elem.addEventListener("click", assignFunc);
             });
         },
