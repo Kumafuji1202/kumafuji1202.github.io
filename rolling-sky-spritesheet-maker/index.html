@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- update no. 12-->
+<!-- update no. 13-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -21,7 +21,7 @@
     <script id="saveLoadSystem" src="files/savedataandinteractiveform.js"></script>
     <script id="imageGenerator" src="files/imagegen.js"></script>
     <script id="pseudoMediaQuery" src="files/gridpseudomediaquery.js"></script>
-    <script id="colorModeChanger">
+    <script id="colorMode_LanguageChanger">
         window.addEventListener("load", function() {
             document.getElementById("designSelectBox").addEventListener("change", function() {
                 document.documentElement.setAttribute("data-theme", document.getElementById("designSelectBox").value);
@@ -94,7 +94,10 @@
         *[data-g]:not([data-h]) {
             display: none;
         }
-
+        .ae{
+            color: inherit !important;
+            text-decoration: inherit !important;
+        }
     </style>
     <script id="globeRotater">
         window.addEventListener("load", function() {
@@ -144,6 +147,34 @@
                 </p>
                 <ol id="recentVersionList">
                     <li>
+                        <h2>1.1.2 (2023 Oct 06)</h2>
+                        <ul>
+                            <li>
+                                Added options to change glow level of jumppads(suggested by w_lll)<br>
+                                Current options:
+                                <ul>
+                                    <li>Normal</li>
+                                    <li>None</li>
+                                    <li>High</li>
+                                </ul>
+                                Deleted "Disable active jumppad glow" (merged with this)
+                            </li>
+                            <li>
+                                Added options to change "style" of linear light
+                                Current options:
+                                <ul>
+                                    <li>Original</li>
+                                    <li>Scratch style</li>
+                                </ul>
+                            </li>
+                            <li>Loading saved theme file now immediately updates render</li>
+                            <li>Added Enemy top-right pattern "Sunshine" (from Morning Dawn - Sunset Glow)</li>
+                            <li>Added Flip tile pattern "Dao fu" (from Auspicious Jade Rabbit) and "Sunshine" (from Sunset Glow spritesheet)</li>
+                            <li>You can now start making Enemy top-right part from "presets" (except for "star" and "crystal")</li>
+                            <li>Added info to help find where to extract already-existing spritesheets</li>
+                        </ul>
+                    </li>
+                    <li>
                         <h2>1.1.1 (2023 Aug 31)</h2>
                         <ul>
                             <li>Added Jumppad pattern "Hexagons" (from World Cup)</li>
@@ -153,13 +184,6 @@
                             <li>Added button to swap primary/secondary palette color settings</li>
                             <li>Added button to change Fragile/FragileActive opacity</li>
                             <li>Fixed colors of some parts in Dark mode</li>
-                            <li>Added "Recent Updates" section</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h2>1.1.0 (2023 Jul 10)</h2>
-                        <ul>
-                            <li>Fixed 1 issue: rssg-7</li>
                         </ul>
                     </li>
                 </ol>
@@ -240,6 +264,9 @@
             </div>
             <div id="formBody">
                 <form id="form-content">
+                    <p data-translation-key="textureExtractInfo">
+                        You can extract Rolling Sky spritesheets from the IPA of the Dinasour Valley version or APK of the Chess Fortress version(better quality), Rolling Universe spritesheets (including General and Background for the Rolling World theme) from the IPA of v2.2.1 (no decryption needed), and Rolling Fanmade spritesheets (excluding Pharaoh spritesheets, which can be found in Rolling Sky instead) from Rolling Sky Remake v0.6b PC version<a href="https://www.mediafire.com/file/t8pivs9totk3pj6/RSR0.6.5b.zip/file">.</a>
+                    </p>
                     <div id="tilesForm" class="appElement appForm">
                         <!-- 普通床の設定 -->
                         <div id="groundSettings">
@@ -311,22 +338,40 @@
                         <!-- ジャンプ床の設定 -->
                         <div id="jumppadSettings">
                             <h2 data-translation-key="jumppadSettingsHeading">Jumppad settings</h2>
-                            <!-- ジャンプ床の色 -->
-                            <label><span data-translation-key="jumppadColor"></span><input type="color" id="jumppadColor" value="#FC873F"></label>
-                            <!-- ジャンプ床のON時色 -->
-                            <label><span data-translation-key="jumppadColorActive"></span><input type="color" id="jumppadColorActive" value="#FFAB2B"></label>
-                            <br>
-                            <!-- ジャンプ床のOFF時の線 -->
-                            <label><span data-translation-key="jumppadLineColor"></span><input type="color" id="jumppadLineColor" value="#EF7939"></label>
-                            <!-- ジャンプ床のON時の線 -->
-                            <label><span data-translation-key="jumppadLineColorActive"></span><input type="color" id="jumppadLineColorActive" value="#FFFF00"></label><br>
-                            <!-- ジャンプ床のOFF時側面 -->
-                            <label><span data-translation-key="jumppadSideColor"></span><input type="color" id="jumppadSideColor" value="#D66F3F"></label>
-                            <!-- ジャンプ床のON時側面 -->
-                            <label><span data-translation-key="jumppadSideColorActive"></span><input type="color" id="jumppadSideColorActive" value="#FFFF00"></label><br>
-
-                            <!-- 起動時のジャンプ床面部分の発光を無効化 -->
-                            <label><span data-translation-key="disableActiveJumppadGlow"></span><input type="checkbox" id="disableActiveJumppadGlow"></label><br>
+                            <table class="colorSettingTable">
+                                <thead>
+                                    <tr>
+                                        <td></td>
+                                        <th data-translation-key="inactive"><label><span data-translation-key="jumppadColor"></span><input type="color" id="jumppadColor" value="#FC873F"></label></th>
+                                        <th data-translation-key="active"><label><span data-translation-key="jumppadColorActive"></span><input type="color" id="jumppadColorActive" value="#FFAB2B"></label></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th data-translation-key="top"></th>
+                                        <td><label><input type="color" id="jumppadColor" value="#FC873F"></label></td>
+                                        <td><label><input type="color" id="jumppadColorActive" value="#FFAB2B"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <th data-translation-key="line"></th>
+                                        <td><label><input type="color" id="jumppadLineColor" value="#EF7939"></label></td>
+                                        <td><label><input type="color" id="jumppadLineColorActive" value="#FFFF00"></label></td>
+                                    </tr>
+                                    <tr>
+                                        <th data-translation-key="side"></th>
+                                        <td><label><input type="color" id="jumppadSideColor" value="#D66F3F"></label></td>
+                                        <td><label><input type="color" id="jumppadSideColorActive" value="#FFFF00"></label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <label>
+                                <span data-translation-key="activeJumppadGlow"></span>
+                                <select id="activeJumppadGlow">
+                                    <option value="none" data-translation-key="jumppadGlowNone"></option>
+                                    <option value="normal" data-translation-key="jumppadGlowNormal" selected></option>
+                                    <option value="high" data-translation-key="jumppadGlowHigh"></option>
+                                </select>
+                            </label><br>
 
                             <!-- ジャンプ床のスタイル -->
                             <fieldset id="jumppadStyleForm" class="selectForm" data-default-form="jumppadCustomizationDefaultContent" data-form-selector="jumppadStyle">
@@ -652,7 +697,7 @@
                         <!-- ゴールテープの設定 -->
                         <div id="finishLineSettings">
                             <h2 data-translation-key="finishLineSettingHeading"></h2>
-                            <table>
+                            <table class="colorSettingTable">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -702,6 +747,13 @@
                                 <legend>
                                     <h3 data-translation-key="linearLightSettingHeading"></h3>
                                 </legend>
+                                <label>
+                                    <span data-translation-key="linearLightStyle"></span>
+                                    <select id="linearLightStyle">
+                                        <option value="original" data-translation-key="linearLightStyleOriginal"></option>
+                                        <option value="scratch" data-translation-key="linearLightStyleScratch"></option>
+                                    </select>
+                                </label><br>
                                 <label><span data-translation-key="linearLightSameColor"></span><input type="checkbox" id="linearLightSameColor" checked></label>
                                 <!-- 線形 (A2) -->
                                 <h4 data-translation-key="linearLightASettingHeading"></h4>
@@ -727,6 +779,7 @@
                                             <option data-translation-key="topRightAncient" value="relics" data-option-form="ancientCustomizationForm" data-neonbox-available></option>
                                             <option data-translation-key="topRightNeon" value="neon" data-option-form="neonCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                             <option data-translation-key="topRightHBD" value="hbd" data-option-form="HBDCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
+                                            <option data-translation-key="topRightSunshine" value="sunshine" data-option-form="SunshineCustomizationForm" data-neonbox-available></option>
                                             <!---->
                                             <!--
                                             <option data-translation-key="topRightSpectre" value="spectre" data-option-form="spectreCustomizationForm" data-flipper-available data-neonbox-available></option>
@@ -825,6 +878,9 @@
                                 </div>
                                 <!-- 幾何 cb -->
                                 <div id="geometryCustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPresetCube" data-preset="cube">
+                                    <input type="button" data-translation-key="TRPresetMatrix" data-preset="matrix">
                                     <!-- 立方体構造物 -->
                                     <h3 data-translation-key="cubeStructure"></h3>
                                     <fieldset id="cubeStructureForm" class="selectForm" data-default-form="cubeStructureCustomizationDefaultContent" data-form-selector="cubeStructureType">
@@ -914,6 +970,9 @@
                                 <div id="1upCustomizationForm"></div>-->
                                 <!-- 古代 ac -->
                                 <div id="ancientCustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPresetRelics" data-preset="relics">
+                                    <input type="button" data-translation-key="TRPresetFairyTale" data-preset="fairytale">
                                     <h3 data-translation-key="relicsOwl"></h3>
                                     <ul>
                                         <li><label><span data-translation-key="relicsOwlFaceY"></span><input type="color" id="relicsOwlFaceY" value="#363E44"></label></li>
@@ -951,6 +1010,10 @@
                                 </div>
                                 <!-- 眩光 dz -->
                                 <div id="neonCustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPresetNeon" data-preset="neon">
+                                    <input type="button" data-translation-key="TRPresetDazzle" data-preset="dazzle">
+                                    <input type="button" data-translation-key="TRPresetFaster" data-preset="faster">
                                     <h3 data-translation-key="obstacleAccentColors"></h3>
                                     <table>
                                         <thead>
@@ -1078,6 +1141,9 @@
                                 -->
                                 <!-- 3周年 bd -->
                                 <div id="HBDCustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPresetHBD" data-preset="happybirthday">
+                                    <input type="button" data-translation-key="TRPresetAnniv" data-preset="anniversary">
                                     <h3 data-translation-key="TRAdditionalPalette"></h3>
                                     <table>
                                         <thead>
@@ -1183,6 +1249,43 @@
                                     </table>
                                 </div>
                                 <!-- マイクロチップ mc -->
+                                <!-- 陽光 ss -->
+                                <div id="SunshineCustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPresetSunset" data-preset="sunset">
+                                    <input type="button" data-translation-key="TRPresetDawn" data-preset="dawn">
+                                    <p data-translation-key="sunshineFlipperGuide"></p>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th data-translation-key="sunshineMain"></th>
+                                                <th data-translation-key="sunshineDarker"></th>
+                                                <th data-translation-key="sunshineAccent"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>1</th>
+                                                <td><label><input type="color" id="sunshineMain1" value="#ffffff"></label></td>
+                                                <td><label><input type="color" id="sunshineDark1" value="#e6e8ee"></label></td>
+                                                <td><label><input type="color" id="sunshineAccent1" value="#9ef9fe"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>2</th>
+                                                <td><label><input type="color" id="sunshineMain2" value="#eaedf4"></label></td>
+                                                <td><label><input type="color" id="sunshineDark2" value="#c5cbd8"></label></td>
+                                                <td><label><input type="color" id="sunshineAccent2" value="#6addea"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>3</th>
+                                                <td><label><input type="color" id="sunshineMain3" value="#babfca"></label></td>
+                                                <td><label><input type="color" id="sunshineDark3" value="#9fa5b1"></label></td>
+                                                <td><label><input type="color" id="sunshineAccent3" value="#6aa5af"></label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </fieldset>
                         </div>
                         <!-- B11-14 -->
@@ -1303,7 +1406,7 @@
                                                     <option data-translation-key="flipTileStar" value="star"></option>
                                                     <option data-translation-key="flipTileSemicircles" value="semicircles"></option>
                                                     <!-- ケプラースタイル: 色B=左奥と右手前 色C=右奥と左手前 -->
-                                                    <!--<option data-translation-key="flipTileCheckerFortune" value="fortune"></option>-->
+                                                    <option data-translation-key="flipTileDaoFu" value="fortune"></option>
                                                     <!-- ajrスタイル-->
                                                     <option data-translation-key="flipTileRing" value="ring"></option>
                                                     <option data-translation-key="flipTileCross" value="cross"></option>
@@ -1315,6 +1418,7 @@
                                                 <!-- 3D Spacial Zoneスタイル-->
                                                 <option data-translation-key="flipTileHeart" value="heart"></option>
                                                 <!-- RWスタイル, ただし向きは改良 -->
+                                                <option data-translation-key="flipTileSunshine" value="sunshine"></option>
                                                 <option data-translation-key="flipTileCits" value="cits"></option>
                                                 <!-- 天空の城風(自作) -->
                                                 <option data-translation-key="flipTileFakeGround" value="fakeground"></option>
@@ -1400,7 +1504,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                
+
                                 <!--
                                 <fieldset id="smallJumpPatternForm" class="selectForm" data-default-form="smallJumpCustomizationDefaultContent" data-form-selector="smallJumpType">
                                     <legend>
