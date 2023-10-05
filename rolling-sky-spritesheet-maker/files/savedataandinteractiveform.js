@@ -1,8 +1,8 @@
-//update no. 4
+//update no. 5
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
-var versionName = "1.0.8";
-var versionNum = 8;
+var versionName = "1.1.2";
+var versionNum = 12;
 var dataFormat = [
     {id:"groundColor", prop:"value"},
     {id:"groundLineColor", prop:"value"},
@@ -19,7 +19,7 @@ var dataFormat = [
     {id:"jumppadLineColorActive", prop:"value"},
     {id:"jumppadSideColor", prop:"value"},
     {id:"jumppadSideColorActive", prop:"value"},
-    {id:"disableActiveJumppadGlow", prop:"checked"},
+    {id:"activeJumppadGlow", prop:"value"},
     {id:"jumppadStyle", prop:"value"},
     {id:"inactiveGridColor", prop:"value"},
     {id:"activeOnlyGrid", prop:"checked"},
@@ -356,63 +356,67 @@ window.addEventListener("load", function(){
     
     //ここからSavedata
     document.getElementById("loadSavedTheme").addEventListener("change", function () {
-        if (window.confirm(lang.callText("loadSavedThemeConfirmation"))) {
-            var savedDataFileReader = new FileReader();
-            savedDataFileReader.addEventListener("loadstart", function () {
-                document.getElementById("loadStatus").innerHTML = lang.callText("fileLoading");
-            });
-            savedDataFileReader.addEventListener("loadend", function () {
-                document.getElementById("loadStatus").innerHTML = lang.callText("loadFileComplete");
-                var data = {};
-                try {
-                    data = JSON.parse(savedDataFileReader.result);
-                } catch (e) {
-                    throw new Error("JSON syntax error");
-                }
-
-                dataFormat.forEach(function (set) {
-                    if (data[set.id]) {
-                        switch (set.prop) {
-                            case "value":
-                                document.getElementById(set.id).value = data[set.id];
-                                break;
-                            case "checked":
-                                document.getElementById(set.id).checked = data[set.id] == "true";
-                                break;
-                            default:
-                                document.getElementById(set.id).setAttribute(set.prop, data[set.id]);
-                        }
-                    }else{
-                        //ここから互換性用のコードA, dataFormatで要求されたデータが保存データに無いとき処理がここに流れてくる。
-                        //特別に処理がない限り、保存データにあってdataFormatで要求されて[いない]データは無視される。
-                        if (set.id == "lineStyle"){
-                            document.getElementById(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
-                        }
-                        if (set.id == "chinaJumppadPattern"){
-                            document.getElementById(set.id).setAttribute(set.prop, data.gspJumppad);
-                        }
-                        if (set.id == "chinaJumppadInner"){
-                            document.getElementById(set.id).setAttribute(set.prop, data.jumppadColor);
-                        }
-                        if (set.id == "floaterInactiveShadowColor"){
-                            document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
-                        }
-                        if (set.id == "floaterActiveShadowColor"){
-                            document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
-                        }
+        //確認
+        if (!window.confirm(lang.callText("loadSavedThemeConfirmation"))) return;
+        
+        var savedDataFileReader = new FileReader();
+        savedDataFileReader.addEventListener("loadstart", function () {
+            document.getElementById("loadStatus").innerHTML = lang.callText("fileLoading");
+        });
+        savedDataFileReader.addEventListener("error", function () {
+            document.getElementById("loadStatus").innerHTML = lang.callText("loadError");
+        });
+        savedDataFileReader.addEventListener("loadend", function () {
+            document.getElementById("loadStatus").innerHTML = lang.callText("loadFileComplete");
+            var data = {};
+            try {
+                data = JSON.parse(savedDataFileReader.result);
+            } catch (e) {
+                throw new Error("JSON syntax error");
+            }
+            dataFormat.forEach(function (set) {
+                if (data[set.id]) {
+                    switch (set.prop) {
+                        case "value":
+                            document.getElementById(set.id).value = data[set.id];
+                            break;
+                        case "checked":
+                            document.getElementById(set.id).checked = data[set.id] == "true";
+                            break;
+                        default:
+                            document.getElementById(set.id).setAttribute(set.prop, data[set.id]);
                     }
-                });
-                //ここから特別処理コードB. ここには1つのセーブデータエントリが複数のコントロールを制御する/に制御されている場合などの処理を書く。
-                //dataFormatに入れなければ、データ生成処理もgenerateSaveDaraUnner()に独自で書かなければならない。
-                if (data.enemyStripes) document.getElementById("stripeJSONData").value=JSON.stringify(data.enemyStripes);
+                }else{
+                    //ここから互換性用のコードA, dataFormatで要求されたデータが保存データに無いとき[新追加要素など]処理がここに流れてくる。
+                    //特別に処理がない限り、保存データにあってdataFormatで要求されて[いない]データは無視される。
+                    if (set.id == "lineStyle"){
+                        document.getElementById(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
+                    }
+                    if (set.id == "chinaJumppadPattern"){
+                        document.getElementById(set.id).setAttribute(set.prop, data.gspJumppad);
+                    }
+                    if (set.id == "chinaJumppadInner"){
+                        document.getElementById(set.id).setAttribute(set.prop, data.jumppadColor);
+                    }
+                    if (set.id == "floaterInactiveShadowColor"){
+                        document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
+                    }
+                    if (set.id == "floaterActiveShadowColor"){
+                        document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
+                    }
+                    if (set.id == "activeJumppadGlow"){
+                        document.getElementById(set.id).setAttribute(set.prop, data.disableActiveJumppadGlow ? "none" : "normal");
+                    }
+                }
+            });
+            //ここから特別処理コードB. ここには1つのセーブデータエントリが複数のコントロールを制御する/に制御されている場合などの処理を書く。
+            //dataFormatに入れなければ、データ生成処理もgenerateSaveDaraUnner()に独自で書かなければならない。
+            if (data.enemyStripes) document.getElementById("stripeJSONData").value=JSON.stringify(data.enemyStripes);
                 
-                updateAllSelectForms();
-            });
-            savedDataFileReader.addEventListener("error", function () {
-                document.getElementById("loadStatus").innerHTML = lang.callText("loadError");
-            });
-            savedDataFileReader.readAsText(this.files[0]);
-        }
+            updateAllSelectForms();
+            document.getElementById("generateButton").click();
+        });
+        savedDataFileReader.readAsText(this.files[0]);
     }, true);
 
     function generateSaveDataInner() {
@@ -556,11 +560,18 @@ window.addEventListener("load", function(){
                     "demisemicirclesFlipperColorC"
                 ]
             },
-            "ring": {
+            "fortune": {
                 colorCount: 3,
                 translationKeys: [
                     "backgroundColor",
                     "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "ring": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
                     "patternColor"
                 ]
             },
@@ -623,6 +634,14 @@ window.addEventListener("load", function(){
                 translationKeys: [
                     "backgroundColor",
                     "flipperFrameColor"
+                ]
+            },
+            "sunshine": {
+                colorCount: 3,
+                translationKeys: [
+                    "sunshineMain",
+                    "sunshineDarker",
+                    "sunshineAccent"
                 ]
             }
         };
@@ -762,4 +781,197 @@ window.addEventListener("load", function(){
         initRow(addNewRow());
     }, true);
     otherUpdateFunctions.push(updateFormFromJSON);
+    
+    const presets = {
+        "cube": [
+            {"id": "cubeStructureType", "value": "original"},
+            {"id": "originalCubeStructureTopBackground", "value": "#8EB6AC"},
+            {"id": "originalCubeStructureFrontBackground", "value": "#6F877B"},
+            {"id": "originalCubeStructureTopPattern", "value": "#9BA3A2"},
+            {"id": "originalCubeStructureFrontPattern", "value": "#6C7675"},
+            {"id": "cubeStructureFrame", "attr": "checked", value: true},
+            {"id": "cubeStructureFrameColor", "value": "#475046"},
+            {"id": "largeOctahedronTriangleSideA", "value": "#D6C7A0"},
+            {"id": "largeOctahedronTriangleSideB", "value": "#A5BBA2"},
+            {"id": "spinCubeType", "value": "original"},
+            {"id": "originalSpinCubeColorA", "value": "#D2836B"},
+            {"id": "originalSpinCubeColorB", "value": "#6F9797"}
+        ],
+        "matrix": [
+            {"id": "cubeStructureType", "value": "original"},
+            {"id": "originalCubeStructureTopBackground", "value": "#FFCF63"},
+            {"id": "originalCubeStructureFrontBackground", "value": "#FFA43C"},
+            {"id": "originalCubeStructureTopPattern", "value": "#FFEBB2"},
+            {"id": "originalCubeStructureFrontPattern", "value": "#FFDF70"},
+            {"id": "cubeStructureFrame", "attr": "checked", value: true},
+            {"id": "cubeStructureFrameColor", "value": "#78493C"},
+            {"id": "largeOctahedronTriangleSideA", "value": "#8CB8B5"},
+            {"id": "largeOctahedronTriangleSideB", "value": "#F9E094"},
+            {"id": "spinCubeType", "value": "original"},
+            {"id": "originalSpinCubeColorA", "value": "#8CB8B5"},
+            {"id": "originalSpinCubeColorB", "value": "#A26554"}
+        ],
+        "relics": [
+            {"id": "relicsOwlFaceY", "value": "#363E44"},
+            {"id": "relicsOwlEyeOuter", "value": "#7F8A86"},
+            {"id": "relicsOwlBody", "value": "#B7C3BD"},
+            {"id": "relicsOwlLegs", "value": "#8D9C95"},
+            {"id": "relicsOwlWings", "value": "#5B6162"},
+            {"id": "relicsOwlAbdomen", "value": "#CBD8D8"},
+            {"id": "relicsJumpDomeInner", "value": "#2FC8D1"},
+            {"id": "relicsJumpDomeRing", "value": "#DFFA68"},
+            {"id": "relicsJumpDomeBottom", "value": "#3A4749"},
+            {"id": "relicsCrystal1", "value": "#D9E7DE"},
+            {"id": "relicsCrystal2", "value": "#C4E1DC"},
+            {"id": "relicsCrystal3", "value": "#A8CEC7"},
+            {"id": "relicsCrystal4", "value": "#8DCAC3"},
+            {"id": "relicsTreeLeaves1", "value": "#94D4D0"},
+            {"id": "relicsTreeLeaves2", "value": "#52AAB2"},
+            {"id": "relicsTreeLeaves3", "value": "#568FA9"},
+            {"id": "relicsTreeLeaves4", "value": "#516788"},
+            {"id": "relicsTreeLeaves5", "value": "#3A4F71"},
+            {"id": "relicsTreeGradationTop", "value": "#68482E"},
+            {"id": "relicsTreeGradationBottom", "value": "#2D1C15"},
+        ],
+        "fairytale": [
+            {"id": "relicsOwlFaceY", "value": "#372A28"},
+            {"id": "relicsOwlEyeOuter", "value": "#C1793E"},
+            {"id": "relicsOwlBody", "value": "#8B5936"},
+            {"id": "relicsOwlLegs", "value": "#6B4B2D"},
+            {"id": "relicsOwlWings", "value": "#5C4329"},
+            {"id": "relicsOwlAbdomen", "value": "#BD8C62"},
+            {"id": "relicsJumpDomeInner", "value": "#EE93A7"},
+            {"id": "relicsJumpDomeRing", "value": "#76679B"},
+            {"id": "relicsJumpDomeBottom", "value": "#2F2D3B"},
+            {"id": "relicsCrystal1", "value": "#F8F2FF"},
+            {"id": "relicsCrystal2", "value": "#CFCCE5"},
+            {"id": "relicsCrystal3", "value": "#B9AFE2"},
+            {"id": "relicsCrystal4", "value": "#9E92C6"},
+            {"id": "relicsTreeLeaves1", "value": "#88DCC4"},
+            {"id": "relicsTreeLeaves2", "value": "#40BEAE"},
+            {"id": "relicsTreeLeaves3", "value": "#47A8B3"},
+            {"id": "relicsTreeLeaves4", "value": "#418BAA"},
+            {"id": "relicsTreeLeaves5", "value": "#31607E"},
+            {"id": "relicsTreeGradationTop", "value": "#6A4A2F"},
+            {"id": "relicsTreeGradationBottom", "value": "#2E1D16"},
+        ],
+        "neon": [
+            {"id": "neonAccentA", "value": "#FFE11E"},
+            {"id": "neonAccentB1", "value": "#FFAAEA"},
+            {"id": "neonAccentB2", "value": "#FD6AAC"},
+            {"id": "neonAccentB3", "value": "#D5246B"},
+            {"id": "neonAccentC1", "value": "#FD6AAC"},
+            {"id": "neonAccentC2", "value": "#E73083"},
+            {"id": "neonAccentD", "value": "#25EDA1"},
+            {"id": "neonRobotGear1", "value": "#BF79FD"},
+            {"id": "neonRobotGear2", "value": "#A04CF3"},
+            {"id": "neonRobotGear3", "value": "#8426E2"},
+            {"id": "neonRobotGear4", "value": "#5B1DB8"},
+            {"id": "neonRobotGear5", "value": "#2C245A"},
+            {"id": "neonRobotCordFront", "value": "#E7FE9D"},
+            {"id": "neonRobotCordSide", "value": "#A8F64F"},
+        ],
+        "dazzle": [
+            {"id": "neonAccentA", "value": "#F93DCB"},
+            {"id": "neonAccentB1", "value": "#75FDF9"},
+            {"id": "neonAccentB2", "value": "#57C1EF"},
+            {"id": "neonAccentB3", "value": "#319FCE"},
+            {"id": "neonAccentC1", "value": "#3CD4F1"},
+            {"id": "neonAccentC2", "value": "#3C88F1"},
+            {"id": "neonAccentD", "value": "#F4D121"},
+            {"id": "neonRobotGear1", "value": "#47F5EC"},
+            {"id": "neonRobotGear2", "value": "#08C9C0"},
+            {"id": "neonRobotGear3", "value": "#00AFBD"},
+            {"id": "neonRobotGear4", "value": "#007594"},
+            {"id": "neonRobotGear5", "value": "#005168"},
+            {"id": "neonRobotCordFront", "value": "#FCBB52"},
+            {"id": "neonRobotCordSide", "value": "#FF9012"},
+        ],
+        "faster": [
+            {"id": "neonAccentA", "value": "#FE4023"},
+            {"id": "neonAccentB1", "value": "#FFEB3C"},
+            {"id": "neonAccentB2", "value": "#FEA900"},
+            {"id": "neonAccentB3", "value": "#F07901"},
+            {"id": "neonAccentC1", "value": "#3D5AF2"},
+            {"id": "neonAccentC2", "value": "#204BA7"},
+            {"id": "neonAccentD", "value": "#F4D122"},
+            {"id": "neonRobotGear1", "value": "#6080FF"},
+            {"id": "neonRobotGear2", "value": "#374DDF"},
+            {"id": "neonRobotGear3", "value": "#2E3DA0"},
+            {"id": "neonRobotGear4", "value": "#272F65"},
+            {"id": "neonRobotGear5", "value": "#1D2241"},
+            {"id": "neonRobotCordFront", "value": "#4BF3FF"},
+            {"id": "neonRobotCordSide", "value": "#08BCC9"},
+        ],
+        "happybirthday": [
+            {"id": "HBDPaletteA1", "value": "#5468EA"},
+            {"id": "HBDPaletteA2", "value": "#3D53DE"},
+            {"id": "HBDPaletteA3", "value": "#2A3CAD"},
+            {"id": "HBDPaletteA4", "value": "#2A3394"},
+            {"id": "HBDPaletteB1", "value": "#FFB23E"},
+            {"id": "HBDPaletteB2", "value": "#F66A2E"},
+            {"id": "HBDPaletteB3", "value": "#E9531D"},
+            {"id": "HBDPaletteB4", "value": "#C34A1A"},
+            {"id": "HBDGradationTop", "value": "#FEFAAD"},
+            {"id": "HBDGradationBottom", "value": "#D18A1E"},
+            {"id": "HBDRainbow1", "value": "#FD718C"},
+            {"id": "HBDRainbow2", "value": "#FD8B48"},
+            {"id": "HBDRainbow3", "value": "#F1FA87"},
+            {"id": "HBDRainbow4", "value": "#56F884"},
+            {"id": "HBDRainbow5", "value": "#46CEFD"},
+            {"id": "HBDRainbow6", "value": "#9C5FFD"},
+        ],
+        "anniversary": [
+            {"id": "HBDPaletteA1", "value": "#383A63"},
+            {"id": "HBDPaletteA2", "value": "#292B4D"},
+            {"id": "HBDPaletteA3", "value": "#212239"},
+            {"id": "HBDPaletteA4", "value": "#1A1B2C"},
+            {"id": "HBDPaletteB1", "value": "#D45BEC"},
+            {"id": "HBDPaletteB2", "value": "#AC38E1"},
+            {"id": "HBDPaletteB3", "value": "#7335AA"},
+            {"id": "HBDPaletteB4", "value": "#552F84"},
+            {"id": "HBDGradationTop", "value": "#F8F0A0"},
+            {"id": "HBDGradationBottom", "value": "#F1A718"},
+            {"id": "HBDRainbow1", "value": "#FE4456"},
+            {"id": "HBDRainbow2", "value": "#FD822B"},
+            {"id": "HBDRainbow3", "value": "#FFF344"},
+            {"id": "HBDRainbow4", "value": "#37F55D"},
+            {"id": "HBDRainbow5", "value": "#3BCEFE"},
+            {"id": "HBDRainbow6", "value": "#B835FE"},
+        ],
+        "sunset": [
+            {"id": "sunshineMain1", "value": "#ffffff"},
+            {"id": "sunshineDark1", "value": "#e9ebf0"},
+            {"id": "sunshineAccent1", "value": "#fac367"},
+            {"id": "sunshineMain2", "value": "#e7eaef"},
+            {"id": "sunshineDark2", "value": "#c5cbd8"},
+            {"id": "sunshineAccent2", "value": "#f7a51d"},
+            {"id": "sunshineMain3", "value": "#babfca"},
+            {"id": "sunshineDark3", "value": "#9fa5b1"},
+            {"id": "sunshineAccent3", "value": "#ba792f"}
+        ],
+        "dawn": [
+            {"id": "sunshineMain1", "value": "#ffffff"},
+            {"id": "sunshineDark1", "value": "#e6e8ee"},
+            {"id": "sunshineAccent1", "value": "#9ef9fe"},
+            {"id": "sunshineMain2", "value": "#eaedf4"},
+            {"id": "sunshineDark2", "value": "#c5cbd8"},
+            {"id": "sunshineAccent2", "value": "#6addea"},
+            {"id": "sunshineMain3", "value": "#babfca"},
+            {"id": "sunshineDark3", "value": "#9fa5b1"},
+            {"id": "sunshineAccent3", "value": "#6aa5af"}
+        ]
+    }
+    document.querySelectorAll("[data-preset]").forEach(function(each){
+        each.addEventListener("click", function(){
+            if (!confirm(lang.callText("presetConfirmation"))) return;
+            let preset = presets[each.getAttribute("data-preset")];
+            preset.forEach(function(fach){
+                let attr = "value";
+                if (fach.attr) attr = fach.attr;
+                if (attr == "checked") {document.getElementById(fach.id).checked = fach.value; return;}
+                document.getElementById(fach.id).setAttribute("value",fach.value);
+            })
+        })
+    })
 }, true);
