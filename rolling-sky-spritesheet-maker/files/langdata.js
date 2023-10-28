@@ -1,4 +1,4 @@
-//update no. 7
+//update no. 8
 var lang = new LanguageManager(
             [{
             langName: "English",
@@ -91,6 +91,7 @@ var lang = new LanguageManager(
                 "jumppadStyleScale": "Scale 1.1",
                 "jumppadStyleSparklesComet": "Sparkles (Comet's Arrival)",
                 "jumppadStyleSparklesAnniv": "Sparkles II (A Dream of 7 Years)",
+                "jumppadStyleRollingWorld": "Circle+rhombus(Rolling World)",
                 "jumppadStyleDoubleSqLines": "Double squares",
                 "jumppadStyleDiagStripes": "Diagonal Stripes",
                 "jumppadCustomizationDefaultContent": "No extra customization for this jumppad pattern available",
@@ -329,6 +330,7 @@ var lang = new LanguageManager(
                 "flipTileNuclear": "Nuclear hazard sign (Lab - confidential(old))",
                 "flipTileBiohazard": "Biohazard sign (Lab - confidential(new))",
                 "flipTileEight": "8 (E-Love)",
+                "flipTileSakura": "Cherry Blossom (Flower Dance)",
                 "flipTileCheckerEdged": "Checker + edge (3D Spatial Zone)",
                 "flipTileHeart": "Heart",
                 "flipTileCits": "Castle in the Sky",
@@ -550,6 +552,7 @@ var lang = new LanguageManager(
                 "jumppadStyleSimpleCircle": "円",
                 "jumppadStyleSparklesComet": "キラキラ (Comet's Arrival)",
                 "jumppadStyleSparklesAnniv": "星 (A Dream of 7 Years)",
+                "jumppadStyleRollingWorld": "円+四角(Rolling World)",
                 "jumppadStyleDoubleSqLines": "二重四角 (Taurus)",
                 "jumppadCustomizationDefaultContent": "このジャンプ床の模様にはカスタマイズオプションがありません",
                 "fanmadePatternStyleDisclaimer": "この模様は本家ローリングスカイには存在しない模様であり、あくまでもこのツール作者が似せて作ったものなので正確な寸法では(多分)ありません。",
@@ -791,6 +794,7 @@ var lang = new LanguageManager(
                 "flipTileNuclear": "核ハザード (ラボ・極秘(旧))",
                 "flipTileBiohazard": "バイオハザードマーク (ラボ・極秘(新))",
                 "flipTileEight": "8 (電・愛)",
+                "flipTileSakura": "桜の花 (飛花落花)",
                 "flipTileCheckerEdged": "市松模様(枠付き) (3D Spatial Zone)",
                 "flipTileHeart": "ハート形",
                 "flipTileCits": "天空の城風",
