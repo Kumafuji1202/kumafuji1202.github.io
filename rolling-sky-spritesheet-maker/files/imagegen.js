@@ -1,4 +1,4 @@
-//update no. 13
+//update no. 14
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -1012,7 +1012,6 @@ window.addEventListener("load", function () {
             contextGeneral.shadowBlur = 0;
             contextGeneral.lineCap = "round";
         }
-        /*
         //Rolling World
         if (jumppadStyle == "rworld") {
             let grad = contextGeneral.createRadialGradient(85, 85, 10, 85, 85, 31);
@@ -1038,7 +1037,6 @@ window.addEventListener("load", function () {
                 multipleLines([5, 2], [0.5, 1], contextGeneral, rollingWorldJPPath);
             }
         }
-        */
         //ジャンプ床格子模様の描画
         if (["grid", "chemistry", "citrus"].includes(jumppadStyle)) {
             let activeJumppadGradient = contextGeneral.createRadialGradient(97.5, 97.5, 50, 97.5, 97.5, 130);
@@ -1731,7 +1729,8 @@ window.addEventListener("load", function () {
             grad.addColorStop(0, "#058865");
             grad.addColorStop(1, "#B0DE59");
             contextEnemy.fillStyle = grad;
-            if (document.getElementById("topRightType").value != "sunshine") contextEnemy.fillRect(448, 128, 64, 32); else contextEnemy.fillRect(448, 96, 64, 32);
+            if (document.getElementById("topRightType").value != "sunshine") contextEnemy.fillRect(448, 128, 64, 32);
+            else contextEnemy.fillRect(448, 96, 64, 32);
             //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
         }
 
@@ -2510,7 +2509,7 @@ window.addEventListener("load", function () {
                 c.stroke();
                 return s;
             });
-            //未使用
+            //旧ラボ
             doTheFlipper("nuclear", 3, function (n, u, k, e) {
                 n.fillStyle = k[0];
                 n.fillRect(u, 0, 64, 64);
@@ -2590,6 +2589,36 @@ window.addEventListener("load", function () {
                 a.arc(c + 32, 41.5, 9, 0, 2 * Math.PI, false);
                 a.stroke();
                 return t;
+            });
+            //飛花落花
+            doTheFlipper("sakura", 3, function (h, i, k, a) {
+                h.fillStyle = k[1];
+                h.fillRect(i, 0, 64, 64);
+                h.fillStyle = k[0];
+                h.fillRect(i + 6.5, 6.5, 51, 51);
+                h.fillStyle = k[2];
+                for (let petal = 0; petal < 5; petal++) {
+                    let pAngle = petal * (2/5) * Math.PI;
+                    let pos = [
+                        turn(0, 3, pAngle),
+                        turn(7, 5.5, pAngle),
+                        turn(10, 17, pAngle),
+                        turn(2, 24, pAngle),
+                        turn(0, 21, pAngle),
+                        turn(-2, 24, pAngle),
+                        turn(-10, 17, pAngle),
+                        turn(-7, 5.5, pAngle),
+                    ];
+                    h.beginPath();
+                    h.moveTo(i + 32 + pos[0].x, 30 + pos[0].y);
+                    h.bezierCurveTo(i + 32 + pos[1].x, 30 + pos[1].y, i + 32 + pos[2].x, 30 + pos[2].y, i + 32 + pos[3].x, 30 + pos[3].y);
+                    h.lineTo(i + 32 + pos[4].x, 30 + pos[4].y);
+                    h.lineTo(i + 32 + pos[5].x, 30 + pos[5].y);
+                    h.bezierCurveTo(i + 32 + pos[6].x, 30 + pos[6].y, i + 32 + pos[7].x, 30 + pos[7].y, i + 32 + pos[0].x, 30 + pos[0].y);
+                    h.closePath();
+                    h.fill();
+                }
+                return a;
             });
             //3D spacial zone
             doTheFlipper("checkeredged", 2, function (z, o, n, e) {
