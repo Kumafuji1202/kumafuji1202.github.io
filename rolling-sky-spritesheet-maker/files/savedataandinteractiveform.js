@@ -1,8 +1,8 @@
-//update no. 5
+//update no. 6
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
 var versionName = "1.1.2";
-var versionNum = 12;
+var versionNum = 13;
 var dataFormat = [
     {id:"groundColor", prop:"value"},
     {id:"groundLineColor", prop:"value"},
@@ -614,6 +614,14 @@ window.addEventListener("load", function(){
                 colorCount: 2,
                 translationKeys: [
                     "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "sakura": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
                     "patternColor"
                 ]
             },
