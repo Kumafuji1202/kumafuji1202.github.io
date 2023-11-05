@@ -1,4 +1,4 @@
-//update no. 14
+//update no. 15
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -155,141 +155,6 @@ window.addEventListener("load", function () {
         context.clip();
         func(context, 255, 255, colors);
         context.restore();
-    }
-
-    function theSunsetGlowThing(left, top, mainCol, darkCol, accCol, type) {
-        contextEnemy.fillStyle = mainCol;
-        contextEnemy.fillRect(left, top, 64, 64);
-        contextEnemy.fillStyle = darkCol;
-        switch (type) {
-            case 0:
-                contextEnemy.beginPath();
-                contextEnemy.moveTo(left + 11, top + 11);
-                contextEnemy.lineTo(left + 32, top + 11);
-                contextEnemy.lineTo(left + 11, top + 32);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 53, top + 11);
-                contextEnemy.lineTo(left + 53, top + 32);
-                contextEnemy.lineTo(left + 32, top + 11);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 11, top + 53);
-                contextEnemy.lineTo(left + 11, top + 32);
-                contextEnemy.lineTo(left + 32, top + 53);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 53, top + 53);
-                contextEnemy.lineTo(left + 32, top + 53);
-                contextEnemy.lineTo(left + 53, top + 32);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 32, top + 21);
-                contextEnemy.lineTo(left + 43, top + 32);
-                contextEnemy.lineTo(left + 32, top + 43);
-                contextEnemy.lineTo(left + 21, top + 32);
-                contextEnemy.closePath();
-                contextEnemy.fill();
-                break;
-            case 1:
-                contextEnemy.beginPath();
-                contextEnemy.moveTo(left + 32, top);
-                contextEnemy.lineTo(left + 48, top + 16);
-                contextEnemy.lineTo(left + 16, top + 16);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 32, top + 64);
-                contextEnemy.lineTo(left + 16, top + 48);
-                contextEnemy.lineTo(left + 48, top + 48);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left, top + 32);
-                contextEnemy.lineTo(left + 16, top + 16);
-                contextEnemy.lineTo(left + 16, top + 48);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 64, top + 32);
-                contextEnemy.lineTo(left + 48, top + 48);
-                contextEnemy.lineTo(left + 48, top + 16);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 16, top + 32);
-                contextEnemy.lineTo(left + 32, top + 16);
-                contextEnemy.lineTo(left + 48, top + 32);
-                contextEnemy.lineTo(left + 32, top + 48);
-                contextEnemy.closePath();
-                contextEnemy.fill();
-                break;
-            case 2:
-                contextEnemy.fillRect(left + 11, top + 11, 42, 11);
-                contextEnemy.fillRect(left + 11, top + 42, 42, 11);
-                break;
-            case 3:
-                contextEnemy.beginPath();
-                contextEnemy.moveTo(left, top);
-                contextEnemy.lineTo(left + 64, top);
-                contextEnemy.lineTo(left + 53, top + 11);
-                contextEnemy.lineTo(left + 11, top + 11);
-                contextEnemy.lineTo(left + 11, top + 53);
-                contextEnemy.lineTo(left, top + 64);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 53, top + 11);
-                contextEnemy.lineTo(left + 53, top + 53);
-                contextEnemy.lineTo(left + 11, top + 53);
-                contextEnemy.closePath();
-                contextEnemy.fill();
-                break;
-        }
-        contextEnemy.lineWidth = 3;
-        contextEnemy.strokeStyle = contextEnemy.fillStyle = accCol;
-        switch (type) {
-            case 0:
-                contextEnemy.beginPath();
-                contextEnemy.moveTo(left + 32, top + 4);
-                contextEnemy.lineTo(left + 60, top + 32);
-                contextEnemy.lineTo(left + 32, top + 60);
-                contextEnemy.lineTo(left + 4, top + 32);
-                contextEnemy.closePath();
-                contextEnemy.stroke();
-                break;
-            case 1:
-                contextEnemy.beginPath();
-                contextEnemy.moveTo(left, top);
-                contextEnemy.lineTo(left + 11, top);
-                contextEnemy.lineTo(left, top + 11);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 64, top);
-                contextEnemy.lineTo(left + 64, top + 11);
-                contextEnemy.lineTo(left + 53, top);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 64, top + 64);
-                contextEnemy.lineTo(left + 53, top + 64);
-                contextEnemy.lineTo(left + 64, top + 53);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left, top + 64);
-                contextEnemy.lineTo(left, top + 53);
-                contextEnemy.lineTo(left + 11, top + 64);
-                contextEnemy.closePath();
-                contextEnemy.fill();
-                break;
-            case 2:
-                contextEnemy.beginPath();
-                contextEnemy.moveTo(left + 5, top);
-                contextEnemy.lineTo(left + 10, top + 5);
-                contextEnemy.lineTo(left + 5, top + 10);
-                contextEnemy.lineTo(left, top + 5);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 59, top);
-                contextEnemy.lineTo(left + 64, top + 5);
-                contextEnemy.lineTo(left + 59, top + 10);
-                contextEnemy.lineTo(left + 54, top + 5);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 59, top + 54);
-                contextEnemy.lineTo(left + 64, top + 59);
-                contextEnemy.lineTo(left + 59, top + 64);
-                contextEnemy.lineTo(left + 54, top + 59);
-                contextEnemy.closePath();
-                contextEnemy.moveTo(left + 5, top + 54);
-                contextEnemy.lineTo(left + 10, top + 59);
-                contextEnemy.lineTo(left + 5, top + 64);
-                contextEnemy.lineTo(left, top + 59);
-                contextEnemy.closePath();
-                contextEnemy.fill();
-                contextEnemy.strokeRect(left + 20, top + 26, 24, 12);
-                break;
-        }
     }
 
     var groundLinesPath;
@@ -1643,6 +1508,178 @@ window.addEventListener("load", function () {
         contextEnemy.lineCap = "butt";
         contextEnemy.imageSmoothingEnabled = false;
 
+        //定義
+
+        //cr4-11とpxに使う関数定義
+        var fillBorderedSquarePalette = function (x, y, inner, outer, hasGradation = false) {
+            //cr#a
+            contextEnemy.fillStyle = outer;
+            contextEnemy.fillRect(x, y, 64, 64);
+            //cr#b
+            if (hasGradation) {
+                var the = contextEnemy.createRadialGradient(x + 32, y + 32, 10, x + 32, y + 32, 96);
+                the.addColorStop(0, inner);
+                the.addColorStop(1, outer);
+                contextEnemy.fillStyle = the;
+            } else {
+                contextEnemy.fillStyle = inner;
+            }
+            contextEnemy.fillRect(x + 6, y + 6, 52, 52);
+        }
+
+        //関数名。
+        function theSunsetGlowThing(left, top, mainCol, darkCol, accCol, type) {
+            contextEnemy.fillStyle = mainCol;
+            contextEnemy.fillRect(left, top, 64, 64);
+            contextEnemy.fillStyle = darkCol;
+            switch (type) {
+                case 0:
+                    contextEnemy.beginPath();
+                    contextEnemy.moveTo(left + 11, top + 11);
+                    contextEnemy.lineTo(left + 32, top + 11);
+                    contextEnemy.lineTo(left + 11, top + 32);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 53, top + 11);
+                    contextEnemy.lineTo(left + 53, top + 32);
+                    contextEnemy.lineTo(left + 32, top + 11);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 11, top + 53);
+                    contextEnemy.lineTo(left + 11, top + 32);
+                    contextEnemy.lineTo(left + 32, top + 53);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 53, top + 53);
+                    contextEnemy.lineTo(left + 32, top + 53);
+                    contextEnemy.lineTo(left + 53, top + 32);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 32, top + 21);
+                    contextEnemy.lineTo(left + 43, top + 32);
+                    contextEnemy.lineTo(left + 32, top + 43);
+                    contextEnemy.lineTo(left + 21, top + 32);
+                    contextEnemy.closePath();
+                    contextEnemy.fill();
+                    break;
+                case 1:
+                    contextEnemy.beginPath();
+                    contextEnemy.moveTo(left + 32, top);
+                    contextEnemy.lineTo(left + 48, top + 16);
+                    contextEnemy.lineTo(left + 16, top + 16);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 32, top + 64);
+                    contextEnemy.lineTo(left + 16, top + 48);
+                    contextEnemy.lineTo(left + 48, top + 48);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left, top + 32);
+                    contextEnemy.lineTo(left + 16, top + 16);
+                    contextEnemy.lineTo(left + 16, top + 48);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 64, top + 32);
+                    contextEnemy.lineTo(left + 48, top + 48);
+                    contextEnemy.lineTo(left + 48, top + 16);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 16, top + 32);
+                    contextEnemy.lineTo(left + 32, top + 16);
+                    contextEnemy.lineTo(left + 48, top + 32);
+                    contextEnemy.lineTo(left + 32, top + 48);
+                    contextEnemy.closePath();
+                    contextEnemy.fill();
+                    break;
+                case 2:
+                    contextEnemy.fillRect(left + 11, top + 11, 42, 11);
+                    contextEnemy.fillRect(left + 11, top + 42, 42, 11);
+                    break;
+                case 3:
+                    contextEnemy.beginPath();
+                    contextEnemy.moveTo(left, top);
+                    contextEnemy.lineTo(left + 64, top);
+                    contextEnemy.lineTo(left + 53, top + 11);
+                    contextEnemy.lineTo(left + 11, top + 11);
+                    contextEnemy.lineTo(left + 11, top + 53);
+                    contextEnemy.lineTo(left, top + 64);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 53, top + 11);
+                    contextEnemy.lineTo(left + 53, top + 53);
+                    contextEnemy.lineTo(left + 11, top + 53);
+                    contextEnemy.closePath();
+                    contextEnemy.fill();
+                    break;
+            }
+            contextEnemy.lineWidth = 3;
+            contextEnemy.strokeStyle = contextEnemy.fillStyle = accCol;
+            switch (type) {
+                case 0:
+                    contextEnemy.beginPath();
+                    contextEnemy.moveTo(left + 32, top + 4);
+                    contextEnemy.lineTo(left + 60, top + 32);
+                    contextEnemy.lineTo(left + 32, top + 60);
+                    contextEnemy.lineTo(left + 4, top + 32);
+                    contextEnemy.closePath();
+                    contextEnemy.stroke();
+                    break;
+                case 1:
+                    contextEnemy.beginPath();
+                    contextEnemy.moveTo(left, top);
+                    contextEnemy.lineTo(left + 11, top);
+                    contextEnemy.lineTo(left, top + 11);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 64, top);
+                    contextEnemy.lineTo(left + 64, top + 11);
+                    contextEnemy.lineTo(left + 53, top);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 64, top + 64);
+                    contextEnemy.lineTo(left + 53, top + 64);
+                    contextEnemy.lineTo(left + 64, top + 53);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left, top + 64);
+                    contextEnemy.lineTo(left, top + 53);
+                    contextEnemy.lineTo(left + 11, top + 64);
+                    contextEnemy.closePath();
+                    contextEnemy.fill();
+                    break;
+                case 2:
+                    contextEnemy.beginPath();
+                    contextEnemy.moveTo(left + 5, top);
+                    contextEnemy.lineTo(left + 10, top + 5);
+                    contextEnemy.lineTo(left + 5, top + 10);
+                    contextEnemy.lineTo(left, top + 5);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 59, top);
+                    contextEnemy.lineTo(left + 64, top + 5);
+                    contextEnemy.lineTo(left + 59, top + 10);
+                    contextEnemy.lineTo(left + 54, top + 5);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 59, top + 54);
+                    contextEnemy.lineTo(left + 64, top + 59);
+                    contextEnemy.lineTo(left + 59, top + 64);
+                    contextEnemy.lineTo(left + 54, top + 59);
+                    contextEnemy.closePath();
+                    contextEnemy.moveTo(left + 5, top + 54);
+                    contextEnemy.lineTo(left + 10, top + 59);
+                    contextEnemy.lineTo(left + 5, top + 64);
+                    contextEnemy.lineTo(left, top + 59);
+                    contextEnemy.closePath();
+                    contextEnemy.fill();
+                    contextEnemy.strokeRect(left + 20, top + 26, 24, 12);
+                    break;
+            }
+        }
+        //4トーンで並べられた補助パレットの1塊
+        function quadToneVariaton(context, nameOrSet, x, y, outerSizeX, outerSizeY, topLeftSizeX, topLeftSizeY) {
+            var nameSet = nameOrSet;
+            if (typeof nameOrSet == "string") {
+                nameSet = [nameOrSet + "1", nameOrSet + "2", nameOrSet + "3", nameOrSet + "4"];
+            }
+            context.fillStyle = document.getElementById(nameSet[0]).value;
+            context.fillRect(x, y, topLeftSizeX, topLeftSizeY);
+            context.fillStyle = document.getElementById(nameSet[1]).value;
+            context.fillRect(x + topLeftSizeX, y, outerSizeX - topLeftSizeX, topLeftSizeY);
+            context.fillStyle = document.getElementById(nameSet[2]).value;
+            context.fillRect(x, y + topLeftSizeY, topLeftSizeX, outerSizeY - topLeftSizeY);
+            context.fillStyle = document.getElementById(nameSet[3]).value;
+            context.fillRect(x + topLeftSizeX, y + topLeftSizeY, outerSizeX - topLeftSizeX, outerSizeY - topLeftSizeY);
+        }
+
+        //描画
+
         //A1
         var radialLight = contextEnemy.createRadialGradient(64, 64, 0, 64, 64, 51);
         radialLight.addColorStop(0, "#FFFFFF");
@@ -1825,32 +1862,17 @@ window.addEventListener("load", function () {
             contextEnemy.fillStyle = document.getElementById("russianTowerLowerTop").value;
             contextEnemy.fillRect(192, 96, 64, 32);
 
-            //cr4-11 関数定義
-            var fillTetrimino = function (x, y, inner, outer) {
-                //cr#a
-                contextEnemy.fillStyle = outer;
-                contextEnemy.fillRect(x, y, 64, 64);
-                //cr#b
-                if (document.getElementById("tetriminoGradient").checked) {
-                    var the = contextEnemy.createRadialGradient(x + 32, y + 32, 10, x + 32, y + 32, 96);
-                    the.addColorStop(0, inner);
-                    the.addColorStop(1, outer);
-                    contextEnemy.fillStyle = the;
-                } else {
-                    contextEnemy.fillStyle = inner;
-                }
-                contextEnemy.fillRect(x + 6, y + 6, 52, 52);
-            }
-
+            let crHasGradation = document.getElementById("tetriminoGradient").checked;
+            let crAllSameColor = document.getElementById("tetriminoOuterSameColor").checked;
             //cr4-11 描画
-            fillTetrimino(256, 0, document.getElementById("crystalCollection1Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection1Outer").value);
-            fillTetrimino(320, 0, document.getElementById("crystalCollection2Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection2Outer").value);
-            fillTetrimino(384, 0, document.getElementById("crystalCollection3Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection3Outer").value);
-            fillTetrimino(448, 0, document.getElementById("crystalCollection4Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection4Outer").value);
-            fillTetrimino(256, 64, document.getElementById("crystalCollection5Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection5Outer").value);
-            fillTetrimino(320, 64, document.getElementById("crystalCollection6Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection6Outer").value);
-            fillTetrimino(384, 64, document.getElementById("crystalCollection7Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection7Outer").value);
-            fillTetrimino(448, 64, document.getElementById("crystalCollection8Inner").value, document.getElementById("tetriminoOuterSameColor").checked ? document.getElementById("crystalCollection1Outer").value : document.getElementById("crystalCollection8Outer").value);
+            fillBorderedSquarePalette(256, 0, document.getElementById("crystalCollection1Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection1Outer").value, crHasGradation);
+            fillBorderedSquarePalette(320, 0, document.getElementById("crystalCollection2Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection2Outer").value, crHasGradation);
+            fillBorderedSquarePalette(384, 0, document.getElementById("crystalCollection3Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection3Outer").value, crHasGradation);
+            fillBorderedSquarePalette(448, 0, document.getElementById("crystalCollection4Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection4Outer").value, crHasGradation);
+            fillBorderedSquarePalette(256, 64, document.getElementById("crystalCollection5Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection5Outer").value, crHasGradation);
+            fillBorderedSquarePalette(320, 64, document.getElementById("crystalCollection6Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection6Outer").value, crHasGradation);
+            fillBorderedSquarePalette(384, 64, document.getElementById("crystalCollection7Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection7Outer").value, crHasGradation);
+            fillBorderedSquarePalette(448, 64, document.getElementById("crystalCollection8Inner").value, document.getElementById(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection8Outer").value, crHasGradation);
         }
         break;
         case "geometry": {
@@ -1947,6 +1969,31 @@ window.addEventListener("load", function () {
             }
         }
         break;
+        case "oneup": {
+            let oneUpGradation = contextEnemy.createLinearGradient(0, 0, 0, 128);
+            oneUpGradation.addColorStop(0, document.getElementById("1UpPrimaryGradationTop").value);
+            oneUpGradation.addColorStop(1, document.getElementById("1UpPrimaryGradationBottom").value);
+            contextEnemy.fillStyle = oneUpGradation;
+            contextEnemy.fillRect(192, 0, 64, 128);
+
+            oneUpGradation = contextEnemy.createLinearGradient(448, 0, 512, 0);
+            oneUpGradation.addColorStop(0, document.getElementById("1UpSecondaryGradationLeft").value);
+            oneUpGradation.addColorStop(1, document.getElementById("1UpSecondaryGradationRight").value);
+            contextEnemy.fillStyle = oneUpGradation;
+            contextEnemy.fillRect(448, 160, 64, 32);
+
+            contextEnemy.fillStyle = document.getElementById("1UpBeeEyes").value;
+            contextEnemy.fillRect(320, 0, 64, 64);
+            contextEnemy.fillStyle = document.getElementById("1UpBeeWingsFront").value;
+            contextEnemy.fillRect(256, 128, 64, 64);
+            contextEnemy.fillStyle = document.getElementById("1UpBeeWingsEdge").value;
+            contextEnemy.fillRect(320, 128, 64, 64);
+
+            fillBorderedSquarePalette(256, 64, document.getElementById("1UpInvaderEyeSurroundingInner").value, document.getElementById("1UpInvaderEyeSurroundingOuter").value, document.getElementById("1UpInvaderEyeSurroundingHasGradation").checked);
+            fillBorderedSquarePalette(384, 0, document.getElementById("1UpConsoleDoubleButtonsInner").value, document.getElementById("1UpConsoleDoubleButtonsOuter").value, document.getElementById("1UpConsoleDoubleButtonsHasGradation").checked);
+            fillBorderedSquarePalette(384, 64, document.getElementById("1UpConsoleSextupleButtonsInner").value, document.getElementById("1UpConsoleSextupleButtonsOuter").value, document.getElementById("1UpConsoleSextupleButtonsHasGradation").checked);
+        }
+        break;
         case "neon": {
             //3
             contextEnemy.fillStyle = document.getElementById("neonAccentA").value;
@@ -1998,14 +2045,7 @@ window.addEventListener("load", function () {
             contextEnemy.fillStyle = document.getElementById("relicsOwlAbdomen").value;
             contextEnemy.fillRect(320, 64, 64, 64);
 
-            contextEnemy.fillStyle = document.getElementById("relicsCrystal1").value;
-            contextEnemy.fillRect(384, 0, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("relicsCrystal2").value;
-            contextEnemy.fillRect(416, 0, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("relicsCrystal3").value;
-            contextEnemy.fillRect(384, 32, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("relicsCrystal4").value;
-            contextEnemy.fillRect(416, 32, 32, 32);
+            quadToneVariaton(contextEnemy, "relicsCrystal", 384, 0, 64, 64, 32, 32);
 
             contextEnemy.fillStyle = document.getElementById("relicsTreeLeaves1").value;
             contextEnemy.fillRect(384, 64, 32, 32);
@@ -2032,23 +2072,8 @@ window.addEventListener("load", function () {
         }
         break;
         case "hbd": {
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteA1").value;
-            contextEnemy.fillRect(256, 64, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteA2").value;
-            contextEnemy.fillRect(288, 64, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteA3").value;
-            contextEnemy.fillRect(256, 96, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteA4").value;
-            contextEnemy.fillRect(288, 96, 32, 32);
-
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteB1").value;
-            contextEnemy.fillRect(256, 128, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteB2").value;
-            contextEnemy.fillRect(288, 128, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteB3").value;
-            contextEnemy.fillRect(256, 160, 32, 32);
-            contextEnemy.fillStyle = document.getElementById("HBDPaletteB4").value;
-            contextEnemy.fillRect(288, 160, 32, 32);
+            quadToneVariaton(contextEnemy, "HBDPaletteA", 256, 64, 64, 64, 32, 32);
+            quadToneVariaton(contextEnemy, "HBDPaletteB", 256, 128, 64, 64, 32, 32);
 
             let HBDGradation = contextEnemy.createLinearGradient(0, 64, 0, 128);
             HBDGradation.addColorStop(0, document.getElementById("HBDGradationTop").value);
@@ -2086,6 +2111,30 @@ window.addEventListener("load", function () {
             theSunsetGlowThing(448, 128, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 3);
             theSunsetGlowThing(192, 0, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 3);
             theSunsetGlowThing(192, 64, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 3);
+        }
+        break;
+        case "spfestv2": {
+            contextEnemy.fillStyle = document.getElementById("jadeRabbit20").value;
+            contextEnemy.fillRect(319, 62, 193, 66);
+            //最初の2つは左上角の座標
+            //最後の二つは右下の座標-左上の座標+1
+            //2番目は右下部分左上の座標-左上角の座標
+            quadToneVariaton(contextEnemy, "jadeRabbit2-", 221, 0, 30, 30, 15, 14);
+            quadToneVariaton(contextEnemy, "jadeRabbit12-", 192, 63, 29, 33, 14, 18);
+            quadToneVariaton(contextEnemy, "jadeRabbit13-", 221, 63, 30, 33, 16, 18);
+            quadToneVariaton(contextEnemy, "jadeRabbit14-", 192, 96, 29, 32, 15, 17);
+            quadToneVariaton(contextEnemy, "jadeRabbit19-", 284, 96, 35, 32, 17, 16);
+            quadToneVariaton(contextEnemy, "jadeRabbit21-", 362, 62, 29, 32, 15, 17);
+            quadToneVariaton(contextEnemy, "jadeRabbit22-", 319, 96, 32, 32, 14, 16);
+            quadToneVariaton(contextEnemy, "jadeRabbit23-", 351, 96, 30, 32, 15, 16);
+            quadToneVariaton(contextEnemy, "jadeRabbit24-", 390, 62, 30, 32, 17, 16);
+            quadToneVariaton(contextEnemy, "jadeRabbit25-", 420, 62, 29, 33, 14, 18);
+            quadToneVariaton(contextEnemy, "jadeRabbit26-", 381, 96, 33, 32, 15, 16);
+            quadToneVariaton(contextEnemy, "jadeRabbit27-", 414, 96, 33, 32, 15, 16);
+            quadToneVariaton(contextEnemy, "jadeRabbit28-", 449, 62, 30, 33, 15, 18);
+            quadToneVariaton(contextEnemy, "jadeRabbit29-", 479, 62, 33, 33, 15, 18);
+            quadToneVariaton(contextEnemy, "jadeRabbit30-", 447, 96, 35, 32, 17, 16);
+            quadToneVariaton(contextEnemy, "jadeRabbit31-", 482, 96, 30, 32, 17, 16);
         }
         break;
         default:
@@ -2135,6 +2184,33 @@ window.addEventListener("load", function () {
                     contextEnemy.fillStyle = document.getElementById("palmTreeTrunk" + (clr + 1)).value;
                     contextEnemy.fillRect(256 + 64 * clr, 128, 64, 64);
                 }
+            }
+            if (document.getElementById("subBType").value == "halloween") {
+                let subBHwGradient = contextEnemy.createLinearGradient(256, 0, 320, 0);
+                subBHwGradient.addColorStop(0, document.getElementById("halloweenMultiPurposeGradationLeft").value);
+                subBHwGradient.addColorStop(1, document.getElementById("halloweenMultiPurposeGradationRight").value);
+                contextEnemy.fillStyle = subBHwGradient;
+                contextEnemy.fillRect(256, 128, 64, 64);
+
+                subBHwGradient = contextEnemy.createLinearGradient(320, 0, 384, 0);
+                subBHwGradient.addColorStop(0, document.getElementById("halloweenGateSkullGradationLeft").value);
+                subBHwGradient.addColorStop(1, document.getElementById("halloweenGateSkullGradationRight").value);
+                contextEnemy.fillStyle = subBHwGradient;
+                contextEnemy.fillRect(320, 128, 64, 64);
+
+                subBHwGradient = contextEnemy.createLinearGradient(384, 0, 512, 0);
+                subBHwGradient.addColorStop(0, document.getElementById("halloweenPumpkinGradationLeft").value);
+                subBHwGradient.addColorStop(1, document.getElementById("halloweenPumpkinGradationRight").value);
+                contextEnemy.fillStyle = subBHwGradient;
+                contextEnemy.fillRect(384, 128, 128, 64);
+
+                subBHwGradient = contextEnemy.createLinearGradient(396, 0, 499, 0);
+                subBHwGradient.addColorStop(0, document.getElementById("halloweenPumpkinGradationLineLeft").value);
+                subBHwGradient.addColorStop(1, document.getElementById("halloweenPumpkinGradationLineRight").value);
+                contextEnemy.strokeStyle = subBHwGradient;
+                let subBHwPumpkinLinePath = new Path2D();
+                subBHwPumpkinLinePath.rect(396, 140, 104, 40);
+                multipleLines([7, 5, 3, 1], [0.25, 0.25, 0.5, 1], contextEnemy, subBHwPumpkinLinePath);
             }
             if (document.getElementById("subBType").value == "chris") {
                 var chrisAThickness = lineThickness["normal"];
@@ -2598,7 +2674,7 @@ window.addEventListener("load", function () {
                 h.fillRect(i + 6.5, 6.5, 51, 51);
                 h.fillStyle = k[2];
                 for (let petal = 0; petal < 5; petal++) {
-                    let pAngle = petal * (2/5) * Math.PI;
+                    let pAngle = petal * (2 / 5) * Math.PI;
                     let pos = [
                         turn(0, 3, pAngle),
                         turn(7, 5.5, pAngle),
@@ -2722,13 +2798,13 @@ window.addEventListener("load", function () {
         //半ジャンプ
         if (document.getElementById("smallJumpAvailable").value == "true") {
             contextEnemy.fillStyle = document.getElementById("smallJumpActiveTop").value;
-            contextEnemy.fillRect(256, 0, 58, 32);
+            contextEnemy.fillRect(256, 0, 58, 30);
             contextEnemy.fillStyle = document.getElementById("smallJumpInactiveTop").value;
-            contextEnemy.fillRect(256, 32, 58, 32);
+            contextEnemy.fillRect(256, 30, 58, 34);
             contextEnemy.fillStyle = document.getElementById("smallJumpActiveSide").value;
-            contextEnemy.fillRect(314, 0, 6, 32);
+            contextEnemy.fillRect(314, 0, 6, 30);
             contextEnemy.fillStyle = document.getElementById("smallJumpInactiveSide").value;
-            contextEnemy.fillRect(314, 32, 6, 32);
+            contextEnemy.fillRect(314, 30, 6, 34);
             let hjStyle = "simple"; //document.getElementById("smallJumpType").value;
             if (hjStyle != "simple") {
                 let isActive = true;
