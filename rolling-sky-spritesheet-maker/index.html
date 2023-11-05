@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- update no. 14-->
+<!-- update no. 15-->
 <html charset="utf-8" data-theme="light">
 
 <head>
@@ -115,7 +115,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.3</a></span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.4</a></span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -147,50 +147,18 @@
                 </p>
                 <ol id="recentVersionList">
                     <li>
+                        <h2>1.1.4 (2023 Nov 05)</h2>
+                        <ul>
+                            <li>Added Enemy top-right pattern "Pixel" (from 1UP - 8Bit)</li>
+                            <li>Added Enemy secondary theme area pattern "Halloween" (from Halloween - Ghost Dance)</li>
+                            <li>Fixed small jump area</li>
+                        </ul>
+                    </li>
+                    <li>
                         <h2>1.1.3 (2023 Oct 28)</h2>
                         <ul>
                             <li>Added Flip tile pattern "Cherry Blossom" (from Flower Dance - Falling Blossoms)</li>
                             <li>Jumppad tile pattern "Circle+rhombus" reinstated</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h2>1.1.2 (2023 Oct 06)</h2>
-                        <ul>
-                            <li>
-                                Added options to change glow level of jumppads(suggested by w_lll)<br>
-                                Current options:
-                                <ul>
-                                    <li>Normal</li>
-                                    <li>None</li>
-                                    <li>High</li>
-                                </ul>
-                                Deleted "Disable active jumppad glow" (merged with this)
-                            </li>
-                            <li>
-                                Added options to change "style" of linear light
-                                Current options:
-                                <ul>
-                                    <li>Original</li>
-                                    <li>Scratch style</li>
-                                </ul>
-                            </li>
-                            <li>Loading saved theme file now immediately updates render</li>
-                            <li>Added Enemy top-right pattern "Sunshine" (from Morning Dawn - Sunset Glow)</li>
-                            <li>Added Flip tile pattern "Dao fu" (from Auspicious Jade Rabbit) and "Sunshine" (from Sunset Glow spritesheet)</li>
-                            <li>You can now start making Enemy top-right part from "presets" (except for "star" and "crystal")</li>
-                            <li>Added info to help find where to extract already-existing spritesheets</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h2>1.1.1 (2023 Aug 31)</h2>
-                        <ul>
-                            <li>Added Jumppad pattern "Hexagons" (from World Cup)</li>
-                            <li>Added Flip tile pattern "Biohazard" (from Lab-Confidential) and "8" (from the upcoming 8th anniversary level)</li>
-                            <li>Added "shadow" in "Floater" Enemy top right setting</li>
-                            <li>Added option to change line thickness/glow of Enemy main palette sections</li>
-                            <li>Added button to swap primary/secondary palette color settings</li>
-                            <li>Added button to change Fragile/FragileActive opacity</li>
-                            <li>Fixed colors of some parts in Dark mode</li>
                         </ul>
                     </li>
                 </ol>
@@ -784,23 +752,28 @@
                                         <select id="topRightType">
                                             <option data-translation-key="topRightFloater" value="floater" data-option-form="floaterCustomizationForm" data-subB-available></option>
                                             <option data-translation-key="topRightCrystal" value="crystal" data-option-form="crystalTRCustomizationForm" data-subB-available></option>
+                                            <option data-translation-key="topRight1Up" value="oneup" data-option-form="1UpCustomizationForm" data-neonbox-available data-minijump-available></option>
                                             <option data-translation-key="topRightGeometry" value="geometry" data-option-form="geometryCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightAncient" value="relics" data-option-form="ancientCustomizationForm" data-neonbox-available></option>
                                             <option data-translation-key="topRightNeon" value="neon" data-option-form="neonCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                             <option data-translation-key="topRightHBD" value="hbd" data-option-form="HBDCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
+                                            <!--<option data-translation-key="topRightT4A" value="t4a" data-option-form="t4ACustomizationForm" data-flipper-available data-neonbox-available></option>-->
                                             <option data-translation-key="topRightSunshine" value="sunshine" data-option-form="SunshineCustomizationForm" data-neonbox-available></option>
-                                            <!---->
+                                            <!--<option data-translation-key="topRightKepler" value="kepler" data-option-form="keplerCustomizationForm" data-flipper-available data-neonbox-available></option>-->
                                             <!--
                                             <option data-translation-key="topRightSpectre" value="spectre" data-option-form="spectreCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightMarshmello" value="marshmello" data-option-form="marshmelloCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightAlone" value="alone" data-option-form="aloneCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightFaded" value="faded" data-option-form="fadedCustomizationForm" data-flipper-available data-neonbox-available></option>
-                                            <option data-translation-key="topRightKepler" value="kepler" data-option-form="keplerCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightOcean" value="ocean" data-option-form="oceanCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightMicrochip" value="microchip" data-option-form="microchipCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightVR" value="vr" data-option-form="VRCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightDisco" value="disco" data-option-form="discoCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightSteampunk" value="steampunk" data-option-form="steampunkCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            -->
+                                            <!--<option data-translation-key="topRightJadeRabbit" value="spfestv2" data-option-form="spFestV2CustomizationForm" data-flipper-available data-neonbox-available></option>-->
+                                            <!--
+                                            <option data-translation-key="topRightSpaceTravel" value="spacetravel" data-option-form="spacetravelCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             -->
                                         </select>
                                     </label>
@@ -833,9 +806,9 @@
                                             <tr>
                                                 <th>
                                                 </th>
-                                                <th data-translation-key="crystalInnerColor">
+                                                <th data-translation-key="inner">
                                                 </th>
-                                                <th data-translation-key="crystalOuterColor">
+                                                <th data-translation-key="outer">
                                                 </th>
                                             </tr>
                                         </thead>
@@ -895,8 +868,8 @@
                                     <fieldset id="cubeStructureForm" class="selectForm" data-default-form="cubeStructureCustomizationDefaultContent" data-form-selector="cubeStructureType">
                                         <legend>
                                             <span data-translation-key="cubeStructureType"></span>
-                                            <select id="cubeStructureType">
-                                                <option data-translation-key="cubeStructureOriginal" value="original" data-option-form="originalCubeStructureCustomizationForm"></option>
+                                            <select id="cubeStructureType" data-preset-cube="original" data-preset-matrix="original">
+                                                <option data-translation-key="cubeStructureOriginal" value="original" data-option-form="originalCubeStructureCustomizationForm" selected></option>
                                                 <option data-translation-key="importImages" value="import" data-option-form="importCubeStructureCustomizationForm"></option>
                                             </select>
                                         </legend>
@@ -912,13 +885,13 @@
                                                 <tbody>
                                                     <tr>
                                                         <th data-translation-key="backgroundColor"></th>
-                                                        <td><input type="color" value="#FFCF63" id="originalCubeStructureTopBackground"></td>
-                                                        <td><input type="color" value="#FFA43C" id="originalCubeStructureFrontBackground"></td>
+                                                        <td><input type="color" value="#FFCF63" id="originalCubeStructureTopBackground" data-preset-cube="#8EB6AC" data-preset-matrix="#FFCF63"></td>
+                                                        <td><input type="color" value="#FFA43C" id="originalCubeStructureFrontBackground" data-preset-cube="#6F877B" data-preset-matrix="#FFA43C"></td>
                                                     </tr>
                                                     <tr>
                                                         <th data-translation-key="patternColor"></th>
-                                                        <td><input type="color" value="#FFEBB2" id="originalCubeStructureTopPattern"></td>
-                                                        <td><input type="color" value="#FFDF70" id="originalCubeStructureFrontPattern"></td>
+                                                        <td><input type="color" value="#FFEBB2" id="originalCubeStructureTopPattern" data-preset-cube="#9BA3A2" data-preset-matrix="#FFEBB2"></td>
+                                                        <td><input type="color" value="#FFDF70" id="originalCubeStructureFrontPattern" data-preset-cube="#6C7675" data-preset-matrix="#FFDF70"></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -942,27 +915,27 @@
                                             </div>
                                         </div>
                                     </fieldset>
-                                    <label><span data-translation-key="cubeStructureFrame"></span><input type="checkbox" id="cubeStructureFrame" data-off-or-input="cubeStructureFrameSettingLabel" checked></label>
-                                    <label class="" id="cubeStructureFrameSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="cubeStructureFrameColor" value="#78493C"></label>
+                                    <label><span data-translation-key="cubeStructureFrame"></span><input type="checkbox" id="cubeStructureFrame" data-off-or-input="cubeStructureFrameSettingLabel" checked data-preset-cube="true" data-preset-matrix="true" data-preset-attribute="checked"></label>
+                                    <label class="" id="cubeStructureFrameSettingLabel"><span data-translation-key="UsedColor"></span><input type="color" id="cubeStructureFrameColor" value="#78493C" data-preset-cube="#475046" data-preset-matrix="#78493C"></label>
 
                                     <!-- 回転八面体(大)内部 -->
                                     <h3 data-translation-key="largeOctahedronSettingHeading"></h3>
-                                    <label><span data-translation-key="largeOctahedronTriangleSideA"></span><input type="color" id="largeOctahedronTriangleSideA" value="#8CB8B5"></label>
-                                    <label><span data-translation-key="largeOctahedronTriangleSideB"></span><input type="color" id="largeOctahedronTriangleSideB" value="#F9E094"></label>
+                                    <label><span data-translation-key="largeOctahedronTriangleSideA"></span><input type="color" id="largeOctahedronTriangleSideA" value="#8CB8B5" data-preset-cube="#D6C7A0" data-preset-matrix="#8CB8B5"></label>
+                                    <label><span data-translation-key="largeOctahedronTriangleSideB"></span><input type="color" id="largeOctahedronTriangleSideB" value="#F9E094" data-preset-cube="#A5BBA2" data-preset-matrix="#F9E094"></label>
 
                                     <!-- 回転立方体 -->
                                     <h3 data-translation-key="spinCubeSettingHeading"></h3>
                                     <fieldset id="spinCubeForm" class="selectForm" data-default-form="spinCubeCustomizationDefaultContent" data-form-selector="spinCubeType">
                                         <legend>
                                             <span data-translation-key="spinCubeType"></span>
-                                            <select id="spinCubeType">
+                                            <select id="spinCubeType" data-preset-cube="original" data-preset-matrix="original">
                                                 <option data-translation-key="spinCubeOriginal" value="original" data-option-form="originalSpinCubeCustomizationForm"></option>
                                                 <option data-translation-key="importImages" value="import" data-option-form="importSpinCubeCustomizationForm"></option>
                                             </select>
                                         </legend>
                                         <div id="originalSpinCubeCustomizationForm">
-                                            <label><span data-translation-key="originalSpinCubeColorA"></span><input type="color" id="originalSpinCubeColorA" value="#8CB8B5"></label>
-                                            <label><span data-translation-key="originalSpinCubeColorB"></span><input type="color" id="originalSpinCubeColorB" value="#A26554"></label>
+                                            <label><span data-translation-key="originalSpinCubeColorA"></span><input type="color" id="originalSpinCubeColorA" value="#8CB8B5" data-preset-cube="#D2836B" data-preset-matrix="#8CB8B5"></label>
+                                            <label><span data-translation-key="originalSpinCubeColorB"></span><input type="color" id="originalSpinCubeColorB" value="#A26554" data-preset-cube="#6F9797" data-preset-matrix="#A26554"></label>
                                         </div>
                                         <div id="importSpinCubeCustomizationForm" class="middleText">
                                             <div id="importSpinCube" class="middleText">
@@ -975,8 +948,79 @@
                                         </div>
                                     </fieldset>
                                 </div>
-                                <!--
-                                <div id="1upCustomizationForm"></div>-->
+                                <!-- 像素 px -->
+                                <div id="1UpCustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPreset1Up" data-preset="1up">
+                                    <input type="button" data-translation-key="TRPreset8Bits" data-preset="8bits">
+                                    <input type="button" data-translation-key="TRPresetBlueGame" data-preset="bluegame">
+                                    <h3 data-translation-key="1UpPrimaryGradation"></h3>
+                                    <label><span data-translation-key="topEnd"></span><input type="color" id="1UpPrimaryGradationTop" value="#242323" data-preset-1up="#242323" data-preset-8bits="#082A17" data-preset-bluegame="#101B36"></label><br>
+                                    <label><span data-translation-key="bottomEnd"></span><input type="color" id="1UpPrimaryGradationBottom" value="#888275" data-preset-1up="#888275" data-preset-8bits="#327725" data-preset-bluegame="#2252AD"></label>
+                                    <h3 data-translation-key="1UpSecondaryGradation"></h3>
+                                    <label><span data-translation-key="leftEnd"></span><input type="color" id="1UpSecondaryGradationLeft" value="#686767" data-preset-1up="#686767" data-preset-8bits="#1FB78E" data-preset-bluegame="#009BB3"></label><br>
+                                    <label><span data-translation-key="rightEnd"></span><input type="color" id="1UpSecondaryGradationRight" value="#E9E8E6" data-preset-1up="#E9E8E6" data-preset-8bits="#67E16E" data-preset-bluegame="#42F6EB"></label><br>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                </td>
+                                                <th data-translation-key="inner">
+                                                </th>
+                                                <th data-translation-key="outer">
+                                                </th>
+                                                <th data-translation-key="gradation">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th data-translation-key="1UpInvaderEyeSurrounding">
+                                                </th>
+                                                <td>
+                                                    <label><input type="color" id="1UpInvaderEyeSurroundingInner" value="#FEA500" data-preset-1up="#FEA500" data-preset-8bits="#8420FF" data-preset-bluegame="#8E37F7"></label>
+                                                </td>
+                                                <td>
+                                                    <label><input type="color" id="1UpInvaderEyeSurroundingOuter" value="#000000" data-preset-1up="#000000" data-preset-8bits="#000000" data-preset-bluegame="#000000"></label>
+                                                </td>
+                                                <td>
+                                                    <label><input type="checkbox" id="1UpInvaderEyeSurroundingHasGradation" checked data-preset-1up="true" data-preset-8bits="true" data-preset-bluegame="true" data-preset-attribute="checked"></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th data-translation-key="1UpConsoleDoubleButtons">
+                                                </th>
+                                                <td>
+                                                    <label><input type="color" id="1UpConsoleDoubleButtonsInner" value="#FF8A0C" data-preset-1up="#FF8A0C" data-preset-8bits="#A438FF" data-preset-bluegame="#24D978"></label>
+                                                </td>
+                                                <td>
+                                                    <label><input type="color" id="1UpConsoleDoubleButtonsOuter" value="#FF8A0C" data-preset-1up="#FF8A0C" data-preset-8bits="#000000" data-preset-bluegame="#000000"></label>
+                                                </td>
+                                                <td>
+                                                    <label><input type="checkbox" id="1UpConsoleDoubleButtonsHasGradation" data-preset-1up="false" data-preset-8bits="false" data-preset-bluegame="false" data-preset-attribute="checked"></label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th data-translation-key="1UpConsoleSextupleButtons">
+                                                </th>
+                                                <td>
+                                                    <label><input type="color" id="1UpConsoleSextupleButtonsInner" value="#7C51B9" data-preset-1up="#7C51B9" data-preset-8bits="#DEBB00" data-preset-bluegame="#E52986"></label>
+                                                </td>
+                                                <td>
+                                                    <label><input type="color" id="1UpConsoleSextupleButtonsOuter" value="#000000" data-preset-1up="#000000" data-preset-8bits="#DEBB00" data-preset-bluegame="#000000"></label>
+                                                </td>
+                                                <td>
+                                                    <label><input type="checkbox" id="1UpConsoleSextupleButtonsHasGradation" data-preset-1up="false" data-preset-8bits="false" data-preset-bluegame="false" data-preset-attribute="checked"></label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h3 data-translation-key="objName257A"></h3>
+                                    <label><span data-translation-key="1UpBeeEyes"></span><input type="color" id="1UpBeeEyes" value="#FFFFFF" data-preset-1up="#FFFFFF" data-preset-8bits="#FFFFFF" data-preset-bluegame="#FFFFFF"></label><br>
+                                    <span data-translation-key="1UpBeeWings"></span>:<br>
+                                    <label><span data-translation-key="front"></span><input type="color" id="1UpBeeWingsFront" value="#E0DFDB" data-preset-1up="#E0DFDB" data-preset-8bits="#DCF79D" data-preset-bluegame="#D1FFF3"></label>
+                                    <label><span data-translation-key="side"></span><input type="color" id="1UpBeeWingsEdge" value="#ACA9A4" data-preset-1up="#ACA9A4" data-preset-8bits="#A8F301" data-preset-bluegame="#59FFE0"></label>
+                                </div>
                                 <!-- 古代 ac -->
                                 <div id="ancientCustomizationForm">
                                     <span data-translation-key="presets"></span>:
@@ -984,38 +1028,38 @@
                                     <input type="button" data-translation-key="TRPresetFairyTale" data-preset="fairytale">
                                     <h3 data-translation-key="relicsOwl"></h3>
                                     <ul>
-                                        <li><label><span data-translation-key="relicsOwlFaceY"></span><input type="color" id="relicsOwlFaceY" value="#363E44"></label></li>
-                                        <li><label><span data-translation-key="relicsOwlEyeOuter"></span><input type="color" id="relicsOwlEyeOuter" value="#7F8A86"></label></li>
-                                        <li><label><span data-translation-key="relicsOwlBody"></span><input type="color" id="relicsOwlBody" value="#B7C3BD"></label></li>
-                                        <li><label><span data-translation-key="relicsOwlLegs"></span><input type="color" id="relicsOwlLegs" value="#8D9C95"></label></li>
-                                        <li><label><span data-translation-key="relicsOwlWings"></span><input type="color" id="relicsOwlWings" value="#5B6162"></label></li>
-                                        <li><label><span data-translation-key="relicsOwlAbdomen"></span><input type="color" id="relicsOwlAbdomen" value="#CBD8D8"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlFaceY"></span><input type="color" id="relicsOwlFaceY" value="#363E44" data-preset-relics="#363E44" data-preset-fairytale="#372A28"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlEyeOuter"></span><input type="color" id="relicsOwlEyeOuter" value="#7F8A86" data-preset-relics="#7F8A86" data-preset-fairytale="#C1793E"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlBody"></span><input type="color" id="relicsOwlBody" value="#B7C3BD" data-preset-relics="#B7C3BD" data-preset-fairytale="#8B5936"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlLegs"></span><input type="color" id="relicsOwlLegs" value="#8D9C95" data-preset-relics="#8D9C95" data-preset-fairytale="#6B4B2D"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlWings"></span><input type="color" id="relicsOwlWings" value="#5B6162" data-preset-relics="#5B6162" data-preset-fairytale="#5C4329"></label></li>
+                                        <li><label><span data-translation-key="relicsOwlAbdomen"></span><input type="color" id="relicsOwlAbdomen" value="#CBD8D8" data-preset-relics="#CBD8D8" data-preset-fairytale="#BD8C62"></label></li>
                                     </ul>
                                     <h3 data-translation-key="relicsJumpDome"></h3>
                                     <ul>
-                                        <li><label><span data-translation-key="relicsJumpDomeDome"></span><input type="color" id="relicsJumpDomeInner" value="#2FC8D1"></label></li>
-                                        <li><label><span data-translation-key="relicsJumpDomeRing"></span><input type="color" id="relicsJumpDomeRing" value="#DFFA68"></label></li>
-                                        <li><label><span data-translation-key="relicsJumpDomeBottom"></span><input type="color" id="relicsJumpDomeBottom" value="#3A4749"></label></li>
+                                        <li><label><span data-translation-key="relicsJumpDomeDome"></span><input type="color" id="relicsJumpDomeInner" value="#2FC8D1" data-preset-relics="#2FC8D1" data-preset-fairytale="#EE93A7"></label></li>
+                                        <li><label><span data-translation-key="relicsJumpDomeRing"></span><input type="color" id="relicsJumpDomeRing" value="#DFFA68" data-preset-relics="#DFFA68" data-preset-fairytale="#76679B"></label></li>
+                                        <li><label><span data-translation-key="relicsJumpDomeBottom"></span><input type="color" id="relicsJumpDomeBottom" value="#3A4749" data-preset-relics="#3A4749" data-preset-fairytale="#2F2D3B"></label></li>
                                     </ul>
                                     <h3 data-translation-key="relicsCrystal"></h3>
                                     <ol>
-                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="relicsCrystal1" value="#D9E7DE"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="relicsCrystal2" value="#C4E1DC"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="relicsCrystal3" value="#A8CEC7"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="relicsCrystal4" value="#8DCAC3"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="relicsCrystal1" value="#D9E7DE" data-preset-relics="#D9E7DE" data-preset-fairytale="#F8F2FF"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="relicsCrystal2" value="#C4E1DC" data-preset-relics="#C4E1DC" data-preset-fairytale="#CFCCE5"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="relicsCrystal3" value="#A8CEC7" data-preset-relics="#A8CEC7" data-preset-fairytale="#B9AFE2"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="relicsCrystal4" value="#8DCAC3" data-preset-relics="#8DCAC3" data-preset-fairytale="#9E92C6"></label></li>
                                     </ol>
                                     <h3 data-translation-key="relicsTree"></h3>
                                     <span data-translation-key="relicsTreeLeaves"></span>:<br>
                                     <ol>
-                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="relicsTreeLeaves1" value="#94D4D0"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="relicsTreeLeaves2" value="#52AAB2"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="relicsTreeLeaves3" value="#568FA9"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="relicsTreeLeaves4" value="#516788"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="relicsTreeLeaves5" value="#3A4F71"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="relicsTreeLeaves1" value="#94D4D0" data-preset-relics="#94D4D0" data-preset-fairytale="#88DCC4"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="relicsTreeLeaves2" value="#52AAB2" data-preset-relics="#52AAB2" data-preset-fairytale="#40BEAE"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="relicsTreeLeaves3" value="#568FA9" data-preset-relics="#568FA9" data-preset-fairytale="#47A8B3"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="relicsTreeLeaves4" value="#516788" data-preset-relics="#516788" data-preset-fairytale="#418BAA"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="relicsTreeLeaves5" value="#3A4F71" data-preset-relics="#3A4F71" data-preset-fairytale="#31607E"></label></li>
                                     </ol>
                                     <span data-translation-key="relicsTreeStem"></span>:<br>
-                                    <label><span data-translation-key="topEnd"></span><input type="color" id="relicsTreeGradationTop" value="#68482E"></label><br>
-                                    <label><span data-translation-key="bottomEnd"></span><input type="color" id="relicsTreeGradationBottom" value="#2D1C15"></label>
+                                    <label><span data-translation-key="topEnd"></span><input type="color" id="relicsTreeGradationTop" value="#68482E" data-preset-relics="#68482E" data-preset-fairytale="#6A4A2F"></label><br>
+                                    <label><span data-translation-key="bottomEnd"></span><input type="color" id="relicsTreeGradationBottom" value="#2D1C15" data-preset-relics="#2D1C15" data-preset-fairytale="#2E1D16"></label>
                                 </div>
                                 <!-- 眩光 dz -->
                                 <div id="neonCustomizationForm">
@@ -1036,25 +1080,25 @@
                                         <tbody>
                                             <tr>
                                                 <th><span data-translation-key="color#"></span>1(dz3)</th>
-                                                <td><input type="color" id="neonAccentA" value="#F93DCB"></td>
+                                                <td><input type="color" id="neonAccentA" value="#F93DCB" data-preset-neon="#FFE11E" data-preset-dazzle="#F93DCB" data-preset-faster="#FE4023"></td>
                                                 <td>-</td>
                                                 <td>-</td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="color#"></span>2(dz4)</th>
-                                                <td><input type="color" id="neonAccentB1" value="#75FDF9"></td>
-                                                <td><input type="color" id="neonAccentB2" value="#57C1EF"></td>
-                                                <td><input type="color" id="neonAccentB3" value="#319FCE"></td>
+                                                <td><input type="color" id="neonAccentB1" value="#75FDF9" data-preset-neon="#FFAAEA" data-preset-dazzle="#75FDF9" data-preset-faster="#FFEB3C"></td>
+                                                <td><input type="color" id="neonAccentB2" value="#57C1EF" data-preset-neon="#FD6AAC" data-preset-dazzle="#57C1EF" data-preset-faster="#FEA900"></td>
+                                                <td><input type="color" id="neonAccentB3" value="#319FCE" data-preset-neon="#D5246B" data-preset-dazzle="#319FCE" data-preset-faster="#F07901"></td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="color#"></span>3(dz5)</th>
-                                                <td><input type="color" id="neonAccentC1" value="#3CD4F1"></td>
-                                                <td><input type="color" id="neonAccentC2" value="#3C88F1"></td>
+                                                <td><input type="color" id="neonAccentC1" value="#3CD4F1" data-preset-neon="#FD6AAC" data-preset-dazzle="#3CD4F1" data-preset-faster="#3D5AF2"></td>
+                                                <td><input type="color" id="neonAccentC2" value="#3C88F1" data-preset-neon="#E73083" data-preset-dazzle="#3C88F1" data-preset-faster="#204BA7"></td>
                                                 <td>-</td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="color#"></span>4(dz6)</th>
-                                                <td><input type="color" id="neonAccentD" value="#F4D121"></td>
+                                                <td><input type="color" id="neonAccentD" value="#F4D121" data-preset-neon="#25EDA1" data-preset-dazzle="#F4D121" data-preset-faster="#F4D122"></td>
                                                 <td>-</td>
                                                 <td>-</td>
                                             </tr>
@@ -1134,15 +1178,15 @@
 
                                     <h3 data-translation-key="neonRobotGears"></h3>
                                     <ol>
-                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="neonRobotGear1" value="#47F5EC"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="neonRobotGear2" value="#08C9C0"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="neonRobotGear3" value="#00AFBD"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="neonRobotGear4" value="#007594"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="neonRobotGear5" value="#005168"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="neonRobotGear1" value="#47F5EC" data-preset-neon="#BF79FD" data-preset-dazzle="#47F5EC" data-preset-faster="#6080FF"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="neonRobotGear2" value="#08C9C0" data-preset-neon="#A04CF3" data-preset-dazzle="#08C9C0" data-preset-faster="#374DDF"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="neonRobotGear3" value="#00AFBD" data-preset-neon="#8426E2" data-preset-dazzle="#00AFBD" data-preset-faster="#2E3DA0"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="neonRobotGear4" value="#007594" data-preset-neon="#5B1DB8" data-preset-dazzle="#007594" data-preset-faster="#272F65"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="neonRobotGear5" value="#005168" data-preset-neon="#2C245A" data-preset-dazzle="#005168" data-preset-faster="#1D2241"></label></li>
                                     </ol>
                                     <h3 data-translation-key="neonRobotCord"></h3>
-                                    <label><span data-translation-key="front"></span><input type="color" id="neonRobotCordFront" value="#FCBB52"></label>
-                                    <label><span data-translation-key="side"></span><input type="color" id="neonRobotCordSide" value="#FF9012"></label>
+                                    <label><span data-translation-key="front"></span><input type="color" id="neonRobotCordFront" value="#FCBB52" data-preset-neon="#E7FE9D" data-preset-dazzle="#FCBB52" data-preset-faster="#4BF3FF"></label>
+                                    <label><span data-translation-key="side"></span><input type="color" id="neonRobotCordSide" value="#FF9012" data-preset-neon="#A8F64F" data-preset-dazzle="#FF9012" data-preset-faster="#08BCC9"></label>
                                 </div>
                                 <!--<div id="egyptCustomizationForm"></div>
                                 <div id="aloneCustomizationForm"></div>
@@ -1167,31 +1211,31 @@
                                         <tbody>
                                             <tr>
                                                 <th><span data-translation-key="color#"></span>1(bd1)</th>
-                                                <td><input type="color" id="HBDPaletteA1" value="#5468EA"></td>
-                                                <td><input type="color" id="HBDPaletteA2" value="#3D53DE"></td>
-                                                <td><input type="color" id="HBDPaletteA3" value="#2A3CAD"></td>
-                                                <td><input type="color" id="HBDPaletteA4" value="#2A3394"></td>
+                                                <td><input type="color" id="HBDPaletteA1" value="#5468EA" data-preset-happybirthday="#5468EA" data-preset-anniversary="#383A63"></td>
+                                                <td><input type="color" id="HBDPaletteA2" value="#3D53DE" data-preset-happybirthday="#3D53DE" data-preset-anniversary="#292B4D"></td>
+                                                <td><input type="color" id="HBDPaletteA3" value="#2A3CAD" data-preset-happybirthday="#2A3CAD" data-preset-anniversary="#212239"></td>
+                                                <td><input type="color" id="HBDPaletteA4" value="#2A3394" data-preset-happybirthday="#2A3394" data-preset-anniversary="#1A1B2C"></td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="color#"></span>2(bd2)</th>
-                                                <td><input type="color" id="HBDPaletteB1" value="#FFB23E"></td>
-                                                <td><input type="color" id="HBDPaletteB2" value="#F66A2E"></td>
-                                                <td><input type="color" id="HBDPaletteB3" value="#E9531D"></td>
-                                                <td><input type="color" id="HBDPaletteB4" value="#C34A1A"></td>
+                                                <td><input type="color" id="HBDPaletteB1" value="#FFB23E" data-preset-happybirthday="#FFB23E" data-preset-anniversary="#D45BEC"></td>
+                                                <td><input type="color" id="HBDPaletteB2" value="#F66A2E" data-preset-happybirthday="#F66A2E" data-preset-anniversary="#AC38E1"></td>
+                                                <td><input type="color" id="HBDPaletteB3" value="#E9531D" data-preset-happybirthday="#E9531D" data-preset-anniversary="#7335AA"></td>
+                                                <td><input type="color" id="HBDPaletteB4" value="#C34A1A" data-preset-happybirthday="#C34A1A" data-preset-anniversary="#552F84"></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <h3><span data-translation-key="HBDGradation"></span>(bd3)</h3>
-                                    <label><span data-translation-key="topEnd"></span><input type="color" id="HBDGradationTop" value="#FEFAAD"></label><br>
-                                    <label><span data-translation-key="bottomEnd"></span><input type="color" id="HBDGradationBottom" value="#D18A1E"></label>
+                                    <label><span data-translation-key="topEnd"></span><input type="color" id="HBDGradationTop" value="#FEFAAD" data-preset-happybirthday="#FEFAAD" data-preset-anniversary="#F8F0A0"></label><br>
+                                    <label><span data-translation-key="bottomEnd"></span><input type="color" id="HBDGradationBottom" value="#D18A1E" data-preset-happybirthday="#D18A1E" data-preset-anniversary="#F1A718"></label>
                                     <h3 data-translation-key="HBDRainbow"></h3>
                                     <ol>
-                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="HBDRainbow1" value="#FD718C"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="HBDRainbow2" value="#FD8B48"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="HBDRainbow3" value="#F1FA87"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="HBDRainbow4" value="#56F884"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="HBDRainbow5" value="#46CEFD"></label></li>
-                                        <li><label><span><span data-translation-key="tone#"></span>6</span><input type="color" id="HBDRainbow6" value="#9C5FFD"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>1</span><input type="color" id="HBDRainbow1" value="#FD718C" data-preset-happybirthday="#FD718C" data-preset-anniversary="#FE4456"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>2</span><input type="color" id="HBDRainbow2" value="#FD8B48" data-preset-happybirthday="#FD8B48" data-preset-anniversary="#FD822B"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>3</span><input type="color" id="HBDRainbow3" value="#F1FA87" data-preset-happybirthday="#F1FA87" data-preset-anniversary="#FFF344"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>4</span><input type="color" id="HBDRainbow4" value="#56F884" data-preset-happybirthday="#56F884" data-preset-anniversary="#37F55D"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>5</span><input type="color" id="HBDRainbow5" value="#46CEFD" data-preset-happybirthday="#46CEFD" data-preset-anniversary="#3BCEFE"></label></li>
+                                        <li><label><span><span data-translation-key="tone#"></span>6</span><input type="color" id="HBDRainbow6" value="#9C5FFD" data-preset-happybirthday="#9C5FFD" data-preset-anniversary="#B835FE"></label></li>
                                     </ol>
 
                                     <span data-translation-key="colorUsageList"></span><br>
@@ -1258,6 +1302,9 @@
                                     </table>
                                 </div>
                                 <!-- マイクロチップ mc -->
+                                <!-- 四周年 t4a -->
+                                <div id="t4ACustomizationForm">
+                                </div>
                                 <!-- 陽光 ss -->
                                 <div id="SunshineCustomizationForm">
                                     <span data-translation-key="presets"></span>:
@@ -1276,24 +1323,160 @@
                                         <tbody>
                                             <tr>
                                                 <th><span data-translation-key="tone#"></span>1</th>
-                                                <td><label><input type="color" id="sunshineMain1" value="#ffffff"></label></td>
-                                                <td><label><input type="color" id="sunshineDark1" value="#e6e8ee"></label></td>
-                                                <td><label><input type="color" id="sunshineAccent1" value="#9ef9fe"></label></td>
+                                                <td><label><input type="color" id="sunshineMain1" value="#ffffff" data-preset-sunset="#ffffff" data-preset-dawn="#ffffff"></label></td>
+                                                <td><label><input type="color" id="sunshineDark1" value="#e6e8ee" data-preset-sunset="#e9ebf0" data-preset-dawn="#e6e8ee"></label></td>
+                                                <td><label><input type="color" id="sunshineAccent1" value="#9ef9fe" data-preset-sunset="#fac367" data-preset-dawn="#9ef9fe"></label></td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="tone#"></span>2</th>
-                                                <td><label><input type="color" id="sunshineMain2" value="#eaedf4"></label></td>
-                                                <td><label><input type="color" id="sunshineDark2" value="#c5cbd8"></label></td>
-                                                <td><label><input type="color" id="sunshineAccent2" value="#6addea"></label></td>
+                                                <td><label><input type="color" id="sunshineMain2" value="#eaedf4" data-preset-sunset="#e7eaef" data-preset-dawn="#eaedf4"></label></td>
+                                                <td><label><input type="color" id="sunshineDark2" value="#c5cbd8" data-preset-sunset="#c5cbd8" data-preset-dawn="#c5cbd8"></label></td>
+                                                <td><label><input type="color" id="sunshineAccent2" value="#6addea" data-preset-sunset="#f7a51d" data-preset-dawn="#6addea"></label></td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="tone#"></span>3</th>
-                                                <td><label><input type="color" id="sunshineMain3" value="#babfca"></label></td>
-                                                <td><label><input type="color" id="sunshineDark3" value="#9fa5b1"></label></td>
-                                                <td><label><input type="color" id="sunshineAccent3" value="#6aa5af"></label></td>
+                                                <td><label><input type="color" id="sunshineMain3" value="#babfca" data-preset-sunset="#babfca" data-preset-dawn="#babfca"></label></td>
+                                                <td><label><input type="color" id="sunshineDark3" value="#9fa5b1" data-preset-sunset="#9fa5b1" data-preset-dawn="#9fa5b1"></label></td>
+                                                <td><label><input type="color" id="sunshineAccent3" value="#6aa5af" data-preset-sunset="#ba792f" data-preset-dawn="#6aa5af"></label></td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                                <!-- ケプラー kp -->
+                                <div id="keplerCustomizationForm">a
+                                </div>
+                                <!-- 玉兎 jr -->
+                                <div id="spFestV2CustomizationForm">
+                                    spFestV2L
+                                    <input type="button" data-translation-key="TRPresetAJR" data-preset="ausjadrab">
+                                    <input type="button" data-translation-key="TRPresetTF" data-preset="tempfair">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th><span><span data-translation-key="tone#"></span>1</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>2</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>3</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>4</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>い(2)</th>
+                                                <td><input type="color" id="jadeRabbit2-1" value="#B01610" data-preset-ausjadrab="#B01610" data-preset-tempfair="#912715"></td>
+                                                <td><input type="color" id="jadeRabbit2-2" value="#900E09" data-preset-ausjadrab="#900E09" data-preset-tempfair="#882514"></td>
+                                                <td><input type="color" id="jadeRabbit2-3" value="#770B07" data-preset-ausjadrab="#770B07" data-preset-tempfair="#7D2212"></td>
+                                                <td><input type="color" id="jadeRabbit2-4" value="#580905" data-preset-ausjadrab="#580905" data-preset-tempfair="#711F11"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>し(12)</th>
+                                                <td><input type="color" id="jadeRabbit12-1" value="#6A6861" data-preset-ausjadrab="#6A6861" data-preset-tempfair="#2A2A2A"></td>
+                                                <td><input type="color" id="jadeRabbit12-2" value="#605C56" data-preset-ausjadrab="#605C56" data-preset-tempfair="#262525"></td>
+                                                <td><input type="color" id="jadeRabbit12-3" value="#53514A" data-preset-ausjadrab="#53514A" data-preset-tempfair="#212020"></td>
+                                                <td><input type="color" id="jadeRabbit12-4" value="#4F4C46" data-preset-ausjadrab="#4F4C46" data-preset-tempfair="#1F1E1E"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>す(13)</th>
+                                                <td><input type="color" id="jadeRabbit13-1" value="#4C4A46" data-preset-ausjadrab="#4C4A46" data-preset-tempfair="#1E1E1E"></td>
+                                                <td><input type="color" id="jadeRabbit13-2" value="#45423F" data-preset-ausjadrab="#45423F" data-preset-tempfair="#1B1B1B"></td>
+                                                <td><input type="color" id="jadeRabbit13-3" value="#3C3A36" data-preset-ausjadrab="#3C3A36" data-preset-tempfair="#181818"></td>
+                                                <td><input type="color" id="jadeRabbit13-4" value="#393733" data-preset-ausjadrab="#393733" data-preset-tempfair="#171616"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>せ(14)</th>
+                                                <td><input type="color" id="jadeRabbit14-1" value="#622410" data-preset-ausjadrab="#622410" data-preset-tempfair="#270E07"></td>
+                                                <td><input type="color" id="jadeRabbit14-2" value="#501D0E" data-preset-ausjadrab="#501D0E" data-preset-tempfair="#1F0B06"></td>
+                                                <td><input type="color" id="jadeRabbit14-3" value="#4E1604" data-preset-ausjadrab="#4E1604" data-preset-tempfair="#1F0902"></td>
+                                                <td><input type="color" id="jadeRabbit14-4" value="#431306" data-preset-ausjadrab="#431306" data-preset-tempfair="#1A0803"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>て(19)</th>
+                                                <td><input type="color" id="jadeRabbit19-1" value="#F2B578" data-preset-ausjadrab="#F2B578" data-preset-tempfair="#604834"></td>
+                                                <td><input type="color" id="jadeRabbit19-2" value="#DDA975" data-preset-ausjadrab="#DDA975" data-preset-tempfair="#574333"></td>
+                                                <td><input type="color" id="jadeRabbit19-3" value="#DD9E5E" data-preset-ausjadrab="#DD9E5E" data-preset-tempfair="#574028"></td>
+                                                <td><input type="color" id="jadeRabbit19-4" value="#C28D5A" data-preset-ausjadrab="#C28D5A" data-preset-tempfair="#4C3827"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>な(21)</th>
+                                                <td><input type="color" id="jadeRabbit21-1" value="#622410" data-preset-ausjadrab="#622410" data-preset-tempfair="#622410"></td>
+                                                <td><input type="color" id="jadeRabbit21-2" value="#501D0E" data-preset-ausjadrab="#501D0E" data-preset-tempfair="#501D0E"></td>
+                                                <td><input type="color" id="jadeRabbit21-3" value="#4E1604" data-preset-ausjadrab="#4E1604" data-preset-tempfair="#4E1604"></td>
+                                                <td><input type="color" id="jadeRabbit21-4" value="#431306" data-preset-ausjadrab="#431306" data-preset-tempfair="#431306"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>に(22)</th>
+                                                <td><input type="color" id="jadeRabbit22-1" value="#FF9D1E" data-preset-ausjadrab="#FF9D1E" data-preset-tempfair="#FF9D1E"></td>
+                                                <td><input type="color" id="jadeRabbit22-2" value="#E99019" data-preset-ausjadrab="#E99019" data-preset-tempfair="#E99019"></td>
+                                                <td><input type="color" id="jadeRabbit22-3" value="#D78219" data-preset-ausjadrab="#D78219" data-preset-tempfair="#D78219"></td>
+                                                <td><input type="color" id="jadeRabbit22-4" value="#C07719" data-preset-ausjadrab="#C07719" data-preset-tempfair="#C07719"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>ぬ(23)</th>
+                                                <td><input type="color" id="jadeRabbit23-1" value="#D30E07" data-preset-ausjadrab="#D30E07" data-preset-tempfair="#F50000"></td>
+                                                <td><input type="color" id="jadeRabbit23-2" value="#B10B04" data-preset-ausjadrab="#B10B04" data-preset-tempfair="#E80000"></td>
+                                                <td><input type="color" id="jadeRabbit23-3" value="#960C06" data-preset-ausjadrab="#960C06" data-preset-tempfair="#C30000"></td>
+                                                <td><input type="color" id="jadeRabbit23-4" value="#750F0A" data-preset-ausjadrab="#750F0A" data-preset-tempfair="#960000"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>ね(24)</th>
+                                                <td><input type="color" id="jadeRabbit24-1" value="#336041" data-preset-ausjadrab="#336041" data-preset-tempfair="#213134"></td>
+                                                <td><input type="color" id="jadeRabbit24-2" value="#255738" data-preset-ausjadrab="#255738" data-preset-tempfair="#1F2E30"></td>
+                                                <td><input type="color" id="jadeRabbit24-3" value="#215334" data-preset-ausjadrab="#215334" data-preset-tempfair="#1F2F2F"></td>
+                                                <td><input type="color" id="jadeRabbit24-4" value="#1C4E2D" data-preset-ausjadrab="#1C4E2D" data-preset-tempfair="#1D2F2F"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>の(25)</th>
+                                                <td><input type="color" id="jadeRabbit25-1" value="#AF4401" data-preset-ausjadrab="#AF4401" data-preset-tempfair="#141B21"></td>
+                                                <td><input type="color" id="jadeRabbit25-2" value="#9A3A00" data-preset-ausjadrab="#9A3A00" data-preset-tempfair="#131A1F"></td>
+                                                <td><input type="color" id="jadeRabbit25-3" value="#913700" data-preset-ausjadrab="#913700" data-preset-tempfair="#12191E"></td>
+                                                <td><input type="color" id="jadeRabbit25-4" value="#792C00" data-preset-ausjadrab="#792C00" data-preset-tempfair="#10161B"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>は(26)</th>
+                                                <td><input type="color" id="jadeRabbit26-1" value="#D82D0B" data-preset-ausjadrab="#D82D0B" data-preset-tempfair="#9E2108"></td>
+                                                <td><input type="color" id="jadeRabbit26-2" value="#B10B04" data-preset-ausjadrab="#B10B04" data-preset-tempfair="#8E1D07"></td>
+                                                <td><input type="color" id="jadeRabbit26-3" value="#B0270C" data-preset-ausjadrab="#B0270C" data-preset-tempfair="#811D09"></td>
+                                                <td><input type="color" id="jadeRabbit26-4" value="#97220A" data-preset-ausjadrab="#97220A" data-preset-tempfair="#6F1907"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>ひ(27)</th>
+                                                <td><input type="color" id="jadeRabbit27-1" value="#FFFFFF" data-preset-ausjadrab="#FFFFFF" data-preset-tempfair="#FFFFFF"></td>
+                                                <td><input type="color" id="jadeRabbit27-2" value="#E9E9E9" data-preset-ausjadrab="#E9E9E9" data-preset-tempfair="#FFEED3"></td>
+                                                <td><input type="color" id="jadeRabbit27-3" value="#D7D7D7" data-preset-ausjadrab="#D7D7D7" data-preset-tempfair="#FFE1AF"></td>
+                                                <td><input type="color" id="jadeRabbit27-4" value="#C2C2C2" data-preset-ausjadrab="#C2C2C2" data-preset-tempfair="#FFD185"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>ふ(28)</th>
+                                                <td><input type="color" id="jadeRabbit28-1" value="#CD692F" data-preset-ausjadrab="#CD692F" data-preset-tempfair="#273035"></td>
+                                                <td><input type="color" id="jadeRabbit28-2" value="#C05718" data-preset-ausjadrab="#C05718" data-preset-tempfair="#202A30"></td>
+                                                <td><input type="color" id="jadeRabbit28-3" value="#BB4F10" data-preset-ausjadrab="#BB4F10" data-preset-tempfair="#1C252B"></td>
+                                                <td><input type="color" id="jadeRabbit28-4" value="#A63F02" data-preset-ausjadrab="#A63F02" data-preset-tempfair="#161F25"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>へ(29)</th>
+                                                <td><input type="color" id="jadeRabbit29-1" value="#E57003" data-preset-ausjadrab="#E57003" data-preset-tempfair="#D17F17"></td>
+                                                <td><input type="color" id="jadeRabbit29-2" value="#CE6500" data-preset-ausjadrab="#CE6500" data-preset-tempfair="#CA7B17"></td>
+                                                <td><input type="color" id="jadeRabbit29-3" value="#BC5900" data-preset-ausjadrab="#BC5900" data-preset-tempfair="#C87916"></td>
+                                                <td><input type="color" id="jadeRabbit29-4" value="#A54F00" data-preset-ausjadrab="#A54F00" data-preset-tempfair="#C37616"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>ほ(30)</th>
+                                                <td><input type="color" id="jadeRabbit30-1" value="#60AAB0" data-preset-ausjadrab="#60AAB0" data-preset-tempfair="#60AAB0"></td>
+                                                <td><input type="color" id="jadeRabbit30-2" value="#319299" data-preset-ausjadrab="#319299" data-preset-tempfair="#319299"></td>
+                                                <td><input type="color" id="jadeRabbit30-3" value="#2E8990" data-preset-ausjadrab="#2E8990" data-preset-tempfair="#2E8990"></td>
+                                                <td><input type="color" id="jadeRabbit30-4" value="#218088" data-preset-ausjadrab="#218088" data-preset-tempfair="#218088"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>ま(31)</th>
+                                                <td><input type="color" id="jadeRabbit31-1" value="#35523E" data-preset-ausjadrab="#35523E" data-preset-tempfair="#1F2C32"></td>
+                                                <td><input type="color" id="jadeRabbit31-2" value="#294934" data-preset-ausjadrab="#294934" data-preset-tempfair="#1F2B2F"></td>
+                                                <td><input type="color" id="jadeRabbit31-3" value="#264631" data-preset-ausjadrab="#264631" data-preset-tempfair="#1D292F"></td>
+                                                <td><input type="color" id="jadeRabbit31-4" value="#21412A" data-preset-ausjadrab="#21412A" data-preset-tempfair="#1F272D"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <label><span>と(20)</span><input type="color" id="jadeRabbit20" value="#DC261C" data-preset-ausjadrab="#DC261C" data-preset-tempfair="#FB0803"></label><br>
+                                    <!-- も, ら(39), -->
                                 </div>
                             </fieldset>
                         </div>
@@ -1309,10 +1492,10 @@
                                             <option value="plain" data-translation-key="subBNoPattern" data-option-form="noPatternSubBForm"></option>
                                             <option value="classicalroller" data-translation-key="subBClassicalRoller" data-option-form="classicalRollerSubBForm"></option>
                                             <option value="desert" data-translation-key="subBDesert" data-option-form="desertSubBForm"></option>
+                                            <option value="halloween" data-translation-key="subBHalloween" data-option-form="halloweenSubBForm"></option>
                                             <!--
                                             <option value="kungfu" data-translation-key="subBKungfu" data-option-form="kungfuSubBForm"></option>
                                             <option value="chris" data-translation-key="subBChris" data-option-form="chrisSubBForm" data-override-risers></option>
-                                            <option value="halloween" data-translation-key="subBHalloween" data-option-form="halloweenSubBForm"></option>
                                             <option value="space" data-translation-key="subBSpace" data-option-form="spaceSubBForm"></option>
                                             -->
                                         </select>
@@ -1344,6 +1527,20 @@
                                             <td><input type="color" id="palmTreeTrunk4" value="#8C4215"></td>
                                         </tr>
                                     </table>
+                                </div>
+                                <div id="halloweenSubBForm">
+                                    <span data-translation-key="subBHalloweenMultiPurposeGradation"></span><br>
+                                    <label><span data-translation-key="leftEnd"></span><input type="color" id="halloweenMultiPurposeGradationLeft" value="#325A11" data-preset-halloween="#325A11"></label>
+                                    <label><span data-translation-key="rightEnd"></span><input type="color" id="halloweenMultiPurposeGradationRight" value="#5EC100" data-preset-halloween="#5EC100"></label><br>
+                                    <span data-translation-key="subBHalloweenGateSkull"></span>
+                                    <label><span data-translation-key="leftEnd"></span><input type="color" id="halloweenGateSkullGradationLeft" value="#325A11" data-preset-halloween="#325A11"></label>
+                                    <label><span data-translation-key="rightEnd"></span><input type="color" id="halloweenGateSkullGradationRight" value="#5EC100" data-preset-halloween="#5EC100"></label><br>
+                                    <span data-translation-key="subBHalloweenPumpkin"></span>(<span data-translation-key="face"></span>)
+                                    <label><span data-translation-key="leftEnd"></span><input type="color" id="halloweenPumpkinGradationLeft" value="#7D332C" data-preset-halloween="#7D332C"></label>
+                                    <label><span data-translation-key="rightEnd"></span><input type="color" id="halloweenPumpkinGradationRight" value="#E15C37" data-preset-halloween="#E15C37"></label><br>
+                                    <span data-translation-key="subBHalloweenPumpkin"></span>(<span data-translation-key="line"></span>)
+                                    <label><span data-translation-key="leftEnd"></span><input type="color" id="halloweenPumpkinGradationLineLeft" value="#773027" data-preset-halloween="#773027"></label>
+                                    <label><span data-translation-key="rightEnd"></span><input type="color" id="halloweenPumpkinGradationLineRight" value="#CE4F2D" data-preset-halloween="#CE4F2D"></label>
                                 </div>
                                 <div id="kungfuSubBForm">
                                 </div>
