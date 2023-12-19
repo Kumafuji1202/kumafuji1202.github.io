@@ -1,4 +1,3 @@
-//update no. 15
 //ESLintの警告防止用
 var document = document;
 var window = window;
@@ -1734,9 +1733,11 @@ window.addEventListener("load", function () {
         }
 
         //B,G
+        let selectedTopRightTypeOption = document.getElementById("topRightType").selectedOptions[0];
+        let selectedSubBTypeOption = document.getElementById("subBType").selectedOptions[0];
 
         //ネオンボックス
-        if (document.getElementById("topRightType").selectedOptions[0].hasAttribute("data-neonbox-available")) {
+        if (selectedTopRightTypeOption.hasAttribute("data-neonbox-available")) {
             contextEnemy.fillStyle = "#434A5B";
             contextEnemy.fillRect(448, 0, 64, 16);
             contextEnemy.fillStyle = "#FFFFFF";
@@ -1769,6 +1770,13 @@ window.addEventListener("load", function () {
             if (document.getElementById("topRightType").value != "sunshine") contextEnemy.fillRect(448, 128, 64, 32);
             else contextEnemy.fillRect(448, 96, 64, 32);
             //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
+
+            //デフォルトでB10下半分を埋める
+            oneUpGradation = contextEnemy.createLinearGradient(448, 0, 512, 0);
+            oneUpGradation.addColorStop(0, document.getElementById("1UpSecondaryGradationLeft").value);
+            oneUpGradation.addColorStop(1, document.getElementById("1UpSecondaryGradationRight").value);
+            contextEnemy.fillStyle = oneUpGradation;
+            contextEnemy.fillRect(448, 160, 64, 32);
         }
 
         switch (document.getElementById("topRightType").value) {
@@ -1976,12 +1984,6 @@ window.addEventListener("load", function () {
             contextEnemy.fillStyle = oneUpGradation;
             contextEnemy.fillRect(192, 0, 64, 128);
 
-            oneUpGradation = contextEnemy.createLinearGradient(448, 0, 512, 0);
-            oneUpGradation.addColorStop(0, document.getElementById("1UpSecondaryGradationLeft").value);
-            oneUpGradation.addColorStop(1, document.getElementById("1UpSecondaryGradationRight").value);
-            contextEnemy.fillStyle = oneUpGradation;
-            contextEnemy.fillRect(448, 160, 64, 32);
-
             contextEnemy.fillStyle = document.getElementById("1UpBeeEyes").value;
             contextEnemy.fillRect(320, 0, 64, 64);
             contextEnemy.fillStyle = document.getElementById("1UpBeeWingsFront").value;
@@ -2095,6 +2097,61 @@ window.addEventListener("load", function () {
             contextEnemy.fillRect(427, 96, 21, 32);
         }
         break;
+        case "t4a": {
+            contextEnemy.fillStyle = "#403E43";
+            contextEnemy.fillRect(256, 0, 192, 192);
+            contextEnemy.fillRect(256, 384, 256, 128);
+            let t4aBalloonGradation = contextEnemy.createLinearGradient(0, 0, 0, 128);
+            t4aBalloonGradation.addColorStop(0, document.getElementById("t4aBalloonGradationTop").value);
+            t4aBalloonGradation.addColorStop(1, document.getElementById("t4aBalloonGradationBottom").value);
+            contextEnemy.fillStyle = t4aBalloonGradation;
+            contextEnemy.fillRect(192, 0, 64, 128);
+            contextEnemy.fillStyle = document.getElementById("t4aAccent1").value;
+            contextEnemy.fillRect(256, 0, 32, 17);
+            contextEnemy.fillStyle = document.getElementById("t4aAccent2").value;
+            contextEnemy.fillRect(256, 17, 32, 23);
+            contextEnemy.fillStyle = document.getElementById("t4aAccent3").value;
+            contextEnemy.fillRect(288, 0, 32, 40);
+            contextEnemy.fillStyle = document.getElementById("t4aAccent4").value;
+            contextEnemy.fillRect(256, 40, 32, 40);
+            contextEnemy.fillStyle = document.getElementById("t4aAccent5").value;
+            contextEnemy.fillRect(288, 40, 32, 40);
+            contextEnemy.fillStyle = document.getElementById("t4aBase1").value;
+            contextEnemy.fillRect(256, 128, 80, 32);
+            contextEnemy.fillStyle = document.getElementById("t4aBase2").value;
+            contextEnemy.fillRect(256, 160, 80, 32);
+            for (let i = 0; i < 3; i++) {
+                let groupXOrigin = 336 + (i == 1) * 56;
+                let groupYOrigin = 80 + (i == 2) * 56;
+                for (let j = 0; j < 4; j++) {
+                    let cellXPos = groupXOrigin + j * 14;
+                    for (let k = 0; k < 4; k++) {
+                        let cellYPos = groupYOrigin + k * 14;
+                        contextEnemy.fillStyle = document.getElementById("t4aCheckedColor" + "AB" [(j + k) % 2] + (i + 1)).value;
+                        contextEnemy.fillRect(cellXPos, cellYPos, 14, 14);
+                    }
+                }
+            }
+            let reuseMainPaletteColor4Sub = document.getElementById("linkQuadPalettes").checked;
+            let reuseMainPaletteColor4Stripes = document.getElementById("reuseMainPaletteColor4Stripes").checked;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 4; j++) {
+                    contextEnemy.fillStyle = document.getElementById("t4aMainQuadPalette" + "ABCD" [j] + (i + 1)).value;
+                    contextEnemy.fillRect(257.5 + 20 * j, 431.5 + 20 * i, 19, 19);
+                }
+            }
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 4; j++) {
+                    contextEnemy.fillStyle = document.getElementById((reuseMainPaletteColor4Sub ? "t4aMainQuadPalette" : "t4aSubQuadPalette") + "ABCD" [j] + (i + 1)).value;
+                    contextEnemy.fillRect(335.5 + 20 * j, 431.5 + 20 * i, 19, 19);
+                }
+            }
+            for (let i = 0; i < 4; i++) {
+                contextEnemy.fillStyle = document.getElementById(reuseMainPaletteColor4Stripes ? ("t4aMainQuadPalette" + "ABCD" [i] + "2") : ("t4aCakeStripe" + (i + 1))).value;
+                contextEnemy.fillRect(257.5, 399.5 + 7 * i, 255, 7);
+            }
+        }
+        break;
         case "sunshine": {
             let sunshineMainColors = [document.getElementById("sunshineMain1").value, document.getElementById("sunshineMain2").value, document.getElementById("sunshineMain3").value];
             let sunshineDarkColors = [document.getElementById("sunshineDark1").value, document.getElementById("sunshineDark2").value, document.getElementById("sunshineDark3").value];
@@ -2170,7 +2227,7 @@ window.addEventListener("load", function () {
         }
 
         //B下部
-        if (document.getElementById("subBAvailable").value == "true") {
+        if (selectedTopRightTypeOption.hasAttribute("data-subB-available")) {
             if (document.getElementById("subBType").value == "plain") {
                 contextEnemy.fillStyle = document.getElementById("noPatternSubBColor").value;
                 contextEnemy.fillRect(256, 128, 256, 64);
@@ -2213,7 +2270,24 @@ window.addEventListener("load", function () {
                 multipleLines([7, 5, 3, 1], [0.25, 0.25, 0.5, 1], contextEnemy, subBHwPumpkinLinePath);
             }
             if (document.getElementById("subBType").value == "chris") {
-                var chrisAThickness = lineThickness["normal"];
+                //1-12
+                quadToneVariaton(contextEnemy, "chrisB11-", 256, 128, 64, 64, 32, 32);
+                quadToneVariaton(contextEnemy, "chrisB12-", 320, 128, 64, 64, 32, 32);
+                quadToneVariaton(contextEnemy, "chrisB13-", 384, 128, 64, 64, 32, 32);
+                //13
+                let subBChrisGradient = contextEnemy.createLinearGradient(448, 0, 512, 0);
+                subBChrisGradient.addColorStop(0, document.getElementById("chrisUpperGradationLeft").value);
+                subBChrisGradient.addColorStop(1, document.getElementById("chrisUpperGradationRight").value);
+                contextEnemy.fillStyle = subBChrisGradient;
+                contextEnemy.fillRect(448, 128, 64, 32);
+                //14
+                subBChrisGradient = contextEnemy.createLinearGradient(448, 0, 512, 0);
+                subBChrisGradient.addColorStop(0, document.getElementById("chrisLowerGradationLeft").value);
+                subBChrisGradient.addColorStop(1, document.getElementById("chrisLowerGradationRight").value);
+                contextEnemy.fillStyle = subBChrisGradient;
+                contextEnemy.fillRect(448, 160, 64, 32);
+
+                let chrisAThickness = lineThickness["normal"];
                 contextEnemy.fillStyle = document.getElementById("ChrisPaletteATone1Face").value;
                 contextEnemy.fillRect(256, 384, 64, 64);
                 contextEnemy.fillStyle = document.getElementById("ChrisPaletteATone2Face").value;
@@ -2254,9 +2328,8 @@ window.addEventListener("load", function () {
             }
         }
 
-
         //翻転床
-        if (document.getElementById("flipTileAvailable").value == "true") {
+        if (selectedTopRightTypeOption.hasAttribute("data-flipper-available")) {
             //表とУра
             var flipperType = document.getElementById("flipTileType").value;
             var doTheFlipper = function (type, colCount, func) {
@@ -2791,12 +2864,14 @@ window.addEventListener("load", function () {
                 contextEnemy.restore();
             }
             //側面
-            contextEnemy.fillStyle = document.getElementById("flipperSideColor").value;
-            contextEnemy.fillRect(320, 128, 64, 64);
+            if (!selectedTopRightTypeOption.hasAttribute("data-no-flipper-side")) {
+                contextEnemy.fillStyle = document.getElementById("flipperSideColor").value;
+                contextEnemy.fillRect(320, 128, 64, 64);
+            }
         }
 
         //半ジャンプ
-        if (document.getElementById("smallJumpAvailable").value == "true") {
+        if (selectedTopRightTypeOption.hasAttribute("data-minijump-available")) {
             contextEnemy.fillStyle = document.getElementById("smallJumpActiveTop").value;
             contextEnemy.fillRect(256, 0, 58, 30);
             contextEnemy.fillStyle = document.getElementById("smallJumpInactiveTop").value;
@@ -2907,16 +2982,25 @@ window.addEventListener("load", function () {
         //太さ決定
         var middleLeftLineThickness = lineThickness[document.getElementById("middleLeftLineThickness").value];
         var middleRightLineThickness = lineThickness[document.getElementById("middleRightLineThickness").value];
-        //描画
+        //プレヴュー用にcolオブジェクトに登録
+        let DColors = [],
+            EColors = [];
+        for (let qrt = 0; qrt < 6; qrt++) {
+            DColors.push(Col.fromColorCode(document.getElementById("middleLeftTone" + (qrt + 1) + "Face").value));
+            DColors.push(Col.fromColorCode(document.getElementById("middleLeftTone" + (qrt + 1) + "Line").value));
+            EColors.push(Col.fromColorCode(document.getElementById("middleRightTone" + (qrt + 1) + "Face").value));
+            EColors.push(Col.fromColorCode(document.getElementById("middleRightTone" + (qrt + 1) + "Line").value));
+        }
         contextEnemy.lineJoin = "round";
+        //描画
         for (var smis = 0; smis < 3; smis++) {
-            contextEnemy.fillStyle = document.getElementById("middleLeftTone" + (smis * 2 + 1) + "Face").value;
+            contextEnemy.fillStyle = DColors[smis * 4].c;
             contextEnemy.fillRect(0, 192 + 64 * smis, 192, smis == 2 ? 76 : 64);
-            contextEnemy.fillStyle = document.getElementById("middleLeftTone" + (smis * 2 + 2) + "Face").value;
+            contextEnemy.fillStyle = DColors[smis * 4 + 2].c;
             contextEnemy.fillRect(192, 192 + 64 * smis, 64, smis == 2 ? 76 : 64);
-            contextEnemy.fillStyle = document.getElementById("middleRightTone" + (smis * 2 + 1) + "Face").value;
+            contextEnemy.fillStyle = EColors[smis * 4].c;
             contextEnemy.fillRect(256, 192 + 64 * smis, 64, 64);
-            contextEnemy.fillStyle = document.getElementById("middleRightTone" + (smis * 2 + 2) + "Face").value;
+            contextEnemy.fillStyle = EColors[smis * 4 + 2].c;
             contextEnemy.fillRect(320, 192 + 64 * smis, 192, 64);
 
             var middleLeftLeftPath = new Path2D();
@@ -2950,15 +3034,15 @@ window.addEventListener("load", function () {
             middleRightRightPath.rect(394 + 0.5, 204 + 64 * smis + 0.5, 104, 40);
 
             if (document.getElementById("middleLeftLineThickness").value != "none") {
-                contextEnemy.strokeStyle = document.getElementById("middleLeftTone" + (smis * 2 + 1) + "Line").value;
+                contextEnemy.strokeStyle = DColors[smis * 4 + 1].c;
                 multipleLines(middleLeftLineThickness.width, middleLeftLineThickness.alpha, contextEnemy, middleLeftLeftPath);
-                contextEnemy.strokeStyle = document.getElementById("middleLeftTone" + (smis * 2 + 2) + "Line").value;
+                contextEnemy.strokeStyle = DColors[smis * 4 + 3].c;
                 multipleLines(middleLeftLineThickness.width, middleLeftLineThickness.alpha, contextEnemy, middleLeftRightPath);
             }
             if (document.getElementById("middleRightLineThickness").value != "none") {
-                contextEnemy.strokeStyle = document.getElementById("middleRightTone" + (smis * 2 + 1) + "Line").value;
+                contextEnemy.strokeStyle = EColors[smis * 4 + 1].c;
                 multipleLines(middleRightLineThickness.width, middleRightLineThickness.alpha, contextEnemy, middleRightLeftPath);
-                contextEnemy.strokeStyle = document.getElementById("middleRightTone" + (smis * 2 + 2) + "Line").value;
+                contextEnemy.strokeStyle = EColors[smis * 4 + 3].c;
                 multipleLines(middleRightLineThickness.width, middleRightLineThickness.alpha, contextEnemy, middleRightRightPath);
             }
 
@@ -2972,6 +3056,13 @@ window.addEventListener("load", function () {
         }
 
         //F
+        //プレヴュー用にcolオブジェクトに登録
+        let FNormalGradColors = [];
+        for (let posGR = 0; posGR < 3; posGR++) {
+            FNormalGradColors.push(Col.fromColorCode(document.getElementById("BLGradationTop" + (["Light", "Medium", "Dark"])[posGR] + "Color").value));
+            FNormalGradColors.push(Col.fromColorCode(document.getElementById("BLGradationBottom" + (["Light", "Medium", "Dark"])[posGR] + "Color").value));
+        }
+        //描画
         switch (document.getElementById("bottomLeftType").value) {
             case "normal": {
                 //帯
@@ -3002,10 +3093,10 @@ window.addEventListener("load", function () {
                 });
                 //グラデーション
                 var grad;
-                for (var posGR = 0; posGR < 3; posGR++) {
+                for (let posGR = 0; posGR < 3; posGR++) {
                     grad = contextEnemy.createLinearGradient(0, 396, 0, posStrpTop);
-                    grad.addColorStop(0, document.getElementById("BLGradationTop" + (["Light", "Medium", "Dark"])[posGR] + "Color").value);
-                    grad.addColorStop(1, document.getElementById("BLGradationBottom" + (["Light", "Medium", "Dark"])[posGR] + "Color").value);
+                    grad.addColorStop(0, FNormalGradColors[posGR * 2].c);
+                    grad.addColorStop(1, FNormalGradColors[posGR * 2 + 1].c);
                     contextEnemy.fillStyle = grad;
                     contextEnemy.fillRect(([0, 116, 141])[posGR], 396, ([116, 25, 115])[posGR], posStrpTop - 396);
                 }
@@ -3059,7 +3150,7 @@ window.addEventListener("load", function () {
         }
 
         //G
-        if (document.getElementById("bottomRightAvailable").value == "true") {
+        if (!selectedTopRightTypeOption.hasAttribute("data-overrides-risers") && !selectedSubBTypeOption.hasAttribute("data-overrides-risers")) {
             contextEnemy.strokeStyle = "#000000";
             switch (document.getElementById("bottomRightType").value) {
                 case "outlined":
@@ -3376,6 +3467,95 @@ window.addEventListener("load", function () {
                 etrpc.closePath();
                 etrpc.fill();
                 etrpc.stroke();
+            }
+            break;
+
+        }
+        //SubB
+        if (selectedTopRightTypeOption.hasAttribute("data-subB-available")) {
+            if (document.getElementById("subBType").value == "chris") {
+                //Enemy18の左下の色は
+                //#31E048, #1ED22F
+                //#1C3E2E, #10291D
+                let chrisSubBColors = [];
+                for (let gzr = 0; gzr < 3; gzr++) {
+                    for (let has = 0; has < 3; has++) {
+                        chrisSubBColors.push(document.getElementById("chrisB1" + (gzr + 1) + "-" + (has + 1)).value);
+                    }
+                }
+                etrpc = document.getElementById("chrisObjPreview").getContext("2d");
+                etrpc.clearRect(0, 0, 450, 450);
+                etrpc.textBaseline = "alphabetic";
+                etrpc.font = "12px Sen";
+                //211: 2Dツリー
+                //葉部分の色
+                // #146D23 #0E5422
+                // #18431F #183529
+                {
+                    etrpc.lineWidth = 3;
+                    //塗りつぶし
+                    let chrisSubBGradation;
+                    let chrisTreeTopWidthHalf = [12, 15, 18, 20, 15],
+                        chrisTreeBottomWidthHalf = [23, 26, 30, 30, 25],
+                        chrisTreeY = [80, 100, 120, 140, 160, 183],
+                        chrisTreeColorUsageTop = [445, 466, 450, 468, 442, 473, 442, 461, 460, 476],
+                        chrisTreeColorUsageBottom = [476, 495, 476, 494, 485, 490, 460, 479, 493, 496];
+                    for (let i = 0; i < 5; i++) { //上から下に繰り返す
+                        let colorIndex = 0 + 4 * (i % 2);
+                        //下左
+                        chrisSubBGradation = etrpc.createLinearGradient(0, chrisTreeY[i], 0, chrisTreeY[i + 1]);
+                        chrisSubBGradation.addColorStop(0, FNormalGradColors[colorIndex].blendWith(FNormalGradColors[colorIndex + 1], (chrisTreeColorUsageTop[2 * i] - 384) / 128).c);
+                        chrisSubBGradation.addColorStop(1, FNormalGradColors[colorIndex].blendWith(FNormalGradColors[colorIndex + 1], (chrisTreeColorUsageBottom[2 * i] - 384) / 128).c);
+                        etrpc.fillStyle = chrisSubBGradation;
+                        etrpc.fill(new Path2D(`M40,${chrisTreeY[i]} V${chrisTreeY[i+1]} H${40-chrisTreeBottomWidthHalf[i]} L${40-chrisTreeTopWidthHalf[i]},${chrisTreeY[i]} Z`));
+                        //下右
+                        chrisSubBGradation = etrpc.createLinearGradient(0, chrisTreeY[i], 0, chrisTreeY[i + 1]);
+                        chrisSubBGradation.addColorStop(0, FNormalGradColors[colorIndex].blendWith(FNormalGradColors[colorIndex + 1], (chrisTreeColorUsageTop[2 * i + 1] - 384) / 128).c);
+                        chrisSubBGradation.addColorStop(1, FNormalGradColors[colorIndex].blendWith(FNormalGradColors[colorIndex + 1], (chrisTreeColorUsageBottom[2 * i + 1] - 384) / 128).c);
+                        etrpc.fillStyle = chrisSubBGradation;
+                        etrpc.fill(new Path2D(`M40,${chrisTreeY[i]} H${40+chrisTreeTopWidthHalf[i]} L${40+chrisTreeBottomWidthHalf[i]},${chrisTreeY[i+1]} H40 Z`));
+                    }
+                    //木の本体(外枠)
+                    etrpc.strokeStyle = DColors[4].c;
+                    etrpc.stroke(new Path2D("M40,50 L60,80 H52 L63,100 H55 L66,120 H58 L70,140 H60 L70,160 H55 L65,183" + "H15 L25,160 H10 L20,140 H10 L22,120 H14 L25,100 H17 L28,80 H20 Z"));
+                    etrpc.fillStyle = DColors[4].c;
+                    etrpc.fill(new Path2D("M40,50 L53,70 H27 Z"));
+                    //オーナメント
+                    etrpc.beginPath();
+                    etrpc.fillStyle = chrisSubBColors[1];
+                    etrpc.arc(42, 80, 3.5, 0, 2 * Math.PI);
+                    etrpc.fill();
+                    etrpc.fillStyle = chrisSubBColors[2];
+                    etrpc.beginPath();
+                    etrpc.arc(34, 98, 3.5, 0, 2 * Math.PI);
+                    etrpc.moveTo(30, 137);
+                    etrpc.arc(30, 140, 3.5, 0, 2 * Math.PI);
+                    etrpc.fill();
+                    etrpc.fillStyle = chrisSubBColors[3];
+                    etrpc.beginPath();
+                    etrpc.arc(48, 118, 3.5, 0, 2 * Math.PI);
+                    etrpc.fill();
+                    //ラベル
+                    etrpc.textAlign = "left";
+                    etrpc.fillStyle = "#000000";
+                    etrpc.strokeStyle = "#000000";
+                    etrpc.lineWidth = 1.5;
+                    etrpc.fillText("objName211", 8, 16, 300);
+                    etrpc.stroke(new Path2D("M42,80 L60,60"));
+                    etrpc.fillText("2", 60, 60, 100);
+                    etrpc.stroke(new Path2D("M48,118 L70,130"));
+                    etrpc.fillText("4", 70, 130, 100);
+                    etrpc.fillText("D3", 3, 95, 100);
+                }
+                //212: 三日月のカード
+                //213: 小人のカード
+                //214: 暖炉のカード
+                //215: 橇のカード
+                //216: 贈り物のカード
+                //217: サンタのカード
+                //218: 膨らむサンタ
+                //29-32, 233: 3Dツリー
+                //234: 3D雪だるま
             }
         }
     }
