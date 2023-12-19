@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- update no. 15-->
-<html charset="utf-8" data-theme="light">
+<html data-theme="light">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="pagename" content="Rolling Sky Spritesheet Generator">
     <title data-translation-key="appTitle">
         Rolling Sky Spritesheet Generator
     </title>
-    <meta name="pagename" content="Rolling Sky Spritesheet Generator">
     <link id="mainStylesheet" rel="stylesheet" href="files/main.css">
     <link id="formstylesheet" rel="stylesheet" href="files/form.css">
     <link id="layoutstylesheet" rel="stylesheet" href="files/layoutall.css">
@@ -115,7 +115,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.4</a></span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.5</a></span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -147,18 +147,19 @@
                 </p>
                 <ol id="recentVersionList">
                     <li>
+                        <h2>1.1.5 (2023 Dec 19)</h2>
+                        <ul>
+                            <li>Added Enemy top-right pattern "The 4th Anniversary" (from The 4th Anniversary - Birthday Party - A Dream of 7 Years)</li>
+                            <li>Added Enemy secondary theme area pattern "Candy/Christmas" with unfinished previews</li>
+                            <li>Fixed 3rd Anniversary top-right color setting not being saved to JSON theme files</li>
+                        </ul>
+                    </li>
+                    <li>
                         <h2>1.1.4 (2023 Nov 05)</h2>
                         <ul>
                             <li>Added Enemy top-right pattern "Pixel" (from 1UP - 8Bit)</li>
                             <li>Added Enemy secondary theme area pattern "Halloween" (from Halloween - Ghost Dance)</li>
                             <li>Fixed small jump area</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h2>1.1.3 (2023 Oct 28)</h2>
-                        <ul>
-                            <li>Added Flip tile pattern "Cherry Blossom" (from Flower Dance - Falling Blossoms)</li>
-                            <li>Jumppad tile pattern "Circle+rhombus" reinstated</li>
                         </ul>
                     </li>
                 </ol>
@@ -750,6 +751,15 @@
                                     <label>
                                         <span data-translation-key="topRightType"></span>
                                         <select id="topRightType">
+                                            <!--
+                                                右上設定の汎用オブジェクトとの共存可能性を表した論理属性一覧
+                                                data-subB-available         第二テーマ領域使用可能
+                                                data-neonbox-available      ネオンボックス使用可能
+                                                data-minijump-available     半ジャンプ使用可能
+                                                data-flipper-available      反転床使用可能
+                                                data-overrides-risers       右下も使用する
+                                                data-no-flipper-side        B12を使用する
+                                            -->
                                             <option data-translation-key="topRightFloater" value="floater" data-option-form="floaterCustomizationForm" data-subB-available></option>
                                             <option data-translation-key="topRightCrystal" value="crystal" data-option-form="crystalTRCustomizationForm" data-subB-available></option>
                                             <option data-translation-key="topRight1Up" value="oneup" data-option-form="1UpCustomizationForm" data-neonbox-available data-minijump-available></option>
@@ -757,9 +767,9 @@
                                             <option data-translation-key="topRightAncient" value="relics" data-option-form="ancientCustomizationForm" data-neonbox-available></option>
                                             <option data-translation-key="topRightNeon" value="neon" data-option-form="neonCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                             <option data-translation-key="topRightHBD" value="hbd" data-option-form="HBDCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
-                                            <!--<option data-translation-key="topRightT4A" value="t4a" data-option-form="t4ACustomizationForm" data-flipper-available data-neonbox-available></option>-->
+                                            <option data-translation-key="topRightT4A" value="t4a" data-option-form="t4ACustomizationForm" data-flipper-available data-neonbox-available data-overrides-risers data-no-flipper-side></option>
                                             <option data-translation-key="topRightSunshine" value="sunshine" data-option-form="SunshineCustomizationForm" data-neonbox-available></option>
-                                            <!--<option data-translation-key="topRightKepler" value="kepler" data-option-form="keplerCustomizationForm" data-flipper-available data-neonbox-available></option>-->
+                                            <!--<option data-translation-key="topRightKepler" value="kepler" data-option-form="keplerCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <!--
                                             <option data-translation-key="topRightSpectre" value="spectre" data-option-form="spectreCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightMarshmello" value="marshmello" data-option-form="marshmelloCustomizationForm" data-flipper-available data-neonbox-available></option>
@@ -771,7 +781,7 @@
                                             <option data-translation-key="topRightDisco" value="disco" data-option-form="discoCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightSteampunk" value="steampunk" data-option-form="steampunkCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             -->
-                                            <!--<option data-translation-key="topRightJadeRabbit" value="spfestv2" data-option-form="spFestV2CustomizationForm" data-flipper-available data-neonbox-available></option>-->
+                                            <!--<option data-translation-key="topRightJadeRabbit" value="spfestv2" data-option-form="spFestV2CustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <!--
                                             <option data-translation-key="topRightSpaceTravel" value="spacetravel" data-option-form="spacetravelCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             -->
@@ -781,6 +791,7 @@
                                 <div id="topRightCustomizationDefaultContent">???</div>
                                 <!-- 星 fl-->
                                 <div id="floaterCustomizationForm">
+                                    <p data-translation-key="RSRFloaterInfo"></p>
                                     <!-- fl1 -->
                                     <label><span data-translation-key="floaterMainColor"></span><input type="color" id="floaterMainColor" value="#8C847E"></label><br>
                                     <!-- fl2 -->
@@ -1304,6 +1315,158 @@
                                 <!-- マイクロチップ mc -->
                                 <!-- 四周年 t4a -->
                                 <div id="t4ACustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPresetT4A" data-preset="t4a">
+                                    <input type="button" data-translation-key="TRPresetBdayParty" data-preset="bdparty">
+                                    <input type="button" data-translation-key="TRPresetADo7Y" data-preset="ado7y">
+                                    <input type="button" data-translation-key="TRPresetDreamTravel" data-preset="dreamtravel">
+                                    <h3 data-translation-key="t4aBalloonGradation"></h3>
+                                    <label><span data-translation-key="topEnd"></span>
+                                        <input type="color" id="t4aBalloonGradationTop" value="#FF8564" data-preset-t4a="#FF8564" data-preset-bdparty="#C0FC75" data-preset-ado7y="#EBEBFF" data-preset-dreamtravel="#EC6867">
+                                    </label><br>
+                                    <label><span data-translation-key="bottomEnd"></span>
+                                        <input type="color" id="t4aBalloonGradationBottom" value="#E90F54" data-preset-t4a="#E90F54" data-preset-bdparty="#01CCAE" data-preset-ado7y="#69C8FF" data-preset-dreamtravel="#D5112E">
+                                    </label>
+                                    <h3 data-translation-key="t4aAdditionalObstacleBaseColor"></h3>
+                                    <label><span><span data-translation-key="tone#"></span>1</span>
+                                        <input type="color" id="t4aBase1" value="#7C7886" data-preset-t4a="#7C7886" data-preset-bdparty="#595959" data-preset-ado7y="#B4BEFF" data-preset-dreamtravel="#DE127F">
+                                    </label><br>
+                                    <label><span><span data-translation-key="tone#"></span>2</span>
+                                        <input type="color" id="t4aBase2" value="#6E6B73" data-preset-t4a="#6E6B73" data-preset-bdparty="#4F4F4F" data-preset-ado7y="#A9B4FF" data-preset-dreamtravel="#BD0F67">
+                                    </label><br>
+                                    <h3 data-translation-key="t4aAdditionalObstacleAccentColor"></h3>
+                                    <label><span><span data-translation-key="tone#"></span>1</span>
+                                        <input type="color" id="t4aAccent1" value="#F4587D" data-preset-t4a="#F4587D" data-preset-bdparty="#FA50F8" data-preset-ado7y="#CBE3FF" data-preset-dreamtravel="#E25683">
+                                    </label><br>
+                                    <label><span><span data-translation-key="tone#"></span>2</span>
+                                        <input type="color" id="t4aAccent2" value="#FF3A61" data-preset-t4a="#FF3A61" data-preset-bdparty="#F330F0" data-preset-ado7y="#6AC8FF" data-preset-dreamtravel="#E14366">
+                                    </label><br>
+                                    <label><span><span data-translation-key="tone#"></span>3</span>
+                                        <input type="color" id="t4aAccent3" value="#DF2D57" data-preset-t4a="#DF2D57" data-preset-bdparty="#E513E1" data-preset-ado7y="#80C8FF" data-preset-dreamtravel="#DC1739">
+                                    </label><br>
+                                    <label><span><span data-translation-key="tone#"></span>4</span>
+                                        <input type="color" id="t4aAccent4" value="#BE294C" data-preset-t4a="#BE294C" data-preset-bdparty="#D011CD" data-preset-ado7y="#86C7FF" data-preset-dreamtravel="#C71026">
+                                    </label><br>
+                                    <label><span><span data-translation-key="tone#"></span>5</span>
+                                        <input type="color" id="t4aAccent5" value="#A12C47" data-preset-t4a="#A12C47" data-preset-bdparty="#C00EBD" data-preset-ado7y="#8DC9FF" data-preset-dreamtravel="#B00E27">
+                                    </label>
+                                    <h3 data-translation-key="t4aCheckeredColor"></h3>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th><span data-translation-key="color#"></span>A</th>
+                                                <th><span data-translation-key="color#"></span>B</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>1</th>
+                                                <td><label><input type="color" id="t4aCheckedColorA1" value="#6F6A75" data-preset-t4a="#6F6A75" data-preset-bdparty="#6F6A75" data-preset-ado7y="#A7B4FF" data-preset-dreamtravel="#BF106A"></label></td>
+                                                <td><label><input type="color" id="t4aCheckedColorB1" value="#5E5A62" data-preset-t4a="#5E5A62" data-preset-bdparty="#5E5A62" data-preset-ado7y="#858FFF" data-preset-dreamtravel="#A70E62"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>2</th>
+                                                <td><label><input type="color" id="t4aCheckedColorA2" value="#56525B" data-preset-t4a="#56525B" data-preset-bdparty="#56525B" data-preset-ado7y="#777FF8" data-preset-dreamtravel="#A81862"></label></td>
+                                                <td><label><input type="color" id="t4aCheckedColorB2" value="#403E43" data-preset-t4a="#403E43" data-preset-bdparty="#403E43" data-preset-ado7y="#4B5582" data-preset-dreamtravel="#A8404F"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>3</th>
+                                                <td><label><input type="color" id="t4aCheckedColorA3" value="#454249" data-preset-t4a="#454249" data-preset-bdparty="#454249" data-preset-ado7y="#585B93" data-preset-dreamtravel="#EC4E69"></label></td>
+                                                <td><label><input type="color" id="t4aCheckedColorB3" value="#3D3A40" data-preset-t4a="#3D3A40" data-preset-bdparty="#3D3A40" data-preset-ado7y="#474A64" data-preset-dreamtravel="#4C3042"></label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h3 data-translation-key="mainQuadPalette"></h3>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th><span data-translation-key="color#"></span>A</th>
+                                                <th><span data-translation-key="color#"></span>B</th>
+                                                <th><span data-translation-key="color#"></span>C</th>
+                                                <th><span data-translation-key="color#"></span>D</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>1</th>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteA1" value="#5692F2" data-preset-t4a="#5692F2" data-preset-bdparty="#5692F2" data-preset-ado7y="#C672C4" data-preset-dreamtravel="#BC6FE0"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteB1" value="#86F486" data-preset-t4a="#86F486" data-preset-bdparty="#86F486" data-preset-ado7y="#F2AFFF" data-preset-dreamtravel="#97D59C"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteC1" value="#ECE98D" data-preset-t4a="#ECE98D" data-preset-bdparty="#ECE98D" data-preset-ado7y="#C8E4FF" data-preset-dreamtravel="#F8E9A8"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteD1" value="#EAA35D" data-preset-t4a="#EAA35D" data-preset-bdparty="#EAA35D" data-preset-ado7y="#77D4E9" data-preset-dreamtravel="#E9514B"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>2</th>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteA2" value="#387EEF" data-preset-t4a="#387EEF" data-preset-bdparty="#387EEF" data-preset-ado7y="#D553BC" data-preset-dreamtravel="#CE47F0"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteB2" value="#6BFA6C" data-preset-t4a="#6BFA6C" data-preset-bdparty="#6BFA6C" data-preset-ado7y="#F69EFF" data-preset-dreamtravel="#8ECA8E"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteC2" value="#FFFC58" data-preset-t4a="#FFFC58" data-preset-bdparty="#FFFC58" data-preset-ado7y="#CFDDFF" data-preset-dreamtravel="#F6E68D"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteD2" value="#FF8F1D" data-preset-t4a="#FF8F1D" data-preset-bdparty="#FF8F1D" data-preset-ado7y="#67CBFF" data-preset-dreamtravel="#E52B22"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>3</th>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteA3" value="#2B5394" data-preset-t4a="#2B5394" data-preset-bdparty="#2B5394" data-preset-ado7y="#8B4268" data-preset-dreamtravel="#AE1ABD"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteB3" value="#399039" data-preset-t4a="#399039" data-preset-bdparty="#399039" data-preset-ado7y="#AD58FF" data-preset-dreamtravel="#89363C"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteC3" value="#B59838" data-preset-t4a="#B59838" data-preset-bdparty="#B59838" data-preset-ado7y="#7DC2FF" data-preset-dreamtravel="#CA1017"></label></td>
+                                                <td><label><input type="color" id="t4aMainQuadPaletteD3" value="#9C5226" data-preset-t4a="#9C5226" data-preset-bdparty="#9C5226" data-preset-ado7y="#18A6FF" data-preset-dreamtravel="#A90D11"></label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h3 data-translation-key="subQuadPalette"></h3>
+                                    <label><span data-translation-key="linkQuadPalettes"></span><input id="linkQuadPalettes" type="checkbox" checked data-preset-t4a="true" data-preset-bdparty="true" data-preset-ado7y="true" data-preset-dreamtravel="true" data-preset-attribute="checked"></label>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th><span data-translation-key="color#"></span>A</th>
+                                                <th><span data-translation-key="color#"></span>B</th>
+                                                <th><span data-translation-key="color#"></span>C</th>
+                                                <th><span data-translation-key="color#"></span>D</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>1</th>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteA1" value="#5692F2" data-preset-t4a="#5692F2" data-preset-bdparty="#5692F2" data-preset-ado7y="#C672C4" data-preset-dreamtravel="#BC6FE0"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteB1" value="#86F486" data-preset-t4a="#86F486" data-preset-bdparty="#86F486" data-preset-ado7y="#F2AFFF" data-preset-dreamtravel="#97D59C"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteC1" value="#ECE98D" data-preset-t4a="#ECE98D" data-preset-bdparty="#ECE98D" data-preset-ado7y="#C8E4FF" data-preset-dreamtravel="#F8E9A8"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteD1" value="#EAA35D" data-preset-t4a="#EAA35D" data-preset-bdparty="#EAA35D" data-preset-ado7y="#77D4E9" data-preset-dreamtravel="#E9514B"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>2</th>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteA2" value="#387EEF" data-preset-t4a="#387EEF" data-preset-bdparty="#387EEF" data-preset-ado7y="#D553BC" data-preset-dreamtravel="#CE47F0"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteB2" value="#6BFA6C" data-preset-t4a="#6BFA6C" data-preset-bdparty="#6BFA6C" data-preset-ado7y="#F69EFF" data-preset-dreamtravel="#8ECA8E"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteC2" value="#FFFC58" data-preset-t4a="#FFFC58" data-preset-bdparty="#FFFC58" data-preset-ado7y="#CFDDFF" data-preset-dreamtravel="#F6E68D"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteD2" value="#FF8F1D" data-preset-t4a="#FF8F1D" data-preset-bdparty="#FF8F1D" data-preset-ado7y="#67CBFF" data-preset-dreamtravel="#E52B22"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="tone#"></span>3</th>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteA3" value="#2B5394" data-preset-t4a="#2B5394" data-preset-bdparty="#2B5394" data-preset-ado7y="#8B4268" data-preset-dreamtravel="#AE1ABD"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteB3" value="#399039" data-preset-t4a="#399039" data-preset-bdparty="#399039" data-preset-ado7y="#AD58FF" data-preset-dreamtravel="#89363C"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteC3" value="#B59838" data-preset-t4a="#B59838" data-preset-bdparty="#B59838" data-preset-ado7y="#7DC2FF" data-preset-dreamtravel="#CA1017"></label></td>
+                                                <td><label><input type="color" id="t4aSubQuadPaletteD3" value="#9C5226" data-preset-t4a="#9C5226" data-preset-bdparty="#9C5226" data-preset-ado7y="#18A6FF" data-preset-dreamtravel="#A90D11"></label></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <h3 data-translation-key="t4aCakeStripes"></h3>
+                                    <label><span data-translation-key="reuseMainPaletteColor4Stripes"></span><input id="reuseMainPaletteColor4Stripes" type="checkbox" checked data-preset-t4a="true" data-preset-bdparty="true" data-preset-ado7y="true" data-preset-dreamtravel="true" data-preset-attribute="checked"></label>
+                                    <table>
+                                        <tr>
+                                            <th data-translation-key="topEnd"></th>
+                                            <td><input type="color" id="t4aCakeStripe1" value="#387EEF" data-preset-t4a="#387EEF" data-preset-bdparty="#387EEF" data-preset-ado7y="#D553BC" data-preset-dreamtravel="#CE47F0"></td>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="2">Λ<br>|<br>V</th>
+                                            <td><input type="color" id="t4aCakeStripe2" value="#6BFA6C" data-preset-t4a="#6BFA6C" data-preset-bdparty="#6BFA6C" data-preset-ado7y="#F69EFF" data-preset-dreamtravel="#8ECA8E"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="color" id="t4aCakeStripe3" value="#FFFC58" data-preset-t4a="#FFFC58" data-preset-bdparty="#FFFC58" data-preset-ado7y="#CFDDFF" data-preset-dreamtravel="#F6E68D"></td>
+                                        </tr>
+                                        <tr>
+                                            <th data-translation-key="bottomEnd"></th>
+                                            <td><input type="color" id="t4aCakeStripe4" value="#FF8F1D" data-preset-t4a="#FF8F1D" data-preset-bdparty="#FF8F1D" data-preset-ado7y="#67CBFF" data-preset-dreamtravel="#E52B22"></td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <!-- 陽光 ss -->
                                 <div id="SunshineCustomizationForm">
@@ -1493,9 +1656,9 @@
                                             <option value="classicalroller" data-translation-key="subBClassicalRoller" data-option-form="classicalRollerSubBForm"></option>
                                             <option value="desert" data-translation-key="subBDesert" data-option-form="desertSubBForm"></option>
                                             <option value="halloween" data-translation-key="subBHalloween" data-option-form="halloweenSubBForm"></option>
+                                            <option value="chris" data-translation-key="subBChris" data-option-form="chrisSubBForm" data-overrides-risers></option>
                                             <!--
                                             <option value="kungfu" data-translation-key="subBKungfu" data-option-form="kungfuSubBForm"></option>
-                                            <option value="chris" data-translation-key="subBChris" data-option-form="chrisSubBForm" data-override-risers></option>
                                             <option value="space" data-translation-key="subBSpace" data-option-form="spaceSubBForm"></option>
                                             -->
                                         </select>
@@ -1545,46 +1708,73 @@
                                 <div id="kungfuSubBForm">
                                 </div>
                                 <div id="chrisSubBForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="subBPresetChrisBlue" data-preset="chrisblue">
+                                    <input type="button" data-translation-key="subBPresetChrisYellow" data-preset="chrisyellow">
+                                    <input type="button" data-translation-key="subBPresetCandyDay" data-preset="candyday">
+                                    <input type="button" data-translation-key="subBPresetCandyNight" data-preset="candynight">
+                                    <p data-translation-key="chrisBottomLeftAttention"></p>
+                                    <h3 data-translation-key="chrisAdditionalPalette"></h3>
+                                    <label><span>1</span><input type="color" id="chrisB11-1" value="#FA2C30" data-preset-chrisblue="#FA2C30" data-preset-chrisyellow="#FA2C30" data-preset-candyday="#5AFCC8" data-preset-candynight="#5AFCC8"></label>
+                                    <label><span>2</span><input type="color" id="chrisB11-2" value="#FEC352" data-preset-chrisblue="#FEC352" data-preset-chrisyellow="#FEAE18" data-preset-candyday="#FEC352" data-preset-candynight="#FEC352"></label>
+                                    <label><span>3</span><input type="color" id="chrisB11-3" value="#4CFCDB" data-preset-chrisblue="#4CFCDB" data-preset-chrisyellow="#B815FE" data-preset-candyday="#3DEEAA" data-preset-candynight="#3DEEAA"></label>
+                                    <label><span>4</span><input type="color" id="chrisB11-4" value="#FFEB3E" data-preset-chrisblue="#FFEB3E" data-preset-chrisyellow="#FFEB3E" data-preset-candyday="#FFEB3E" data-preset-candynight="#FFEB3E"></label>
+                                    <label><span>5</span><input type="color" id="chrisB12-1" value="#85ADF1" data-preset-chrisblue="#85ADF1" data-preset-chrisyellow="#A8BAE6" data-preset-candyday="#5CDCED" data-preset-candynight="#5CDCED"></label>
+                                    <label><span>6</span><input type="color" id="chrisB12-2" value="#C2D9F7" data-preset-chrisblue="#C2D9F7" data-preset-chrisyellow="#CADFF6" data-preset-candyday="#C3FAEB" data-preset-candynight="#C3FAEB"></label>
+                                    <label><span>7</span><input type="color" id="chrisB12-3" value="#BE7B1C" data-preset-chrisblue="#BE7B1C" data-preset-chrisyellow="#94491B" data-preset-candyday="#B47419" data-preset-candynight="#B47419"></label>
+                                    <label><span>8</span><input type="color" id="chrisB12-4" value="#DC942E" data-preset-chrisblue="#DC942E" data-preset-chrisyellow="#CB7627" data-preset-candyday="#D69030" data-preset-candynight="#D69030"></label>
+                                    <label><span>9</span><input type="color" id="chrisB13-1" value="#FBC670" data-preset-chrisblue="#FBC670" data-preset-chrisyellow="#F3C31F" data-preset-candyday="#FCC060" data-preset-candynight="#FCC060"></label>
+                                    <label><span>10</span><input type="color" id="chrisB13-2" value="#FBB748" data-preset-chrisblue="#FBB748" data-preset-chrisyellow="#EC9F23" data-preset-candyday="#FBB748" data-preset-candynight="#FBB748"></label>
+                                    <label><span>11</span><input type="color" id="chrisB13-3" value="#F3967E" data-preset-chrisblue="#F3967E" data-preset-chrisyellow="#F3967E" data-preset-candyday="#F3967E" data-preset-candynight="#F3967E"></label>
+                                    <label><span>12</span><input type="color" id="chrisB13-4" value="#F8CF9D" data-preset-chrisblue="#F8CF9D" data-preset-chrisyellow="#F8CF9D" data-preset-candyday="#F8CEB9" data-preset-candynight="#F8CEB9"></label>
+                                    <h3><span data-translation-key="chrisGradationA"></span>(13)</h3>
+                                    <label><span data-translation-key="leftEnd"></span><input type="color" id="chrisUpperGradationLeft" value="#F03D34" data-preset-chrisblue="#F03D34" data-preset-chrisyellow="#F35834" data-preset-candyday="#F01F61" data-preset-candynight="#D946EE"></label>
+                                    <label><span data-translation-key="rightEnd"></span><input type="color" id="chrisUpperGradationRight" value="#FC5C34" data-preset-chrisblue="#FC5C34" data-preset-chrisyellow="#F32D39" data-preset-candyday="#FD6B85" data-preset-candynight="#EB78FB"></label>
+                                    <h3><span data-translation-key="chrisGradationB"></span>(14)</h3>
+                                    <label><span data-translation-key="leftEnd"></span><input type="color" id="chrisLowerGradationLeft" value="#DE1A3E" data-preset-chrisblue="#DE1A3E" data-preset-chrisyellow="#EF3918" data-preset-candyday="#EE3463" data-preset-candynight="#D340EA"></label>
+                                    <label><span data-translation-key="rightEnd"></span><input type="color" id="chrisLowerGradationRight" value="#F84E51" data-preset-chrisblue="#F84E51" data-preset-chrisyellow="#FB9C51" data-preset-candyday="#FE9985" data-preset-candynight="#F4B4FE"></label><br>
                                     <h3 data-translation-key="BRAdditionalPalette"></h3>
                                     <table>
                                         <thead>
                                             <tr>
                                                 <td></td>
-                                                <th data-translation-key="face"></th>
-                                                <th data-translation-key="line"></th>
+                                                <th colspan="2"><span data-translation-key="tone#"></span>1</th>
+                                                <th colspan="2"><span data-translation-key="tone#"></span>2</th>
+                                                <th colspan="2"><span data-translation-key="tone#"></span>3</th>
+                                            </tr>
+                                            <tr>
                                                 <td></td>
                                                 <th data-translation-key="face"></th>
                                                 <th data-translation-key="line"></th>
-                                                <td></td>
+                                                <th data-translation-key="face"></th>
+                                                <th data-translation-key="line"></th>
                                                 <th data-translation-key="face"></th>
                                                 <th data-translation-key="line"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th><span data-translation-key="ChrisPaletteATone1"></span>:</th>
-                                                <td><input type="color" id="ChrisPaletteATone1Face" value="#C46934"></td>
-                                                <td><input type="color" id="ChrisPaletteATone1Line" value="#A8653B"></td>
-                                                <th><span data-translation-key="ChrisPaletteATone2"></span>:</th>
-                                                <td><input type="color" id="ChrisPaletteATone2Face" value="#914A27"></td>
-                                                <td><input type="color" id="ChrisPaletteATone2Line" value="#77452A"></td>
-                                                <th><span data-translation-key="ChrisPaletteATone3"></span>:</th>
-                                                <td><input type="color" id="ChrisPaletteATone3Face" value="#763D1C"></td>
-                                                <td><input type="color" id="ChrisPaletteATone3Line" value="#683E24"></td>
+                                                <th><span data-translation-key="color#"></span>1</th>
+                                                <td><input type="color" id="ChrisPaletteATone1Face" value="#C46934" data-preset-chrisblue="#C46934" data-preset-chrisyellow="#A84625" data-preset-candyday="#B06437" data-preset-candynight="#B06437"></td>
+                                                <td><input type="color" id="ChrisPaletteATone1Line" value="#A8653B" data-preset-chrisblue="#A8653B" data-preset-chrisyellow="#9E5735" data-preset-candyday="#9F633C" data-preset-candynight="#9F633C"></td>
+                                                <td><input type="color" id="ChrisPaletteATone2Face" value="#914A27" data-preset-chrisblue="#914A27" data-preset-chrisyellow="#852B18" data-preset-candyday="#8D4E2B" data-preset-candynight="#8D4E2B"></td>
+                                                <td><input type="color" id="ChrisPaletteATone2Line" value="#77452A" data-preset-chrisblue="#77452A" data-preset-chrisyellow="#733B25" data-preset-candyday="#75472C" data-preset-candynight="#75472C"></td>
+                                                <td><input type="color" id="ChrisPaletteATone3Face" value="#763D1C" data-preset-chrisblue="#763D1C" data-preset-chrisyellow="#5D1E05" data-preset-candyday="#633211" data-preset-candynight="#633211"></td>
+                                                <td><input type="color" id="ChrisPaletteATone3Line" value="#683E24" data-preset-chrisblue="#683E24" data-preset-chrisyellow="#60341D" data-preset-candyday="#623A21" data-preset-candynight="#623A21"></td>
                                             </tr>
                                             <tr>
-                                                <th><span data-translation-key="ChrisPaletteBTone1"></span>:</th>
-                                                <td><input type="color" id="ChrisPaletteBTone1Face" value="#09A13B"></td>
-                                                <td><input type="color" id="ChrisPaletteBTone1Line" value="#2A7629"></td>
-                                                <th><span data-translation-key="ChrisPaletteBTone2"></span>:</th>
-                                                <td><input type="color" id="ChrisPaletteBTone2Face" value="#06792E"></td>
-                                                <td><input type="color" id="ChrisPaletteBTone2Line" value="#1F5B20"></td>
-                                                <th><span data-translation-key="ChrisPaletteBTone3"></span>:</th>
-                                                <td><input type="color" id="ChrisPaletteBTone3Face" value="#086021"></td>
-                                                <td><input type="color" id="ChrisPaletteBTone3Line" value="#1C4B19"></td>
+                                                <th><span data-translation-key="color#"></span>2</th>
+                                                <td><input type="color" id="ChrisPaletteBTone1Face" value="#09A13B" data-preset-chrisblue="#09A13B" data-preset-chrisyellow="#529E0C" data-preset-candyday="#29B7F9" data-preset-candynight="#A55CF3"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone1Line" value="#2A7629" data-preset-chrisblue="#2A7629" data-preset-chrisyellow="#427B19" data-preset-candyday="#337F67" data-preset-candynight="#5B6165"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone2Face" value="#06792E" data-preset-chrisblue="#06792E" data-preset-chrisyellow="#4B7D08" data-preset-candyday="#397BF6" data-preset-candynight="#8941F4"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone2Line" value="#1F5B20" data-preset-chrisblue="#1F5B20" data-preset-chrisyellow="#355D13" data-preset-candyday="#305C61" data-preset-candynight="#4A4960"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone3Face" value="#086021" data-preset-chrisblue="#086021" data-preset-chrisyellow="#3C6309" data-preset-candyday="#5549D9" data-preset-candynight="#6938EF"></td>
+                                                <td><input type="color" id="ChrisPaletteBTone3Line" value="#1C4B19" data-preset-chrisblue="#1C4B19" data-preset-chrisyellow="#2C4C11" data-preset-candyday="#354455" data-preset-candynight="#3B3E5C"></td>
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <div data-translation-key="objectPreview"></div>
+                                    <canvas id="chrisObjPreview" width="450" height="450"></canvas>
                                 </div>
                             </fieldset>
                         </div>
