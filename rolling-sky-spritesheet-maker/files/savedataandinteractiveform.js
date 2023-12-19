@@ -1,8 +1,7 @@
-//update no. 6
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
-var versionName = "1.1.4";
-var versionNum = 14;
+var versionName = "1.1.5";
+var versionNum = 15;
 var dataFormat = [
     {id:"groundColor", prop:"value"},
     {id:"groundLineColor", prop:"value"},
@@ -187,6 +186,67 @@ var dataFormat = [
     {id:"neonRobotGear5", prop:"value"},
     {id:"neonRobotCordFront", prop:"value"},
     {id:"neonRobotCordSide", prop:"value"},
+    //bd
+    {id:"HBDPaletteA1", prop:"value"},
+    {id:"HBDPaletteA2", prop:"value"},
+    {id:"HBDPaletteA3", prop:"value"},
+    {id:"HBDPaletteA4", prop:"value"},
+    {id:"HBDPaletteB1", prop:"value"},
+    {id:"HBDPaletteB2", prop:"value"},
+    {id:"HBDPaletteB3", prop:"value"},
+    {id:"HBDPaletteB4", prop:"value"},
+    {id:"HBDGradationTop", prop:"value"},
+    {id:"HBDGradationBottom", prop:"value"},
+    {id:"HBDRainbow1", prop:"value"},
+    {id:"HBDRainbow2", prop:"value"},
+    {id:"HBDRainbow3", prop:"value"},
+    {id:"HBDRainbow4", prop:"value"},
+    {id:"HBDRainbow5", prop:"value"},
+    {id:"HBDRainbow6", prop:"value"},
+    //t4a
+    {id:"t4aBalloonGradationTop", prop:"value"},
+    {id:"t4aBalloonGradationBottom", prop:"value"},
+    {id:"t4aBase1", prop:"value"},
+    {id:"t4aBase2", prop:"value"},
+    {id:"t4aAccent1", prop:"value"},
+    {id:"t4aAccent2", prop:"value"},
+    {id:"t4aAccent3", prop:"value"},
+    {id:"t4aAccent4", prop:"value"},
+    {id:"t4aAccent5", prop:"value"},
+    {id:"t4aCheckedColorA1", prop:"value"},
+    {id:"t4aCheckedColorB1", prop:"value"},
+    {id:"t4aCheckedColorA2", prop:"value"},
+    {id:"t4aCheckedColorB2", prop:"value"},
+    {id:"t4aCheckedColorA3", prop:"value"},
+    {id:"t4aCheckedColorB3", prop:"value"},
+    {id:"t4aMainQuadPaletteA1", prop:"value"},
+    {id:"t4aMainQuadPaletteB1", prop:"value"},
+    {id:"t4aMainQuadPaletteC1", prop:"value"},
+    {id:"t4aMainQuadPaletteD1", prop:"value"},
+    {id:"t4aMainQuadPaletteA2", prop:"value"},
+    {id:"t4aMainQuadPaletteB2", prop:"value"},
+    {id:"t4aMainQuadPaletteC2", prop:"value"},
+    {id:"t4aMainQuadPaletteD2", prop:"value"},
+    {id:"t4aMainQuadPaletteA3", prop:"value"},
+    {id:"t4aMainQuadPaletteB3", prop:"value"},
+    {id:"t4aMainQuadPaletteC3", prop:"value"},
+    {id:"t4aMainQuadPaletteD3", prop:"value"},
+    {id:"t4aSubQuadPaletteA1", prop:"value"},
+    {id:"t4aSubQuadPaletteB1", prop:"value"},
+    {id:"t4aSubQuadPaletteC1", prop:"value"},
+    {id:"t4aSubQuadPaletteD1", prop:"value"},
+    {id:"t4aSubQuadPaletteA2", prop:"value"},
+    {id:"t4aSubQuadPaletteB2", prop:"value"},
+    {id:"t4aSubQuadPaletteC2", prop:"value"},
+    {id:"t4aSubQuadPaletteD2", prop:"value"},
+    {id:"t4aSubQuadPaletteA3", prop:"value"},
+    {id:"t4aSubQuadPaletteB3", prop:"value"},
+    {id:"t4aSubQuadPaletteC3", prop:"value"},
+    {id:"t4aSubQuadPaletteD3", prop:"value"},
+    {id:"t4aCakeStripe1", prop:"value"},
+    {id:"t4aCakeStripe2", prop:"value"},
+    {id:"t4aCakeStripe3", prop:"value"},
+    {id:"t4aCakeStripe4", prop:"value"},
     //ss
     {id:"sunshineMain1", prop:"value"},
     {id:"sunshineMain2", prop:"value"},
@@ -216,6 +276,35 @@ var dataFormat = [
     {id:"halloweenPumpkinGradationRight", prop:"value"},
     {id:"halloweenPumpkinGradationLineLeft", prop:"value"},
     {id:"halloweenPumpkinGradationLineRight", prop:"value"},
+    
+    {id:"chrisB11-1", prop:"value"},
+    {id:"chrisB11-2", prop:"value"},
+    {id:"chrisB11-3", prop:"value"},
+    {id:"chrisB11-4", prop:"value"},
+    {id:"chrisB12-1", prop:"value"},
+    {id:"chrisB12-2", prop:"value"},
+    {id:"chrisB12-3", prop:"value"},
+    {id:"chrisB12-4", prop:"value"},
+    {id:"chrisB13-1", prop:"value"},
+    {id:"chrisB13-2", prop:"value"},
+    {id:"chrisB13-3", prop:"value"},
+    {id:"chrisB13-4", prop:"value"},
+    {id:"chrisUpperGradationLeft", prop:"value"},
+    {id:"chrisUpperGradationRight", prop:"value"},
+    {id:"chrisLowerGradationLeft", prop:"value"},
+    {id:"chrisLowerGradationRight", prop:"value"},
+    {id:"ChrisPaletteATone1Face", prop:"value"},
+    {id:"ChrisPaletteATone2Face", prop:"value"},
+    {id:"ChrisPaletteATone3Face", prop:"value"},
+    {id:"ChrisPaletteATone1Line", prop:"value"},
+    {id:"ChrisPaletteATone2Line", prop:"value"},
+    {id:"ChrisPaletteATone3Line", prop:"value"},
+    {id:"ChrisPaletteBTone1Line", prop:"value"},
+    {id:"ChrisPaletteBTone2Line", prop:"value"},
+    {id:"ChrisPaletteBTone3Line", prop:"value"},
+    {id:"ChrisPaletteBTone1Face", prop:"value"},
+    {id:"ChrisPaletteBTone2Face", prop:"value"},
+    {id:"ChrisPaletteBTone3Face", prop:"value"},
     //Flip
     {id:"flipTileType", prop:"value"},
     {id:"flipperColor1Obverse", prop:"value"},
@@ -506,14 +595,26 @@ window.addEventListener("load", function(){
             }
             return isAvailable;
         };
+        var selectedOptionHasAttribute = (selectElementID, attribute, inverted = false) => {
+            return (inverted^document.getElementById(selectElementID).selectedOptions[0].hasAttribute(attribute)) == 1;
+        }, setShowCommonObjForm = (isAvailable, formID, unavailableMsg) => {
+            if (isAvailable) {
+                document.getElementById(unavailableMsg).classList.add("hidden");
+                document.getElementById(formID).classList.remove("hidden");
+            }else{
+                document.getElementById(formID).classList.add("hidden");
+                document.getElementById(unavailableMsg).classList.remove("hidden");
+            }
+            return isAvailable;
+        };
         //subB
-        TRCheck("topRightType", "data-subB-available", "subBForm", "subBUnavailableMessage", "subBAvailable");
+        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-subB-available"), "subBForm", "subBUnavailableMessage");
         //Flip
-        TRCheck("topRightType", "data-flipper-available", "flipTileForm", "flipTileUnavailableMessage", "flipTileAvailable");
+        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-flipper-available"), "flipTileForm", "flipTileUnavailableMessage");
         //MiniJ
-        TRCheck("topRightType", "data-minijump-available", "smallJumpForm", "smallJumpUnavailableMessage", "smallJumpAvailable");
+        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-minijump-available"), "smallJumpForm", "smallJumpUnavailableMessage");
         //BRight
-        TRCheck("subBType", "data-override-risers", "bottomRightForm", "bottomRightUnavailableMessage", "bottomRightAvailable", true);
+        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-overrides-risers", true) && selectedOptionHasAttribute("subBType", "data-overrides-risers", true), "bottomRightForm", "bottomRightUnavailableMessage");
     }
     checkIfCommonObjsAreAvailable();
     document.getElementById("topRightType").addEventListener("change", checkIfCommonObjsAreAvailable);
