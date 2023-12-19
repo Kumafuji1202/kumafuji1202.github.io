@@ -1,4 +1,3 @@
-//update no. 9
 var lang = new LanguageManager(
             [{
             langName: "English",
@@ -188,6 +187,7 @@ var lang = new LanguageManager(
                 "TRAdditionalPalette": "Additional palette",
 
                 "topRightFloater": "Floater (fl)",
+                "RSRFloaterInfo": "This top-right setting is only useful in RS edits, since the Floater texture assignment are modified in RSR.",
                 "floaterMainColor": "Main color (fl1)",
                 "floaterSpikeInnerColor": "Spike inner color (fl2)",
                 "floaterInactiveEdgeColor": "Inactive edge color (fl3)",
@@ -315,6 +315,21 @@ var lang = new LanguageManager(
                 "HBDObj613BD1Parts": "Star base,<br>\"3YEARS\" fill parts,<br>Rainbow part outer,<br>Rainbow part inner",
                 "HBDObj613BD3Parts": "Spots,<br>\"3YEARS\" frame parts",
                 
+                "topRightT4A": "4th Anniversary (t4a)",
+                "TRPresetT4A": "The 4th Anniversary (Enemy87)",
+                "TRPresetBdayParty": "Birthday Party (Enemy88)",
+                "TRPresetADo7Y": "A Dream of 7 Years (Enemy134)",
+                "TRPresetDreamTravel": "Dream Travel (Enemy133)",
+                "t4aBalloonGradation": "Balloons(Gradation)",
+                "t4aAdditionalObstacleBaseColor": "Additional obstacle main color",
+                "t4aAdditionalObstacleAccentColor": "Additional obstacle accent color",
+                "t4aCakeStripes": "Cake side stripes",
+                "t4aCheckeredColor": "Checkered parts",
+                "mainQuadPalette": "Main quad palette",
+                "subQuadPalette": "Sub quad palette",
+                "linkQuadPalettes": "Use Main color for Sub palette (ignore input below)",
+                "reuseMainPaletteColor4Stripes": "Use Main color Tone 2 for Cake side stripes (ignore input below)",
+                
                 "topRightSunshine": "Sunshine (ss)",
                 "TRPresetSunset": "Sunset Glow (Enemy91)",
                 "TRPresetDawn": "Morning Dawn (Enemy92)",
@@ -334,6 +349,17 @@ var lang = new LanguageManager(
                 "subBHalloweenMultiPurposeGradation": "Multi-purpose gradation (used for pumpkin calyces, eyeball stew and eyes of monster trees)",
                 "subBHalloweenGateSkull": "Skull-shaped gate decoration",
                 "subBHalloweenPumpkin": "Pumpkins",
+                
+                "subBChris": "Christmas/Candy",
+                "subBPresetChrisBlue": "Christmas Night (Enemy18)",
+                "subBPresetChrisYellow": "Christmas Town (Enemy19)",
+                "subBPresetCandyDay": "Candy (Enemy23)",
+                "subBPresetCandyNight": "Sweet Paradise (Enemy24)",
+                "chrisBottomLeftAttention": "Some obstacles belonging to this theme use bottom left part of the Enemy spritesheets. For their better look, we recommend you to delete all \"Stripes\" and turn on \"Fill bottommost part\" in \"Bottom left settings (F)\".",
+                "chrisAdditionalPalette": "Top-right additional palette",
+                "chrisGradationA": "Gradation 1",
+                "chrisGradationB": "Gradation 2",
+                "BRAdditionalPalette": "Bottom-right additional palette",
                 
                 "flipTileSettingHeading": "Flipper tile settings",
                 "flipTileType": "Flipper tile type",
@@ -666,7 +692,7 @@ var lang = new LanguageManager(
                 "linearLightStyle": "スタイル",
                 "linearLightStyleOriginal": "オリジナル",
                 "linearLightStyleScratch": "Scratch風",
-                "linearLightSameColor": "全種類の光を同じ色にする",
+                "linearLightSameColor": "全種類の光を同じ色にする(電子迷宮レーザーを使用する場合はオフ推奨)",
                 "linearLightASettingHeading": "線形の光A (A2): 通常レーザーで使用",
                 "linearLightBSettingHeading": "線形の光B (A3): スポットライト, UFO, 科学技術レーザーで使用",
 
@@ -675,6 +701,7 @@ var lang = new LanguageManager(
                 "TRAdditionalPalette": "追加パレット",
 
                 "topRightFloater": "星 (fl)",
+                "RSRFloaterInfo": "RSRでは星の使用するEnemyテクスチャ部分が変更されているのでこの右上設定はRSエディットでのみ意味を成します。",
                 "floaterMainColor": "基本色 (fl1)",
                 "floaterSpikeInnerColor": "棘の内側 (fl2)",
                 "floaterInactiveEdgeColor": "起動前の縁 (fl3)",
@@ -802,6 +829,21 @@ var lang = new LanguageManager(
                 "HBDObj613BD1Parts": "星部分本体,<br>\"3YEARS\" 内部,<br>虹部分外側側面,<br>虹部分内側",
                 "HBDObj613BD3Parts": "点,<br>\"3YEARS\" フレーム部分",
                 
+                "topRightT4A": "四周年 (t4a)",
+                "TRPresetT4A": "四周年 (Enemy87)",
+                "TRPresetBdayParty": "誕生パーティー (Enemy88)",
+                "TRPresetADo7Y": "球の夢にも7年 (Enemy134)",
+                "TRPresetDreamTravel": "夢幻の旅路 (Enemy133)",
+                "t4aBalloonGradation": "風船(グラデーション)",
+                "t4aAdditionalObstacleBaseColor": "追加障害物メイン色",
+                "t4aAdditionalObstacleAccentColor": "追加障害物アクセント色",
+                "t4aCakeStripes": "ケーキ側面の帯",
+                "t4aCheckeredColor": "市松模様",
+                "mainQuadPalette": "四色パレットメイン",
+                "subQuadPalette": "四色パレットサブ",
+                "linkQuadPalettes": "サブの四色パレットにメインの色を流用する",
+                "reuseMainPaletteColor4Stripes": "メイン四色パレット2段目の色を流用する",
+                
                 "topRightSunshine": "陽光 (ss)",
                 "TRPresetSunset": "黄昏 (Enemy91)",
                 "TRPresetDawn": "曙 (Enemy92)",
@@ -821,6 +863,17 @@ var lang = new LanguageManager(
                 "subBHalloweenMultiPurposeGradation": "多用途グラデーション (カボチャの蔕, 目玉スープ, 怪物の木の目に使用)",
                 "subBHalloweenGateSkull": "門の頭蓋骨型装飾",
                 "subBHalloweenPumpkin": "カボチャ",
+                
+                "subBChris": "飴・聖夜",
+                "subBPresetChrisBlue": "クリスマスの夜 (Enemy18)",
+                "subBPresetChrisYellow": "クリスマスの町 (Enemy19)",
+                "subBPresetCandyDay": "昼の飴 (Enemy23)",
+                "subBPresetCandyNight": "夜の飴 (Enemy24)",
+                "chrisBottomLeftAttention": "このテーマ選択ではEnemyの左下のグラデーションを使用します。このテーマにおいて障害物が綺麗に色付けされるようにするために、「基本側面の設定 (F)」で「線」をすべて削除し、「左下の隅を使用する」をONにすることを推奨します。",
+                "chrisAdditionalPalette": "右上追加パレット",
+                "chrisGradationA": "グラデーション1",
+                "chrisGradationB": "グラデーション2",
+                "BRAdditionalPalette": "右下追加パレット",
                 
                 "flipTileSettingHeading": "翻転床",
                 "flipTileType": "模様タイプ",
