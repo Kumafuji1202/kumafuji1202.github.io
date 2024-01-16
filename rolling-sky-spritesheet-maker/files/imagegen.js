@@ -3652,7 +3652,7 @@ window.addEventListener("load", function () {
     }
     document.getElementById("downloadZip").addEventListener("click", function () {
         let themeName = document.getElementById("themeName").value;
-        fetch(document.getElementById("saveData").getAttribute("href"))
+        fetch(document.getElementById("saveTheme").getAttribute("href"))
             .then((r) => saveZip.file(themeName + ".json", r.blob()))
             .then((s) => {
                 s.generateAsync({
