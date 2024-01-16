@@ -88,6 +88,17 @@ ul {
     list-style: none;
 }
 
+li{
+    margin: 3px;
+}
+
+fieldset{
+    border-radius: 7px;
+}
+select, input[type=number] {
+    border-radius: 3px;
+}
+
 .selectForm > *:not(.selectedForm):not(legend) {
     display: none;
 }
