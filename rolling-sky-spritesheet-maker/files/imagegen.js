@@ -83,7 +83,6 @@ window.addEventListener("load", function () {
         context.restore();
     }
 
-
     var turn = (x, y, angle) => ({
         x: x * Math.cos(angle) - y * Math.sin(angle),
         y: x * Math.sin(angle) + y * Math.cos(angle)
@@ -156,6 +155,10 @@ window.addEventListener("load", function () {
         context.restore();
     }
 
+    function getColObj(inputID) {
+        return Col.fromColorCode(document.getElementById(inputID).value);
+    }
+
     var groundLinesPath;
     var lineArrays = {};
 
@@ -181,9 +184,9 @@ window.addEventListener("load", function () {
         //普通床の模様
         var gStyle = document.getElementById("groundEdgeStyle").value;
         //ジャンプ床の色
-        var jc = document.getElementById("jumppadColor").value;
+        var jc = getColObj("jumppadColor");
         //起動時のジャンプ床の色
-        var ajc = document.getElementById("jumppadColorActive").value;
+        var ajc = getColObj("jumppadColorActive");
         //ジャンプ床の線
         var jl = document.getElementById("jumppadLineColor").value;
         //起動時のジャンプ床の線
@@ -501,9 +504,9 @@ window.addEventListener("load", function () {
         let jpPrevCxt = document.getElementById("jumpPadPreview").getContext("2d");
         //ジャンプ床//
         if (jumppadStyle != "import") {
-            contextGeneral.fillStyle = jc;
+            contextGeneral.fillStyle = jc.c;
             contextGeneral.fillRect(182.5, 12.5, 146, 146);
-            contextGeneral.fillStyle = ajc;
+            contextGeneral.fillStyle = ajc.c;
             contextGeneral.fillRect(12.5, 12.5, 146, 146);
         } else { //インポートジャンプ床
             contextGeneral.drawImage(document.getElementById("jumppadInactiveImg"), 182.5, 12.5, 146, 146);
@@ -880,7 +883,7 @@ window.addEventListener("load", function () {
         if (jumppadStyle == "rworld") {
             let grad = contextGeneral.createRadialGradient(85, 85, 10, 85, 85, 31);
             grad.addColorStop(0, document.getElementById("gpJumppadActive").value);
-            grad.addColorStop(1, ajc);
+            grad.addColorStop(1, ajc.c);
             contextGeneral.fillStyle = grad;
             contextGeneral.beginPath();
             contextGeneral.arc(85, 85, 28, 0, 2 * Math.PI, false);
@@ -958,6 +961,7 @@ window.addEventListener("load", function () {
             contextGeneral.strokeRect(208.5, 38.5, 96, 96);
         }
 
+        //鱗
         if (jumppadStyle == "scale") {
             for (let jpStatus = 0; jpStatus < 2; jpStatus++) {
                 let jpXPos = 170 * jpStatus;
@@ -1006,6 +1010,50 @@ window.addEventListener("load", function () {
                 }
             }
             contextGeneral.restore();
+        }
+
+        //謎
+        if (jumppadStyle == "mystery") {
+            let gpji = getColObj("gpJumppadInactive");
+            let gpja = getColObj("gpJumppadActive");
+            contextGeneral.lineWidth = 3;
+            contextGeneral.strokeStyle = gpji.c;
+            contextGeneral.stroke(new Path2D("M256,45 L296,85 L256,125 L216,85 Z"));
+            contextGeneral.strokeStyle = jc.blendWith(gpji, 0.18).c;
+            contextGeneral.stroke(new Path2D("M256,26 L315,85 L256,144 L197,85 Z"));
+
+            contextGeneral.strokeStyle = gpja.c;
+            contextGeneral.stroke(new Path2D("M85,13 L157,85 L85,157 L13,85 Z"));
+            contextGeneral.strokeStyle = ajc.blendWith(gpja, 0.18).c;
+            contextGeneral.stroke(new Path2D("M85,26 L144,85 L85,144 L26,85 Z"));
+
+            //右上
+            let mysteryJPGradation = contextGeneral.createLinearGradient(90, 57, 85, 62);
+            mysteryJPGradation.addColorStop(0, ajc.c);
+            mysteryJPGradation.addColorStop(1, gpja.c);
+            contextGeneral.fillStyle = mysteryJPGradation;
+            contextGeneral.fill(new Path2D("M85,54 L116,85 L108,85 L85,62 Z"));
+
+            //右下
+            mysteryJPGradation = contextGeneral.createLinearGradient(90, 113, 85, 108);
+            mysteryJPGradation.addColorStop(0, ajc.c);
+            mysteryJPGradation.addColorStop(1, gpja.c);
+            contextGeneral.fillStyle = mysteryJPGradation;
+            contextGeneral.fill(new Path2D("M116,85 L85,116 L85,108 L108,85 Z"));
+
+            //左下
+            mysteryJPGradation = contextGeneral.createLinearGradient(80, 113, 85, 108);
+            mysteryJPGradation.addColorStop(0, ajc.c);
+            mysteryJPGradation.addColorStop(1, gpja.c);
+            contextGeneral.fillStyle = mysteryJPGradation;
+            contextGeneral.fill(new Path2D("M54,85 L85,116 L85,108 L62,85 Z"));
+
+            //左上
+            mysteryJPGradation = contextGeneral.createLinearGradient(80, 57, 85, 62);
+            mysteryJPGradation.addColorStop(0, ajc.c);
+            mysteryJPGradation.addColorStop(1, gpja.c);
+            contextGeneral.fillStyle = mysteryJPGradation;
+            contextGeneral.fill(new Path2D("M85,54 L54,85 L62,85 L85,62 Z"));
         }
 
         //ジャンプ床の側面の描画
@@ -1662,19 +1710,27 @@ window.addEventListener("load", function () {
             }
         }
         //4トーンで並べられた補助パレットの1塊
-        function quadToneVariaton(context, nameOrSet, x, y, outerSizeX, outerSizeY, topLeftSizeX, topLeftSizeY) {
+        function quadToneVariaton(context, nameOrSet, x, y, outerSizeX, outerSizeY, topLeftSizeX = outerSizeX / 2, topLeftSizeY = outerSizeY / 2) {
             var nameSet = nameOrSet;
             if (typeof nameOrSet == "string") {
                 nameSet = [nameOrSet + "1", nameOrSet + "2", nameOrSet + "3", nameOrSet + "4"];
             }
-            context.fillStyle = document.getElementById(nameSet[0]).value;
-            context.fillRect(x, y, topLeftSizeX, topLeftSizeY);
-            context.fillStyle = document.getElementById(nameSet[1]).value;
-            context.fillRect(x + topLeftSizeX, y, outerSizeX - topLeftSizeX, topLeftSizeY);
-            context.fillStyle = document.getElementById(nameSet[2]).value;
-            context.fillRect(x, y + topLeftSizeY, topLeftSizeX, outerSizeY - topLeftSizeY);
-            context.fillStyle = document.getElementById(nameSet[3]).value;
-            context.fillRect(x + topLeftSizeX, y + topLeftSizeY, outerSizeX - topLeftSizeX, outerSizeY - topLeftSizeY);
+            if (nameSet[0]) {
+                context.fillStyle = document.getElementById(nameSet[0]).value;
+                context.fillRect(x, y, topLeftSizeX, topLeftSizeY);
+            }
+            if (nameSet[1]) {
+                context.fillStyle = document.getElementById(nameSet[1]).value;
+                context.fillRect(x + topLeftSizeX, y, outerSizeX - topLeftSizeX, topLeftSizeY);
+            }
+            if (nameSet[2]) {
+                context.fillStyle = document.getElementById(nameSet[2]).value;
+                context.fillRect(x, y + topLeftSizeY, topLeftSizeX, outerSizeY - topLeftSizeY);
+            }
+            if (nameSet[3]) {
+                context.fillStyle = document.getElementById(nameSet[3]).value;
+                context.fillRect(x + topLeftSizeX, y + topLeftSizeY, outerSizeX - topLeftSizeX, outerSizeY - topLeftSizeY);
+            }
         }
 
         //描画
@@ -1740,7 +1796,7 @@ window.addEventListener("load", function () {
         if (selectedTopRightTypeOption.hasAttribute("data-neonbox-available")) {
             contextEnemy.fillStyle = "#434A5B";
             contextEnemy.fillRect(448, 0, 64, 16);
-            contextEnemy.fillStyle = "#FFFFFF";
+            contextEnemy.fillStyle = getColObj("neonBoxSign").c;
             contextEnemy.fillRect(448, 16, 64, 16);
 
             let grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
@@ -2170,8 +2226,25 @@ window.addEventListener("load", function () {
             theSunsetGlowThing(192, 64, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 3);
         }
         break;
+        case "kepler": {
+            quadToneVariaton(contextEnemy, "keplerPaletteB4TR-", 288, 64, 32, 32);
+            quadToneVariaton(contextEnemy, ["keplerPaletteB4-1", null, "keplerPaletteB4-2", "keplerPaletteB4-3"], 256, 64, 64, 64, 31, 32);
+            quadToneVariaton(contextEnemy, "keplerPaletteB4TR-", 288, 64, 32, 32);
+            quadToneVariaton(contextEnemy, ["keplerPaletteB6BL-1", "keplerPaletteB6BL-3", "keplerPaletteB6BL-2", "keplerPaletteB6BL-4"], 320, 96, 32, 16);
+            quadToneVariaton(contextEnemy, [null, null, "keplerPaletteB6BL-5", "keplerPaletteB6BL-6"], 320, 96, 32, 32);
+            contextEnemy.fillStyle = getColObj("keplerPaletteB11-1").c;
+            contextEnemy.fillRect(256, 128, 64, 32);
+            contextEnemy.fillStyle = getColObj("keplerPaletteB11-2").c;
+            contextEnemy.fillRect(256, 160, 64, 32);
+            let keplerGradation = contextEnemy.createLinearGradient(0, 128, 0, 192);
+            keplerGradation.addColorStop(0, getColObj("keplerGradationTop").c);
+            keplerGradation.addColorStop(1, getColObj("keplerGradationBottom").c);
+            contextEnemy.fillStyle = keplerGradation;
+            contextEnemy.fillRect(384, 128, 32, 64);
+        }
+        break;
         case "spfestv2": {
-            contextEnemy.fillStyle = document.getElementById("jadeRabbit20").value;
+            contextEnemy.fillStyle = getColObj("jadeRabbit20").c;
             contextEnemy.fillRect(319, 62, 193, 66);
             //最初の2つは左上角の座標
             //最後の二つは右下の座標-左上の座標+1
@@ -2482,15 +2555,17 @@ window.addEventListener("load", function () {
                 return w;
             });
             //春節スタイル
-            doTheFlipper("rhombus", 3, function (p, i, g, s) {
-                p.fillStyle = g[0];
+            doTheFlipper("rhombus", 4, function (p, i, g, s) {
+                p.fillStyle = g[3];
                 p.fillRect(i, 0, 64, 64);
+                p.fillStyle = g[0];
+                p.fillRect(i + 7, 7, 50, 50);
                 p.fillStyle = g[2];
                 p.beginPath();
-                p.moveTo(i + 32, 6);
-                p.lineTo(i + 58, 32);
-                p.lineTo(i + 32, 58);
-                p.lineTo(i + 6, 32);
+                p.moveTo(i + 33, 6);
+                p.lineTo(i + 58, 33);
+                p.lineTo(i + 31, 58);
+                p.lineTo(i + 6, 31);
                 p.closePath();
                 p.fill();
                 p.strokeStyle = g[1];
@@ -3560,14 +3635,33 @@ window.addEventListener("load", function () {
         }
     }
 
+    var saveZip = new JSZip();
+
     function updateSaveURLs() {
-        document.getElementById("downloadGeneral").setAttribute("href", canvasGeneral.toDataURL());
-        document.getElementById("downloadFragile").setAttribute("href", canvasFragile.toDataURL());
-        document.getElementById("downloadFragileActive").setAttribute("href", canvasFragileActive.toDataURL());
-        document.getElementById("downloadMover").setAttribute("href", canvasMover.toDataURL());
-        document.getElementById("downloadMoverAuto").setAttribute("href", canvasMoverAuto.toDataURL());
-        document.getElementById("downloadEnemy").setAttribute("href", canvasEnemy.toDataURL());
+        function saveFile(canvas, name) {
+            let a = canvas.toDataURL();
+            fetch(a).then((r) => saveZip.file(name + ".png", r.blob()));
+            document.getElementById("download" + name).setAttribute("href", a);
+        }
+        saveFile(canvasGeneral, "General");
+        saveFile(canvasFragile, "Fragile");
+        saveFile(canvasFragileActive, "FragileActive");
+        saveFile(canvasMover, "Mover");
+        saveFile(canvasMoverAuto, "MoverAuto");
+        saveFile(canvasEnemy, "Enemy");
     }
+    document.getElementById("downloadZip").addEventListener("click", function () {
+        let themeName = document.getElementById("themeName").value;
+        fetch(document.getElementById("saveData").getAttribute("href"))
+            .then((r) => saveZip.file(themeName + ".json", r.blob()))
+            .then((s) => {
+                s.generateAsync({
+                    type: "blob"
+                }).then(function (blob) {
+                    saveAs(blob, themeName + ".zip");
+                });
+            });
+    });
 
     document.getElementById("swapMainPalette").addEventListener("click", function () {
         for (let leftnum = 1; leftnum <= 6; leftnum++) {
