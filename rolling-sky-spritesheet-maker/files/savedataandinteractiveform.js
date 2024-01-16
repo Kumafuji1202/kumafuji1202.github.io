@@ -1,7 +1,7 @@
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
-var versionName = "1.1.5";
-var versionNum = 15;
+var versionName = "1.1.6";
+var versionNum = 16;
 var dataFormat = [
     {id:"groundColor", prop:"value"},
     {id:"groundLineColor", prop:"value"},
