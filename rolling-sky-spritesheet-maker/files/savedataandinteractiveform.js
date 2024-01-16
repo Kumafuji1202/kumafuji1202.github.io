@@ -257,6 +257,26 @@ var dataFormat = [
     {id:"sunshineAccent1", prop:"value"},
     {id:"sunshineAccent2", prop:"value"},
     {id:"sunshineAccent3", prop:"value"},
+    //kp
+    {id:"keplerPaletteB6BL-1", prop:"value"},
+    {id:"keplerPaletteB6BL-2", prop:"value"},
+    {id:"keplerPaletteB6BL-3", prop:"value"},
+    {id:"keplerPaletteB6BL-4", prop:"value"},
+    {id:"keplerPaletteB6BL-5", prop:"value"},
+    {id:"keplerPaletteB6BL-6", prop:"value"},
+    {id:"keplerPaletteB4TR-1", prop:"value"},
+    {id:"keplerPaletteB4TR-2", prop:"value"},
+    {id:"keplerPaletteB4TR-3", prop:"value"},
+    {id:"keplerPaletteB4TR-4", prop:"value"},
+    {id:"keplerPaletteB4-1", prop:"value"},
+    {id:"keplerPaletteB4-2", prop:"value"},
+    {id:"keplerPaletteB4-3", prop:"value"},
+    {id:"keplerPaletteB11-1", prop:"value"},
+    {id:"keplerPaletteB11-2", prop:"value"},
+    {id:"keplerGradationTop", prop:"value"},
+    {id:"keplerGradationBottom", prop:"value"},
+    //
+    {id:"neonBoxSign", prop: "value"},
     //subB
     {id:"subBType", prop:"value"},
     {id:"noPatternSubBColor", prop:"value"},
@@ -662,11 +682,12 @@ window.addEventListener("load", function(){
                 ]
             },
             "rhombus": {
-                colorCount: 3,
+                colorCount: 4,
                 translationKeys: [
                     "backgroundColor",
                     "flipperFrameColor",
-                    "rhombusFlipperRhombusColor"
+                    "rhombusFlipperRhombusColor",
+                    "flipperFrameBackgroundColor"
                 ]
             },
             "squares": {
