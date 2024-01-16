@@ -12,7 +12,7 @@ class Col {
         this.blue = Math.round(Number(b));
     }
     get code() {
-        return "#" + this.red.toString(16) + this.green.toString(16) + this.blue.toString(16);
+        return "#" + (this.red < 16 ? "0" : "") + this.red.toString(16) + (this.green < 16 ? "0" : "") + this.green.toString(16) + (this.blue < 16 ? "0" : "") + this.blue.toString(16);
     }
     get c() {
         return this.code;
