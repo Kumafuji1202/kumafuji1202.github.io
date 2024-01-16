@@ -3,7 +3,11 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="author" content="Kumafuji1202">
     <meta name="pagename" content="Rolling Sky Spritesheet Generator">
+    <meta name="twitter:url" content="https://kumafuji1202.github.io/rolling-sky-spritesheet-maker/" />
+    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator" />
+    <meta name="twitter:description" content="" />
     <title data-translation-key="appTitle">
         Rolling Sky Spritesheet Generator
     </title>
@@ -16,6 +20,8 @@
     <link id="gridLayout3" rel="stylesheet" href="files/grid3rows.css">
     <link rel="canonical" href="https://kumafuji1202.github.io/rolling-sky-spritesheet-maker/">
     <script id="library" src="files/utils.js"></script>
+    <script id="zipper" src="files/jszip.min.js"></script>
+    <script id="saver" src="files/FileSaver.min.js"></script>
     <script id="languageLibrary" src="../lang.js"></script>
     <script id="languageData" src="files/langdata.js"></script>
     <script id="saveLoadSystem" src="files/savedataandinteractiveform.js"></script>
@@ -94,10 +100,12 @@
         *[data-g]:not([data-h]) {
             display: none;
         }
-        .ae{
+
+        .ae {
             color: inherit !important;
             text-decoration: inherit !important;
         }
+
     </style>
     <script id="globeRotater">
         window.addEventListener("load", function() {
@@ -115,7 +123,7 @@
 
     <header id="header">
         <div id="header-content">
-            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.5</a></span></h1>
+            <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span> <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank">v1.1.6</a></span></h1>
             <p id="creatorName">
                 by <a href="https://www.youtube.com/@Kumafuji1202">Kumafuji1202</a>
             </p>
@@ -147,19 +155,23 @@
                 </p>
                 <ol id="recentVersionList">
                     <li>
+                        <h2>1.1.6 (2024 Jan xx)</h2>
+                        <ul>
+                            <li>Added Jumppad pattern "Mystery" (from Mystery, requested by w_lll)</li>
+                            <li>Added Enemy top-right pattern "Kepler" (from Kepler's Dream - Stars)</li>
+                            <li>Added options to change neonbox "sign" colors</li>
+                            <li>Fixed "rhombus" Flip tile pattern and made it more customizable</li>
+                            <li>Added feature to download all textures and JSON theme data in a single ZIP file</li>
+                            <li>Changed layout of buttons in "Save/Load" tab</li>
+                            <li>Changed style of some form elements a bit</li>
+                        </ul>
+                    </li>
+                    <li>
                         <h2>1.1.5 (2023 Dec 19)</h2>
                         <ul>
                             <li>Added Enemy top-right pattern "The 4th Anniversary" (from The 4th Anniversary - Birthday Party - A Dream of 7 Years)</li>
                             <li>Added Enemy secondary theme area pattern "Candy/Christmas" with unfinished previews</li>
                             <li>Fixed 3rd Anniversary top-right color setting not being saved to JSON theme files</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h2>1.1.4 (2023 Nov 05)</h2>
-                        <ul>
-                            <li>Added Enemy top-right pattern "Pixel" (from 1UP - 8Bit)</li>
-                            <li>Added Enemy secondary theme area pattern "Halloween" (from Halloween - Ghost Dance)</li>
-                            <li>Fixed small jump area</li>
                         </ul>
                     </li>
                 </ol>
@@ -240,9 +252,7 @@
             </div>
             <div id="formBody">
                 <form id="form-content">
-                    <p data-translation-key="textureExtractInfo">
-                        You can extract Rolling Sky spritesheets from the IPA of the Dinasour Valley version or APK of the Chess Fortress version(better quality), Rolling Universe spritesheets (including General and Background for the Rolling World theme) from the IPA of v2.2.1 (no decryption needed), and Rolling Fanmade spritesheets (excluding Pharaoh spritesheets, which can be found in Rolling Sky instead) from Rolling Sky Remake v0.6b PC version<a href="https://www.mediafire.com/file/t8pivs9totk3pj6/RSR0.6.5b.zip/file">.</a>
-                    </p>
+                    <p data-translation-key="textureExtractInfo"></p>
                     <div id="tilesForm" class="appElement appForm">
                         <!-- 普通床の設定 -->
                         <div id="groundSettings">
@@ -384,6 +394,8 @@
                                                 <!-- 参考: Rolling Zealous - Ocean 改良済み-->
                                                 <option data-translation-key="jumppadStyleRollingWorld" value="rworld" data-option-form="generalPatternedJumppadCustomizationForm"></option>
                                                 <!-- 参考: Rolling World -->
+                                                <option data-translation-key="jumppadStyleMystery" value="mystery" data-option-form="generalPatternedJumppadCustomizationForm"></option>
+                                                <!-- 参考: Rolling Universe? - Mystery -->
                                             </optgroup>
                                             <!--<optgroup data-translation-key="jumppadStyleCustom">
                                             <option data-translation-key="jumppadStyleStar" value="star"></option>
@@ -769,7 +781,7 @@
                                             <option data-translation-key="topRightHBD" value="hbd" data-option-form="HBDCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                             <option data-translation-key="topRightT4A" value="t4a" data-option-form="t4ACustomizationForm" data-flipper-available data-neonbox-available data-overrides-risers data-no-flipper-side></option>
                                             <option data-translation-key="topRightSunshine" value="sunshine" data-option-form="SunshineCustomizationForm" data-neonbox-available></option>
-                                            <!--<option data-translation-key="topRightKepler" value="kepler" data-option-form="keplerCustomizationForm" data-flipper-available data-neonbox-available></option>
+                                            <option data-translation-key="topRightKepler" value="kepler" data-option-form="keplerCustomizationForm" data-flipper-available data-neonbox-available data-minijump-available></option>
                                             <!--
                                             <option data-translation-key="topRightSpectre" value="spectre" data-option-form="spectreCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             <option data-translation-key="topRightMarshmello" value="marshmello" data-option-form="marshmelloCustomizationForm" data-flipper-available data-neonbox-available></option>
@@ -1506,7 +1518,75 @@
                                     </table>
                                 </div>
                                 <!-- ケプラー kp -->
-                                <div id="keplerCustomizationForm">a
+                                <div id="keplerCustomizationForm">
+                                    <span data-translation-key="presets"></span>:
+                                    <input type="button" data-translation-key="TRPresetKepler" data-preset="kepler">
+                                    <input type="button" data-translation-key="TRPresetStars" data-preset="stars">
+                                    <h3 data-translation-key="TRAdditionalPalette"></h3>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+                                                <th><span><span data-translation-key="tone#"></span>1</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>2</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>3</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>4</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>5</span></th>
+                                                <th><span><span data-translation-key="tone#"></span>6</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th data-translation-key="keplerRecordSurface"></th>
+                                                <td><input type="color" id="keplerPaletteB6BL-1" value="#46475A" data-preset-kepler="#46475A" data-preset-stars="#46475A"></td>
+                                                <td><input type="color" id="keplerPaletteB6BL-2" value="#383A4B" data-preset-kepler="#383A4B" data-preset-stars="#383A4B"></td>
+                                                <td><input type="color" id="keplerPaletteB6BL-3" value="#2D2E3C" data-preset-kepler="#2D2E3C" data-preset-stars="#2D2E3C"></td>
+                                                <td><input type="color" id="keplerPaletteB6BL-4" value="#252630" data-preset-kepler="#252630" data-preset-stars="#252630"></td>
+                                                <td><input type="color" id="keplerPaletteB6BL-5" value="#1E1F26" data-preset-kepler="#1E1F26" data-preset-stars="#1E1F26"></td>
+                                                <td><input type="color" id="keplerPaletteB6BL-6" value="#15161B" data-preset-kepler="#15161B" data-preset-stars="#15161B"></td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>1 (kp2)</th>
+                                                <td><input type="color" id="keplerPaletteB4TR-1" value="#99B4FE" data-preset-kepler="#99B4FE" data-preset-stars="#D8D3E5"></td>
+                                                <td><input type="color" id="keplerPaletteB4TR-2" value="#8CA7F0" data-preset-kepler="#8CA7F0" data-preset-stars="#C5BBD3"></td>
+                                                <td><input type="color" id="keplerPaletteB4TR-3" value="#7692DE" data-preset-kepler="#7692DE" data-preset-stars="#9388AA"></td>
+                                                <td><input type="color" id="keplerPaletteB4TR-4" value="#718FD4" data-preset-kepler="#718FD4" data-preset-stars="#767189"></td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>2 (kp3)</th>
+                                                <td><input type="color" id="keplerPaletteB4-1" value="#6DD6F9" data-preset-kepler="#6DD6F9" data-preset-stars="#92FDE7"></td>
+                                                <td><input type="color" id="keplerPaletteB4-2" value="#26BCF5" data-preset-kepler="#26BCF5" data-preset-stars="#6FF8CD"></td>
+                                                <td><input type="color" id="keplerPaletteB4-3" value="#1C92D6" data-preset-kepler="#1C92D6" data-preset-stars="#31E8AE"></td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                            <tr>
+                                                <th><span data-translation-key="color#"></span>3 (kp4)</th>
+                                                <td><input type="color" id="keplerPaletteB11-1" value="#B3FAFD" data-preset-kepler="#B3FAFD" data-preset-stars="#FFFFFF"></td>
+                                                <td><input type="color" id="keplerPaletteB11-2" value="#92F1FD" data-preset-kepler="#92F1FD" data-preset-stars="#E6DDED"></td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <ul>
+                                        <li>kp2: <span data-translation-key="keplerB4TRUsage"></span></li>
+                                        <li>kp3: <span data-translation-key="keplerB4Usage"></span></li>
+                                        <li>kp4: <span data-translation-key="keplerB11Usage"></span></li>
+                                    </ul>
+                                    <h3 data-translation-key="keplerGradation"></h3>
+                                    <p data-translation-key="keplerGradationUsage"></p>
+                                    <label><span data-translation-key="topEnd"></span>
+                                        <input type="color" id="keplerGradationTop" value="#5CDDFD" data-preset-kepler="#5CDDFD" data-preset-stars="#FBF6FC">
+                                    </label><br>
+                                    <label><span data-translation-key="bottomEnd"></span>
+                                        <input type="color" id="keplerGradationBottom" value="#0E3A98" data-preset-kepler="#0E3A98" data-preset-stars="#717194">
+                                    </label>
                                 </div>
                                 <!-- 玉兎 jr -->
                                 <div id="spFestV2CustomizationForm">
@@ -1641,7 +1721,12 @@
                                     <label><span>と(20)</span><input type="color" id="jadeRabbit20" value="#DC261C" data-preset-ausjadrab="#DC261C" data-preset-tempfair="#FB0803"></label><br>
                                     <!-- も, ら(39), -->
                                 </div>
+                                <!-- カスタム cs -->
+                                <!-- インポート im -->
                             </fieldset>
+                            <label><span data-translation-key="neonBoxSign"></span>
+                                <input type="color" id="neonBoxSign" value="#FFFFFF">
+                            </label><br>
                         </div>
                         <!-- B11-14 -->
                         <div id="enemyB2">
@@ -2235,11 +2320,14 @@
                         </div>
                     </div>
                     <div class="appElement appForm hidden" id="saveForm">
+                        <h2 data-translation-key="loadTheme"></h2>
                         <label for="loadSavedTheme" data-translation-key="loadSavedTheme" class="button blockLink"></label>
                         <input type="file" id="loadSavedTheme" accept=".rstheme">
-                        <a id="saveTheme" class="button blockLink" data-translation-key="saveTheme" download="My Theme.rstheme"></a>
-                        <label><span data-translation-key="themeName"></span><input type="text" id="themeName" value="My Theme"></label>
                         <div id="loadStatus"></div>
+
+
+                        <h2 data-translation-key="saveBatch"></h2>
+                        <label><span data-translation-key="themeName"></span><input type="text" id="themeName" value="My Theme"></label>
                         <script>
                             window.addEventListener("load", function() {
                                 document.getElementById("themeName").addEventListener("input", function() {
@@ -2248,6 +2336,10 @@
                             });
 
                         </script>
+                        <a id="downloadZip" class="button blockLink" data-translation-key="downloadZip"></a>
+
+                        <h2 data-translation-key="saveIndiv"></h2>
+                        <a id="saveTheme" class="button blockLink" data-translation-key="saveTheme" download="My Theme.rstheme"></a>
 
                         <a id="downloadGeneral" class="button blockLink" data-translation-key="downloadGeneral" download="General.png"></a>
                         <a id="downloadFragile" class="button blockLink" data-translation-key="downloadFragile" download="Fragile.png"></a>
