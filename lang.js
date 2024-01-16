@@ -21,23 +21,23 @@ langdatabase: 生のデータベースオブジェクト
 initSelectBox: 言語選択ボックスを設定
 callText: 翻訳テキストを呼び出し
 */
+
+//currentLang = 現在の設定言語コード
 function LanguageManager(langList) {
     //言語のデータベース
     this.langDatabase = langList;
-    var ldb = this.langDatabase;
-    this.currentLang = {};
-    var cl = this.currentLang;
+    this.currentLang = "";
     //ページ全体を翻訳する
-    this.useLanguage = function (langCode) {
+    this.useLanguage = (langCode) => {
         //言語オブジェクト探索
-        var foundLang = null;
-        ldb.forEach(function (value) {
-            if (value.langCode === langCode) {
-                foundLang = value;
-            }
-        });
-        if (foundLang === null) throw new Error("no language data for language code \"" + langCode + "\" defined");
-        cl = foundLang;
+        let foundLang = false;
+        for (let i = 0; i < this.langDatabase.languages.length; i++) {
+            if (this.langDatabase.languages[i].code == langCode) foundLang = true;
+        }
+        if (!foundLang) {
+            throw new Error("no language data for language code \"" + langCode + "\" defined");
+        }
+        this.currentLang = langCode;
         document.documentElement.setAttribute("lang", langCode);
         //言語置き換え
         document.querySelectorAll("*[data-translation-key]").forEach(function (elementToTranslate) {
@@ -94,7 +94,8 @@ function LanguageManager(langList) {
                 default:
                     propertyToTranslate = "innerHTML";
             }
-            var translatedText = foundLang.translations[elementToTranslate.getAttribute("data-translation-key")] ||
+            let q = this.langDatabase.translations[elementToTranslate.getAttribute("data-translation-key")];
+            let translatedText = q ? q[this.currentLang] :
                 (propertyToTranslate == "innerHTML" ?
                     "<span style=\"color:red;\">missing <em>" + foundLang.langName + " </em>translation for translation key \"<s>" + elementToTranslate.getAttribute("data-translation-key") + "</s>\"</span>" :
                     "missing " + foundLang.langName + " translation for translation key \"" + elementToTranslate.getAttribute("data-translation-key") + "\"");
@@ -103,23 +104,28 @@ function LanguageManager(langList) {
             } else {
                 elementToTranslate.setAttribute(propertyToTranslate, translatedText);
             }
-        });
+        }, this);
     };
-    var ul = this.useLanguage;
     //選択ボックスの用意
-    this.initSelectBox = function (selectFormElement, defaultLang) {
-        ldb.forEach(function (value) {
+    this.initSelectBox = (selectFormElement, defaultLang) => {
+        this.langDatabase.languages.forEach(function (language) {
             var optionElem = document.createElement("option");
-            optionElem.setAttribute("value", value.langCode);
-            optionElem.innerHTML = value.langName;
+            optionElem.setAttribute("value", language.code);
+            optionElem.innerHTML = language.name;
             selectFormElement.appendChild(optionElem);
         });
         selectFormElement.value = defaultLang;
-        selectFormElement.addEventListener("input", function () {
-            ul(this.value);
+        selectFormElement.addEventListener("input", () => {
+            this.useLanguage(selectFormElement.value);
         }, true);
     };
-    this.callText = function (key) {
-        return cl.translations[key];
+    this.callText = (key, throwError = false) => {
+        if (this.langDatabase.translations[key][this.currentLang] === undefined) {
+            if (throwError) {
+                throw new Error("No translation key for \"" + key + "\" in \"" + this.currentLang);
+            }
+            return "No translation key for \"" + key + "\" in \"" + this.currentLang;
+        }
+        return this.langDatabase.translations[key][this.currentLang];
     };
 }
