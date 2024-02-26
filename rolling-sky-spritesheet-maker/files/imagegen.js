@@ -3763,7 +3763,7 @@ window.addEventListener("load", function () {
     getElem("downloadZip").setClick(function () {
         let themeName = getElem("themeName").value;
         fetch(getElem("saveTheme").getAttribute("href"))
-            .then((r) => saveZip.file(themeName + ".json", r.blob()))
+            .then((r) => saveZip.file(themeName + ".rstheme", r.blob()))
             .then((s) => {
                 s.generateAsync({
                     type: "blob"
