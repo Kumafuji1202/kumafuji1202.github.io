@@ -620,6 +620,10 @@ var changeLogs = [
                         {
                             "en": "Hovering on output canvases will show texture type names and clicking on them will open corresponding Tile setting form sections",
                             "ja": "出力ビューにマウスオーバーでファイル名を表示, クリックで対応する床設定のセクションを開く"
+                        },
+                        {
+                            "en": "Changed button styles",
+                            "ja": "ボタンの見た目を変更"
                         }
                     ]
                 },
