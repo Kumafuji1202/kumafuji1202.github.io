@@ -1,4 +1,4 @@
-var lang = new LanguageManager({
+let langDataRaw = {
     languages: [
         {
             name: "English",
@@ -22,6 +22,10 @@ var lang = new LanguageManager({
             "en": "Generate Spritesheets",
             "ja": "テクスチャ画像生成"
         },
+        "settingsFormHeading": {
+            "en": "Settings",
+            "ja": "設定"
+        },
         "selectLang": {
             "en": "Select Language",
             "ja": "言語を選択"
@@ -38,9 +42,57 @@ var lang = new LanguageManager({
             "en": "Dark Mode",
             "ja": "ダークモード"
         },
+        "localStorageDataClearButton": {
+            "en": "Clear theme data in local storage and reload",
+            "ja": "ローカルストレージに保存されたテーマデータを削除してリロード"
+        },
+        "localStorageClearConfirmation": {
+            "en": "Are you sure you want to remove theme data cached in local storage? This action can't be restored",
+            "ja": "ローカルストレージのテーマデータを削除しますか? この操作は復元できません"
+        },
+        "saveLoadWindow": {
+            "en": "Save/Load",
+            "ja": "保存・読込"
+        },
+        "versionInformationWindow": {
+            "en": "Version information",
+            "ja": "バージョン情報"
+        },
+        "changelogLink": {
+            "en": "see changelog page",
+            "ja": "変更ログページ(作成中)を見る"
+        },
+        "colorImportWindow": {
+            "en": "Import colors",
+            "ja": "色を抽出"
+        },
         "recentUpdates": {
             "en": "Recent updates",
             "ja": "最近のアップデート"
+        },
+        "openImportOrigin": {
+            "en": "Open Enemy spritesheet file to import colors from",
+            "ja": "色をインポートするファイルを開く"
+        },
+        "openFileControl": {
+            "en": "Open file",
+            "ja": "ファイルを開く"
+        },
+        "extractColorsControl": {
+            "en": "Get colors",
+            "ja": "色を抽出"
+        },
+        "colorPartId": {
+            "en": "Color part ID",
+            "ja": "色部分ID"
+        },
+        "useExtractedColors": {
+            "en": "Use extracted colors",
+            "ja": "抽出した色を使用"
+        },
+        "cancel": {
+            "en": "Cancel",
+            "ja": "キャンセル"
         },
         "tilesTab": {
             "en": "Tiles",
@@ -50,13 +102,19 @@ var lang = new LanguageManager({
             "en": "Enemy",
             "ja": "障害物"
         },
-        "saveTab": {
-            "en": "Save/Load",
-            "ja": "保存・読込"
+        
+        //ここからメインフォーム用
+        "colorHexCode": {
+            "en": "Hexadecimal color code",
+            "ja": "十六進数カラーコード"
         },
-        "UsedColor": {
+        "usedColor": {
             "en": "Color",
             "ja": "使用色"
+        },
+        "settingChangeConfirmation": {
+            "en": "Are you sure you want to replace current setting?",
+            "ja": "既にある設定を置き換えますか?"
         },
         "active": {
             "en": "Active",
@@ -1485,6 +1543,18 @@ var lang = new LanguageManager({
             "en": "Cherry Blossom (Flower Dance)",
             "ja": "桜の花 (飛花落花)",
         },
+        "flipTileShootingStars": {
+            "en": "Shooting Stars (New Year)",
+            "ja": "流れ星 (新年)",
+        },
+        "flipTileSmiley": {
+            "en": "☻ (Happy)",
+            "ja": "床にTBS (うれしい)",
+        },
+        "flipTileNeedle": {
+            "en": "Needle (Knit Kingdom)",
+            "ja": "縫い針 (ニット王国)",
+        },
         "flipTileCheckerEdged": {
             "en": "Checker + edge (3D Spatial Zone)",
             "ja": "市松模様(枠付き) (3D Spatial Zone)",
@@ -1660,6 +1730,10 @@ var lang = new LanguageManager({
         "middleRightSettingHeading": {
             "en": "Secondary general palette settings (E)",
             "ja": "立体基本色Bの設定 (E)",
+        },
+        "importMiddleColors": {
+            "en": "Extract middle colors from an existing Enemy spritesheet",
+            "ja": "立体基本色を既にあるEnemyファイルから抽出"
         },
         "middleLeftTone1": {
             "en": "Tone 1 (D1)",
@@ -1863,27 +1937,27 @@ var lang = new LanguageManager({
         },
         "filenameGeneral": {
             "en": "General",
-            "ja": "General(通常床・立体)",
+            "ja": "General<br>(通常床・立体)",
         },
         "filenameFragile": {
             "en": "Fragile",
-            "ja": "Fragile(ガラス床)",
+            "ja": "Fragile<br>(ガラス床)",
         },
         "filenameFragileActive": {
             "en": "FragileActive",
-            "ja": "FragileActive(落下中のガラス床)",
+            "ja": "FragileActive<br>(落下中のガラス床)",
         },
         "filenameMover": {
             "en": "Mover",
-            "ja": "Mover(発動床)",
+            "ja": "Mover<br>(発動床)",
         },
         "filenameMoverAuto": {
             "en": "MoverAuto",
-            "ja": "MoverAuto(連動床)",
+            "ja": "MoverAuto<br>(連動床)",
         },
         "filenameEnemy": {
             "en": "Enemy",
-            "ja": "Enemy(障害物)",
+            "ja": "Enemy<br>(障害物)",
         },
         "canvasAltText": {
             "en": "Canvas not available",
@@ -1908,10 +1982,6 @@ var lang = new LanguageManager({
         "imgRemoveConfirmation": {
             "en": "Are you sure you want to remove this imported image?",
             "ja": "インポート画像を削除しますか?",
-        },
-        "presetConfirmation": {
-            "en": "Are you sure you want to replace current setting?",
-            "ja": "既にある設定を置き換えますか?",
         },
         "themeName": {
             "en": "Project name(only used for the file name)",
@@ -1966,7 +2036,12 @@ var lang = new LanguageManager({
             "ja": "Enemyをダウンロード",
         }
     }
+};
+["flipTileShootingStars", "flipTileSmiley", "flipTileNeedle", "importMiddleColors", "localStorageDataClearButton", "colorImportWindow"].forEach(each => {
+    langDataRaw.translations[each].ja = "🆕 " + langDataRaw.translations[each].ja;
+    langDataRaw.translations[each].en = "🆕 " + langDataRaw.translations[each].en;
 });
+var lang = new LanguageManager(langDataRaw);
 
 window.addEventListener("load", function () {
     lang.initSelectBox(document.getElementById("languageSelectBox"), "en");
