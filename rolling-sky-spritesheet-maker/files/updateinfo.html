@@ -3,128 +3,88 @@
 
 <head>
     <title>アップデート情報</title>
+    <script src="../../lang.js"></script>
+    <script src="changelog.js"></script>
+    <style>
+        html{
+            background-image: url(Background96.png);
+            background-size: 100vw;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
 <body>
     <h1>アップデート情報</h1>
-    <ol>
-        <li>
-            <h2>1.0.1 アップデート</h2>
-            <ul>
-                <li>
-                    2個のバグを修正
-                    <ul>
-                        <li>rssg-1: 出力部分が縦長になるレイアウト時に出力部分の背景の下1/3が白色になる</li>
-                        <li>rssg-2: 出力部分が縦長になるレイアウトが適用されるような画面サイズでサイトを最初に読み込んだ時Fragileの出力欄とMoverの出力欄がダブる</li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <h2>1.0.2 アップデート</h2>
-            <ul>
-                <li>
-                    2個のバグを修正
-                    <ul>
-                        <li>rssg-3: Enemyの左下の帯部分をデフォルトの状態のままで保存したテーマプロジェクトを再び読み込んだ時に帯部分が消える</li>
-                        <li>rssg-4: 「四角(ダイナミックな丘)」「円+四角(Rolling World)」の模様のジャンプ床の設定がファイルに保存されない</li>
-                    </ul>
-                </li>
-                <li>通常床の模様「縁取り有り」を実装</li>
-                <li>いくつかの翻訳の変更(日英両語)</li>
-            </ul>
-        </li>
-        <li>
-            <h2>1.0.3 アップデート</h2>
-            <ul>
-                <li>
-                    1個のバグを修正
-                    <ul>
-                        <li>rssg-5: Enemyの左下の帯部分の変更が保存されないことがある</li>
-                    </ul>
-                </li>
-                <li>ダークモード時のOptgroupの色を変更</li>
-                <li>読み込み未完了時のページタイトルを「.」から「Rolling Sky Spritesheet Generator」に変更</li>
-                <li>ジャンプ床の模様「円(Faith)」を追加(RUより)</li>
-            </ul>
-        </li>
-        <li>
-            <h2>1.0.4 アップデート</h2>
-            <ul>
-                <li>ジャンプ床の発光がより滑らかになった</li>
-            </ul>
-        </li>
-        <li>
-            <h2>1.0.5 アップデート</h2>
-            <ul>
-                <li>市松模様のジャンプ床の発光もなめらかになった</li>
-            </ul>
-        </li>
-        <li>
-            <h2>1.0.6 アップデート</h2>
-            <ul>
-                <li>Enemyの右上の設定に<em>ネオン</em>対応追加</li>
-                <li>Enemyの右上部分のFloaterを微調整</li>
-                <li>起動時のジャンプ床の発光を微調整</li>
-                <li>Enemyの設定に半ジャンプを追加</li>
-                <li>ネオンボックスの描画の仕組みを変更</li>
-                <li>反転床模様「cits」を「天空の城風」に改名</li>
-                <li>Fragile, FragileActiveのテクスチャを一部修正</li>
-            </ul>
-        </li>
-        <li>
-            <h2>1.0.7 アップデート</h2>
-            <ul>
-                <li>Enemyの右上部分のFloaterをもう1回微調整</li>
-            </ul>
-        </li>
-        <li>
-            <h2>1.0.8 アップデート</h2>
-            <ul>
-                <li><em>テクスチャ画像が即時更新するように変更</em></li>
-                <li>タイルの設定UIを変更</li>
-                <li>
-                    床の線の光り具合を変えるオプション追加<br>
-                    現在選べるオプション:
-                    <ul>
-                        <li>通常</li>
-                        <li>2段(空スタイル、すでに実装済み)</li>
-                        <li>細い(火山スタイル)</li>
-                        <li>鋭い(科学技術スタイル)</li>
-                        <li>発光(深空スタイル)</li>
-                    </ul>
-                    それに伴い「床の線を2重にする」を廃止
-                </li>
-                <li>ジャンプ床の設定に「<em>インポート</em>」を追加</li>
-                <li>ガラス床の線に小さい変更</li>
-                <li>
-                    ガラス床に「<em>内部模様</em>」の設定を追加<br>
-                    現在選べるオプション:
-                    <ul>
-                        <li>無し</li>
-                        <li>雪模様</li>
-                    </ul>
-                    それに伴い設定項目「模様」を「縁装飾」に変更
-                </li>
-                <li>
-                    ガラス床縁装飾「<em>箱(VRの世界)</em>」と「<em>二重(18年洞窟予告)</em>」を追加<br>
-                    (後者の参考画像: https://rs.miraheze.org/wiki/File:Illusionfanmade.png)
-                </li>
-                <li>ガラス床縁装飾に新しく「Rolling Sky」「ファンメイド」の分類を追加</li>
-                <li>補助パレットの設定に説明を追加</li>
-                <li>移動床の設定に「強制線消し」を追加</li>
-                <li>
-                    反転床模様<em>3種</em>追加
-                    <ul>
-                        <li>擬態床</li>
-                        <li>市松模様(枠付き) (3D Spatial Zone)</li>
-                        <li>ハート形 (Rolling World)</li>
-                    </ul>
-                </li>
-                <li>一部の英語を修正</li>
-            </ul>
-        </li>
+    <ol id="versions">
     </ol>
 </body>
+<script>
+    let versionListElem = document.getElementById("versions");
+    let translationData = {
+        languages: [{
+                name: "English",
+                code: "en"
+            },
+            {
+                name: "日本語",
+                code: "ja"
+            }
+        ],
+        translations: {}
+    };
+    changeLogs.forEach(version => {
+        //翻訳データを生成
+        //htmlを生成
+        let versionElem = document.createElement("li");
+        versionElem.innerHTML += "<h2>" + version.versionNumber + "</h2>";
+        switch(localStorage.getItem("language")){
+            case "ja":
+                versionElem.innerHTML += "<h3>" + version.releaseDate.year + "年"
+                    + version.releaseDate.month + "月"
+                    + version.releaseDate.day + "日" + "</h3>";
+                break;
+            default:
+                versionElem.innerHTML += "<h3>" + version.releaseDate.year + " "
+                    + ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][version.releaseDate.month - 1] + " "
+                + version.releaseDate.day + "</h3>";
+        }
+        let changesList = document.createElement("ul");
+        //各追加項目ごとに
+        if (version.changes.additions) {
+            version.changes.additions.forEach((addition, additionNumber) => {
+                let translationKey = version.versionNumber + "-Addition#" + additionNumber;
+                translationData.translations[translationKey] = addition;
+                let changeElem = document.createElement("li");
+                changeElem.setAttribute("data-translation-key", translationKey);
+                changesList.appendChild(changeElem);
+            });
+        }
+        //各変更項目ごとに
+        if (version.changes.changes) {
+            version.changes.changes.forEach((change, changeNumber) => {
+                let translationKey = version.versionNumber + "-Change#" + changeNumber;
+                translationData.translations[translationKey] = change;
+                let changeElem = document.createElement("li");
+                changeElem.setAttribute("data-translation-key", translationKey);
+                changesList.appendChild(changeElem);
+            });
+        }
+        //各修正項目ごとに
+        if (version.changes.bugfixes) {
+            version.changes.bugfixes.forEach((bugfix, bugfixNumber) => {
+                let translationKey = version.versionNumber + "-Bugfix#" + bugfixNumber;
+                translationData.translations[translationKey] = bugfix;
+                let changeElem = document.createElement("li");
+                changeElem.setAttribute("data-translation-key", translationKey);
+                changesList.appendChild(changeElem);
+            });
+        }
+        versionElem.appendChild(changesList);
+        versionListElem.appendChild(versionElem);
+    });
+    let langObj = new LanguageManager(translationData);
+    langObj.useLanguage(localStorage.getItem("language"));
+</script>
 
 </html>
