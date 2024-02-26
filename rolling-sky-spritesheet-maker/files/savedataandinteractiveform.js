@@ -1,7 +1,7 @@
 //updateAllSelectFormsのスコープの関係でこの2つのモジュールは1つのJSファイルにある
 
-var versionName = "1.1.6";
-var versionNum = 16;
+var versionName = "1.1.7";
+var versionNum = 17;
 var dataFormat = [
     {id:"groundColor", prop:"value"},
     {id:"groundLineColor", prop:"value"},
@@ -435,10 +435,11 @@ window.addEventListener("load", function(){
             func();
         });
     }
+    /*自動開閉フォーム*/
     function updateSelectForm(selectFieldsetID){
-        var selectedOption = document.getElementById(document.getElementById(selectFieldsetID).getAttribute("data-form-selector")).selectedOptions[0];
+        var selectedOption = getElem(getElem(selectFieldsetID).getAttribute("data-form-selector")).selectedOptions[0];
         var selectedFormID = selectedOption.hasAttribute("data-option-form") ?
-            selectedOption.getAttribute("data-option-form") : document.getElementById(selectFieldsetID).getAttribute("data-default-form");
+            selectedOption.getAttribute("data-option-form") : getElem(selectFieldsetID).getAttribute("data-default-form");
         document.querySelectorAll("#" + selectFieldsetID + "> *[id]:not(legend)").forEach(function(formDivElem){
             if (formDivElem.id == selectedFormID){
                 if (!(formDivElem.classList.contains("selectedForm"))) formDivElem.classList.add("selectedForm");
@@ -448,7 +449,7 @@ window.addEventListener("load", function(){
         });
     }
     function updateOffOrInput(checkBoxElem){
-        var label = document.getElementById(checkBoxElem.getAttribute("data-off-or-input"));
+        var label = getElem(checkBoxElem.getAttribute("data-off-or-input"));
         var isInverted = checkBoxElem.hasAttribute("data-offorinput-inverted");
         if (!checkBoxElem.checked ^ isInverted){
             if (!label.classList.contains("disabledLabel")){
@@ -461,7 +462,7 @@ window.addEventListener("load", function(){
         }
     }
     function updateCustomOrPreset(selectElem){
-        var customizationForm = document.getElementById(selectElem.getAttribute("data-customization-form"));
+        var customizationForm = getElem(selectElem.getAttribute("data-customization-form"));
         if(selectElem.value == "custom"){
             customizationForm.classList.remove("notCustom");
         }else{
@@ -500,23 +501,41 @@ window.addEventListener("load", function(){
     addEventListeners();
     updateAllSelectForms();
     
-    //ここからSavedata
-    document.getElementById("loadSavedTheme").addEventListener("change", function () {
-        //確認
-        if (!window.confirm(lang.callText("loadSavedThemeConfirmation"))) return;
-        
-        var savedDataFileReader = new FileReader();
-        savedDataFileReader.addEventListener("loadstart", function () {
-            document.getElementById("loadStatus").innerHTML = lang.callText("fileLoading");
+    /*開閉するやつ*/{
+        function toggleAccordion(id){
+            let elem = getElem(id);
+            if (elem.hasAttribute("data-accordion-collapsed")){
+                setAccordion(elem, true);
+            }else{
+                setAccordion(elem, false);
+            }
+        }
+        function setAccordion(elem, makeOpen){
+            if (makeOpen){
+                elem.removeAttribute("data-accordion-collapsed");
+            }else{
+                elem.setAttribute("data-accordion-collapsed", "");
+            }
+        }
+        document.querySelectorAll("[data-accordion-controls]").forEach(each => {
+            each.setClick(() => {
+                toggleAccordion(each.getAttribute("data-accordion-controls"));
+            });
         });
-        savedDataFileReader.addEventListener("error", function () {
-            document.getElementById("loadStatus").innerHTML = lang.callText("loadError");
+        ["general", "fragile", "fragileActive", "mover", "moverAuto"].forEach(function(each){
+            getElem(each + "Overlay").setClick(() => {
+                document.querySelectorAll("#tilesForm [data-opened-by]").forEach(function(fach){
+                    setAccordion(fach, fach.getAttribute("data-opened-by").includes(each));
+                });
+            });
         });
-        savedDataFileReader.addEventListener("loadend", function () {
-            document.getElementById("loadStatus").innerHTML = lang.callText("loadFileComplete");
+    }
+    
+    /*saveデータ読込*/{
+        function applySaveData(dataJSON){
             var data = {};
             try {
-                data = JSON.parse(savedDataFileReader.result);
+                data = JSON.parse(dataJSON);
             } catch (e) {
                 throw new Error("JSON syntax error");
             }
@@ -524,452 +543,579 @@ window.addEventListener("load", function(){
                 if (data[set.id]) {
                     switch (set.prop) {
                         case "value":
-                            document.getElementById(set.id).value = data[set.id];
+                            getElem(set.id).value = data[set.id];
                             break;
                         case "checked":
-                            document.getElementById(set.id).checked = data[set.id] == "true";
+                            getElem(set.id).checked = data[set.id] == "true";
                             break;
                         default:
-                            document.getElementById(set.id).setAttribute(set.prop, data[set.id]);
+                            getElem(set.id).setAttribute(set.prop, data[set.id]);
                     }
                 }else{
                     //ここから互換性用のコードA, dataFormatで要求されたデータが保存データに無いとき[新追加要素など]処理がここに流れてくる。
                     //特別に処理がない限り、保存データにあってdataFormatで要求されて[いない]データは無視される。
                     if (set.id == "lineStyle"){
-                        document.getElementById(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
+                        getElem(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
                     }
                     if (set.id == "chinaJumppadPattern"){
-                        document.getElementById(set.id).setAttribute(set.prop, data.gspJumppad);
+                        getElem(set.id).setAttribute(set.prop, data.gspJumppad);
                     }
                     if (set.id == "chinaJumppadInner"){
-                        document.getElementById(set.id).setAttribute(set.prop, data.jumppadColor);
+                        getElem(set.id).setAttribute(set.prop, data.jumppadColor);
                     }
                     if (set.id == "floaterInactiveShadowColor"){
-                        document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
+                        getElem(set.id).setAttribute(set.prop, data.floaterMainColor);
                     }
                     if (set.id == "floaterActiveShadowColor"){
-                        document.getElementById(set.id).setAttribute(set.prop, data.floaterMainColor);
+                        getElem(set.id).setAttribute(set.prop, data.floaterMainColor);
                     }
                     if (set.id == "activeJumppadGlow"){
-                        document.getElementById(set.id).setAttribute(set.prop, data.disableActiveJumppadGlow ? "none" : "normal");
+                        getElem(set.id).setAttribute(set.prop, data.disableActiveJumppadGlow ? "none" : "normal");
                     }
                 }
             });
             //ここから特別処理コードB. ここには1つのセーブデータエントリが複数のコントロールを制御する/に制御されている場合などの処理を書く。
             //dataFormatに入れなければ、データ生成処理もgenerateSaveDaraUnner()に独自で書かなければならない。
-            if (data.enemyStripes) document.getElementById("stripeJSONData").value=JSON.stringify(data.enemyStripes);
-                
-            updateAllSelectForms();
-            document.getElementById("generateButton").click();
-        });
-        savedDataFileReader.readAsText(this.files[0]);
-    }, true);
+            if (data.enemyStripes) getElem("stripeJSONData").value=JSON.stringify(data.enemyStripes);
 
-    function generateSaveDataInner() {
-        var json = "{\n\t\"version\": \"" + versionName + "\",\n\t\"versionNum\": " + versionNum + ",";
-        dataFormat.forEach(function (set, num) {
-            json += "\n\t\"" + set.id + "\": \"" + document.getElementById(set.id)[set.prop] + "\",";
+            updateAllSelectForms();
+            getElem("generateButton").click();
+        }
+        
+        getElem("loadSavedTheme").addEventListener("change", function () {
+            //確認
+            if (!window.confirm(lang.callText("loadSavedThemeConfirmation"))) return;
+        
+            var savedDataFileReader = new FileReader();
+            savedDataFileReader.addEventListener("loadstart", function () {
+                getElem("loadStatus").innerHTML = lang.callText("fileLoading");
+            });
+            savedDataFileReader.addEventListener("error", function () {
+                getElem("loadStatus").innerHTML = lang.callText("loadError");
+            });
+            savedDataFileReader.addEventListener("loadend", function () {
+                getElem("loadStatus").innerHTML = lang.callText("loadFileComplete");
+                applySaveData(savedDataFileReader.result);
+            });
+            savedDataFileReader.readAsText(this.files[0]);
+        }, true);
+
+        function generateSaveDataInner() {
+            var json = "{\n\t\"version\": \"" + versionName + "\",\n\t\"versionNum\": " + versionNum + ",";
+            dataFormat.forEach(function (set, num) {
+                json += "\n\t\"" + set.id + "\": \"" + getElem(set.id)[set.prop] + "\",";
+            });
+            json += "\n\t\"enemyStripes\": " + getElem("stripeJSONData").value;
+            json += "\n}";
+            getElem("saveTheme").setAttribute("href", "data:text/plain;base64," + btoa(json));
+            localStorage.setItem("RSSM::saveData", json);
+        }
+        getElem("generateButton").setClick(generateSaveDataInner, true);
+    
+        dataFormat.forEach(function (set){
+            if (!(["src"]).includes(set.prop)) getElem(set.id).addEventListener("change", generateSaveDataInner,true);
         });
-        json += "\n\t\"enemyStripes\": " + document.getElementById("stripeJSONData").value;
-        json += "\n}";
-        document.getElementById("saveTheme").setAttribute("href", "data:text/plain;base64," + btoa(json));
+    
+        generateSaveData = generateSaveDataInner;
+        
+        let previousSave = localStorage.getItem("RSSM::saveData");
+        if (previousSave) applySaveData(previousSave);
+        
+        getElem("localStorageDataClearButton").setClick(() => {
+            if (!confirm(lang.callText("localStorageClearConfirmation"))) return;
+            localStorage.removeItem("RSSM::saveData");
+            disableConfirmation = true;
+            location.reload();
+        });
     }
-    document.getElementById("generateButton").addEventListener("click", generateSaveDataInner, true);
-    
-    dataFormat.forEach(function (set){
-        if (!(["src"]).includes(set.prop)) document.getElementById(set.id).addEventListener("change", generateSaveDataInner,true);
-    });
-    
-    generateSaveData = generateSaveDataInner;
     
     //ここからhtml各セクションのスクリプト
-    //Fragile
-    let copyFAlphaFrRange2Num = () => {
-        document.getElementById("fragileAlphaNum").value = document.getElementById("fragileAlpha").value;
-        document.getElementById("fragileActiveAlphaNum").value = document.getElementById("fragileActiveAlpha").value;
-    };
-    otherUpdateFunctions.push(copyFAlphaFrRange2Num);
-    document.getElementById("fragileAlphaNum").addEventListener("input", function(){
-        document.getElementById("fragileAlpha").value = document.getElementById("fragileAlphaNum").value = Number(document.getElementById("fragileAlphaNum").value).clamp(0,255);
-    });
-    document.getElementById("fragileAlpha").addEventListener("input", function(){
-        document.getElementById("fragileAlphaNum").value = document.getElementById("fragileAlpha").value;
-    });
-    document.getElementById("fragileActiveAlphaNum").addEventListener("input", function(){
-        document.getElementById("fragileActiveAlpha").value = document.getElementById("fragileActiveAlphaNum").value = Number(document.getElementById("fragileActiveAlphaNum").value).clamp(0,255);
-    });
-    document.getElementById("fragileActiveAlpha").addEventListener("input", function(){
-        document.getElementById("fragileActiveAlphaNum").value = document.getElementById("fragileActiveAlpha").value;
-    });
-    //ここからEnem
-    function checkIfCommonObjsAreAvailable() {
-        var TRCheck = (checkFrom, attr, formID, unavailableMsg, hiddenInput, inverted = false) => {
-            var isAvailable = (inverted^document.getElementById(checkFrom).selectedOptions[0].hasAttribute(attr)) == 1;
-            document.getElementById(hiddenInput).value = isAvailable;
-            if (isAvailable) {
-                document.getElementById(unavailableMsg).classList.add("hidden");
-                document.getElementById(formID).classList.remove("hidden");
-            }else{
-                document.getElementById(formID).classList.add("hidden");
-                document.getElementById(unavailableMsg).classList.remove("hidden");
-            }
-            return isAvailable;
+    /*Fragile range-number連動*/{
+        let copyFAlphaFrRange2Num = () => {
+            getElem("fragileAlphaNum").value = getElem("fragileAlpha").value;
+            getElem("fragileActiveAlphaNum").value = getElem("fragileActiveAlpha").value;
         };
-        var selectedOptionHasAttribute = (selectElementID, attribute, inverted = false) => {
-            return (inverted^document.getElementById(selectElementID).selectedOptions[0].hasAttribute(attribute)) == 1;
-        }, setShowCommonObjForm = (isAvailable, formID, unavailableMsg) => {
-            if (isAvailable) {
-                document.getElementById(unavailableMsg).classList.add("hidden");
-                document.getElementById(formID).classList.remove("hidden");
-            }else{
-                document.getElementById(formID).classList.add("hidden");
-                document.getElementById(unavailableMsg).classList.remove("hidden");
-            }
-            return isAvailable;
-        };
-        //subB
-        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-subB-available"), "subBForm", "subBUnavailableMessage");
-        //Flip
-        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-flipper-available"), "flipTileForm", "flipTileUnavailableMessage");
-        //MiniJ
-        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-minijump-available"), "smallJumpForm", "smallJumpUnavailableMessage");
-        //BRight
-        setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-overrides-risers", true) && selectedOptionHasAttribute("subBType", "data-overrides-risers", true), "bottomRightForm", "bottomRightUnavailableMessage");
+        otherUpdateFunctions.push(copyFAlphaFrRange2Num);
+        getElem("fragileAlphaNum").addEventListener("input", function(){
+            getElem("fragileAlpha").value = getElem("fragileAlphaNum").value = Number(getElem("fragileAlphaNum").value).clamp(0,255);
+        });
+        getElem("fragileAlpha").addEventListener("input", function(){
+            getElem("fragileAlphaNum").value = getElem("fragileAlpha").value;
+        });
+        getElem("fragileActiveAlphaNum").addEventListener("input", function(){
+            getElem("fragileActiveAlpha").value = getElem("fragileActiveAlphaNum").value = Number(getElem("fragileActiveAlphaNum").value).clamp(0,255);
+        });
+        getElem("fragileActiveAlpha").addEventListener("input", function(){
+            getElem("fragileActiveAlphaNum").value = getElem("fragileActiveAlpha").value;
+        });
     }
-    checkIfCommonObjsAreAvailable();
-    document.getElementById("topRightType").addEventListener("change", checkIfCommonObjsAreAvailable);
-    document.getElementById("subBType").addEventListener("change", checkIfCommonObjsAreAvailable);
-    otherUpdateFunctions.push(checkIfCommonObjsAreAvailable);
     
-    //
-    
-    //反転床の更新
-    function changeFlipTileForm() {
-        var flipTileType = document.getElementById("flipTileType").value;
-        var notTheSamePattern = ["import"];
-        if (notTheSamePattern.includes(flipTileType)) {
-            document.getElementById("flipperColorForm").classList.add("hidden");
-            document.getElementById("flipperNoCustomization").classList.add("hidden");
-            document.getElementById("importFlipperCustomizationForm").classList.remove("hidden");
-            return;
+    /*Enemy自動トグルフォーム*/{
+        function checkIfCommonObjsAreAvailable() {
+            var TRCheck = (checkFrom, attr, formID, unavailableMsg, hiddenInput, inverted = false) => {
+                var isAvailable = (inverted^getElem(checkFrom).selectedOptions[0].hasAttribute(attr)) == 1;
+                getElem(hiddenInput).value = isAvailable;
+                if (isAvailable) {
+                    getElem(unavailableMsg).classList.add("hidden");
+                    getElem(formID).classList.remove("hidden");
+                }else{
+                    getElem(formID).classList.add("hidden");
+                    getElem(unavailableMsg).classList.remove("hidden");
+                }
+                return isAvailable;
+            };
+            var selectedOptionHasAttribute = (selectElementID, attribute, inverted = false) => {
+                return (inverted^getElem(selectElementID).selectedOptions[0].hasAttribute(attribute)) == 1;
+            }, setShowCommonObjForm = (isAvailable, formID, unavailableMsg) => {
+                if (isAvailable) {
+                    getElem(unavailableMsg).classList.add("hidden");
+                    getElem(formID).classList.remove("hidden");
+                }else{
+                    getElem(formID).classList.add("hidden");
+                    getElem(unavailableMsg).classList.remove("hidden");
+                }
+                return isAvailable;
+            };
+            //subB
+            setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-subB-available"), "subBForm", "subBUnavailableMessage");
+            //Flip
+            setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-flipper-available"), "flipTileForm", "flipTileUnavailableMessage");
+            //MiniJ
+            setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-minijump-available"), "smallJumpForm", "smallJumpUnavailableMessage");
+            //BRight
+            setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-overrides-risers", true) && selectedOptionHasAttribute("subBType", "data-overrides-risers", true), "bottomRightForm", "bottomRightUnavailableMessage");
         }
-        document.getElementById("flipperColorForm").classList.remove("hidden");
-        document.getElementById("importFlipperCustomizationForm").classList.add("hidden");
-        document.getElementById("flipperNoCustomization").classList.add("hidden");
-        var flipTileData = {
-            "cube": {
-                colorCount: 2,
-                translationKeys: [
-                    "cubeFlipperColorA",
-                    "cubeFlipperColorB"
-                ]
-            },
-            "checker": {
-                colorCount: 2,
-                translationKeys: [
-                    "checkerFlipperColorA",
-                    "checkerFlipperColorB"
-                ]
-            },
-            "holly": {
-                colorCount: 5,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "hollyFlipperPetalColor1",
-                    "hollyFlipperPetalColor2",
-                    "hollyFlipperSpotColor"
-                ]
-            },
-            "rhombus": {
-                colorCount: 4,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "rhombusFlipperRhombusColor",
-                    "flipperFrameBackgroundColor"
-                ]
-            },
-            "squares": {
-                colorCount: 2,
-                translationKeys: [
-                    "backgroundColor",
-                    "patternColor"
-                ]
-            },
-            "uLines": {
-                colorCount: 2,
-                translationKeys: [
-                    "backgroundColor",
-                    "patternColor"
-                ]
-            },
-            "star": {
-                colorCount: 2,
-                translationKeys: [
-                    "backgroundColor",
-                    "patternColor"
-                ]
-            },
-            "semicircles": {
-                colorCount: 3,
-                translationKeys: [
-                    "demisemicirclesFlipperCenterColor",
-                    "demisemicirclesFlipperColorB",
-                    "demisemicirclesFlipperColorC"
-                ]
-            },
-            "fortune": {
-                colorCount: 3,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "patternColor"
-                ]
-            },
-            "ring": {
-                colorCount: 2,
-                translationKeys: [
-                    "backgroundColor",
-                    "patternColor"
-                ]
-            },
-            "cross": {
-                colorCount: 3,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "patternColor"
-                ]
-            },
-            "nuclear": {
-                colorCount: 3,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "patternColor"
-                ]
-            },
-            "biohazard": {
-                colorCount: 3,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "patternColor"
-                ]
-            },
-            "eight": {
-                colorCount: 2,
-                translationKeys: [
-                    "backgroundColor",
-                    "patternColor"
-                ]
-            },
-            "sakura": {
-                colorCount: 3,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "patternColor"
-                ]
-            },
-            "checkeredged": {
-                colorCount: 2,
-                translationKeys: [
-                    "alternatingEdgeColsFlipperColorA",
-                    "alternatingEdgeColsFlipperColorB"
-                ]
-            },
-            "heart": {
-                colorCount: 3,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "patternColor"
-                ]
-            },
-            "cits": {
-                colorCount: 3,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor",
-                    "patternColor"
-                ]
-            },
-            "fakeground": {
-                colorCount: 2,
-                translationKeys: [
-                    "backgroundColor",
-                    "flipperFrameColor"
-                ]
-            },
-            "sunshine": {
-                colorCount: 3,
-                translationKeys: [
-                    "sunshineMain",
-                    "sunshineDarker",
-                    "sunshineAccent"
-                ]
-            }
+        checkIfCommonObjsAreAvailable();
+        getElem("topRightType").addEventListener("change", checkIfCommonObjsAreAvailable);
+        getElem("subBType").addEventListener("change", checkIfCommonObjsAreAvailable);
+        otherUpdateFunctions.push(checkIfCommonObjsAreAvailable);
+    }
+    
+    /*ダイアログウィンドウ用*/{
+        window.closeAllWindow = () => {
+            getElem("windowGroup").removeAttribute("opened");
+            document.querySelectorAll("window-positioner[opened]").forEach(each => each.removeAttribute("opened"));
         };
-        var currentFlipData = flipTileData[flipTileType];
-        Array.from(document.getElementById("flipperColorForm").children).forEach(function (div, num) {
-            if (num > currentFlipData.colorCount - 1) {
-                div.classList.add("hidden");
+        document.querySelectorAll("[data-window-close-button]").forEach(each => each.setClick(closeAllWindow));
+        document.querySelectorAll("[data-window-open-button]").forEach(each => {
+            each.setClick(function(){
+                getElem(each.getAttribute("data-window-open-button")).setAttribute("opened", "");
+                getElem("windowGroup").setAttribute("opened", "settings");
+            });
+        });
+    }
+    
+    /*反転床の更新*/{
+        function changeFlipTileForm() {
+            var flipTileType = getElem("flipTileType").value;
+            var notTheSamePattern = ["import"];
+            if (notTheSamePattern.includes(flipTileType)) {
+                getElem("flipperColorForm").classList.add("hidden");
+                getElem("flipperNoCustomization").classList.add("hidden");
+                getElem("importFlipperCustomizationForm").classList.remove("hidden");
                 return;
             }
-            div.classList.remove("hidden");
-            var labelElem = div.children[0];
-            labelElem.setAttribute("data-translation-key", currentFlipData.translationKeys[num]);
-            labelElem.innerHTML = lang.callText(currentFlipData.translationKeys[num]);
-        });
-    }
-    changeFlipTileForm();
-    document.getElementById("flipTileType").addEventListener("change", changeFlipTileForm);
-    otherUpdateFunctions.push(changeFlipTileForm);
-    
-    //
-    
-    //メインストライプの更新
-    
-    function updateMSCF() {
-        var code = "0000";
-        switch (document.getElementById("mainStripeColorSteps").value) {
-            case "monotone":
-                code = "0001";
-                break;
-            case "twotones":
-                code = "1100";
-                break;
-            case "threetonesthickmiddle":
-            case "threetonesthinmiddle":
-                code = "1110";
-        }
-        for (var i = 0; i < 4; i++) {
-            if (code.charAt(i) === "0") {
-                document.getElementById("mainStripeColorForm" + (i + 1)).classList.add("hidden");
-            } else {
-                document.getElementById("mainStripeColorForm" + (i + 1)).classList.remove("hidden");
-            }
-        }
-    }
-    updateMSCF();
-    otherUpdateFunctions.push(updateMSCF);
-    document.getElementById("mainStripeColorSteps").addEventListener("change", updateMSCF, true);
-    
-    //
-    
-    //左下の線の更新
-    var rowList = document.getElementById("BLStripes");
-
-    function initRow(rowElem) {
-        if (rowElem.nodeType !== Node.ELEMENT_NODE) return;
-        for (let control = 0; control < 3; control++) {
-            rowElem.children[control].children[0].addEventListener("change", updateJSONFromForm);
-        }
-        var buttons = rowElem.children[4].children;
-
-        //「上に移動」ボタン
-        buttons[0].addEventListener("click", function () {
-            var previousElem = null;
-            previousElem = rowElem.previousElementSibling;
-            /*while (previousElem !== null && previousElem.nodeType !== Node.ELEMENT_NODE) {
-                previousElem = previousElem.previousSibling;
-            }*/
-            if (previousElem !== null) {
-                rowList.insertBefore(rowElem, previousElem);
-            }
-            updateJSONFromForm();
-        }, true);
-
-        //「下に移動」ボタン
-        buttons[1].addEventListener("click", function () {
-            var nextElem = null;
-            nextElem = rowElem.nextElementSibling;
-            if (nextElem == null) return; //すでに最後なら何もする必要はない
-            var nextNextElem = nextElem.nextElementSibling;
-            if (nextNextElem == null) { //2つ後の要素が無いなら最後尾に移動することになる
-                rowList.appendChild(rowElem);
-            } else {
-                rowList.insertBefore(rowElem, nextNextElem);
-            }
-            updateJSONFromForm();
-        }, true);
-
-        //「複製」ボタン
-        buttons[2].addEventListener("click", function () {
-            var newRow = rowElem.cloneNode(true);
-            rowList.insertBefore(newRow, rowElem);
-            initRow(newRow);
-            updateJSONFromForm();
-        }, true);
-        //「削除」ボタン
-        buttons[3].addEventListener("click", function () {
-            if (window.confirm(lang.callText("rowRemovalConfirmation"))) rowElem.remove();
-            updateJSONFromForm();
-        }, true);
-    }
-
-    function updateJSONFromForm() {
-        var json = "[";
-        Array.from(rowList.children).forEach(function (row, pos, arr) {
-            json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
-            if (pos + 1 != arr.length) json += ", ";
-        });
-        json += "]";
-        document.getElementById("stripeJSONData").value = json;
-        generateSaveData();
-    }
-
-    function updateFormFromJSON() {
-        var jsonObj = JSON.parse(document.getElementById("stripeJSONData").value);
-        rowList.innerHTML = "";
-        jsonObj.forEach(function (row) {
-            var newRow = addNewRow();
-            newRow.children[0].children[0].value = row.light;
-            newRow.children[1].children[0].value = row.medium;
-            newRow.children[2].children[0].value = row.dark;
-            newRow.children[3].children[0].value = row.width;
-        });
-    }
-
-    Array.from(rowList.children).forEach(function (row) {
-        initRow(row);
-    });
-
-    function addNewRow() {
-        var newRow = document.createElement("tr");
-        newRow.innerHTML = document.getElementById("BLStripeRowTemplate").innerHTML;
-        rowList.appendChild(newRow);
-        initRow(newRow);
-        return newRow;
-    }
-    document.getElementById("addStripe").addEventListener("click", function () {
-        initRow(addNewRow());
-    }, true);
-    otherUpdateFunctions.push(updateFormFromJSON);
-    
-    document.querySelectorAll("[data-preset]").forEach(function(each){
-        each.addEventListener("click", function(){
-            if (!confirm(lang.callText("presetConfirmation"))) return;
-            
-            let preset = each.getAttribute("data-preset");
-            document.querySelectorAll("[data-preset-" + preset + "]").forEach(function(fach){
-                let attr = "value";
-                if (fach.hasAttribute("data-preset-attribute")) attr = fach.getAttribute("data-preset-attribute");
-                if (attr == "checked") {fach.checked = (fach.getAttribute("data-preset-" + preset) == "true"); return;}
-                fach.setAttribute(attr, fach.getAttribute("data-preset-" + preset));
+            getElem("flipperColorForm").classList.remove("hidden");
+            getElem("importFlipperCustomizationForm").classList.add("hidden");
+            getElem("flipperNoCustomization").classList.add("hidden");
+            var flipTileData = {
+                "cube": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "cubeFlipperColorA",
+                        "cubeFlipperColorB"
+                    ]
+                },
+                "checker": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "checkerFlipperColorA",
+                        "checkerFlipperColorB"
+                    ]
+                },
+                "holly": {
+                    colorCount: 5,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "hollyFlipperPetalColor1",
+                        "hollyFlipperPetalColor2",
+                        "hollyFlipperSpotColor"
+                    ]
+                },
+                "rhombus": {
+                    colorCount: 4,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "rhombusFlipperRhombusColor",
+                        "flipperFrameBackgroundColor"
+                    ]
+                },
+                "squares": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "patternColor"
+                    ]
+                },
+                "uLines": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "patternColor"
+                    ]
+                },
+                "star": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "patternColor"
+                    ]
+                },
+                "semicircles": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "demisemicirclesFlipperCenterColor",
+                        "demisemicirclesFlipperColorB",
+                        "demisemicirclesFlipperColorC"
+                    ]
+                },
+                "fortune": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "ring": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "patternColor"
+                    ]
+                },
+                "cross": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "nuclear": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "biohazard": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "eight": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "patternColor"
+                    ]
+                },
+                "sakura": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "shootingstars": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "smiley": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "patternColor"
+                    ]
+                },
+                "needle": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "patternColor"
+                    ]
+                },
+                "checkeredged": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "alternatingEdgeColsFlipperColorA",
+                        "alternatingEdgeColsFlipperColorB"
+                    ]
+                },
+                "heart": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "cits": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
+                "fakeground": {
+                    colorCount: 2,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor"
+                    ]
+                },
+                "sunshine": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "sunshineMain",
+                        "sunshineDarker",
+                        "sunshineAccent"
+                    ]
+                }
+            };
+            var currentFlipData = flipTileData[flipTileType];
+            Array.from(getElem("flipperColorForm").children).forEach(function (div, num) {
+                if (num > currentFlipData.colorCount - 1) {
+                    div.classList.add("hidden");
+                    return;
+                }
+                div.classList.remove("hidden");
+                var labelElem = div.children[0];
+                labelElem.setAttribute("data-translation-key", currentFlipData.translationKeys[num]);
+                labelElem.innerHTML = lang.callText(currentFlipData.translationKeys[num]);
             });
-            
-            //ここから元のコード
-            /*
-            let preset = presets[each.getAttribute("data-preset")];
-            preset.forEach(function(fach){
-                let attr = "value";
-                if (fach.attr) attr = fach.attr;
-                if (attr == "checked") {document.getElementById(fach.id).checked = fach.value; return;}
-                document.getElementById(fach.id).setAttribute("value",fach.value);
-            })*/
+        }
+        changeFlipTileForm();
+        getElem("flipTileType").addEventListener("change", changeFlipTileForm);
+        otherUpdateFunctions.push(changeFlipTileForm);
+    }
+    
+    /*メインストライプの更新*/{
+        function updateMSCF() {
+            var code = "0000";
+            switch (getElem("mainStripeColorSteps").value) {
+                case "monotone":
+                    code = "0001";
+                    break;
+                case "twotones":
+                    code = "1100";
+                    break;
+                case "threetonesthickmiddle":
+                case "threetonesthinmiddle":
+                    code = "1110";
+            }
+            for (var i = 0; i < 4; i++) {
+                if (code.charAt(i) === "0") {
+                    getElem("mainStripeColorForm" + (i + 1)).classList.add("hidden");
+                } else {
+                    getElem("mainStripeColorForm" + (i + 1)).classList.remove("hidden");
+                }
+            }
+        }
+        updateMSCF();
+        otherUpdateFunctions.push(updateMSCF);
+        getElem("mainStripeColorSteps").addEventListener("change", updateMSCF, true);
+    }
+    
+    /*左下の線の更新*/{
+        var rowList = getElem("BLStripes");
+
+        function initRow(rowElem) {
+            if (rowElem.nodeType !== Node.ELEMENT_NODE) return;
+            for (let control = 0; control < 3; control++) {
+                rowElem.children[control].children[0].addEventListener("change", updateJSONFromForm);
+            }
+            var buttons = rowElem.children[4].children;
+
+            //「上に移動」ボタン
+            buttons[0].setClick(function () {
+                var previousElem = null;
+                previousElem = rowElem.previousElementSibling;
+                /*while (previousElem !== null && previousElem.nodeType !== Node.ELEMENT_NODE) {
+                    previousElem = previousElem.previousSibling;
+                }*/
+                if (previousElem !== null) {
+                    rowList.insertBefore(rowElem, previousElem);
+                }
+                updateJSONFromForm();
+            }, true);
+
+            //「下に移動」ボタン
+            buttons[1].setClick(function () {
+                var nextElem = null;
+                nextElem = rowElem.nextElementSibling;
+                if (nextElem == null) return; //すでに最後なら何もする必要はない
+                var nextNextElem = nextElem.nextElementSibling;
+                if (nextNextElem == null) { //2つ後の要素が無いなら最後尾に移動することになる
+                    rowList.appendChild(rowElem);
+                } else {
+                    rowList.insertBefore(rowElem, nextNextElem);
+                }
+                updateJSONFromForm();
+            }, true);
+
+            //「複製」ボタン
+            buttons[2].setClick(function () {
+                var newRow = rowElem.cloneNode(true);
+                rowList.insertBefore(newRow, rowElem);
+                initRow(newRow);
+                updateJSONFromForm();
+            }, true);
+            //「削除」ボタン
+            buttons[3].setClick(function () {
+                if (window.confirm(lang.callText("rowRemovalConfirmation"))) rowElem.remove();
+                updateJSONFromForm();
+            }, true);
+        }
+
+        function updateJSONFromForm() {
+            var json = "[";
+            Array.from(rowList.children).forEach(function (row, pos, arr) {
+                json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
+                if (pos + 1 != arr.length) json += ", ";
+            });
+            json += "]";
+            getElem("stripeJSONData").value = json;
+            generateSaveData();
+        }
+
+        function updateFormFromJSON() {
+            var jsonObj = JSON.parse(getElem("stripeJSONData").value);
+            rowList.innerHTML = "";
+            jsonObj.forEach(function (row) {
+                var newRow = addNewRow();
+                newRow.children[0].children[0].value = row.light;
+                newRow.children[1].children[0].value = row.medium;
+                newRow.children[2].children[0].value = row.dark;
+                newRow.children[3].children[0].value = row.width;
+            });
+        }
+
+        Array.from(rowList.children).forEach(function (row) {
+            initRow(row);
+        });
+
+        function addNewRow() {
+            var newRow = document.createElement("tr");
+            newRow.innerHTML = getElem("BLStripeRowTemplate").innerHTML;
+            rowList.appendChild(newRow);
+            initRow(newRow);
+            return newRow;
+        }
+        getElem("addStripe").setClick(function () {
+            initRow(addNewRow());
+        }, true);
+        otherUpdateFunctions.push(updateFormFromJSON);
+    }
+    
+    /*Enemyテーマ部のためのプリセット*/{
+        document.querySelectorAll("[data-preset]").forEach(function(each){
+            each.setClick(function(){
+                if (!confirm(lang.callText("settingChangeConfirmation"))) return;
+
+                let preset = each.getAttribute("data-preset");
+                document.querySelectorAll("[data-preset-" + preset + "]").forEach(function(fach){
+                    let attr = "value";
+                    if (fach.hasAttribute("data-preset-attribute")) attr = fach.getAttribute("data-preset-attribute");
+                    if (attr == "checked") {fach.checked = (fach.getAttribute("data-preset-" + preset) == "true"); return;}
+                    fach.setAttribute(attr, fach.getAttribute("data-preset-" + preset));
+                });
+
+                //ここから元のコード
+                /*
+                let preset = presets[each.getAttribute("data-preset")];
+                preset.forEach(function(fach){
+                    let attr = "value";
+                    if (fach.attr) attr = fach.attr;
+                    if (attr == "checked") {getElem(fach.id).checked = fach.value; return;}
+                    getElem(fach.id).setAttribute("value",fach.value);
+                })*/
+            })
         })
-    })
+    }
+    
+    /*Enemy色抽出*/{
+        function extractColors(colors){
+            getElem("extractColorTableBody").innerHTML = "";
+            let context = getElem("textureColorExtractCanvas").getContext("2d", {willReadFrequently: true});
+            colors.forEach(each => {
+                let pixelData = context.getImageData(each.x, each.y, 1, 1);
+                let pixelHex = "#";
+                for(let i = 0; i < 3; i++){
+                    let colorAspect = pixelData.data[i];
+                    pixelHex += (colorAspect < 16 ? "0" : "") + colorAspect.toString(16);
+                }
+                let rowElem = document.createElement("tr");
+                rowElem.innerHTML += "<td>" + each.id + "</td>";
+                rowElem.innerHTML += "<td>" + pixelHex + "</td>";
+                rowElem.innerHTML += "<td style=\"color: " + pixelHex + ";\">■</td>";
+                getElem("extractColorTableBody").appendChild(rowElem);
+            });
+        }
+        getElem("extractTextureColors").setClick(() => {
+            getElem("textureColorExtractCanvas").getContext("2d").drawImage(getElem("enemyColorImportImg"), 0, 0);
+            extractColors([
+                {id: "middleLeftTone1Line", x: 140, y: 220},
+                {id: "middleLeftTone1Face", x: 158, y: 220},
+                {id: "middleLeftTone2Line", x: 204, y: 220},
+                {id: "middleLeftTone2Face", x: 232, y: 220},
+                {id: "middleLeftTone3Line", x: 140, y: 284},
+                {id: "middleLeftTone3Face", x: 158, y: 284},
+                {id: "middleLeftTone4Line", x: 204, y: 284},
+                {id: "middleLeftTone4Face", x: 232, y: 284},
+                {id: "middleLeftTone5Line", x: 140, y: 348},
+                {id: "middleLeftTone5Face", x: 158, y: 348},
+                {id: "middleLeftTone6Line", x: 204, y: 348},
+                {id: "middleLeftTone6Face", x: 198, y: 336},
+                {id: "middleLeftTone7", x: 223, y: 350},
+                {id: "middleRightTone1Line", x: 268, y: 220},
+                {id: "middleRightTone1Face", x: 286, y: 220},
+                {id: "middleRightTone2Line", x: 332, y: 220},
+                {id: "middleRightTone2Face", x: 350, y: 220},
+                {id: "middleRightTone3Line", x: 268, y: 284},
+                {id: "middleRightTone3Face", x: 286, y: 284},
+                {id: "middleRightTone4Line", x: 332, y: 284},
+                {id: "middleRightTone4Face", x: 350, y: 284},
+                {id: "middleRightTone5Line", x: 268, y: 348},
+                {id: "middleRightTone5Face", x: 286, y: 348},
+                {id: "middleRightTone6Line", x: 332, y: 348},
+                {id: "middleRightTone6Face", x: 350, y: 348}
+            ]);
+        });
+        getElem("useExtractedColors").setClick(() => {
+            if (!window.confirm(lang.callText("settingChangeConfirmation"))) return;
+            closeAllWindow();
+            Array.from(getElem("extractColorTableBody").children).forEach(each => {
+                getElem(each.children[0].innerHTML).value = each.children[1].innerHTML;
+            });
+            getElem("generateButton").click();
+        });
+    }
+    
+    /*アプデ通知*/{
+        localStorage.setItem("RSSM::lastVersion", versionNum);
+    }
 }, true);
