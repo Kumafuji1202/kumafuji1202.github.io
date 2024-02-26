@@ -10,7 +10,9 @@ window.addEventListener("load", function () {
             gridStyle = 3;
         //縦2つのレイアウト
         //Formの望ましい最低限の横幅は500px
-        if (w - h * 7 / 4 >= 500) {
+        if (w <= 800) {
+            gridStyle = 2;
+        }else if (w - h * 7 / 4 >= 500) {
             gridStyle = 2;
         } else {
             gridStyle = 3;
@@ -28,6 +30,7 @@ window.addEventListener("load", function () {
     }
 
     function transformCanvases() {
+        return;
         var h = document.getElementById("generalTextureOutput").offsetWidth - 18;
         if (h !== currentCanvasSize) {
             document.querySelectorAll("#output>*>canvas").forEach(function (the) {
