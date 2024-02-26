@@ -640,6 +640,10 @@ var changeLogs = [
                 {
                     "en": "Recent update additions are now marked with 🆕",
                     "ja": "最新アップデートの追加要素に🆕が表示されるようになった"
+                },
+                {
+                    "en": "Updated visuals of changelog page",
+                    "ja": "変更ログページのヴィジュアルを更新"
                 }
             ]
         }
