@@ -1,5 +1,4 @@
 @charset "utf-8";
-/*update no. 1*/
 html {
     font-size: 12px;
 }
@@ -8,7 +7,7 @@ select{
 }
 #header, #header-bg{
     position: absolute;
-    height: 150px;
+    height: 110px;
     top: 0;
     width: 100%;
 }
@@ -20,23 +19,9 @@ select{
     position: absolute;
     top: 50px;
 }
-#languageForm{
-    position: absolute;
-    top: 80px;
-}
-#colorForm{
-    position: absolute;
-    top: 110px;
-}
 #updateInfo{
-    position: absolute;
-    top: 0px;
-    right: 0px;
     width: 450px;
-    height: 120px;
-    padding:10px;
-    border-width: 5px;
-    border-style: ridge;
+    padding: 10px;
 }
 #updateInfo h1,#updateInfo h2{
     margin:0;
@@ -45,17 +30,7 @@ select{
     overflow-y: scroll;
     border-width: 1px;
     border-style: solid;
-    height: 90px;
-    position: absolute;
-    bottom: 5px;
-}
-#updateNav {
-    position: absolute;
-    top: 0;
-    right: 5px;
-    width: 240px;
-    padding: 0;
-    margin: 0;
+    height: 300px;
 }
 #recentVersionList li{
     margin: 5px;
@@ -94,13 +69,39 @@ html{
     width: 100%;
     height: 100%;
 }
+
+/*メインのflexbox*/
+/*Formの望ましい最低限の横幅は500px
+それを表示幅が下回っ鱈*/
 #main{
     position: absolute;
-    top: 155px;
-    height: calc(100% - 155px);
+    top: 115px;
+    height: calc(100% - 115px);
     width: 100%;
-    display: block;
+    display: flex;
 }
+@media screen and (max-width: 800px){
+    #main{
+        flex-direction: column;
+    }
+}
+#formContainer{
+    overflow: hidden;
+    border-right-width: 5px;
+    border-right-style: ridge;
+}
+#output{
+    overflow: hidden;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+#formBody{
+    overflow-y: scroll;
+    width: 100%;
+    height: calc(100% - 30px);
+}
+
 #header form{
     margin-bottom: 10px;
 }
@@ -116,3 +117,5 @@ html{
     border: 1px solid #000000;
     overflow: hidden;
 }
+
+/*555*758px for phones */
