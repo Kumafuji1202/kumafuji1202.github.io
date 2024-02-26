@@ -1,5 +1,4 @@
 @charset "utf-8";
-/*update no. 4*/
 input[type=color] {
     background-color: inherit;
     border: none;
@@ -15,10 +14,6 @@ input[type=number] {
     color: gray;
 }
 
-.blockLink {
-    display: block;
-}
-
 .notCustom,
 .hidden {
     display: none;
@@ -27,12 +22,16 @@ input[type=number] {
 .middleText * {
     vertical-align: middle;
 }
+.blockLink {
+    display: block;
+}
 
+/*ボタン*/
 .button, .formSmallButton {
+    display: inline-block;
     border: 1px solid #000000;
     padding: 3px;
     width: max-content;
-    background: linear-gradient(#b0b0b0, #707070);
     color: white;
     text-decoration: none;
     margin-top: 5px;
@@ -40,22 +39,10 @@ input[type=number] {
     text-align: center;
     cursor: pointer;
 }
-
 .formSmallButton{
     display: inline-block;
     width: 15px;
 }
-
-.button:hover,
-.formSmallButton:hover {
-    background: linear-gradient(#d0d0d0, #909090);
-}
-
-.button:active,
-.formSmallButton:active {
-    background: linear-gradient(#909090, #d0d0d0);
-}
-
 .button::selection,
 .formSmallButton::selection{
     background-color: inherit;
@@ -63,7 +50,25 @@ input[type=number] {
 }
 
 canvas {
-    border: 1px solid #000000;
+    width: 100%;
+    display: block;
+}
+.outputOverlay{
+    position: relative;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000080;
+    color: #ffffff;
+    text-align: center;
+    align-content: center;
+    transition: opacity 0.25s linear;
+    font-size: 20px;
+    opacity: 0;
+}
+.outputOverlay:hover{
+    opacity: 1;
 }
 
 html[data-theme=light] #output canvas,
@@ -124,4 +129,150 @@ table.colorSettingTable th{
 }
 table.colorSettingTable > tbody th{
     text-align: left;
+}
+
+/*アコーディオン*/
+
+.accordionOuter{
+    border-radius: 5px;
+    box-shadow: 3px 3px #00000040;
+    margin: 10px 0px 10px;
+    overflow: hidden;
+}
+
+.accordionHeader{
+    display: flex;
+    padding: 5px;
+    cursor: pointer;
+    justify-content: space-between;
+}
+.accordionHeader > h2{
+    margin: 0;
+}
+
+.accordionInner{
+    transition: max-height 0.25s linear;
+    max-height: 100vh;
+    overflow: hidden;
+}
+.accordionOuter > *.accordionHeader::after{
+    display: inline-block;
+    height: 16px;
+    margin: 0 8px 0;
+    content: url("accordionIcon.svg");
+    transition: transform 0.5s ease-in-out;
+    transform: rotate(90deg);
+    align-self: center;
+}
+.accordionOuter[data-accordion-collapsed] > *.accordionHeader::after{
+    transform: rotate(0deg);
+}
+.accordionOuter[data-accordion-collapsed] > *.accordionInner{
+    max-height: 0px;
+}
+
+.accordionContent{
+    padding: 10px;
+}
+
+/*ツールバー*/
+#toolbar{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: max-content;
+    border-radius: 5px;
+    box-shadow: 3px 3px #00000040;
+    padding: 10px;
+}
+#toolbar ul{
+    display: block;
+}
+#toolbar li{
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    background-position: center;
+    background-size: 64px;
+    background-repeat: no-repeat;
+    box-shadow: 6px 6px #00000040;
+    cursor: pointer;
+}
+#toolbar li:hover{
+    transition: transform .05s linear;
+    transform: scale(1.1);
+}
+
+/*ウインドウ*/
+dialogue-group{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+#dialogues-background{
+    display: block;
+    position: absolute;
+    
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    
+    pointer-events: none;
+    
+    background-color: #000000c0;
+    
+    opacity: 0;
+    transition: opacity .3s linear;
+}
+dialogue-group[opened] #dialogues-background{
+    opacity: 1;
+    pointer-events: auto;
+}
+window-positioner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    bottom: 100%;
+    transition: bottom .5s ease-in;
+}
+dialogue-group[opened] window-positioner[opened]{
+    bottom: 0%;
+    transition-timing-function: ease-out;
+}
+window{
+    border-radius: 10px;
+    box-shadow: 5px 5px #00000040;
+    padding: 10px;
+    pointer-events: auto;
+    
+    display: block;
+    position: absolute;
+    margin: auto;
+    
+    width: 500px;
+    max-width: 100%;
+    max-height: calc(100% - 30px);
+    overflow: hidden;
+}
+window > window-content{
+    overflow: auto;
+    display: block;
+    border: 1px solid;
+    padding: 5px;
+}
+
+/*個別ウィンドウ*/
+#extractedColorTableContainer{
+    max-height: 300px;
+    overflow: auto;
 }
