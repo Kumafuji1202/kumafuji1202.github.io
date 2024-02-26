@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0,0,64,64" stroke-width="2" stroke="#000000" fill="none">
+    <!--枠-->
+    <path d="M1,6 A5,5 90 0,1 6,1 H44 C48,1 48,1 52,5 L59,12 C63,16 63,16 63,20 V58 A5,5 90 0,1 58,63 H6 A5,5 90 0,1 1,58 Z" />
+    <path d="M10,63 V39 A5,5 90 0,1 15,34 H49 A5,5 90 0,1 54,39 V63" /><!-- L63,20-->
+    <path d="M15,1 V16 A5,5 90 0,0 20,21 H38 A5,5 90 0,0 43,16 V1" />
+</svg>
