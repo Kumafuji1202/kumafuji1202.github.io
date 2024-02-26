@@ -607,7 +607,7 @@ var changeLogs = [
                     "additionalInfo": [
                         {
                             "en": "Contents of the 'Save/Load' tab, 'Recent Updates' and language/theme settings moved to new toolbar at the top-right",
-                            "ja": "「保存・読込」タブ, 「最近のアップデート」, 左上の言語・テーマ設定の内容をツールバーに移動"
+                            "ja": "「保存・読込」タブ, 「最近のアップデート」, 左上の言語・テーマ設定の内容を画面右上に新追加のツールバーに移動"
                         },
                         {
                             "en": "Portrait mode is now supported",
@@ -618,7 +618,7 @@ var changeLogs = [
                             "ja": "床設定のセクションを開閉可能に変更"
                         },
                         {
-                            "en": "Hovering on output canvases will show texture type names and clicking on them will open corresponding Tile setting form sections",
+                            "en": "Hovering on an output canvas will show corresponding texture type name and clicking on it will open corresponding Tile setting form sections",
                             "ja": "出力ビューにマウスオーバーでファイル名を表示, クリックで対応する床設定のセクションを開く"
                         },
                         {
@@ -628,11 +628,11 @@ var changeLogs = [
                     ]
                 },
                 {
-                    "en": "Your theme setting is now stored in Local Storage",
+                    "en": "Your theme setting is now auto-saved in Local Storage",
                     "ja": "テーマ設定がローカルストレージに保存されるようになった",
                     "additionalInfo": [
                         {
-                            "en": "You can clear the saved data (and revert everything to default) from a button in Setting window",
+                            "en": "You can clear the saved data (and revert everything to default) from a button in the Setting window",
                             "ja": "「設定」ウィンドウからローカルストレージのテーマデータをクリア(&すべてデフォルトに戻す)できます"
                         }
                     ]
@@ -642,7 +642,7 @@ var changeLogs = [
                     "ja": "最新アップデートの追加要素に🆕が表示されるようになった"
                 },
                 {
-                    "en": "Updated visuals of changelog page",
+                    "en": "Updated visuals of the changelog page",
                     "ja": "変更ログページのヴィジュアルを更新"
                 }
             ]
