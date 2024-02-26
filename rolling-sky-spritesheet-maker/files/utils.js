@@ -30,3 +30,10 @@ Col.fromColorCode = (colorCode) => {
         return new Col(eval("0x" + colorCode.substring(1, 3)), eval("0x" + colorCode.substring(3, 5)), eval("0x" + colorCode.substring(5, 7)));
     }
 };
+
+function getElem(id){
+    return document.getElementById(id);
+}
+HTMLElement.prototype.setClick = function(callback, bubble = false){
+    this.addEventListener("click", callback, bubble);
+};
