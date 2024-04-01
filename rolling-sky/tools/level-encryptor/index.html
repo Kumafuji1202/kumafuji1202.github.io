@@ -62,6 +62,7 @@
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="../../../js-global/lang.js"></script>
     <script>
         window.addEventListener("load", function() {
             document.getElementById("actionButton").addEventListener("click", function() {
@@ -93,14 +94,52 @@
 
 <body>
     <div id="container">
-        <h1>ローリングスカイステージデータ暗号化/復号ツール</h1>
-        <p>
-            使い方は簡単!<br>
-            ステージのテキストデータを下にペーストしてボタンを押すだけ
-        </p>
+        <h1 data-translation-key="ui.appName"></h1>
+        <label for="languageSelectBox" data-translation-key="ui.langSelect.label"></label>
+        <select id="languageSelectBox">
+        </select>
+        <p data-translation-key="ui.form.guide"></p>
         <div>
-            <textarea id="data" placeholder="ここにステージデータを入力..."></textarea>
+            <textarea id="data" data-translation-key="ui.form.placeholder" placeholder="ここにステージデータを入力..."></textarea>
         </div>
-        <button id="actionButton">暗号化/復号</button>
+        <button id="actionButton" data-translation-key="ui.form.actionButton"></button>
     </div>
 </body>
+<script id="languageSetting">
+    new LanguageManager({
+        languages: [{
+                name: "English",
+                code: "en"
+            },
+            {
+                name: "日本語",
+                code: "ja"
+            }
+        ],
+        translations: {
+            "ui.appName": {
+                "en": "Rolling Sky Level Encryptor / Decryptor",
+                "ja": "ローリングスカイステージデータ暗号化/復号ツール"
+            },
+            "ui.langSelect.label": {
+                "en": "Language",
+                "ja": "言語を選択"
+            },
+            "ui.form.guide": {
+                "en":"Paste your level data in the textarea and press the button",
+                "ja":"使い方は簡単!<br>ステージのテキストデータを下にペーストしてボタンを押すだけ"
+            },
+            "ui.form.placeholder": {
+                "en": "Input level data here",
+                "ja": "ここにステージデータを入力..."
+            },
+            "ui.form.actionButton": {
+                "en": "Encrypt / Decrypt",
+                "ja": "暗号化/復号"
+            }
+        }
+    }).initSite(document.getElementById("languageSelectBox"));
+
+</script>
+
+</html>
