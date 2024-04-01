@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html data-theme="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kumafuji1202">
+    <meta name="pagename" content="Volapük grammar because yes">
+    <meta name="twitter:url" content="">
+    <meta name="twitter:title" content="Volapük grammar because yes">
+    <meta name="twitter:description" content="ummm">
+    <script src="../../js-global/utils.js"></script>
+    <script>
+        var quizzes = [{
+                questionEn: "Who is the founder of RSR?",
+                questionJa: "RSRの創始者は誰か?",
+                answer: "Pao"
+            },
+            {
+                questionEn: "What is the SHAvibe reference in RSR 0.3b?",
+                questionJa: "0.3bにあったSHAvibeへの言及はなにか?",
+                answer: "<strong>Pillars</strong> Type: SHArp"
+            },
+            {
+                questionEn: "What unused object from Rolling Sky was put into RSR previously?",
+                questionJa: "過去のRSRに入っていたRSの<strong>未使用</strong>オブジェクトは?",
+                answer: "Large pyramid (大ピラミッド)"
+            },
+            {
+                questionEn: "Which of the following is an easter egg in RSR now?",
+                questionJa: "現在のRSRにある隠しヨウ素はどれか?",
+                answer: "Rainbow stars on main menu (メインメニューの虹色の星)"
+            },
+            {
+                questionEn: "How many times has RSR restarted development?",
+                questionJa: "RSRの開発は今までに何回再開したか?",
+                answer: "4"
+            },
+            {
+                questionEn: "What texture was broken in what theme in RSR 0.3b?",
+                questionJa: "RSR0.3bでテクスチャが壊れていたのは何のテーマの何?",
+                answer: "Fragile, Cloud (雲のガラス床)"
+            },
+            {
+                questionEn: "When were proper death animations added?",
+                questionJa: "死亡アニメーションが追加されたのはいつ?",
+                answer: "1.0"
+            },
+            {
+                questionEn: "How were levels construsted before the In-Game Editor?",
+                questionJa: "エディターができるまではRSRステージはどのように作られていたか?",
+                answer: ".PNG Image (PNG画像)"
+            },
+            {
+                questionEn: "What is the object added in 0.3b that is only available in the PC version?",
+                questionJa: "0.3bで追加されたオブジェクトでPC版でしか使えなかったのは?",
+                answer: "Binary Tiles (バイナリ床)"
+            },
+            {
+                questionEn: "Which version of RSR introduced custom textures that were later removed?",
+                questionJa: "過去のバージョンで一度カスタムテクスチャ機能が登場してその後削除されたのはいつ?",
+                answer: "0.0.51a"
+            },
+            {
+                questionEn: "When was RSR first releaced?",
+                questionJa: "RSRの初めてのリリースはいつ?",
+                answer: "March 24, 2021 (2021年3月24日)"
+            },
+            {
+                questionEn: "What is the name of the first 0.1b preview?",
+                questionJa: "RSR0.1bの初めてのプレビューの名前は?",
+                answer: "Runway"
+            },
+            {
+                questionEn: "How many obstacles were in each version of RSR?",
+                questionJa: "RSR0.1~0.3bの障害物の種類数は?",
+                answer: "0.1b: <strong>34</strong>, 0.2b: 60, 0.3b: 73"
+            },
+            {
+                questionEn: "Which version introced Mover (Arrow) Tiles?",
+                questionJa: "矢印床が登場したのはどのバージョン?",
+                answer: "0.1b"
+            },
+            {
+                questionEn: "Which version introced the In-Game Editor?",
+                questionJa: "エディターが登場したのはどのバージョン?",
+                answer: "0.51a"
+            },
+            {
+                questionEn: "What is the original name of Rolling Sky Remake before it was named \"Rolling SKy<i>[sic]</i> Remake\"?",
+                questionJa: "今の名前になる前のRSRの最初の名前は?",
+                answer: "Runway"
+            },
+            {
+                questionEn: "Who picked up development of RSR after Pao lost interest?",
+                questionJa: "Paoが興味を失ってからRSRの開発を引き継いだのは誰?",
+                answer: "sqdldev"
+            },
+            {
+                questionEn: "Who were the first beta testers of RSR?",
+                questionJa: "RSRの最初のテスターは誰?",
+                answer: "Blooderg, BroXGamer, Carlo"
+            },
+            {
+                questionEn: "What objects DIDN'T dissapear<i>[sic]</i> when collected?",
+                questionJa: "回収してもバグで消えなかったオブジェクトは?",
+                answer: "Crown, Jump Boost (王冠と大ジャンプ)"
+            }
+        ]
+
+    </script>
+    <link rel="stylesheet" href="../rs.css">
+    <link rel="stylesheet" href="../centered-contents.css">
+    <style>
+        #contents {
+            background-color: #ffffff80;
+        }
+        td{
+            text-align: left;
+        }
+        html {
+            background-image: url(../../resources/Background95.png);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="container-flex">
+        <div id="contents">
+            <a href="../../../"><button>ホームに戻る</button></a><br>
+            <table>
+                <thead>
+                    <th>問題</th>
+                    <th>正解</th>
+                </thead>
+                <tbody id="list"></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+    for (let i of quizzes) {
+        let trElem = document.createElement("tr");
+        trElem.innerHTML = `<td> ${i.questionEn}<br> ${i.questionJa}</td><td>${i.answer}</td>`;
+        getElem("list").appendChild(trElem);
+    }
+
+</script>
+
+</html>
