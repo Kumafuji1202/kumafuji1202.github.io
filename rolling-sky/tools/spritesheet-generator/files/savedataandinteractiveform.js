@@ -909,13 +909,13 @@ window.addEventListener("load", function(){
                 let div = getElem("flipperColorForm").children[num];
                 if (num > currentFlipData.colorCount - 1) {
                     div.classList.add("hidden");
-                    return;
+                    continue;
                 }
                 div.classList.remove("hidden");
                 var labelElem = div.children[0];
                 labelElem.setAttribute("data-translation-key", currentFlipData.translationKeys[num]);
                 labelElem.innerHTML = lang.callText(currentFlipData.translationKeys[num]);
-            };
+            }
         }
         changeFlipTileForm();
         getElem("flipTileType").addEventListener("change", changeFlipTileForm);
