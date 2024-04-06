@@ -905,8 +905,9 @@ window.addEventListener("load", function(){
                 }
             };
             var currentFlipData = flipTileData[flipTileType];
-            for (let num in getElem("flipperColorForm").children){
+            for (let num in Array.from(getElem("flipperColorForm").children)){
                 let div = getElem("flipperColorForm").children[num];
+                console.log(num);
                 if (num > currentFlipData.colorCount - 1) {
                     div.classList.add("hidden");
                     continue;
@@ -1002,7 +1003,7 @@ window.addEventListener("load", function(){
 
         function updateJSONFromForm() {
             var json = "[";
-            for(let pos in rowList.children) {
+            for(let pos in Array.from(rowList.children)) {
                 let row = rowList.children[pos];
                 json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
                 if (pos + 1 != rowList.children.length) json += ", ";
