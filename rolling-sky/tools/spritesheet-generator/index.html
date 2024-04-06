@@ -4,21 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Kumafuji1202">
-    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.1.7">
+    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.1.8">
     <meta name="twitter:url" content="https://kumafuji1202.github.io/rolling-sky-spritesheet-maker/">
-    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.1.7">
+    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.1.8">
     <meta name="twitter:description" content="A web tool made by Kumafuji1202 to make spritesheets for Rolling Sky edits / Rolling Sky Remake levels easier.">
     <title data-translation-key="appTitle">
         Rolling Sky Spritesheet Generator
     </title>
     <link id="mainStylesheet" rel="stylesheet" href="files/main.css">
     <link id="formstylesheet" rel="stylesheet" href="files/form.css">
-    <link id="layoutstylesheet" rel="stylesheet" href="files/layoutall.css">
+    <link id="layoutstylesheet" rel="stylesheet" href="files/layout.css">
     <link id="colorstylesheet" rel="stylesheet" href="files/colors.css">
     <link id="gridLayout2" rel="stylesheet" href="files/grid2rows.css">
     <link id="gridLayout3" rel="stylesheet" href="files/grid3rows.css">
     <link rel="canonical" href="https://kumafuji1202.github.io/rolling-sky-spritesheet-maker/">
-    <script id="library" src="files/utils.js"></script>
+    <script id="library" src="../../../js-global/utils.js"></script>
     <script id="zipper" src="files/jszip.min.js"></script>
     <script id="saver" src="files/FileSaver.min.js"></script>
     <script id="closeConfirmer">
@@ -29,7 +29,7 @@
             e.returnValue = '';
         });
     </script>
-    <script id="languageLibrary" src="../lang.js"></script>
+    <script id="languageLibrary" src="../../../js-global/lang.js"></script>
     <script id="languageData" src="files/langdata.js"></script>
     <script id="saveLoadSystem" src="files/savedataandinteractiveform.js"></script>
     <script id="imageGenerator" src="files/imagegen.js"></script>
@@ -59,7 +59,7 @@
     </script>
     <script id="imageLoadingSystem">
         window.addEventListener("load", function() {
-            document.querySelectorAll("input[type=file][data-loading-process]").forEach(function(elem) {
+            for (let elem of document.querySelectorAll("input[type=file][data-loading-process]")){
                 elem.addEventListener("change", function() {
                     var frd = new FileReader();
                     var prc = document.getElementById(elem.getAttribute("data-loading-process"));
@@ -83,15 +83,15 @@
                         }
                     });
                 }
-            });
+            }
         }, true);
 
     </script>
     <script id="g">
         function showFanmades() {
-            document.querySelectorAll("*[data-g]").forEach(function(each) {
+            for (let each of document.querySelectorAll("*[data-g]")) {
                 each.setAttribute("data-h", "");
-            });
+            }
             return "ɵ";
         }
 
@@ -124,8 +124,7 @@
     <header id="header">
         <div id="header-content">
             <h1 id="appTitle" class="appElement"><span id="appTitleName" data-translation-key="appTitle"></span></h1>
-            <p id="creatorName">
-            </p>
+            <p id="creatorName">by Kumafuji1202 <a href="../../../" data-translation-key="returnToTop"></a></p>
             <nav id="toolbar">
                 <ul>
                     <li title="Settings" data-window-open-button="settingsWindow" style="background-image: url(files/settingIcon.svg)"></li>
@@ -1857,6 +1856,7 @@
                                                     <option data-translation-key="flipTileShootingStars" value="shootingstars"></option>
                                                     <option data-translation-key="flipTileSmiley" value="smiley"></option>
                                                     <option data-translation-key="flipTileNeedle" value="needle"></option>
+                                                    <option data-translation-key="flipTileBrazil" value="brazil"></option>
                                                 </optgroup>
                                                 <option data-translation-key="flipTileCheckerEdged" value="checkeredged" data-g></option>
                                                 <!-- 3D Spacial Zoneスタイル-->
@@ -2395,7 +2395,7 @@
                 <h2 data-translation-key="versionInformationWindow">Version information</h2>
                 <window-content>
                     <h3 data-translation-key="appTitle"></h3>
-                    v1.1.7 <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank" data-translation-key="changelogLink"></a></span><br>
+                    v1.1.8 <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank" data-translation-key="changelogLink"></a></span><br>
                     by Kumafuji1202
                     <a target="_blank" href="https://scratch.mit.edu/users/kumafuji1202/"><img src="files/scratchIcon.png"></a>
                     <a target="_blank" href="https://www.youtube.com/@Kumafuji1202"><img src="files/youtubeIcon.png"></a>
@@ -2405,6 +2405,14 @@
                     <div id="updateInfo">
                         <h1 data-translation-key="recentUpdates"></h1>
                         <ol id="recentVersionList">
+                            <li>
+                                <h2>1.1.8 (2024 Apr 06)</h2>
+                                <ul>
+                                    <li>Added flipper pattern 'Leaves'</li>
+                                    <li>Some code made faster by replacing <code>Array.forEach()</code> with <code>for(... of ...)</code></li>
+                                    <li>Fixed portrait mode UI not being applied... hopefully</li>
+                                </ul>
+                            </li>
                             <li>
                                 <h2>1.1.7 (2024 Feb 27)</h2>
                                 <ul>
@@ -2428,18 +2436,6 @@
                                     </li>
                                     <li>Updated visuals of changelog page</li>
                                     <li>Recent update additions are now marked with 🆕</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <h2>1.1.6 (2024 Jan 16)</h2>
-                                <ul>
-                                    <li>Added Jumppad pattern "Mystery" (from Mystery, requested by w_lll)</li>
-                                    <li>Added Enemy top-right pattern "Kepler" (from Kepler's Dream - Stars)</li>
-                                    <li>Added options to change neonbox "sign" colors</li>
-                                    <li>Fixed "rhombus" Flip tile pattern and made it more customizable</li>
-                                    <li>Added feature to download all textures and JSON theme data in a single ZIP file</li>
-                                    <li>Changed layout of buttons in "Save/Load" tab</li>
-                                    <li>Changed style of some form elements a bit</li>
                                 </ul>
                             </li>
                         </ol>

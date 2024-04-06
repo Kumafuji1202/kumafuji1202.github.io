@@ -431,22 +431,22 @@ var otherUpdateFunctions = [];
 var generateSaveData = () => {};
 window.addEventListener("load", function(){
     function runAllOAFs(){
-        otherUpdateFunctions.forEach(function(func){
+        for (let func of otherUpdateFunctions) {
             func();
-        });
+        }
     }
     /*自動開閉フォーム*/
     function updateSelectForm(selectFieldsetID){
         var selectedOption = getElem(getElem(selectFieldsetID).getAttribute("data-form-selector")).selectedOptions[0];
         var selectedFormID = selectedOption.hasAttribute("data-option-form") ?
             selectedOption.getAttribute("data-option-form") : getElem(selectFieldsetID).getAttribute("data-default-form");
-        document.querySelectorAll("#" + selectFieldsetID + "> *[id]:not(legend)").forEach(function(formDivElem){
+        for (let formDivElem of document.querySelectorAll("#" + selectFieldsetID + "> *[id]:not(legend)")){
             if (formDivElem.id == selectedFormID){
                 if (!(formDivElem.classList.contains("selectedForm"))) formDivElem.classList.add("selectedForm");
             }else{
                 if (formDivElem.classList.contains("selectedForm")) formDivElem.classList.remove("selectedForm");
             }
-        });
+        }
     }
     function updateOffOrInput(checkBoxElem){
         var label = getElem(checkBoxElem.getAttribute("data-off-or-input"));
@@ -470,33 +470,33 @@ window.addEventListener("load", function(){
         }
     }
     function updateAllSelectForms(){
-        document.querySelectorAll(".selectForm").forEach(function(elem){
+        for(let elem of document.querySelectorAll(".selectForm")){
             updateSelectForm(elem.id);
-        });
-        document.querySelectorAll("input[data-off-or-input]").forEach(function(elem){
+        }
+        for(let elem of document.querySelectorAll("input[data-off-or-input]")){
             updateOffOrInput(elem);
-        });
-        document.querySelectorAll("select[data-customization-form]").forEach(function(elem){
+        }
+        for(let elem of document.querySelectorAll("select[data-customization-form]")){
             updateCustomOrPreset(elem);
-        });
+        }
         runAllOAFs();
     }
     function addEventListeners(){
-        document.querySelectorAll(".selectForm").forEach(function(elem){
+        for(let elem of document.querySelectorAll(".selectForm")){
             elem.addEventListener("input", function(){
                 updateSelectForm(elem.id);
             }, true);
-        });
-        document.querySelectorAll("input[data-off-or-input]").forEach(function(elem){
+        }
+        for(let elem of document.querySelectorAll("input[data-off-or-input]")){
             elem.addEventListener("input", function(){
                 updateOffOrInput(elem);
             }, true);
-        });
-        document.querySelectorAll("select[data-customization-form]").forEach(function(elem){
+        }
+        for(let elem of document.querySelectorAll("select[data-customization-form]")){
             elem.addEventListener("input", function(){
                 updateCustomOrPreset(elem);
             }, true);
-        });
+        }
     }
     addEventListeners();
     updateAllSelectForms();
@@ -517,18 +517,18 @@ window.addEventListener("load", function(){
                 elem.setAttribute("data-accordion-collapsed", "");
             }
         }
-        document.querySelectorAll("[data-accordion-controls]").forEach(each => {
+        for(let each of document.querySelectorAll("[data-accordion-controls]")) {
             each.setClick(() => {
                 toggleAccordion(each.getAttribute("data-accordion-controls"));
             });
-        });
-        ["general", "fragile", "fragileActive", "mover", "moverAuto"].forEach(function(each){
+        };
+        for(let each of ["general", "fragile", "fragileActive", "mover", "moverAuto"]){
             getElem(each + "Overlay").setClick(() => {
-                document.querySelectorAll("#tilesForm [data-opened-by]").forEach(function(fach){
+                for(let fach of document.querySelectorAll("#tilesForm [data-opened-by]")){
                     setAccordion(fach, fach.getAttribute("data-opened-by").includes(each));
-                });
+                }
             });
-        });
+        }
     }
     
     /*saveデータ読込*/{
@@ -539,7 +539,7 @@ window.addEventListener("load", function(){
             } catch (e) {
                 throw new Error("JSON syntax error");
             }
-            dataFormat.forEach(function (set) {
+            for (let set of dataFormat) {
                 if (data[set.id]) {
                     switch (set.prop) {
                         case "value":
@@ -573,7 +573,7 @@ window.addEventListener("load", function(){
                         getElem(set.id).setAttribute(set.prop, data.disableActiveJumppadGlow ? "none" : "normal");
                     }
                 }
-            });
+            }
             //ここから特別処理コードB. ここには1つのセーブデータエントリが複数のコントロールを制御する/に制御されている場合などの処理を書く。
             //dataFormatに入れなければ、データ生成処理もgenerateSaveDaraUnner()に独自で書かなければならない。
             if (data.enemyStripes) getElem("stripeJSONData").value=JSON.stringify(data.enemyStripes);
@@ -602,9 +602,9 @@ window.addEventListener("load", function(){
 
         function generateSaveDataInner() {
             var json = "{\n\t\"version\": \"" + versionName + "\",\n\t\"versionNum\": " + versionNum + ",";
-            dataFormat.forEach(function (set, num) {
+            for(let set of dataFormat) {
                 json += "\n\t\"" + set.id + "\": \"" + getElem(set.id)[set.prop] + "\",";
-            });
+            }
             json += "\n\t\"enemyStripes\": " + getElem("stripeJSONData").value;
             json += "\n}";
             getElem("saveTheme").setAttribute("href", "data:text/plain;base64," + btoa(json));
@@ -612,9 +612,9 @@ window.addEventListener("load", function(){
         }
         getElem("generateButton").setClick(generateSaveDataInner, true);
     
-        dataFormat.forEach(function (set){
+        for(let set of dataFormat){
             if (!(["src"]).includes(set.prop)) getElem(set.id).addEventListener("change", generateSaveDataInner,true);
-        });
+        }
     
         generateSaveData = generateSaveDataInner;
         
@@ -694,15 +694,15 @@ window.addEventListener("load", function(){
     /*ダイアログウィンドウ用*/{
         window.closeAllWindow = () => {
             getElem("windowGroup").removeAttribute("opened");
-            document.querySelectorAll("window-positioner[opened]").forEach(each => each.removeAttribute("opened"));
+            for (let each of document.querySelectorAll("window-positioner[opened]")) each.removeAttribute("opened");
         };
-        document.querySelectorAll("[data-window-close-button]").forEach(each => each.setClick(closeAllWindow));
-        document.querySelectorAll("[data-window-open-button]").forEach(each => {
+        for (let each of document.querySelectorAll("[data-window-close-button]")) each.setClick(closeAllWindow);
+        for (let each of document.querySelectorAll("[data-window-open-button]")){
             each.setClick(function(){
                 getElem(each.getAttribute("data-window-open-button")).setAttribute("opened", "");
                 getElem("windowGroup").setAttribute("opened", "settings");
             });
-        });
+        }
     }
     
     /*反転床の更新*/{
@@ -857,6 +857,14 @@ window.addEventListener("load", function(){
                         "patternColor"
                     ]
                 },
+                "brazil": {
+                    colorCount: 3,
+                    translationKeys: [
+                        "backgroundColor",
+                        "flipperFrameColor",
+                        "patternColor"
+                    ]
+                },
                 "checkeredged": {
                     colorCount: 2,
                     translationKeys: [
@@ -897,7 +905,8 @@ window.addEventListener("load", function(){
                 }
             };
             var currentFlipData = flipTileData[flipTileType];
-            Array.from(getElem("flipperColorForm").children).forEach(function (div, num) {
+            for (let num in getElem("flipperColorForm").children){
+                let div = getElem("flipperColorForm").children[num];
                 if (num > currentFlipData.colorCount - 1) {
                     div.classList.add("hidden");
                     return;
@@ -906,7 +915,7 @@ window.addEventListener("load", function(){
                 var labelElem = div.children[0];
                 labelElem.setAttribute("data-translation-key", currentFlipData.translationKeys[num]);
                 labelElem.innerHTML = lang.callText(currentFlipData.translationKeys[num]);
-            });
+            };
         }
         changeFlipTileForm();
         getElem("flipTileType").addEventListener("change", changeFlipTileForm);
@@ -993,10 +1002,11 @@ window.addEventListener("load", function(){
 
         function updateJSONFromForm() {
             var json = "[";
-            Array.from(rowList.children).forEach(function (row, pos, arr) {
+            for(let pos in rowList.children) {
+                let row = rowList.children[pos];
                 json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
-                if (pos + 1 != arr.length) json += ", ";
-            });
+                if (pos + 1 != rowList.children.length) json += ", ";
+            }
             json += "]";
             getElem("stripeJSONData").value = json;
             generateSaveData();
@@ -1005,18 +1015,18 @@ window.addEventListener("load", function(){
         function updateFormFromJSON() {
             var jsonObj = JSON.parse(getElem("stripeJSONData").value);
             rowList.innerHTML = "";
-            jsonObj.forEach(function (row) {
+            for (let row of jsonObj) {
                 var newRow = addNewRow();
                 newRow.children[0].children[0].value = row.light;
                 newRow.children[1].children[0].value = row.medium;
                 newRow.children[2].children[0].value = row.dark;
                 newRow.children[3].children[0].value = row.width;
-            });
+            };
         }
 
-        Array.from(rowList.children).forEach(function (row) {
+        for (let row of rowList.children) {
             initRow(row);
-        });
+        };
 
         function addNewRow() {
             var newRow = document.createElement("tr");
@@ -1032,36 +1042,28 @@ window.addEventListener("load", function(){
     }
     
     /*Enemyテーマ部のためのプリセット*/{
-        document.querySelectorAll("[data-preset]").forEach(function(each){
-            each.setClick(function(){
-                if (!confirm(lang.callText("settingChangeConfirmation"))) return;
+        let dataPresetHandler = function(){
+            if (!confirm(lang.callText("settingChangeConfirmation"))) return;
 
-                let preset = each.getAttribute("data-preset");
-                document.querySelectorAll("[data-preset-" + preset + "]").forEach(function(fach){
-                    let attr = "value";
-                    if (fach.hasAttribute("data-preset-attribute")) attr = fach.getAttribute("data-preset-attribute");
-                    if (attr == "checked") {fach.checked = (fach.getAttribute("data-preset-" + preset) == "true"); return;}
-                    fach.setAttribute(attr, fach.getAttribute("data-preset-" + preset));
-                });
-
-                //ここから元のコード
-                /*
-                let preset = presets[each.getAttribute("data-preset")];
-                preset.forEach(function(fach){
-                    let attr = "value";
-                    if (fach.attr) attr = fach.attr;
-                    if (attr == "checked") {getElem(fach.id).checked = fach.value; return;}
-                    getElem(fach.id).setAttribute("value",fach.value);
-                })*/
-            })
-        })
+            let preset = each.getAttribute("data-preset");
+            for (let fach of document.querySelectorAll("[data-preset-" + preset + "]")){
+                let attr = "value";
+                if (fach.hasAttribute("data-preset-attribute")) attr = fach.getAttribute("data-preset-attribute");
+                if (attr == "checked") {fach.checked = (fach.getAttribute("data-preset-" + preset) == "true"); return;}
+                //fach.setAttribute("value", fach.getAttribute("data-preset-" + preset));
+                fach.value = fach.getAttribute("data-preset-" + preset);
+            }
+        };
+        for(let each of document.querySelectorAll("[data-preset]")){
+            each.setClick(dataPresetHandler);
+        }
     }
     
     /*Enemy色抽出*/{
         function extractColors(colors){
             getElem("extractColorTableBody").innerHTML = "";
             let context = getElem("textureColorExtractCanvas").getContext("2d", {willReadFrequently: true});
-            colors.forEach(each => {
+            for (let each in colors) {
                 let pixelData = context.getImageData(each.x, each.y, 1, 1);
                 let pixelHex = "#";
                 for(let i = 0; i < 3; i++){
@@ -1073,7 +1075,7 @@ window.addEventListener("load", function(){
                 rowElem.innerHTML += "<td>" + pixelHex + "</td>";
                 rowElem.innerHTML += "<td style=\"color: " + pixelHex + ";\">■</td>";
                 getElem("extractColorTableBody").appendChild(rowElem);
-            });
+            };
         }
         getElem("extractTextureColors").setClick(() => {
             getElem("textureColorExtractCanvas").getContext("2d").drawImage(getElem("enemyColorImportImg"), 0, 0);
@@ -1108,9 +1110,9 @@ window.addEventListener("load", function(){
         getElem("useExtractedColors").setClick(() => {
             if (!window.confirm(lang.callText("settingChangeConfirmation"))) return;
             closeAllWindow();
-            Array.from(getElem("extractColorTableBody").children).forEach(each => {
-                getElem(each.children[0].innerHTML).value = each.children[1].innerHTML;
-            });
+            for (let colorRow of getElem("extractColorTableBody").children) {
+                getElem(colorRow.children[0].innerHTML).value = colorRow.children[1].innerHTML;
+            }
             getElem("generateButton").click();
         });
     }

@@ -10,7 +10,7 @@ window.addEventListener("load", function () {
             gridStyle = 3;
         //縦2つのレイアウト
         //Formの望ましい最低限の横幅は500px
-        if (w <= 800) {
+        if (window.innerHeight > window.innerWidth) {
             gridStyle = 2;
         }else if (w - h * 7 / 4 >= 500) {
             gridStyle = 2;
@@ -28,21 +28,8 @@ window.addEventListener("load", function () {
             currentGridStyle = gridStyle;
         }
     }
-
-    function transformCanvases() {
-        return;
-        var h = document.getElementById("generalTextureOutput").offsetWidth - 18;
-        if (h !== currentCanvasSize) {
-            document.querySelectorAll("#output>*>canvas").forEach(function (the) {
-                the.setAttribute("style", "transform: scale(" + h / 512 + ");");
-            });
-            currentCanvasSize = currentCanvasSize
-        }
-    }
     window.addEventListener("resize", function(){
         changeGridStyle();
-        window.setTimeout(transformCanvases, 100);
     }, true);
     changeGridStyle();
-    transformCanvases();
 }, true);

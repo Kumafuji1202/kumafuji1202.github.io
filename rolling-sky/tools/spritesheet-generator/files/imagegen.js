@@ -103,11 +103,11 @@ window.addEventListener("load", function () {
                 contextGeneral.createRadialGradient(sx + gradWidIn, ey - gradWidIn, 0, sx + gradWidIn, ey - gradWidIn, gradWidOut), //左下
                 contextGeneral.createRadialGradient(ex - gradWidIn, ey - gradWidIn, 0, ex - gradWidIn, ey - gradWidIn, gradWidOut), //右下
             ];
-        grad.forEach(function (grad) {
-            grad.addColorStop(0, outerColor + "00");
-            grad.addColorStop(0.25, outerColor + "20");
-            grad.addColorStop(1, outerColor);
-        });
+        for (let each of grad) {
+            each.addColorStop(0, outerColor + "00");
+            each.addColorStop(0.25, outerColor + "20");
+            each.addColorStop(1, outerColor);
+        }
         context.fillStyle = grad[0];
         context.fillRect(sx, sy + gradWidIn, gradWidIn, height - 2 * gradWidIn);
         context.fillStyle = grad[2];
@@ -615,10 +615,10 @@ window.addEventListener("load", function () {
                 contextGeneral.createRadialGradient(182 + gradWidIn, 158 - gradWidIn, 0, 182 + gradWidIn, 158 - gradWidIn, gradWidOut), //左下
                 contextGeneral.createRadialGradient(328 - gradWidIn, 158 - gradWidIn, 0, 328 - gradWidIn, 158 - gradWidIn, gradWidOut), //右下
             ];
-                grad.forEach(function (grad) {
-                    grad.addColorStop(0, getElem("inactiveJumppadGlowColor").value + "00");
-                    grad.addColorStop(1, getElem("inactiveJumppadGlowColor").value);
-                });
+                for(let each of grad) {
+                    each.addColorStop(0, getElem("inactiveJumppadGlowColor").value + "00");
+                    each.addColorStop(1, getElem("inactiveJumppadGlowColor").value);
+                };
                 contextGeneral.fillStyle = grad[0];
                 contextGeneral.fillRect(182, 12 + gradWidIn, gradWidIn, 146 - 2 * gradWidIn);
                 contextGeneral.fillStyle = grad[2];
@@ -2852,29 +2852,29 @@ window.addEventListener("load", function () {
                 h.lineWidth = 3;
                 h.strokeRect(a + 1.5, 1.5, 61, 61);
 
-                h.fillStyle = p[2];//遊園地いい曲だね
+                h.fillStyle = p[2]; //遊園地いい曲だね
                 h.beginPath();
-                for(let i = 0; i < 3; i++){
+                for (let i = 0; i < 3; i++) {
                     //星
                     let starXpos = a + [19.5, 12.5, 28.5][i];
                     let starYpos = [18.5, 41, 52][i];
                     let starSize = [6.5, 8, 6.5][i];
-                    h.moveTo(starXpos, starYpos+starSize);
-                    for(let ii = 0; ii < 10; ii++){
-                        let angle = (ii/10)* 2*Math.PI;
-                        let dist = starSize * (1 - (15/32)* (ii % 2));
-                        h.lineTo(starXpos+dist * Math.sin(angle), starYpos + dist * Math.cos(angle));
+                    h.moveTo(starXpos, starYpos + starSize);
+                    for (let ii = 0; ii < 10; ii++) {
+                        let angle = (ii / 10) * 2 * Math.PI;
+                        let dist = starSize * (1 - (15 / 32) * (ii % 2));
+                        h.lineTo(starXpos + dist * Math.sin(angle), starYpos + dist * Math.cos(angle));
                     }
                     h.closePath();
 
                     //跡
                     h.moveTo(a + [29, 21, 37][i], [16, 34, 47][i]);
                     h.bezierCurveTo(a + [32, 38, 46][i], [17, 32, 42][i],
-                                         a + [43, 55, 58][i], [16, 17, 24][i],
-                                         a + [55, 59, 60][i], [8, 8, 13][i]);
+                        a + [43, 55, 58][i], [16, 17, 24][i],
+                        a + [55, 59, 60][i], [8, 8, 13][i]);
                     h.bezierCurveTo(a + [45, 57, 58][i], [21, 19, 30][i],
-                                         a + [35, 44, 50][i], [21, 38, 44][i],
-                                         a + [30, 26, 41][i], [21, 42, 52][i]);
+                        a + [35, 44, 50][i], [21, 38, 44][i],
+                        a + [30, 26, 41][i], [21, 42, 52][i]);
                     h.closePath();
                 }
                 h.fill();
@@ -2886,12 +2886,12 @@ window.addEventListener("load", function () {
                 s.fillRect(m, 0, 64, 64);
                 s.strokeStyle = i[0];
                 s.lineCap = "round";
-                
+
                 s.lineWidth = 5.5;
                 s.beginPath();
                 s.arc(m + 32, 33.5, 25, 0, 2 * Math.PI, false);
                 s.stroke();
-                
+
                 s.lineWidth = 6;
                 s.beginPath();
                 s.moveTo(m + 23, 37.5);
@@ -2899,15 +2899,15 @@ window.addEventListener("load", function () {
                 s.moveTo(m + 41, 37.5);
                 s.lineTo(m + 41, 41.5);
                 s.stroke();
-                
+
                 s.lineWidth = 5.5;
-                if(l){
+                if (l) {
                     s.beginPath();
                     s.moveTo(m + 22, 28);
                     s.bezierCurveTo(m + 23, 21, /**/ m + 28, 20, /**/ m + 32, 20);
                     s.bezierCurveTo(m + 36, 20, /**/ m + 41, 21, /**/ m + 42, 28);
                     s.stroke();
-                }else{
+                } else {
                     s.beginPath();
                     s.moveTo(m + 22, 20);
                     s.bezierCurveTo(m + 23, 27, /**/ m + 28, 28, /**/ m + 32, 28);
@@ -2950,9 +2950,49 @@ window.addEventListener("load", function () {
 
                 k.fillStyle = i[0];
                 k.beginPath();
-                k.ellipse(n + 43, 23, 1.75, 1.25, -Math.PI/4, 0, 2*Math.PI);
+                k.ellipse(n + 43, 23, 1.75, 1.25, -Math.PI / 4, 0, 2 * Math.PI);
                 k.fill();
                 return t;
+            });
+            //ブラジル
+            doTheFlipper("brazil", 3, function (b, r, z, l) {
+                b.fillStyle = z[0];
+                b.fillRect(r, 0, 64, 64);
+                b.strokeStyle = z[1];
+                b.lineWidth = 2;
+                b.strokeRect(r + 1, 1, 62, 62);
+
+                b.fillStyle = z[2];
+                b.beginPath();
+                b.moveTo(r + 6, 7);
+                b.arcTo(r + 29, 9, r + 31, 32, 28);
+                b.lineTo(r + 31, 32);
+                b.arcTo(r + 8, 30, r + 6, 7, 28);
+                b.closePath();
+                b.moveTo(r + 57, 7);
+                b.arcTo(r + 35, 9, r + 32, 32, 28);
+                b.lineTo(r + 32, 32);
+                b.arcTo(r + 55, 30, r + 57, 7, 28);
+                b.closePath();
+                b.moveTo(r + 6, 58);
+                b.arcTo(r + 29, 56, r + 31, 32, 28);
+                b.lineTo(r + 31, 33);
+                b.arcTo(r + 8, 35, r + 6, 57, 28);
+                b.closePath();
+                b.moveTo(r + 57, 58);
+                b.arcTo(r + 35, 56, r + 32, 32, 28);
+                b.lineTo(r + 32, 33);
+                b.arcTo(r + 55, 35, r + 57, 57, 28);
+                b.closePath();
+                b.fill();
+                b.globalAlpha = 0.875;
+                b.beginPath();
+                b.ellipse(r + 31.5, 32.5, 2, 2, 0, 0, 2 * Math.PI);
+                b.fill();
+                b.strokeStyle = z[2];
+                b.globalAlpha = 1;
+                b.lineWidth = 1;
+                b.fillRect(r + 31, 32, 1, 1);
             });
             //3D spacial zone
             doTheFlipper("checkeredged", 2, function (z, o, n, e) {
@@ -3262,20 +3302,20 @@ window.addEventListener("load", function () {
                     contextEnemy.fillRect(0, 500, 256, 12);
                 }
                 //上端位置の計算
-                strpArr.forEach(function (elem) {
+                for (let elem of strpArr) {
                     posStrpTop -= elem.children[3].children[0].value;
                     strpPosArr.push(posStrpTop);
-                });
+                }
                 //描画
                 var posStrp = posStrpTop;
-                strpArr.forEach(function (elem) {
+                for (let elem of strpArr) {
                     var strpWid = elem.children[3].children[0].value;
                     for (var o = 0; o < 3; o++) {
                         contextEnemy.fillStyle = elem.children[o].children[0].value;
                         contextEnemy.fillRect(([0, 116, 141])[o], posStrp, ([116, 25, 115])[o], strpWid);
                     }
                     posStrp += Number(strpWid); //新しい上端
-                });
+                }
                 //グラデーション
                 var grad;
                 for (let posGR = 0; posGR < 3; posGR++) {
@@ -3288,10 +3328,10 @@ window.addEventListener("load", function () {
                 //線
                 if (getElem("BLStripeLine").checked) {
                     var stripesLinePath = new Path2D();
-                    strpPosArr.forEach(function (eachOne) {
-                        stripesLinePath.moveTo(0, eachOne);
-                        stripesLinePath.lineTo(256, eachOne);
-                    });
+                    for(let each of strpPosArr) {
+                        stripesLinePath.moveTo(0, each);
+                        stripesLinePath.lineTo(256, each);
+                    }
                     contextEnemy.strokeStyle = getElem("BLStripeLineColor").value;
                     multipleLines([6, 4, 2], [0.25, 0.5, 1], contextEnemy, stripesLinePath);
                 }
@@ -3796,12 +3836,8 @@ window.addEventListener("load", function () {
                 generateFunc();
                 updateSaveURLs();
             }
-            document.querySelectorAll("#" + groupName + " input:not([data-no-instant-update]):not([type=button]), #" + groupName + " select:not([data-no-instant-update])").forEach(function (elem) {
-                elem.addEventListener("change", assignFunc);
-            });
-            document.querySelectorAll("#" + groupName + " a.formSmallButton:not([data-no-instant-update]), #" + groupName + " input[type=button]").forEach(function (elem) {
-                elem.setClick(assignFunc);
-            });
+            for (let elem of document.querySelectorAll("#" + groupName + " input:not([data-no-instant-update]):not([type=button]), #" + groupName + " select:not([data-no-instant-update])")) elem.addEventListener("change", assignFunc);
+            for (let elem of document.querySelectorAll("#" + groupName + " a.formSmallButton:not([data-no-instant-update]), #" + groupName + " input[type=button]")) elem.setClick(assignFunc);
         },
         updateGenMvr = () => {
             generateGeneral();
@@ -3816,12 +3852,12 @@ window.addEventListener("load", function () {
     assignCanvas("lowGemSettings", generateFragiles);
     assignCanvas("enemyForm", generateEnemy);
 
-    document.querySelectorAll("#generalVariationSettings input[id^=ground]").forEach(function (elem) {
+    for (let elem of document.querySelectorAll("#generalVariationSettings input[id^=ground]")) {
         elem.addEventListener("change", generateGeneral);
-    });
-    document.querySelectorAll("#generalVariationSettings input[id^=fr]").forEach(function (elem) {
+    }
+    for (let elem of document.querySelectorAll("#generalVariationSettings input[id^=fr]")) {
         elem.addEventListener("change", generateFragiles);
-    });
+    }
     generateAllTextures();
     updateSaveURLs();
 }, true);

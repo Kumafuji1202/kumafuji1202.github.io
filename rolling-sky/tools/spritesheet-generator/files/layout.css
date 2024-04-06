@@ -24,7 +24,7 @@ select{
     padding: 10px;
 }
 #updateInfo h1,#updateInfo h2{
-    margin:0;
+    margin: 0;
 }
 #recentVersionList{
     overflow-y: scroll;
@@ -46,9 +46,9 @@ select{
     height:100%;
 }
 #formNav li{
-    position:static;
-    margin-top:0;
-    display:inline-block;
+    position: static;
+    margin-top: 0;
+    display: inline-block;
     width: 100px;
     text-align: center;
     border-radius: 5px 5px 0px 0px;
@@ -80,7 +80,7 @@ html{
     width: 100%;
     display: flex;
 }
-@media screen and (max-width: 800px){
+@media screen and (max-aspect-ratio: 1/1){
     #main{
         flex-direction: column;
     }

@@ -18,9 +18,13 @@ let langDataRaw = {
             "en": "Rolling Sky Spritesheet Generator",
             "ja": "ローリングスカイテクスチャメーカー"
         },
+        "returnToTop": {
+            "en": "Return to top page",
+            "ja": "トップページに戻る"
+        },
         "generateButton": {
-            "en": "Generate Spritesheets",
-            "ja": "テクスチャ画像生成"
+            "en": "Refresh render",
+            "ja": "テクスチャ画像手動更新"
         },
         "settingsFormHeading": {
             "en": "Settings",
@@ -1555,6 +1559,10 @@ let langDataRaw = {
             "en": "Needle (Knit Kingdom)",
             "ja": "縫い針 (ニット王国)",
         },
+        "flipTileBrazil": {
+            "en": "Leaves (Brazil)",
+            "ja": "四つ葉 (ブラジル)"
+        },
         "flipTileCheckerEdged": {
             "en": "Checker + edge (3D Spatial Zone)",
             "ja": "市松模様(枠付き) (3D Spatial Zone)",
@@ -2037,7 +2045,7 @@ let langDataRaw = {
         }
     }
 };
-["flipTileShootingStars", "flipTileSmiley", "flipTileNeedle", "importMiddleColors", "localStorageDataClearButton", "colorImportWindow"].forEach(each => {
+["flipTileBrazil"].forEach(each => {
     langDataRaw.translations[each].ja = "🆕 " + langDataRaw.translations[each].ja;
     langDataRaw.translations[each].en = "🆕 " + langDataRaw.translations[each].en;
 });

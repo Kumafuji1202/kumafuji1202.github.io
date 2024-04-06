@@ -647,5 +647,33 @@ var changeLogs = [
                 }
             ]
         }
+    },
+    {
+        "versionNumber": "1.1.8",
+        "releaseDate": {
+            "year": 2024,
+            "month": 4,
+            "day": 6
+        },
+        "changes": {
+            "bugfixes": [
+                {
+                    "en": "Fixed portrait mode UI not being applied... hopefully",
+                    "ja": "縦画面UIが適用されないバグを修正"
+                }
+            ],
+            "additions": [
+                {
+                    "en": "Added flipper pattern 'Leaves'",
+                    "ja": "反転床模様「四つ葉」を追加"
+                }
+            ],
+            "changes": [
+                {
+                    "en": "Some code made faster by replacing <code>Array.forEach()</code> with <code>for(... of ...)</code>",
+                    "ja": "<code>Array.forEach()</code>を<code>for(... of ...)</code>に置き換えて高速化"
+                }
+            ]
+        }
     }
 ];
