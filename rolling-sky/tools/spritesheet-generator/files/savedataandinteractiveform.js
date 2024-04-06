@@ -907,7 +907,6 @@ window.addEventListener("load", function(){
             var currentFlipData = flipTileData[flipTileType];
             for (let num in Array.from(getElem("flipperColorForm").children)){
                 let div = getElem("flipperColorForm").children[num];
-                console.log(num);
                 if (num > currentFlipData.colorCount - 1) {
                     div.classList.add("hidden");
                     continue;
