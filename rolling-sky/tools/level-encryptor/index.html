@@ -11,20 +11,14 @@
     <link rel="canonical" href="https://kumafuji1202.github.io/rolling-sky/tools/level-encryptor/">
     <meta name="twitter:title" content="Rolling Sky Level Encryptor / Decryptor">
     <meta name="twitter:description" content="A web converter tool made by Kumafuji1202 to support late pre-MiniMax era Rolling Sky editing.">
+    <link rel="stylesheet" href="../../../css-global/centered-contents.css">
     <style>
         html {
             background-image: url(../../../resources/Background62.png);
-            background-size: cover;
-            top: 0;
         }
 
         html,
         body {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
             color: #e0fff0;
         }
 
@@ -43,13 +37,9 @@
             font-family: regular;
         }
 
-        #container {
-            margin: auto auto;
+        #contents {
             width: 700px;
-            height: calc(100% - 20px);
             background-color: #80808080;
-            text-align: center;
-            padding: 10px;
         }
 
         button {
@@ -99,17 +89,19 @@
 </head>
 
 <body>
-    <div id="container">
-        <h1 data-translation-key="ui.appName"></h1>
-        <a href="../../../"><button data-translation-key="ui.backHome"></button></a><br>
-        <label for="languageSelectBox" data-translation-key="ui.langSelect.label"></label>
-        <select id="languageSelectBox">
-        </select>
-        <p data-translation-key="ui.form.guide"></p>
-        <div>
-            <textarea id="data" data-translation-key="ui.form.placeholder" placeholder="ここにステージデータを入力..."></textarea>
+    <div id="container-flex">
+        <div id="contents">
+            <h1 data-translation-key="ui.appName"></h1>
+            <a href="../../../"><button data-translation-key="ui.backHome"></button></a><br>
+            <label for="languageSelectBox" data-translation-key="ui.langSelect.label"></label>
+            <select id="languageSelectBox">
+            </select>
+            <p data-translation-key="ui.form.guide"></p>
+            <div>
+                <textarea id="data" data-translation-key="ui.form.placeholder" placeholder="ここにステージデータを入力..."></textarea>
+            </div>
+            <button id="actionButton" data-translation-key="ui.form.actionButton"></button>
         </div>
-        <button id="actionButton" data-translation-key="ui.form.actionButton"></button>
     </div>
 </body>
 <script id="languageSetting">
@@ -133,8 +125,8 @@
                 "ja": "言語を選択"
             },
             "ui.form.guide": {
-                "en":"Paste your level data in the textarea and press the button",
-                "ja":"使い方は簡単!<br>ステージのテキストデータを下にペーストしてボタンを押すだけ"
+                "en": "Paste your level data in the textarea and press the button",
+                "ja": "使い方は簡単!<br>ステージのテキストデータを下にペーストしてボタンを押すだけ"
             },
             "ui.form.placeholder": {
                 "en": "Input level data here",
