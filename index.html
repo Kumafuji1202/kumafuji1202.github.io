@@ -1,42 +1,187 @@
 <!DOCTYPE html>
-<!-- update no 1-->
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>Kumafuji1202のサイト</title>
+    <title data-translation-key="pageName"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Kumafuji1202">
     <meta name="twitter:url" content="https://kumafuji1202.github.io/">
     <link rel="canonical" href="https://kumafuji1202.github.io/">
+    <!--
+    <link rel="icon" href="https://yt3.googleusercontent.com/QHv5o9xCHNz9NWOZ3CYQX0JNTCaAa7hgvFPxeVQqSzgavG0FpBvodxYz55zJJE-9_WeJGwCI=s900-c-k-c0x00ffffff-no-rj">
+    -->
+    <link rel="stylesheet" href="css-global/centered-contents.css">
+    <script src="js-global/lang.js"></script>
     <style>
-        a[href^="https://www.youtube.com/"]:before{}
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            /*
+            text-align: center;
+            */
+        }
+        
+        #container-flex{
+            background-color: #c0c0c0;
+        }
+        #contents{
+            background-color: #f9f9f9;
+            width: 800px;
+            text-align: left;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
+            text-align: center;
+            padding: 20px 0;
+            color: #fff;
+        }
+
+        nav ul,
+        section ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            margin-top: 10px;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            background-color: #ebebeb;
+            border-radius: 5px;
+        }
+
+        li a:hover {
+            background-color: rgb(151, 197, 232);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
     </style>
 </head>
 
 <body>
-    <h1>Kumafuji1202のサイト</h1>
-    <ul>
-        <li>YouTube: <a href="https://youtube.com/@Kumafuji1202">https://youtube.com/@Kumafuji1202</a></li>
-        <li>Scratch: <a href="https://scratch.mit.edu/users/kumafuji1202/">https://scratch.mit.edu/users/kumafuji1202/</a></li>
-    </ul>
+    <header>
+        <h1>Kumafuji1202のサイト</h1>
+    </header>
 
-    <h1>ウェブツール</h1>
-    <h2>RS関係</h2>
-    <ul>
-        <li><a href="rolling-sky/tools/spritesheet-generator/">テクスチャメーカー</a></li>
-        <li><a href="rolling-sky/tools/level-encryptor/">ステージ暗号化</a></li>
-        <li><a href="rolling-sky/rsr-trivia-quiz/">RSRクイズヘルプ</a></li>
-    </ul>
+    <div id="container-flex">
+        <div id="contents">
+            
+            <label for="languageSelectBox" data-translation-key="ui.langSelect.label"></label>
+            <select id="languageSelectBox">
+            </select>
+            
+            <nav>
+                <h2>ｓんｓ</h2>
+                <ul>
+                    <li>YouTube: <a href="https://youtube.com/@Kumafuji1202">https://youtube.com/@Kumafuji1202</a></li>
+                    <li>Scratch: <a href="https://scratch.mit.edu/users/kumafuji1202/">https://scratch.mit.edu/users/kumafuji1202/</a></li>
+                </ul>
+            </nav>
 
-    <h1>My Friends</h1>
-    <ul>
-        <li><a href="https://www.youtube.com/@qwert-hptgbdesu-hq5pp">qwertさん</a></li>
-        <li><a href="https://www.youtube.com/@tsukikun7">つきくん</a></li>
-        <li><a href="https://www.youtube.com/@sci-tech3200">科学技術さん</a></li>
-        <li><a href="https://www.youtube.com/@Menn9844">めんさん</a></li>
-        <li><a href="https://www.youtube.com/@TENMAY">SHINさん</a></li>
-    </ul>
+            <section>
+                <h2 data-translation-key="siteMap.webTools">ウェブツール</h2>
+                <h3 data-translation-key="siteMap.webTools.rs">RS関係</h3>
+                <ul>
+                    <li><a href="rolling-sky/tools/spritesheet-generator/" data-translation-key="siteMap.webTools.rs.rstm"></a></li>
+                    <li><a href="rolling-sky/tools/level-encryptor/" data-translation-key="siteMap.webTools.rs.rsle"></a></li>
+                    <li><a href="rolling-sky/rsr-trivia-quiz/" data-translation-key="siteMap.webTools.rs.rsrqh"></a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 data-translation-key="janPonaMi">My Friends</h2>
+                <ul>
+                    <li><a href="https://www.youtube.com/@qwert-hptgbdesu-hq5pp">qwertさん</a></li>
+                    <li><a href="https://www.youtube.com/@tsukikun7">つきくん</a></li>
+                    <li><a href="https://www.youtube.com/@sci-tech3200">科学技術さん</a></li>
+                    <li><a href="https://www.youtube.com/@Menn9844">めんさん</a></li>
+                    <li><a href="https://www.youtube.com/@TENMAY">SHINさん</a></li>
+                </ul>
+            </section>
+        </div>
+    </div>
+    <div id="footerSpacer"></div>
+    <footer>
+        2024 Kumafuji1202, CSS partly by Menn ｆｄさｆｄさｆｄさ
+    </footer>
 </body>
+
+<script id="languageSetting">
+    new LanguageManager({
+        languages: [{
+                name: "English",
+                code: "en"
+            },
+            {
+                name: "日本語",
+                code: "ja"
+            }
+        ],
+        translations: {
+            "pageName": {
+                "en": "Kumafuji1202's Page",
+                "ja": "Kumafuji1202のサイト"
+            },
+            "ui.langSelect.label": {
+                "en": "Select Language",
+                "ja": "言語を選ぶ"
+            },
+            "siteMap.webTools": {
+                "en": "Webtools",
+                "ja": "ウェブツール"
+            },
+            "siteMap.webTools.rs": {
+                "en": "Rolling Sky",
+                "ja": "RS関係"
+            },
+            "siteMap.webTools.rs.rstm": {
+                "en": "Spritesheet Generator v1.1.8",
+                "ja": "テクスチャメーカー v1.1.8"
+            },
+            "siteMap.webTools.rs.rsle": {
+                "en": "Level Encryptor",
+                "ja": "ステージ暗号化ツール"
+            },
+            "siteMap.webTools.rs.rsrqh": {
+                "en": "RSR April Fools Trivia Quiz Help",
+                "ja": "RSRクイズヘルプ"
+            },
+            "janPonaMi": {
+                "en": "My Friends",
+                "ja": "My Friends"
+            }
+        }
+    }).initSite(document.getElementById("languageSelectBox"));
+
+</script>
 
 </html>
