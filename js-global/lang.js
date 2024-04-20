@@ -37,7 +37,8 @@ function LanguageManager(langList) {
             if (this.langDatabase.languages[i].code == langCode) foundLang = true;
         }
         if (!foundLang) {
-            throw new Error("no language data for language code \"" + langCode + "\" defined");
+            console.log("no language data for language code \"" + langCode + "\" defined");
+            return false;
         }
         this.currentLang = langCode;
         document.documentElement.setAttribute("lang", langCode);
@@ -107,6 +108,7 @@ function LanguageManager(langList) {
                 elementToTranslate.setAttribute(propertyToTranslate, translatedText);
             }
         }, this);
+        return true;
     };
     //選択ボックスの用意
     this.initSelectBox = (selectFormElement, defaultLang) => {
@@ -120,6 +122,7 @@ function LanguageManager(langList) {
         selectFormElement.addEventListener("input", () => {
             this.useLanguage(selectFormElement.value);
         }, true);
+        this.useLanguage(defaultLang);
     };
     this.callText = (key, throwError = false) => {
         if (this.langDatabase.translations[key][this.currentLang] === undefined) {
@@ -136,7 +139,7 @@ function LanguageManager(langList) {
         }, true);
         let langSet = localStorage.getItem(languageLocalStorageKey);
         if (langSet) {
-            this.useLanguage(langSet);
+            if (!this.useLanguage(langSet)) langSet = defaultLang;
             selectFormElement.value = langSet;
         } else {
             localStorage.setItem(languageLocalStorageKey, defaultLang);

@@ -14,6 +14,20 @@
     <link rel="stylesheet" href="css-global/centered-contents.css">
     <script src="js-global/lang.js"></script>
     <style>
+        html {
+            --header-footer-bg: #543;
+            --header-footer-text: #fed;
+            --contents-background: #321;
+            --contents-midground: #432;
+            --contents-text: #db9;
+            --li-bg: none;
+            --li-border: none;
+            --li-link-border: 1px solid #db9;
+            --link-color: #c8c;
+            --hover-link-bg: #864;
+            --section-bg: none;
+            --content-separator: 2px solid #db9;
+        }
         body {
             margin: 0;
             padding: 0;
@@ -24,18 +38,19 @@
         }
         
         #container-flex{
-            background-color: #c0c0c0;
+            background: var(--contents-background);
         }
         #contents{
-            background-color: #f9f9f9;
+            background: var(--contents-midground);
+            color: var(--contents-text);
             width: 800px;
             text-align: left;
             padding: 20px;
         }
 
         header {
-            background-color: #333;
-            color: #fff;
+            background: var(--header-footer-bg);
+            color: var(--header-footer-text);
             text-align: center;
             padding: 5px 0;
         }
@@ -45,9 +60,14 @@
             margin: 0;
             text-align: center;
             padding: 20px 0;
-            color: #fff;
         }
 
+        nav,section{
+            background: var(--section-bg);
+        }
+        hr{
+            border: var(--content-separator);
+        }
         nav ul,
         section ul {
             list-style-type: none;
@@ -57,39 +77,57 @@
 
         li {
             margin-top: 10px;
+            background: var(--li-bg);
+            border: var(--li-border);
         }
 
         li a {
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
             padding: 5px 10px;
+            border: var(--li-link-border);
+            font-size: 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--link-color);
             transition: all 0.3s ease;
             display: inline-block;
-            background-color: #ebebeb;
-            border-radius: 5px;
         }
 
         li a:hover {
-            background-color: rgb(151, 197, 232);
+            background: var(--hover-link-bg);
         }
 
         footer {
-            background-color: #333;
-            color: #fff;
+            background-color: var(--header-footer-bg);
+            color: var(--header-footer-text);
             text-align: center;
             padding: 20px 0;
-            position: fixed;
+            /*position: fixed;*/
             bottom: 0;
             width: 100%;
         }
-
+        
+        a:empty{
+            vertical-align: middle;
+            padding: 2px;
+        }
+        a[href^="https://www.youtube.com"]:empty{
+            content: url(resources/youtubeIcon.png);
+        }
+        a[href^="https://scratch.mit.edu"]:empty{
+            content: url(resources/scratchIcon.png);
+        }
+        a[href^="https://github.com/"]:empty{
+            content: url(resources/githubIcon.png);
+        }
+        a[href*=".itch.io"]:empty{
+            content: url(resources/itchIoIcon.png);
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <h1>Kumafuji1202のサイト</h1>
+        <h1 data-translation-key="pageName"></h1>
     </header>
 
     <div id="container-flex">
@@ -100,31 +138,41 @@
             </select>
             
             <nav>
-                <h2>ｓんｓ</h2>
+                <h2 data-translation-key="myOtherPages"></h2>
                 <ul>
-                    <li>YouTube: <a href="https://youtube.com/@Kumafuji1202">https://youtube.com/@Kumafuji1202</a></li>
-                    <li>Scratch: <a href="https://scratch.mit.edu/users/kumafuji1202/">https://scratch.mit.edu/users/kumafuji1202/</a></li>
+                    <li>YouTube: <a href="https://www.youtube.com/@Kumafuji1202"></a></li>
+                    <li>Scratch: <a href="https://scratch.mit.edu/users/kumafuji1202/"></a></li>
+                    <li>Github: <a href="https://github.com/kumafuji1202"></a></li>
                 </ul>
-            </nav>
+            </nav><hr>
 
             <section>
-                <h2 data-translation-key="siteMap.webTools">ウェブツール</h2>
-                <h3 data-translation-key="siteMap.webTools.rs">RS関係</h3>
+                <h2 data-translation-key="siteMap.webTools"></h2>
+                <h3 data-translation-key="siteMap.webTools.rs"></h3>
                 <ul>
                     <li><a href="rolling-sky/tools/spritesheet-generator/" data-translation-key="siteMap.webTools.rs.rstm"></a></li>
                     <li><a href="rolling-sky/tools/level-encryptor/" data-translation-key="siteMap.webTools.rs.rsle"></a></li>
-                    <li><a href="rolling-sky/rsr-trivia-quiz/" data-translation-key="siteMap.webTools.rs.rsrqh"></a></li>
                 </ul>
-            </section>
+                
+                <h3 data-translation-key="siteMap.webTools.others"></h3>
+                <ul>
+                </ul>
+
+                <h2 data-translation-key="siteMap.otherPages"></h2>
+                <ul>
+                    <li><a href="rolling-sky/rsr-trivia-quiz/" data-translation-key="siteMap.otherPages.rs.rsrqh"></a></li>
+                </ul>
+            </section><hr>
 
             <section>
                 <h2 data-translation-key="janPonaMi">My Friends</h2>
                 <ul>
-                    <li><a href="https://www.youtube.com/@qwert-hptgbdesu-hq5pp">qwertさん</a></li>
-                    <li><a href="https://www.youtube.com/@tsukikun7">つきくん</a></li>
-                    <li><a href="https://www.youtube.com/@sci-tech3200">科学技術さん</a></li>
-                    <li><a href="https://www.youtube.com/@Menn9844">めんさん</a></li>
-                    <li><a href="https://www.youtube.com/@TENMAY">SHINさん</a></li>
+                    <li>qwertさん <a href="https://www.youtube.com/@qwhp_64"></a> <a href="https://scratch.mit.edu/qwert-hptgbdesu"></a></li>
+                    <li>つきくん <a href="https://www.youtube.com/@tsukikun7"></a></li>
+                    <li>科学技術さん <a href="https://www.youtube.com/@sci-tech3200"></a></li>
+                    <li>めんさん <a href="https://www.youtube.com/@Menn9844"></a> <a href="https://github.com/menn-9844"></a></li>
+                    <li>マワリオさん <a href="https://www.youtube.com/@mawario"></a> <a href="https://mawario.itch.io"></a> <a href="https://github.com/mawario103"></a></li>
+                    <li>SHINさん <a href="https://www.youtube.com/@TENMAY"></a></li>
                 </ul>
             </section>
         </div>
@@ -132,6 +180,7 @@
     <div id="footerSpacer"></div>
     <footer>
         2024 Kumafuji1202, CSS partly by Menn ｆｄさｆｄさｆｄさ
+        <!--なんか入れて（？？？？？？？？？？？？？？？？）ｆｄさｆｄさｆｄさ-->
     </footer>
 </body>
 
@@ -148,12 +197,16 @@
         ],
         translations: {
             "pageName": {
-                "en": "Kumafuji1202's Page",
+                "en": "Kumafuji1202's Site",
                 "ja": "Kumafuji1202のサイト"
             },
             "ui.langSelect.label": {
                 "en": "Select Language",
                 "ja": "言語を選ぶ"
+            },
+            "myOtherPages": {
+                "en": "My other pages",
+                "ja": "他のサイトのくまふじ"
             },
             "siteMap.webTools": {
                 "en": "Webtools",
@@ -171,9 +224,21 @@
                 "en": "Level Encryptor",
                 "ja": "ステージ暗号化ツール"
             },
-            "siteMap.webTools.rs.rsrqh": {
-                "en": "RSR April Fools Trivia Quiz Help",
+            "siteMap.webTools.others": {
+                "en": "Others",
+                "ja": "非RS"
+            },
+            "siteMap.otherPages": {
+                "en": "Other pages",
+                "ja": "その他のガラクタ"
+            },
+            "siteMap.otherPages.rs.rsrqh": {
+                "en": "RSR 2024 April Fools Trivia Quiz Help",
                 "ja": "RSRクイズヘルプ"
+            },
+            "siteMap.otherPages.xsampaInput": {
+                "en": "X-SAMPA(-based) Phonetic Symbol Input Tool",
+                "ja": "X-SAMPA 発音記号入力ツール"
             },
             "janPonaMi": {
                 "en": "My Friends",
@@ -182,6 +247,26 @@
         }
     }).initSite(document.getElementById("languageSelectBox"));
 
+    for (let elem of Array.from(document.querySelectorAll("[href^=\"http\"]"))){
+        elem.setAttribute("target", "_blank");
+        let hre = elem.getAttribute("href");
+        if (hre.includes("www.youtube.com")){
+            elem.setAttribute("title", "Youtube");
+            continue;
+        }
+        if (hre.includes("scratch.mit.edu")){
+            elem.setAttribute("title", "Scratch");
+            continue;
+        }
+        if (hre.includes(".itch.io")){
+            elem.setAttribute("title", "Itch.io");
+            continue;
+        }
+        if (hre.includes("github.com")){
+            elem.setAttribute("title", "FdsaHub");
+            continue;
+        }
+    }
 </script>
 
 </html>
