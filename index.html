@@ -21,13 +21,15 @@
             --contents-midground: #432;
             --contents-text: #db9;
             --li-bg: none;
-            --li-border: none;
-            --li-link-border: 1px solid #db9;
+            --li-border: 1px solid #db9;
+            --li-link-border: none;
             --link-color: #fdb;
             --hover-link-bg: #864;
             --section-bg: none;
             --content-separator: 2px solid #db9;
+            --icon-link-border: 1px solid #db9;
         }
+
         body {
             margin: 0;
             padding: 0;
@@ -36,11 +38,12 @@
             text-align: center;
             */
         }
-        
-        #container-flex{
+
+        #container-flex {
             background: var(--contents-background);
         }
-        #contents{
+
+        #contents {
             background: var(--contents-midground);
             color: var(--contents-text);
             width: 800px;
@@ -62,12 +65,19 @@
             padding: 20px 0;
         }
 
-        nav,section{
+        .equal-lr-flex{
+            display: flex;
+        }
+        .equal-lr-flex > *{
+            flex-basis: 400px;
+            padding: 10px;
             background: var(--section-bg);
         }
-        hr{
+
+        hr {
             border: var(--content-separator);
         }
+
         nav ul,
         section ul {
             list-style-type: none;
@@ -75,24 +85,32 @@
             margin-top: 20px;
         }
 
-        li {
+        .flex-right {
+            border-left: var(--content-separator);
+        }
+
+        .linkList li {
             margin-top: 10px;
             background: var(--li-bg);
             border: var(--li-border);
+            padding: 5px 10px;
+            border-radius: 5px;
         }
 
-        li a {
-            padding: 5px 10px;
+        .linkList li h4 {
+            margin: 0;
+        }
+
+        .linkList li a {
             border: var(--li-link-border);
             font-size: 14px;
-            border-radius: 5px;
             text-decoration: none;
             color: var(--link-color);
             transition: all 0.3s ease;
             display: inline-block;
         }
 
-        li a:hover {
+        .linkList li a:hover {
             background: var(--hover-link-bg);
         }
 
@@ -105,23 +123,30 @@
             bottom: 0;
             width: 100%;
         }
-        
-        a:empty{
+
+        a:empty {
             vertical-align: middle;
             padding: 2px;
+            border: var(--icon-link-border);
+            border-radius: 5px;
         }
-        a[href^="https://www.youtube.com"]:empty{
+
+        a[href^="https://www.youtube.com"]:empty {
             content: url(resources/youtubeIcon.png);
         }
-        a[href^="https://scratch.mit.edu"]:empty{
+
+        a[href^="https://scratch.mit.edu"]:empty {
             content: url(resources/scratchIcon.png);
         }
-        a[href^="https://github.com/"]:empty{
+
+        a[href^="https://github.com/"]:empty {
             content: url(resources/githubIcon.png);
         }
-        a[href*=".itch.io"]:empty{
+
+        a[href*=".itch.io"]:empty {
             content: url(resources/itchIoIcon.png);
         }
+
     </style>
 </head>
 
@@ -132,56 +157,82 @@
 
     <div id="container-flex">
         <div id="contents">
-            
+
             <label for="languageSelectBox" data-translation-key="ui.langSelect.label"></label>
             <select id="languageSelectBox">
             </select>
-            
-            <nav>
-                <h2 data-translation-key="myOtherPages"></h2>
-                <ul>
-                    <li>YouTube: <a href="https://www.youtube.com/@Kumafuji1202"></a></li>
-                    <li>Scratch: <a href="https://scratch.mit.edu/users/kumafuji1202/"></a></li>
-                    <li>FdsaHub: <a href="https://github.com/kumafuji1202"></a></li>
-                </ul>
-            </nav>
-            
-            <hr><section>
-                <h2 data-translation-key="partnerAds"></h2>
-                <ul>
-                    <li><a href="https://mawario.itch.io/buzzlebeta">Buzzle by Mawario</a></li>
-                    <li><a href="https://www.youtube.com/watch?v=znf4F-ANKTo">??? by Mawario (coming soon...)</a></li>
-                    <li><a href="https://fdsa-spamenn.netlify.app/">Fdsa Spamenn by Menn</a></li>
-                </ul>
-            </section>
 
-            <hr><section>
+            <div class="equal-lr-flex">
+                <div>
+                    <nav>
+                        <h2 data-translation-key="myOtherPages"></h2>
+                        <ul>
+                            <li>YouTube: <a href="https://www.youtube.com/@Kumafuji1202"></a></li>
+                            <li>Scratch: <a href="https://scratch.mit.edu/users/kumafuji1202/"></a></li>
+                            <li>FdsaHub: <a href="https://github.com/kumafuji1202"></a></li>
+                        </ul>
+                    </nav>
+                    <hr>
+                    <section>
+                        <h2 data-translation-key="janPonaMi">My Friends</h2>
+                        <ul>
+                            <li>qwertさん <a href="https://www.youtube.com/@qwhp_64"></a> <a href="https://scratch.mit.edu/users/qwert-hptgbdesu"></a></li>
+                            <li>つきくん <a href="https://www.youtube.com/@tsukikun7"></a></li>
+                            <li>科学技術さん <a href="https://www.youtube.com/@sci-tech3200"></a></li>
+                            <li>めんさん <a href="https://www.youtube.com/@Menn9844"></a> <a href="https://github.com/menn-9844"></a></li>
+                            <li>マワリオさん <a href="https://www.youtube.com/@mawario"></a> <a href="https://mawario.itch.io"></a> <a href="https://github.com/mawario103"></a></li>
+                            <li>SHINさん <a href="https://www.youtube.com/@TENMAY"></a></li>
+                        </ul>
+                    </section>
+                </div>
+                <section class="linkList flex-right">
+                    <h2 data-translation-key="partnerAds"></h2>
+                    <ul>
+                        <li>
+                            <h4><a href="https://mawario.itch.io/buzzlebeta">Buzzle by Mawario</a></h4>
+                            <p data-translation-key="partnerAds.buzzle.introduction"></p>
+                        </li>
+                        <li>
+                            <h4><a href="https://www.youtube.com/watch?v=znf4F-ANKTo">??? by Mawario (coming soon...)</a></h4>
+                            <p>???</p>
+                        </li>
+                        <li>
+                            <h4><a href="https://discord.com/oauth2/authorize?client_id=1219830108274163802&permissions=70368744177663&scope=bot">Qwertbot945 v2 by Qwert</a></h4>
+                            <p data-translation-key="partnerAds.qb.introduction"></p>
+                        </li>
+                        <li>
+                            <h4><a href="https://fdsa-spamenn.netlify.app/">Fdsa Spamenn by Menn</a></h4>
+                            <p data-translation-key="partnerAds.fdsa.introduction"></p>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+
+            <hr>
+            <section class="linkList">
                 <h2 data-translation-key="siteMap.webTools"></h2>
                 <h3 data-translation-key="siteMap.webTools.rs"></h3>
                 <ul>
-                    <li><a href="rolling-sky/tools/spritesheet-generator/" data-translation-key="siteMap.webTools.rs.rstm"></a></li>
-                    <li><a href="rolling-sky/tools/level-encryptor/" data-translation-key="siteMap.webTools.rs.rsle"></a></li>
+                    <li>
+                        <h4><a href="rolling-sky/tools/spritesheet-generator/" data-translation-key="siteMap.webTools.rs.rstm"></a></h4>
+                        <p data-translation-key="siteMap.webTools.rs.rstm.introduction"></p>
+                    </li>
+                    <li>
+                        <h4><a href="rolling-sky/tools/level-encryptor/" data-translation-key="siteMap.webTools.rs.rsle"></a></h4>
+                        <p data-translation-key="siteMap.webTools.rs.rsle.introduction"></p>
+                    </li>
                 </ul>
-                
+
                 <h3 data-translation-key="siteMap.webTools.others"></h3>
                 <ul>
                 </ul>
 
                 <h2 data-translation-key="siteMap.otherPages"></h2>
                 <ul>
-                    <li><a href="rolling-sky/rsr-trivia-quiz/" data-translation-key="siteMap.otherPages.rs.rsrqh"></a></li>
-                </ul>
-            </section>
-
-            <hr><section>
-                <h2 data-translation-key="janPonaMi">My Friends</h2>
-                <ul>
-                    <li>qwertさん <a href="https://www.youtube.com/@qwhp_64"></a> <a href="https://scratch.mit.edu/users/qwert-hptgbdesu"></a></li>
-                    <li>つきくん <a href="https://www.youtube.com/@tsukikun7"></a></li>
-                    <li>科学技術さん <a href="https://www.youtube.com/@sci-tech3200"></a></li>
-                    <li>めんさん <a href="https://www.youtube.com/@Menn9844"></a> <a href="https://github.com/menn-9844"></a></li>
-                    <li>マワリオさん <a href="https://www.youtube.com/@mawario"></a> <a href="https://mawario.itch.io"></a> <a href="https://github.com/mawario103"></a></li>
-                    <li>SHINさん <a href="https://www.youtube.com/@TENMAY"></a></li>
+                    <li>
+                        <h4><a href="rolling-sky/rsr-trivia-quiz/" data-translation-key="siteMap.otherPages.rs.rsrqh"></a></h4>
+                        <p data-translation-key="siteMap.otherPages.rs.rsrqh"></p>
+                    </li>
                 </ul>
             </section>
         </div>
@@ -218,7 +269,7 @@
                 "ja": "他のサイトのくまふじ"
             },
             "siteMap.webTools": {
-                "en": "Webtools",
+                "en": "My Webtools",
                 "ja": "ウェブツール"
             },
             "siteMap.webTools.rs": {
@@ -229,9 +280,17 @@
                 "en": "Spritesheet Generator v1.1.8",
                 "ja": "テクスチャメーカー v1.1.8"
             },
+            "siteMap.webTools.rs.rstm.introduction": {
+                "en": "A web tool made by Kumafuji1202 to make spritesheets for Rolling Sky edits / Rolling Sky Remake levels easier.",
+                "ja": "ローリングスカイエディット/リメイクのためのテクスチャを簡単に作成するツール。"
+            },
             "siteMap.webTools.rs.rsle": {
                 "en": "Level Encryptor",
                 "ja": "ステージ暗号化ツール"
+            },
+            "siteMap.webTools.rs.rsle.introduction": {
+                "en": "A web tool that converts old CSV-like Rolling Sky level format into \"encrypted\" format for later pre-MiniMax version Rolling Sky and vice versa.",
+                "ja": "初期のCSV風ローリングスカイステージ形式と「割拠盤上」までの「暗号化された」ステージ形式間の変換ツール"
             },
             "siteMap.webTools.others": {
                 "en": "Others",
@@ -245,6 +304,10 @@
                 "en": "RSR 2024 April Fools Trivia Quiz Help",
                 "ja": "RSRクイズヘルプ"
             },
+            "siteMap.otherPages.rs.rsrqh.introduction": {
+                "en": "A list of all 20 questions from RSR Trivia Quiz that was required to use RSR on 2024/Apr/01, shown with their answers and Japanese translations.",
+                "ja": "2024年4月1日にRSRで出題された20個の「RSRトリビアクイズ」問題の日本語訳と答えを併記した一覧。"
+            },
             "siteMap.otherPages.xsampaInput": {
                 "en": "X-SAMPA(-based) Phonetic Symbol Input Tool",
                 "ja": "X-SAMPA 発音記号入力ツール"
@@ -253,6 +316,18 @@
                 "en": "Partnered projects",
                 "ja": "提携プロジェクト"
             },
+            "partnerAds.buzzle.introduction": {
+                "en": "Buzzle is a 2D top-down, high difficulty action game, help the main character \"mawario\" escape from a mysterious room!",
+                "ja": "Buzzleは2Dトップダウン高難度アクションゲーム。主人公の「マワリオ」の不思議な部屋からの脱出を助けよう!"
+            },
+            "partnerAds.fdsa.introduction": {
+                "en": "fdsafdsafdsafdsafdsa",
+                "ja": "fdsafdsafdsafdsafds"
+            },
+            "partnerAds.qb.introduction": {
+                "en": "A multi-purpose Japanese-language Discord bot.",
+                "ja": "多機能Discord bot"
+            },
             "janPonaMi": {
                 "en": "My Friends",
                 "ja": "My Friends"
@@ -260,26 +335,27 @@
         }
     }).initSite(document.getElementById("languageSelectBox"));
 
-    for (let elem of Array.from(document.querySelectorAll("[href^=\"http\"]"))){
+    for (let elem of Array.from(document.querySelectorAll("[href^=\"http\"]"))) {
         elem.setAttribute("target", "_blank");
         let hre = elem.getAttribute("href");
-        if (hre.includes("www.youtube.com")){
+        if (hre.includes("www.youtube.com")) {
             elem.setAttribute("title", "Youtube");
             continue;
         }
-        if (hre.includes("scratch.mit.edu")){
+        if (hre.includes("scratch.mit.edu")) {
             elem.setAttribute("title", "Scratch");
             continue;
         }
-        if (hre.includes(".itch.io")){
+        if (hre.includes(".itch.io")) {
             elem.setAttribute("title", "Itch.io");
             continue;
         }
-        if (hre.includes("github.com")){
+        if (hre.includes("github.com")) {
             elem.setAttribute("title", "FdsaHub");
             continue;
         }
     }
+
 </script>
 
 </html>
