@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kumafuji1202">
+    <meta name="pagename" content="X-SAMPA 発音記号入力ツール">
+    <meta name="twitter:url" content="">
+    <meta name="twitter:title" content="X-SAMPA 発音記号入力ツール">
+    <meta name="twitter:description" content="X-SAMPAを基本にしたハードキーボード用の入力補助ツール。">
+    <title>X-SAMPA 発音記号入力ツール</title>
+    <script src="../js-global/utils.js"></script>
+    <style>
+        html {
+            font-family: "Segoe UI";
+            --ui-bg-image: url(../resources/Background117.png);
+            --ui-area-separator-color: #fff;
+            --outer-ui-text-color: #fff;
+            --link-color: #ff0;
+            --input-area-bg-color: #fff4;
+            --input-area-text-color: #fff;
+            --code-table-bg-color: #0008;
+            --table-border-color: #fff;
+            --table-head-cell-bg-color1-tone1: none;
+            --table-head-cell-bg-color1-tone2: none;
+            --table-head-cell-bg-color2-tone1: none;
+            --table-head-cell-bg-color2-tone2: none;
+            --table-head-cell-text-color1-tone1: #0fa;
+            --table-head-cell-text-color1-tone2: #8fb;
+            --table-head-cell-text-color2-tone1: #88f;
+            --table-head-cell-text-color2-tone2: #bbf;
+            --table-cell-bg-color: none;
+            --table-cell-text-color: #fff;
+            --table-cell-border-color: #fff;
+            --filler-cell-bg-color: none;
+            --nonxsampa-code-text-color: #0f0;
+            --nonxsampa-code-bg-color: inherit;
+            --nonipa-code-text-color: #88f;
+            --unimplemented-color: gray;
+        }
+
+        /* 時雨UIレイアウト */
+
+        #ui {
+            color: var(--outer-ui-text-color);
+            background-color: #aca;
+            background-image: var(--ui-bg-image);
+            background-size: cover;
+            background-position: top;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            justify-content: space-between;
+        }
+
+        #input {
+            overflow-y: hidden;
+            flex-grow: 1;
+        }
+
+        #symbol-list-section {
+            border-left: 3px solid var(--ui-area-separator-color);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: calc(100vw - 200px);
+            background-color: var(--code-table-bg-color);
+        }
+        
+        a{
+            color: var(--link-color);
+        }
+
+        /* 入力部分のUIの奥山 */
+
+        header {
+            height: 100px;
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            background-color: var(--input-area-bg-color);
+            color: var(--input-area-text-color);
+            font-size: 25px;
+            font-family: inherit;
+            resize: none;
+            width: 100%;
+            height: calc(100% - 100px);
+            box-sizing: border-box;
+        }
+
+        /* コード表の配置 */
+
+        #symbol-list-scrollbox {
+            border-top: 3px solid var(--ui-area-separator-color);
+            overflow-x: auto;
+            overflow-y: scroll;
+            /*background: var(--background-color);*/
+        }
+
+        .list-row-flex {
+            display: flex;
+        }
+
+        .list-row-flex>table {
+            flex-grow: 1;
+        }
+
+        /* コード表のスタイル */
+
+        table {
+            border-radius: 5px;
+            border-collapse: collapse;
+            border: 1px solid var(--table-border-color);
+        }
+
+        code {
+            display: inline-block;
+            font-weight: normal;
+            border: 1px solid gray;
+            padding: 3px;
+            border-radius: 2px;
+            text-decoration: inherit;
+        }
+
+        span.symbol-code{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .nonipa code:not(.xsampa){
+            color: var(--nonxsampa-code-text-color);
+        }
+        
+        thead>tr:nth-of-type(2n+1)>th {
+            background-color: var(--table-head-cell-bg-color1-tone1);
+            color: var(--table-head-cell-text-color1-tone1);
+        }
+
+        thead>tr:nth-of-type(2n)>th {
+            background-color: var(--table-head-cell-bg-color1-tone2);
+            color: var(--table-head-cell-text-color1-tone2);
+        }
+
+        tbody>tr:nth-of-type(2n+1)>th {
+            background-color: var(--table-head-cell-bg-color2-tone1);
+            color: var(--table-head-cell-text-color2-tone1);
+        }
+
+        tbody>tr:nth-of-type(2n)>th {
+            background-color: var(--table-head-cell-bg-color2-tone2);
+            color: var(--table-head-cell-text-color2-tone2);
+        }
+
+        table td {
+            padding: 2px;
+            text-align: center;
+            color: var(--table-cell-text-color);
+        }
+
+        table td:not(.impossible) {
+            background-color: var(--table-cell-bg-color);
+            border: 1px solid var(--table-cell-border-color);
+        }
+
+        table td.impossible {
+            background-color: var(--filler-cell-bg-color);
+        }
+
+        .nonxsampa {
+            background-color: var(--nonxsampa-code-bg-color);
+            color: var(--nonxsampa-code-text-color);
+        }
+
+        .nonipa {
+            color: var(--nonipa-code-text-color);
+        }
+        
+        .has-superscript{
+            font-weight: bold;
+        }
+        .unimplemented{
+            display: none;
+            text-decoration: line-through;
+            color: var(--unimplemented-color);
+        }
+
+        /* 母音図のフォーマッティング */
+
+        #vowel-list {
+            width: 25em;
+            height: 23em;
+        }
+
+        td#vowel-space-cell {
+            align-content: center;
+            text-align: center;
+        }
+
+        #vowel-space {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+
+        #vowel-space>div {
+            /*高さごとの母音グループ外側*/
+            padding-right: 10px;
+        }
+
+        #vowel-space>div>div {
+            /*高さごとの母音グループ内側*/
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        #vowel-space>div>div>div {
+            /*各母音対*/
+            width: 75px;
+            align-content: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="ui">
+        <div id="input">
+            <header>
+                <h1>X-SAMPA 発音記号入力ツール</h1>
+                <p><a href="https://ja.wikipedia.org/wiki/X-SAMPA">X-SAMPA</a>をベースにした発音記号入力補助ツールです。<a href="../">トップページに戻る</a></p>
+            </header>
+            <textarea id="area" spellcheck="false" placeholder="ここに入力..."></textarea>
+        </div>
+        <div id="symbol-list-section">
+            <div id="symbol-list-header">
+                <h2>入力コード表</h2>
+                <p>それぞれの記号の横のコードの通りに左のテキストボックスに入力(IMEはOFFで)して入力します。<br><span class="nonipa">この色</span>でマークされた記号はIPAの規格外です。 <code class="nonxsampa">この色</code>のコードはX-SAMPAの規格外です。<br> <span class="has-superscript">太字</span>の記号は<code class="nonxsampa">_s</code>で上付き文字に変換できます。</p>
+            </div>
+            <div id="symbol-list-scrollbox">
+                <div id="symbol-list">
+                    <table class="list" id="consonant-list">
+                        <thead>
+                            <tr>
+                                <th colspan="12">子音 (記号が2つあるセルは左が無声、右が有声)</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>両唇音</th>
+                                <th>唇歯音</th>
+                                <th>歯音</th>
+                                <th>歯茎音</th>
+                                <th>後部歯茎音</th>
+                                <th>そり舌音</th>
+                                <th>歯茎<br>軟口蓋音</th>
+                                <th>硬口蓋音</th>
+                                <th>軟口蓋音</th>
+                                <th>口蓋垂音</th>
+                                <th>咽頭音・<br>喉頭蓋音</th>
+                                <th>声門音</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>鼻音</th>
+                                <td><span class="symbol-code has-superscript">m <code>m</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɱ <code>F</code></span></td>
+                                <td colspan="3"><span class="symbol-code has-superscript">n <code>n</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɳ <code>n`</code></span></td>
+                                <td><span class="symbol-code nonipa">ȵ <code>n\</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɲ <code>J</code></span></td>
+                                <td><span class="symbol-code has-superscript">ŋ <code>N</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɴ <code>N\</code></span></td>
+                                <td colspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th>破裂音</th>
+                                <td><span class="symbol-code has-superscript">p <code>p</code></span> <span class="symbol-code has-superscript">b <code>b</code></span></td>
+                                <td><span class="symbol-code">p̪ <code>p_d</code><br><span class="nonipa">(ȹ <code>P\</code></span></span> <span class="symbol-code">b̪ <code>b_d</code><br><span class="nonipa">ȸ <code>D\</code>)</span></span></td>
+                                <td colspan="3"><span class="symbol-code has-superscript">t <code>t</code></span> <span class="symbol-code has-superscript">d <code>d</code></span></td>
+                                <td><span class="symbol-code">ʈ <code>t`</code></span> <span class="symbol-code">ɖ <code>d`</code></span></td>
+                                <td><span class="symbol-code nonipa">ȶ <code>t\</code></span> <span class="symbol-code nonipa">ȡ <code>d\</code></span></td>
+                                <td><span class="symbol-code has-superscript">c <code>c</code></span> <span class="symbol-code has-superscript">ɟ <code>J\</code></span></td>
+                                <td><span class="symbol-code has-superscript">k <code>k</code></span> <span class="symbol-code has-superscript">ɡ <code>g</code></span></td>
+                                <td><span class="symbol-code">q <code>q</code></span> <span class="symbol-code">ɢ <code>G\</code></span></td>
+                                <td><span class="symbol-code">ʡ <code>&gt;\</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʔ <code>?</code></span></td>
+                            </tr>
+                            <tr>
+                                <th>摩擦音</th>
+                                <td><span class="symbol-code has-superscript">ɸ <code>p\</code></span> <span class="symbol-code has-superscript">β <code>B</code></span></td>
+                                <td><span class="symbol-code has-superscript">f <code>f</code></span> <span class="symbol-code has-superscript">v <code>v</code></span></td>
+                                <td><span class="symbol-code has-superscript">θ <code>T</code></span> <span class="symbol-code has-superscript">ð <code>D</code></span></td>
+                                <td><span class="symbol-code has-superscript">s <code>s</code></span> <span class="symbol-code has-superscript">z <code>z</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʃ <code>S</code></span> <span class="symbol-code has-superscript">ʒ <code>Z</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʂ <code>s`</code></span> <span class="symbol-code has-superscript">ʐ <code>z`</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɕ <code>s\</code></span> <span class="symbol-code has-superscript">ʑ <code>z\</code></span></td>
+                                <td><span class="symbol-code">ç <code>C</code></span> <span class="symbol-code has-superscript">ʝ <code>j\</code></span></td>
+                                <td><span class="symbol-code has-superscript">x <code>x</code></span> <span class="symbol-code has-superscript">ɣ <code>G</code></span></td>
+                                <td><span class="symbol-code has-superscript">χ <code>X</code></span> <span class="symbol-code has-superscript">ʁ <code>R</code></span></td>
+                                <td><span class="symbol-code">ħ <code>X\</code></span> <span class="symbol-code has-superscript">ʕ <code>?\</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">h <code>h</code></span> <span class="symbol-code has-superscript">ɦ <code>h\</code></span></td>
+                            </tr>
+                            <tr>
+                                <th>接近音</th>
+                                <td><span class="symbol-code">β̞ <code>B_o</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʋ <code>v\</code> <code>P</code></span></td>
+                                <td colspan="3"><span class="symbol-code"><span class="has-superscript">ɹ <code>r\</code></span><br><span class="nonipa">(ɿ <code>4\</code>)</span><br><span class="nonipa">(ʮ <code>y\</code>)</span></span></td>
+                                <td><span class="symbol-code"><span class="has-superscript">ɻ <code>r\`</code></span><br><span class="nonipa">(ʅ <code>4\`</code>)</span><br><span class="nonipa">(ʯ <code>y\`</code>)</span></span></td>
+                                <td></td>
+                                <td><span class="symbol-code has-superscript">j <code>j</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɰ <code>M\</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʁ <code>R</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʕ <code>?\</code></span></td>
+                            </tr>
+                            <tr>
+                                <th>ふるえ音</th>
+                                <td><span class="symbol-code">ʙ <code>B\</code></span></td>
+                                <td></td>
+                                <td colspan="3"><span class="symbol-code has-superscript">r <code>r</code></span></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td class="impossible"></td>
+                                <td><span class="symbol-code">ʀ <code>R\</code></span></td>
+                                <td><span class="symbol-code">ʜ <code>H\</code></span> <span class="symbol-code">ʢ <code>&lt;\</code></span></td>
+                                <td class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th>はじき音</th>
+                                <td><span class="symbol-code">ⱱ̟ <code class="nonxsampa">b\_+</code></span></td>
+                                <td><span class="symbol-code">ⱱ <code class="nonxsampa">b\</code></span></td>
+                                <td colspan="3"><span class="symbol-code">ɾ <code>4</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɹ <code>r\</code></span></td>
+                                <td class="impossible"></td>
+                                <td></td>
+                                <td class="impossible"></td>
+                                <td></td>
+                                <td><span class="symbol-code">ʢ̆ <code>&lt;\_X</code></span></td>
+                                <td class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th>側面摩擦音</th>
+                                <td colspan="2" class="impossible"></td>
+                                <td colspan="3"><span class="symbol-code">ɬ <code>K</code><br><span class="nonipa">ƛ <code>S\</code></span></span> <span class="symbol-code">ɮ <code>K\</code></span></td>
+                                <td><span class="symbol-code">ꞎ <code class="nonxsampa">K`</code></span> <span class="symbol-code unimplemented">&#122629; <code class="nonxsampa">K\`</code></span></td>
+                                <td></td>
+                                <td><span class="symbol-code unimplemented">&#122630; <code class="nonxsampa">k\</code></span></td>
+                                <td>𝼄</td>
+                                <td></td>
+                                <td colspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th>側面接近音</th>
+                                <td colspan="2" class="impossible"></td>
+                                <td colspan="3"><span class="symbol-code has-superscript">l <code>l</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɭ <code>l`</code></span></td>
+                                <td><span class="symbol-code nonipa">ȴ <code>5\</code></span></td>
+                                <td><span class="symbol-code">ʎ <code>L</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʟ <code>L\</code></span></td>
+                                <td></td>
+                                <td colspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th>側面はじき音</th>
+                                <td colspan="2" class="impossible"></td>
+                                <td colspan="3"><span class="symbol-code">ɺ <code>l\</code></span></td>
+                                <td><span class="symbol-code unimplemented">&#122632; <code class="nonxsampa">l\`</code></span></td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="symbol-code">ʟ̆ <code>L\_X</code></span></td>
+                                <td></td>
+                                <td colspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th>入破音</th>
+                                <td><span class="symbol-code nonipa">ƥ <code>p_&lt;</code></span> <span class="symbol-code">ɓ <code>b_&lt;</code></span></td>
+                                <td class="impossible"></td>
+                                <td colspan="3"><span class="symbol-code nonipa">ƭ <code>t_&lt;</code></span> <span class="symbol-code">ɗ <code>d_&lt;</code></span></td>
+                                <td><span class="symbol-code nonipa">ʈ <code>t`_&lt;</code></span> <span class="symbol-code">ᶑ <code>d`_&lt;</code></span></td>
+                                <td></td>
+                                <td><span class="symbol-code nonipa">ƈ <code>c_&lt;</code></span> <span class="symbol-code">ʄ <code>J\_&lt;</code></span></td>
+                                <td><span class="symbol-code nonipa">ƙ <code>k_&lt;</code></span> <span class="symbol-code">ɠ <code>g_&lt;</code></span></td>
+                                <td><span class="symbol-code nonipa">ʠ <code>q_&lt;</code></span> <span class="symbol-code">ʛ <code>G\_&lt;</code></span></td>
+                                <td colspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th>吸着音</th>
+                                <td><span class="symbol-code">ʘ <code>O\</code></span></td>
+                                <td class="impossible"></td>
+                                <td><span class="symbol-code">ǀ <code>|\</code><br><span class="nonipa">ʇ <code>T\</code></span></span></td>
+                                <td colspan="2"><span class="symbol-code"><span class="has-superscript">ǃ <code>!\</code></span><br><span class="nonipa">ʗ <code>c\</code></span></span></td>
+                                <td></td>
+                                <td></td>
+                                <td><span class="symbol-code">ǂ <code>=\</code></span></td>
+                                <td><span class="symbol-code nonipa">ʞ <code>k\</code></span></td>
+                                <td colspan="4" class="impossible"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="list-row-flex">
+                        <table class="list" id="vowel-list">
+                            <thead>
+                                <tr>
+                                    <th>母音</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="vowel-space-cell">
+                                        <div id="vowel-space">
+                                            <div style="padding-left: 10px">
+                                                <div>
+                                                    <div><span class="symbol-code has-superscript">i <code>i</code></span> <span class="symbol-code has-superscript">y <code>y</code></span></div>
+                                                    <div><span class="symbol-code has-superscript">ɨ <code>1</code></span> <span class="symbol-code has-superscript">ʉ <code>}</code></span></div>
+                                                    <div><span class="symbol-code has-superscript">ɯ <code>M</code></span> <span class="symbol-code has-superscript">u <code>u</code></span></div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-left: 60px; padding-right: 50px">
+                                                <div>
+                                                    <div><span class="symbol-code has-superscript">ɪ <code>I</code></span> <span class="symbol-code">ʏ <code>Y</code></span></div>
+                                                    <div><span class="symbol-code nonipa has-superscript">ᵻ <code class="xsampa">I\</code></span> <span class="symbol-code nonipa xsampa">ᵿ <code class="xsampa">U\</code></span></div>
+                                                    <div><span class="symbol-code has-superscript">ʊ <code>U</code></span></div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-left: 30px">
+                                                <div>
+                                                    <div><span class="symbol-code has-superscript">e <code>e</code></span> <span class="symbol-code">ø <code>2</code></span></div>
+                                                    <div><span class="symbol-code">ɘ <code>@\</code></span> <span class="symbol-code has-superscript">ɵ <code>8</code></span></div>
+                                                    <div><span class="symbol-code">ɤ <code>7</code></span> <span class="symbol-code has-superscript">o <code>o</code></span></div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-left: 40px">
+                                                <div>
+                                                    <div><span class="symbol-code">e̞ <code>e_o</code><br><span class="nonipa">(ᴇ <code>e\</code>)</span></span> <span class="symbol-code">ø̞ <code>2_o</code></span></div>
+                                                    <div><span class="symbol-code has-superscript">ə <code>@</code></span></div>
+                                                    <div><span class="symbol-code">ɤ̞ <code>7_o</code></span> <span class="symbol-code">o̞ <code>o_o</code><br><span class="nonipa">(ꭥ <code>o\</code>)</span></span></div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-left: 50px">
+                                                <div>
+                                                    <div><span class="symbol-code has-superscript">ɛ <code>E</code></span> <span class="symbol-code has-superscript">œ <code>9</code></span></div>
+                                                    <div><span class="symbol-code has-superscript">ɜ <code>3</code></span> <span class="symbol-code">ɞ <code>3\</code></span></div>
+                                                    <div><span class="symbol-code has-superscript">ʌ <code>V</code></span> <span class="symbol-code has-superscript">ɔ <code>O</code></span></div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-left: 100px; padding-right: 50px">
+                                                <div>
+                                                    <div><span class="symbol-code">æ <code>{</code></span></div>
+                                                    <div><span class="symbol-code has-superscript">ɐ <code>6</code></span></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                            <div style="padding-left: 70px">
+                                                <div>
+                                                    <div><span class="symbol-code has-superscript">a <code>a</code></span> <span class="symbol-code">ɶ <code>&amp;</code></span></div>
+                                                    <div><span class="symbol-code">ä <code>a_"</code><br><span class="nonipa">(ᴀ <code>a\</code>)</span></span></div>
+                                                    <div><span class="symbol-code has-superscript">ɑ <code>A</code></span> <span class="symbol-code has-superscript">ɒ <code>Q</code></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="list" id="diacritical-list">
+                            <thead>
+                                <tr>
+                                    <th colspan="8">各種補助記号</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">位置</th>
+                                    <th colspan="2">副次調音</th>
+                                    <th colspan="2">発声/気流機構</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>舌尖音</th>
+                                    <td>t̺ <code>_a</code></td>
+                                    <th>中舌寄り</th>
+                                    <td>ä <code>_"</code></td>
+                                    <th>軟口蓋/咽頭化</th>
+                                    <td>t̴ <code>_e</code></td>
+                                    <th>無声音</th>
+                                    <td>ḁ <code>_0</code></td>
+                                </tr>
+                                <tr>
+                                    <th>舌端音</th>
+                                    <td>t̻ <code>_m</code></td>
+                                    <th>中央寄り</th>
+                                    <td>a̽ <code>_x</code></td>
+                                    <th>咽頭化</th>
+                                    <td>ˁ <code>_?\</code></td>
+                                    <th>有声音</th>
+                                    <td>a̬ <code>_v</code></td>
+                                </tr>
+                                <tr>
+                                    <th>歯音</th>
+                                    <td>d̪ <code>_d</code></td>
+                                    <th>前方舌根性</th>
+                                    <td>o̘ <code>_A</code></td>
+                                    <th>軟口蓋化</th>
+                                    <td>ˠ <code>_G</code></td>
+                                    <th>声門音化</th>
+                                    <td>ˀ <code>_?</code></td>
+                                </tr>
+                                <tr>
+                                    <th>舌唇音</th>
+                                    <td>d̼ <code>_N</code></td>
+                                    <th>後方舌根性</th>
+                                    <td>o̙ <code>_q</code></td>
+                                    <th>口蓋化</th>
+                                    <td>ʲ <code>_j</code> <code>'</code></td>
+                                    <th>軋み声</th>
+                                    <td>a̰ <code>_k</code></td>
+                                </tr>
+                                <tr>
+                                    <th>前進</th>
+                                    <td>a̟ <code>_+</code></td>
+                                    <th>弱い円唇</th>
+                                    <td>o̜ <code>_c</code></td>
+                                    <th>唇音化</th>
+                                    <td>ʷ <code>_w</code></td>
+                                    <th rowspan="2">息もれ声</th>
+                                    <td rowspan="2">a̤ <code>_t</code><br><span class="nonipa">ʱ <code>_h\</code></span></td>
+                                </tr>
+                                <tr>
+                                    <th>後退</th>
+                                    <td>a̠ <code>_-</code></td>
+                                    <th>強い円唇</th>
+                                    <td>o̹ <code>_O</code></td>
+                                    <th>放出音</th>
+                                    <td>ʼ <code>_&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <th>広め</th>
+                                    <td>o̞ <code>_o</code></td>
+                                    <th>側面開放</th>
+                                    <td>ˡ <code>_l</code></td>
+                                    <th>R音化</th>
+                                    <td>ɜ˞ <code>`</code></td>
+                                    <th>有気音</th>
+                                    <td>ʰ <code>_h</code></td>
+                                </tr>
+                                <tr>
+                                    <th>狭め</th>
+                                    <td>ɔ̝ <code>_r</code></td>
+                                    <td colspan="2" class="impossible"></td>
+                                    <th>鼻腔開放</th>
+                                    <td>ⁿ <code>_n</code></td>
+                                    <th>無気音</th>
+                                    <td>˭ <code>_}</code></td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">Compressed</th>
+                                    <td rowspan="2"><span class="symbol-code nonipa">ᵝ <code>_b</code><br>ᶹ <code>_u</code></span></td>
+                                    <td colspan="2" class="impossible"></td>
+                                    <th>唇&amp;軟口蓋化</th>
+                                    <td><span class="symbol-code">ᶣ <code class="nonxsampa">_y</code></span></td>
+                                    <th>鼻音化</th>
+                                    <td>ɑ̃ <code>~</code> <code>_~</code></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="impossible"></td>
+                                    <th>内破音</th>
+                                    <td>t̚ <code>_}</code></td>
+                                    <th>入破音</th>
+                                    <td>ɓ <code>_&lt;</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="list-row-flex">
+                        <table class="list" id="consonant-list-sub">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">同時調音</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>両唇軟口蓋</th>
+                                    <td><span class="symbol-code has-superscript">ʍ <code>W</code></span> <span class="symbol-code has-superscript">w <code>w</code></span></td>
+                                </tr>
+                                <tr>
+                                    <th>両唇硬口蓋</th>
+                                    <td><span class="symbol-code">ɥ̥ <code>H_0</code></span> <span class="symbol-code has-superscript">ɥ <code>H</code></span></td>
+                                </tr>
+                                <tr>
+                                    <th>暗いL</th>
+                                    <td><span class="symbol-code">ɫ <code>5</code></span></td>
+                                </tr>
+                                <tr>
+                                    <th>sj音</th>
+                                    <td><span class="symbol-code">ɧ <code>x\</code></span></td>
+                                </tr>
+                                <tr>
+                                    <th>破擦音<br>or同時調音</th>
+                                    <td><span class="symbol-code">◌͡◌ <code class="nonxsampa">+</code></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="list" id="suprasegmental-list">
+                            <thead>
+                                <tr>
+                                    <th colspan="14">超分節要素</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>第1強勢</th>
+                                    <td>ˈ <code>"</code></td>
+                                    <th>第2強勢</th>
+                                    <td>ˌ <code>%</code></td>
+                                    <th>声調</th>
+                                    <th colspan="4">折れ線記号</th>
+                                    <th>数字</th>
+                                    <th>通常</th>
+                                    <th>上昇</th>
+                                    <th>下降</th>
+                                    <th colspan="2">その他</th>
+                                </tr>
+                                <tr>
+                                    <th>長</th>
+                                    <td>ː <code>:</code></td>
+                                    <th>半長</th>
+                                    <td>ˑ <code>:\</code></td>
+                                    <th>超高</th>
+                                    <td>˥ <code class="nonxsampa">_5</code></td>
+                                    <td>꜒ <code class="nonxsampa">_5_S</code></td>
+                                    <td>꜈ <code class="nonxsampa">_5_Q</code></td>
+                                    <td>꜍ <code class="nonxsampa">_5_Q_S</code></td>
+                                    <td><span class="symbol-code nonipa">⁵ <code>_5_U</code></span></td>
+                                    <td>a̋ <code>_T</code></td>
+                                    <td colspan="2" class="impossible"></td>
+                                    <th>昇降</th>
+                                    <td>a᷈ <code>_R_F</code></td>
+                                </tr>
+                                <tr>
+                                    <th>超短</th>
+                                    <td>ă <code>_X</code></td>
+                                    <th>音節境界</th>
+                                    <td>. <code>.</code></td>
+                                    <th>高</th>
+                                    <td>˦ <code class="nonxsampa">_4</code></td>
+                                    <td>꜓ <code class="nonxsampa">_4_S</code></td>
+                                    <td>꜉ <code class="nonxsampa">_4_Q</code></td>
+                                    <td>꜎ <code class="nonxsampa">_4_Q_S</code></td>
+                                    <td><span class="symbol-code nonipa">⁴ <code>_4_U</code></span></td>
+                                    <td>á <code>_H</code></td>
+                                    <td>a᷄ <code>_H_T</code></td>
+                                    <td>a᷇ <code class="nonxsampa">_T_H</code></td>
+                                    <th>降昇</th>
+                                    <td>a᷉ <code>_F_R</code></td>
+                                </tr>
+                                <tr>
+                                    <th>非音節核</th>
+                                    <td>e̯ <code>_^</code></td>
+                                    <th>音節核</th>
+                                    <td>m̩ <code>_=</code> <code>=</code></td>
+                                    <th>中</th>
+                                    <td>˧ <code class="nonxsampa">_3</code></td>
+                                    <td>꜔ <code class="nonxsampa">_3_S</code></td>
+                                    <td>꜊ <code class="nonxsampa">_3_Q</code></td>
+                                    <td>꜏ <code class="nonxsampa">_3_Q_S</code></td>
+                                    <td><span class="symbol-code nonipa">³ <code>_3_U</code></span></td>
+                                    <td>ā <code>_M</code></td>
+                                    <td>ǎ <code>_L_H</code> <code>_R</code> <code>_/</code></td>
+                                    <td>â <code>_H_L</code> <code>_F</code> <code>_\</code></td>
+                                    <td colspan="2" rowspan="3" class="impossible"></td>
+                                </tr>
+                                <tr>
+                                    <th>ｱｯﾌﾟｽﾃｯﾌﾟ</th>
+                                    <td>ꜛ <code>^</code></td>
+                                    <th>ﾀﾞｳﾝｽﾃｯﾌﾟ</th>
+                                    <td>ꜜ <code>!</code></td>
+                                    <th>低</th>
+                                    <td>˨ <code class="nonxsampa">_2</code></td>
+                                    <td>꜕ <code class="nonxsampa">_2_S</code></td>
+                                    <td>꜋ <code class="nonxsampa">_2_Q</code></td>
+                                    <td>꜐ <code class="nonxsampa">_2_Q_S</code></td>
+                                    <td><span class="symbol-code nonipa">² <code>_2_U</code></span></td>
+                                    <td>à <code>_L</code></td>
+                                    <td>a᷅ <code>_B_L</code></td>
+                                    <td>a᷆ <code class="nonxsampa">_L_B</code></td>
+                                </tr>
+                                <tr>
+                                    <th>連結</th>
+                                    <td>◌‿◌ <code>-\</code></td>
+                                    <td colspan="2" class="impossible"></td>
+                                    <th>超低</th>
+                                    <td>˩ <code class="nonxsampa">_1</code></td>
+                                    <td>꜖ <code class="nonxsampa">_1_S</code></td>
+                                    <td>꜌ <code class="nonxsampa">_1_Q</code></td>
+                                    <td>꜑ <code class="nonxsampa">_1_Q_S</code></td>
+                                    <td><span class="symbol-code nonipa">¹ <code>_1_U</code></span></td>
+                                    <td>ȁ <code>_B</code></td>
+                                    <td colspan="2" class="impossible"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var area = getElem("area");
+    area.addEventListener("keydown", e => {
+        if (e.key.length > 1) return;
+
+        let longSelected = area.selectionStart != area.selectionEnd;
+
+        let underscoreJoin = area.value.charAt(area.selectionStart - 1) == "_";
+
+        if (!underscoreJoin && (("a" <= e.key && e.key <= "z" && e.key != "g") || "./".includes(e.key))) { //小文字なら何もしないで出力
+            return;
+        }
+
+        if (!(underscoreJoin || "A" <= e.key & e.key <= "Z" || "g%':@{}123456789&?<>^!|\"=~+\\`".includes(e.key))) return; //他の特殊文字でなければ無視
+
+        //"iyɨᵿɯueøɘɵɤo"
+        //
+        let cursorAfterPos = area.selectionStart;
+        let newLet = "";
+        let consumeLetter = 0;
+        let invalidInput = false;
+        const implosiveConvertBase = "bdɖɟɡɢptckq";
+        const underscoreDiacriticCode = "\"+-0=>^}~AabcdeGhjklmNnOoqrtuvwXxy12345?";
+        console.log("xibgus");
+        if (underscoreJoin) { //直前の文字が_なら
+            if (e.key == "<") { //入破音に変化
+                if (!implosiveConvertBase.includes(area.value.charAt(cursorAfterPos - 2))) invalidInput = true; //前に変化させられる文字がない
+
+                newLet = "ɓɗᶑʄɠʛƥƭƈƙʠ" [implosiveConvertBase.indexOf(area.value.charAt(cursorAfterPos - 2))];
+                consumeLetter = 2;
+
+            } else if (e.key == "s"){ //_sで上付きに変換
+                let superscriptConvertBase = "mpbɸβɱfvʋθðntdszɹrlǃʃʒɕʑɳʂʐɻɭɲcɟʝjɥŋkɡxɣɰwʍʟɴχʁʕʔhɦiyɨʉɯuɪᵻʊeɵoəɛœɜʌɔɐɑɒa";
+                if (!superscriptConvertBase.includes(area.value.charAt(cursorAfterPos - 2))) invalidInput = true; //前に変化させられる文字がない
+                newLet = "ᵐᵖᵇᶲᵝᶬᶠᵛᶹᶿᶞⁿᵗᵈˢᶻʴʳˡꜝᶴᶾᶝᶽᶯᶳᶼʵᶩᶮᶜᶡᶨʲᶣᵑᵏᶢˣˠᶭʷꭩᶫᶰᵡʶˤˀʰʱⁱʸᶤᶶᵚᵘᶦᶧᶷᵉᶱᵒᵊᵋꟹᶟᶺᵓᵄᵅᶛᵃ" [superscriptConvertBase.indexOf(area.value.charAt(cursorAfterPos - 2))];
+                consumeLetter = 2;
+            } else if (e.key == "S") { //声調記号反転(連声用)
+                if (!"˩˨˧˦˥꜌꜋꜊꜉꜈".includes(area.value.charAt(cursorAfterPos - 2))) invalidInput = true;
+
+                newLet = "꜖꜕꜔꜓꜒꜑꜐꜏꜎꜍" ["˩˨˧˦˥꜌꜋꜊꜉꜈".indexOf(area.value.charAt(cursorAfterPos - 2))];
+                consumeLetter = 2;
+
+            } else if (e.key == "Q") { //軽声用声調記号
+                if (!"˩˨˧˦˥꜖꜕꜔꜓꜒".includes(area.value.charAt(cursorAfterPos - 2))) invalidInput = true;
+
+                newLet = "꜌꜋꜊꜉꜈꜑꜐꜏꜎꜍" ["˩˨˧˦˥꜖꜕꜔꜓꜒".indexOf(area.value.charAt(cursorAfterPos - 2))];
+                consumeLetter = 2;
+
+            } else if (e.key == "U") { //上付き数字声調表記
+                if (!"˩˨˧˦˥".includes(area.value.charAt(cursorAfterPos - 2))) invalidInput = true;
+
+                newLet = "¹²³⁴⁵" ["˩˨˧˦˥".indexOf(area.value.charAt(cursorAfterPos - 2))];
+                consumeLetter = 2;
+
+            } else if ("THMLBRF/\\".includes(e.key)) { //声調補助記号関連
+                let toneLetters = String.fromCharCode(0x030b, 0x0301, 0x0304, 0x0300, 0x030f, 0x030c, 0x0302); //THMLBRF/\の順
+                //前が声調記号ならそれにつなげる
+                if (area.value.charAt(cursorAfterPos - 2) == toneLetters[0]) { //前がTなら
+                    if (e.key == "H") {
+                        newLet = String.fromCharCode(0x1dc7);
+                        consumeLetter = 2;
+                    } else invalidInput = true;
+
+                } else if (area.value.charAt(cursorAfterPos - 2) == toneLetters[1]) { //前がHなら
+                    if (e.key == "T" || e.key == "L") {
+                        newLet = e.key == "T" ? String.fromCharCode(0x1dc4) : toneLetters[6];
+                        consumeLetter = 2;
+                    } else invalidInput = true;
+
+                } else if (area.value.charAt(cursorAfterPos - 2) == toneLetters[3]) { //前がLなら
+                    if (e.key == "B" || e.key == "H") {
+                        newLet = e.key == "B" ? String.fromCharCode(0x1dc6) : toneLetters[5];
+                        consumeLetter = 2;
+                    } else invalidInput = true;
+
+                } else if (area.value.charAt(cursorAfterPos - 2) == toneLetters[4]) { //前がBなら
+                    if (e.key == "L") {
+                        newLet = String.fromCharCode(0x1dc5);
+                        consumeLetter = 2;
+                    } else invalidInput = true;
+
+                } else if (area.value.charAt(cursorAfterPos - 2) == toneLetters[5]) { //前がRなら
+                    if (e.key == "F" || e.key == "\\") {
+                        newLet = String.fromCharCode(0x1dc8);
+                        consumeLetter = 2;
+                    } else invalidInput = true;
+
+                } else if (area.value.charAt(cursorAfterPos - 2) == toneLetters[6]) { //前がFなら
+                    if (e.key == "R" || e.key == "/") {
+                        newLet = String.fromCharCode(0x1dc9);
+                        consumeLetter = 2;
+                    } else invalidInput = true;
+
+                } else {
+                    newLet = toneLetters["THMLBRF/\\".indexOf(e.key) - 2 * (e.key == "/" || e.key == "\\")];
+                    consumeLetter = 1;
+                }
+            } else {
+                if (!underscoreDiacriticCode.includes(e.key)) invalidInput = true;
+
+                newLet = `${String.fromCharCode(0x0308, 0x031f, 0x0320, 0x0325, 0x0329)}ʼ${String.fromCharCode(0x032f, 0x031a, 0x0303, 0x0318, 0x033a)}ᵝ${String.fromCharCode(0x031c, 0x032a, 0x0334)}ˠʰʲ${String.fromCharCode(0x0330)}ˡ${String.fromCharCode(0x033b, 0x033c)}ⁿ${String.fromCharCode(0x0339, 0x031e, 0x0319, 0x031d, 0x0324)}ᶹ${String.fromCharCode(0x032c)}ʷ${String.fromCharCode(0x0306, 0x033d)}ᶣ˩˨˧˦˥ˀ` [underscoreDiacriticCode.indexOf(e.key)];
+                consumeLetter = 1;
+            }
+        } else if ("A" <= e.key & e.key <= "Z" || "g%':@{}123456789&?<>^!|\"=~+".includes(e.key)) { //単純に別の文字が出るもの
+            newLet = ("ɑβçðɛɱɣɡɥɪɲɬʎɯŋɔʋɒʁʃθʊʌʍχʏʒˌʲːəæʉɨøɜɾɫɐɤɵœɶʔ⟨⟩ꜛꜜ|ˈ" + String.fromCharCode(0x0329, 0x0303, 0x0361))["ABCDEFGgHIJKLMNOPQRSTUVWXYZ%':@{}123456789&?<>^!|\"=~+".indexOf(e.key)];
+            consumeLetter = 0;
+        } else if ("\\`".includes(e.key)) { //前の1文字を変化
+            let formula = {
+                bfore: "",
+                after: ""
+            };
+            if (e.key == "\\") { //\で通常派生
+                formula.bfore = "abcdehjklnoprstvxyzβðɣɥɪɲɬʎɯŋɔʋʁʃθʊχːəɜɾɫʔ⟨⟩ꜜ|-ʰˀ" + String.fromCharCode(0x0329);
+                formula.after = "ᴀⱱʗȡᴇɦʝʞɺȵꭥɸɹɕȶʋɧʮʑʙȸɢʜᵻɟɮʟɰɴʘȹʀƛʇᵿħˑɘɞɿȴʕʢʡǃǀ‿ʱˁǂ";
+            } else if (e.key == "`") { //そり舌音
+                formula.bfore = "dnrɹstzəɜlɬɿʮ";
+                formula.after = "ɖɳɽɻʂʈʐɚɝɭꞎʅʯ";
+            }
+            let predLet = area.value.charAt(cursorAfterPos - 1);
+            consumeLetter = 1;
+
+            if (!formula.bfore.includes(predLet)) { //変換対象にないとき
+                if (e.key == "`") {
+                    newLet = "˞";
+                    consumeLetter = 0;
+                } else {
+                    invalidInput = true;
+                }
+            } else {
+                newLet = formula.after[formula.bfore.indexOf(predLet)];
+            }
+        }
+
+        e.preventDefault();
+        if (invalidInput || cursorAfterPos <= consumeLetter - 1) return;
+        if (longSelected) {
+            area.value = area.value.substr(0, cursorAfterPos) + area.value.substr(area.selectionEnd, area.value.length);
+            area.setSelectionRange(cursorAfterPos + 1, cursorAfterPos + 1);
+        }
+        area.value = area.value.substr(0, cursorAfterPos - consumeLetter) + newLet + area.value.substr(cursorAfterPos, area.value.length);
+        area.setSelectionRange(cursorAfterPos + 1 - consumeLetter, cursorAfterPos + 1 - consumeLetter);
+    });
+
+</script>
+
+</html>
