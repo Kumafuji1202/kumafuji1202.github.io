@@ -132,7 +132,7 @@
             padding: 2px;
             border: var(--icon-link-border);
             border-radius: 5px;
-        }
+        }/*
 
         a[href^="https://www.youtube.com"]:empty {
             content: url(resources/youtubeIcon.png);
@@ -148,7 +148,7 @@
 
         a[href*=".itch.io"]:empty {
             content: url(resources/itchIoIcon.png);
-        }
+        }*/
 
     </style>
 </head>
@@ -268,8 +268,7 @@
             },
             {
                 name: "·𐑦𐑙𐑜𐑤𐑦𐑖 (𐑖𐑱𐑝𐑾𐑯 𐑨𐑤𐑓𐑩𐑚𐑧𐑑)",
-                code: "en-Shaw",
-                lang: "en"
+                code: "en-Shaw"
             },
             {
                 name: "日本語",
@@ -277,7 +276,8 @@
             },
             {
                 name: "Zese",
-                code: "zse"
+                code: "zse",
+                lang: "qez"
             }
         ],
         translations: {
@@ -313,7 +313,13 @@
                 "tok": "toki",
                 "zse": "Kage kabo zese"
             },
-            "myOtherPages": {
+            "aboutMe": {
+                "en": "About me",
+                "en-Shaw": "𐑩𐑚𐑬𐑑 𐑥𐑰",
+                "ja": "自己紹介",
+                "zse": "Dide kike"
+            }
+            "myOtherPages": {,
                 "en": "My other pages",
                 "en-Shaw": "𐑥𐑲 𐑳𐑞𐑼 𐑐𐑱𐑡𐑦𐑟",
                 "ja": "他のサイトのくまふじ",
@@ -383,13 +389,13 @@
             },
             "partnerAds.buzzle.introduction": {
                 "en": "Buzzle is a 2D top-down, high difficulty action game. Help the main character \"Mawario\" escape from a mysterious room!",
-                "en-Shaw": "·𐑚𐑳𐑟𐑤 𐑦𐑟 𐑩 2D 𐑑𐑪𐑐-𐑛𐑬𐑯, 𐑣𐑲 𐑛𐑦𐑓𐑦𐑒𐑩𐑤𐑦 𐑨𐑒𐑖𐑯 𐑜𐑱𐑥.",
+                "en-Shaw": "·𐑚𐑳𐑟𐑤 𐑦𐑟 𐑩 2D 𐑑𐑪𐑐-𐑛𐑬𐑯, 𐑣𐑲 𐑛𐑦𐑓𐑦𐑒𐑩𐑤𐑦 𐑨𐑒𐑖𐑯 𐑜𐑱𐑥. 𐑣𐑧𐑤𐑐 𐑞 𐑥𐑱𐑯 𐑒𐑨𐑮𐑩𐑒𐑑𐑼 ·𐑥𐑩𐑢𐑸𐑦𐑴 𐑦𐑕𐑒𐑱𐑐 𐑓𐑮𐑪𐑥 𐑩 𐑥𐑦𐑕𐑑𐑽𐑾𐑕 𐑮𐑵𐑥!",
                 "ja": "Buzzleは2Dトップダウン高難度アクションゲーム。主人公の「マワリオ」の不思議な部屋からの脱出を助けよう!",
                 "zse": "Buzzle diza desa katu, kuzu tepo kito [gota] dide zota dodo keke. Goku pupo godi kida zeku zoto peka Mawario popi desa dopi tozu popi kidu!"
             },
             "partnerAds.mamuBox": {
                 "en": "MamushiBox by Mawario",
-                "en-Shaw": "·𐑥𐑩𐑥𐑵𐑖𐑰𐑚𐑪𐑒𐑕 𐑚𐑲 ·𐑥𐑩𐑢𐑸𐑦𐑴",
+                "en-Shaw": "·𐑥𐑩𐑥𐑵𐑖𐑦 𐑚𐑪𐑒𐑕 𐑚𐑲 ·𐑥𐑩𐑢𐑸𐑦𐑴",
                 "ja": "MamushiBox by Mawario",
                 "zse": "MamushiBox by Mawario"
             },
@@ -397,7 +403,7 @@
                 "en": "GET THE CRYSTAL!",
                 "en-Shaw": "𐑜𐑧𐑑 𐑞 𐑒𐑮𐑦𐑕𐑑𐑤!",
                 "ja": "GET THE CRYSTAL!",
-                "zse": "wip"
+                "zse": "GOKU TUTI DIPA PUTA!"
             },
             "partnerAds.qb": {
                 "en": "Qwertbot945 v2 by Qwert",
@@ -426,7 +432,7 @@
             },
             "siteMap.webTools.rs.rstm": {
                 "en": "Spritesheet Generator v1.1.8",
-                "en-Shaw": "𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼 𐑝1.1.8",
+                "en-Shaw": "·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼 𐑝1.1.8",
                 "ja": "テクスチャメーカー v1.1.8",
                 "zse": "Kida Tuko Bika kaka kidu Toto v1.1.8"
             },
@@ -438,7 +444,7 @@
             },
             "siteMap.webTools.rs.rsle": {
                 "en": "Level Encryptor",
-                "en-Shaw": "𐑤𐑧𐑝𐑤 𐑦𐑙𐑒𐑮𐑦𐑐𐑑𐑼",
+                "en-Shaw": "·𐑤𐑧𐑝𐑤 𐑦𐑙𐑒𐑮𐑦𐑐𐑑𐑼",
                 "ja": "ステージ暗号化ツール",
                 "zse": "Kita kida Toto Kake Popo Kaka kidu"
             },
@@ -511,9 +517,10 @@
     });
     langMgr.initSite(document.getElementById("languageSelectBox"));
 
-    for (let elem of Array.from(document.querySelectorAll("[href^=\"http\"]"))) {
+    for (let elem of Array.from(document.querySelectorAll("a[href^=\"http\"]"))) {
         elem.setAttribute("target", "_blank");
         let hre = elem.getAttribute("href");
+        elem.style.content = `url(http://www.google.com/s2/favicons?domain=${hre})`;
         if (hre.includes("www.youtube.com")) {
             elem.setAttribute("title", langMgr.callText("siteNames.youTube"));
             continue;
