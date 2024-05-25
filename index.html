@@ -520,7 +520,7 @@
     for (let elem of Array.from(document.querySelectorAll("a[href^=\"http\"]"))) {
         elem.setAttribute("target", "_blank");
         let hre = elem.getAttribute("href");
-        elem.style.content = `url(http://www.google.com/s2/favicons?domain=${hre})`;
+        //if (elem.innerHTML == "") elem.style.content = `url(http://www.google.com/s2/favicons?domain=${hre})`;
         if (hre.includes("www.youtube.com")) {
             elem.setAttribute("title", langMgr.callText("siteNames.youTube"));
             continue;
