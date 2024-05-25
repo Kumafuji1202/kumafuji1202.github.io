@@ -313,12 +313,12 @@
                 "tok": "toki",
                 "zse": "Kage kabo zese"
             },
-            "aboutMe": {
+            /*"aboutMe": {
                 "en": "About me",
                 "en-Shaw": "𐑩𐑚𐑬𐑑 𐑥𐑰",
                 "ja": "自己紹介",
                 "zse": "Dide kike"
-            },
+            },*/
             "myOtherPages": {,
                 "en": "My other pages",
                 "en-Shaw": "𐑥𐑲 𐑳𐑞𐑼 𐑐𐑱𐑡𐑦𐑟",
@@ -517,11 +517,11 @@
     });
     langMgr.initSite(document.getElementById("languageSelectBox"));
 
-    for (let elem of Array.from(document.querySelectorAll("a[href^=\"http\"]"))) {
+    for (let elem of Array.from(document.querySelectorAll("a[href^=\"http\"]:empty"))) {
         elem.setAttribute("target", "_blank");
         let hre = elem.getAttribute("href");
-        //if (elem.innerHTML == "") elem.style.content = `url(http://www.google.com/s2/favicons?domain=${hre})`;
-        if (hre.includes("www.youtube.com")) {
+        elem.style.content = `url(http://www.google.com/s2/favicons?domain=${hre})`;
+        /*if (hre.includes("www.youtube.com")) {
             elem.setAttribute("title", langMgr.callText("siteNames.youTube"));
             continue;
         }
@@ -536,7 +536,7 @@
         if (hre.includes("github.com")) {
             elem.setAttribute("title", langMgr.callText("siteNames.gitHub"));
             continue;
-        }
+        }*/
     }
 
 </script>
