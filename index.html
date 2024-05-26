@@ -132,23 +132,7 @@
             padding: 2px;
             border: var(--icon-link-border);
             border-radius: 5px;
-        }/*
-
-        a[href^="https://www.youtube.com"]:empty {
-            content: url(resources/youtubeIcon.png);
         }
-
-        a[href^="https://scratch.mit.edu"]:empty {
-            content: url(resources/scratchIcon.png);
-        }
-
-        a[href^="https://github.com/"]:empty {
-            content: url(resources/githubIcon.png);
-        }
-
-        a[href*=".itch.io"]:empty {
-            content: url(resources/itchIoIcon.png);
-        }*/
 
     </style>
 </head>
@@ -175,6 +159,12 @@
                             <li><span data-translation-key="siteNames.gitHub"></span>: <a href="https://github.com/kumafuji1202"></a></li>
                         </ul>
                     </nav>
+                    <hr>
+                    <section>
+                        <h2 data-translation-key="aboutMe"></h2>
+                        <p data-translation-key="aboutMe.content"></p>
+                    </section>
+                    
                     <hr>
                     <section>
                         <h2 data-translation-key="janPonaMi"></h2>
@@ -314,6 +304,12 @@
                 "zse": "Kage kabo zese"
             },
             "aboutMe": {
+                "en": "About me",
+                "en-Shaw": "𐑩𐑚𐑬𐑑 𐑥𐑰",
+                "ja": "自己紹介",
+                "zse": "Dide kike"
+            },
+            "aboutMe.content": {
                 "en": "About me",
                 "en-Shaw": "𐑩𐑚𐑬𐑑 𐑥𐑰",
                 "ja": "自己紹介",
@@ -520,7 +516,7 @@
     for (let elem of Array.from(document.querySelectorAll("a[href^=\"http\"]:empty"))) {
         elem.setAttribute("target", "_blank");
         let hre = elem.getAttribute("href");
-        elem.style.content = `url(http://www.google.com/s2/favicons?domain=${hre})`;
+        elem.style.content = `url(https://www.google.com/s2/favicons?domain=${hre})`;
         /*if (hre.includes("www.youtube.com")) {
             elem.setAttribute("title", langMgr.callText("siteNames.youTube"));
             continue;
