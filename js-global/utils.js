@@ -3,7 +3,9 @@ Number.prototype.clamp = function (min, max) {
     if (this > max) return max;
     if (this < min) return min;
     return this;
-}
+};
+
+String.prototype.isSurrogate = function () {return String.fromCharCode(0xd800) <= this && this < String.fromCharCode(0xe000)};
 
 class Col {
     constructor(r, g, b) {
