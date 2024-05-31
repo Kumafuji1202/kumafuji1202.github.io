@@ -6,6 +6,9 @@ Number.prototype.clamp = function (min, max) {
 };
 
 String.prototype.isSurrogate = function () {return String.fromCharCode(0xd800) <= this && this < String.fromCharCode(0xe000)};
+String.prototype.lengthAt = function(position){
+    return (this.charAt(position).isSurrogate()) ? 2 : 1;
+};
 
 class Col {
     constructor(r, g, b) {
