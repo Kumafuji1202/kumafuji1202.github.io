@@ -255,7 +255,7 @@
                         display: "𐑻/◌𐑮",
                         handler: e => {
                             let beforeLetter = inputArea.value.substring(inputArea.selectionStart - inputArea.value.lengthAt(inputArea.selectionStart - 1), inputArea.selectionStart);
-                            let letterNum = "𐑦𐑾𐑩𐑷𐑭𐑧".indexOf(beforeLetter);
+                            let letterNum = (beforeLetter == "") ? -1 : "𐑦𐑾𐑩𐑷𐑭𐑧".indexOf(beforeLetter);
                             let cursorAfterPos = inputArea.selectionStart;
                             if (letterNum == -1){
                                 inputArea.value =
