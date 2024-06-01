@@ -23,8 +23,8 @@
         <script src="../js-global/utils.js"></script>
         <style>
             html {
-                background-color: #ffffff;
-                --midground: #e0fff0;
+                background-color: #e0fff0;
+                --midground: #ffffff80;
                 --kbd-main-bg: #c0ffe0;
                 --kbd-bottom-bg: #b0ffc0;
                 --key-height: 3em;
@@ -33,6 +33,9 @@
             }
             #contents {
                 background: var(--midground);
+                display: flex;
+                flex-direction: column;
+                padding: 0;
             }
             ul {
                 list-style: none;
@@ -41,8 +44,8 @@
                 display: flex;
             }
             #inputArea {
-                width: 100%;
                 resize: none;
+                font: inherit;
             }
             #keyboard {
                 width: inherit;
@@ -80,6 +83,10 @@
             .key {
                 background: var(--key-bg);
             }
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
         </style>
     </head>
 
@@ -87,15 +94,15 @@
         <div id="container-flex">
             <div id="contents">
                 <h1 data-translation-key="ui.appName"></h1>
-                <a href="../">
-                    <button data-translation-key="ui.backToTop"></button>
-                </a>
-                <br />
-                <label
-                    for="languageSelectBox"
-                    data-translation-key="ui.langSelect.label"></label>
-                <select id="languageSelectBox"></select>
-                <br />
+                <nav>
+                    <button>
+                        <a href="../" data-translation-key="ui.backToTop"></a>
+                    </button>
+                    <label
+                        for="languageSelectBox"
+                        data-translation-key="ui.langSelect.label"></label>
+                    <select id="languageSelectBox"></select>
+                </nav>
                 <textarea
                     id="inputArea"
                     autocomplete="off"
@@ -107,17 +114,17 @@
                     <div id="keyboard">
                         <div class="keyArea current" id="mainKeys"></div>
                         <div class="keyArea" id="symbolKeys"></div>
-                        <div id="bottomBar">
+                        <div id="bottomBar"><!--
                             <div class="keySlot" title="switch to Orthodox">
                                 
-                            </div>
+                            </div>-->
                             <div class="keySlot" title="switch" id="switchButton">
-                                */𐑜
+                                𐑒/@
                             </div>
-                            <div class="keySlot" title="Numbers and Symbols" id="commaKey">,</div>
-                            <div class="keySlot" title="Numbers and Symbols" data-output=" " id="spaceBar">Phonetic 44Keys (KGŊH)</div>
-                            <div class="keySlot" title="Numbers and Symbols" id="periodKey">.</div>
-                            <div class="keySlot" title="Numbers and Symbols" id="enterKey">
+                            <div class="keySlot" id="commaKey">,</div>
+                            <div class="keySlot" data-output=" " id="spaceBar" data-translation-key="keyboards.phonetic.name"></div>
+                            <div class="keySlot" id="periodKey">.</div>
+                            <div class="keySlot" id="enterKey">
                                 ↲
                             </div>
                         </div>
@@ -129,7 +136,7 @@
 
     <script>
         //翻訳データ
-        new LanguageManager({
+        var lang = new LanguageManager({
             languages: [
                 {
                     name: "English",
@@ -138,31 +145,36 @@
                 {
                     name: "日本語",
                     code: "ja"
+                },
+                {
+                    name: "·𐑦𐑙𐑜𐑤𐑦𐑖 (𐑖𐑱𐑝𐑾𐑯 𐑨𐑤𐑓𐑩𐑚𐑧𐑑)",
+                    code: "en-Shaw"
                 }
             ],
             translations: {
                 "ui.appName": {
                     en: "Shavian Soft Keyboard (wip)",
                     ja: "ショー文字ソフトキーボード(作成中)",
+                    "en-Shaw": "·𐑖𐑱𐑝𐑾𐑯 𐑕𐑪𐑓𐑑 𐑒𐑰𐑚𐑹𐑛 (⸰𐑢𐑦𐑐)"
                 },
                 "ui.langSelect.label": {
-                    en: "Language",
-                    ja: "言語を選択"
+                    en: "Select Language/Script",
+                    ja: "言語/文字を選択",
+                    "en-Shaw": "𐑕𐑩𐑤𐑧𐑒𐑑 𐑤𐑨𐑙𐑜𐑢𐑦𐑡 𐑯 𐑕𐑒𐑮𐑦𐑐𐑑"
                 },
                 "keyboards.phonetic.name": {
-                    en: "Phonetic 44Keys (KGŊH)",
-                    ja: "表音44キー (KGŊH)"
-                },
-                "ui.form.placeholder": {
-                    en: "Input level data here",
-                    ja: "ここにステージデータを入力..."
+                    en: "Phonetic (44 Keys, KGŊH)",
+                    ja: "表音44キー (KGŊH)",
+                    "en-Shaw": "𐑓𐑩𐑯𐑧𐑑𐑦𐑒 (44 𐑒𐑰𐑟, 𐑒𐑜𐑙𐑣)"
                 },
                 "ui.backToTop": {
                     en: "Return to Top Page",
-                    ja: "トップページに戻る"
+                    ja: "トップページに戻る",
+                    "en-Shaw": "𐑮𐑦𐑑𐑻𐑯 𐑑 𐑑𐑪𐑐 𐑐𐑱𐑡"
                 }
             }
-        }).initSite(document.getElementById("languageSelectBox"));
+        });
+        lang.initSite(document.getElementById("languageSelectBox"));
 
         //ここから入力
         var inputArea = getElem("inputArea");
@@ -216,11 +228,15 @@
             }
         };
 
-        var keyboardInfo = [
+        var keyboardInfo = {
             //displayはnullにするとhandlerが指定されない限り既定ハンドラは割り当てられない。
             //handlerは設定したらその配置のすべてのキーの処理をそれで代わりに行う。
             //keys[#].handlerは設定したらその特定のキーにだけ処理をそれで代行する。
-            {
+            //優先度: キー個別ハンドラ > 配置既定ハンドラ > defaultKeyHandlers.letter
+            
+            //ショー文字
+            //表音44キー (KGŊH)
+            "shavian.phonetic": {
                 nameTranslationID: "keyboards.phonetic.name",
                 style: "grid",
                 size: {
@@ -236,7 +252,7 @@
                     //第2段
                     "𐑗", "𐑡", "𐑖", "𐑠", "⸰", "𐑘", "𐑦", {
                         // R合字キー
-                        display: "𐑻◌ာ",
+                        display: "𐑻/◌𐑮",
                         handler: e => {
                             let beforeLetter = inputArea.value.substring(inputArea.selectionStart - inputArea.value.lengthAt(inputArea.selectionStart - 1), inputArea.selectionStart);
                             let letterNum = "𐑦𐑾𐑩𐑷𐑭𐑧".indexOf(beforeLetter);
@@ -280,7 +296,31 @@
                     }
                 ]
             },
-            {
+            //ガラケー打ち23キー (KG-ŠŽ-ŊH): ここから未完成
+            "shavian.doubleTap": {
+                nameTranslationID: "keyboards.doubleTap.name",
+                style: "grid",
+                size: {
+                    width: 6,
+                    height: 4
+                },
+                keys: [
+                    "𐑒𐑜", "𐑖𐑠", "𐑙𐑣", "𐑦𐑰", "𐑵𐑫", "𐑿",
+                    "𐑗𐑡", "𐑕𐑟", "𐑘𐑢", "𐑱𐑲", "𐑻", "𐑬𐑶",
+                    "𐑑𐑛", "𐑔𐑞", "𐑮𐑤", "𐑨𐑧", "𐑩𐑪", "𐑴",
+                    "𐑐𐑚", "𐑓𐑝", "𐑯𐑥", "𐑭𐑷", "𐑳", {
+                        display: "BS",
+                        handler: defaultKeyHandlers.delPrev
+                    }
+                ]
+            },
+            //形状グループ (PTKFÞS)
+            //Shaw Imperial (OjAwŬGŠČ)
+            //Shaw QWERTY (AwWERTA)
+            
+            //記号
+            //基本の記号キーボード
+            "symbols": {
                 nameTranslationID: "keyboards.phonetic.name",
                 style: "grid",
                 size: {
@@ -298,7 +338,10 @@
                     }
                 ]
             }
-        ];
+            //記号ガラケー打ち
+            
+            //ラテン文字
+        };
         function prepareKeyboard(id, keyArea) {
             let k = keyboardInfo[id];
             if (k.style == "grid") {
@@ -341,8 +384,8 @@
                 }
             }
         }
-        prepareKeyboard(0, getElem("mainKeys"));
-        prepareKeyboard(1, getElem("symbolKeys"));
+        prepareKeyboard("shavian.phonetic", getElem("mainKeys"));
+        prepareKeyboard("symbols", getElem("symbolKeys"));
         getElem("spaceBar").setClick(defaultKeyHandlers.letter);
         getElem("periodKey").setClick(defaultKeyHandlers.letter);
         getElem("commaKey").setClick(defaultKeyHandlers.letter);
@@ -358,5 +401,3 @@
         })
     </script>
 </html>
-
-  
