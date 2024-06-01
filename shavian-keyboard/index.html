@@ -9,6 +9,7 @@
         <meta name="pagename" content="Shavian Alphabet Soft Keyboard (wip)" />
         <meta name="author" content="Kumafuji1202" />
         <meta name="twitter:url" content="https://kumafuji1202.github.io/shavian-keyboard/" />
+        <meta name="keywords" content="Shavian, ·𐑖𐑱𐑝𐑾𐑯, Shavian input">
         <link
             rel="canonical"
             href="https://kumafuji1202.github.io/shavian-keyboard/" />
@@ -195,6 +196,7 @@
                 inputArea.selectionEnd = inputArea.selectionStart = cursorAfterPos + output.length;
             },
             enter: (e) => {
+                e.preventDefault();
                 inputArea.value =
                     inputArea.value.substring(0, inputArea.selectionStart) +
                     "\n" +
@@ -375,9 +377,13 @@
                     }
                     keyArea.appendChild(keySlotElem);
 
-                    //ハンドラ
+                    //ハンドラ設定
                     if (key.handler){
                         keySlotElem.setClick(key.handler);
+                        continue;
+                    }
+                    if (k.handler){
+                        keySlotElem.setClick(k.handler);
                         continue;
                     }
                     keySlotElem.setClick(defaultKeyHandlers.letter);
@@ -399,5 +405,6 @@
                 getElem("symbolKeys").classList.remove("current");
             }
         })
+        //Loch(X), Ghent(Ğ), Why(Ƕ), Llan(Ɬ), Yeah(Eë), Oeuvre(Œ)
     </script>
 </html>
