@@ -1,14 +1,5 @@
 @charset "utf-8";
-/*update no. 1*/
-/* フォントをSenに設定 */
-@font-face{
-    font-family: "SenBold";
-    src: url(../../../../Sen-Bold.ttf) format("truetype");
-}
-html {
-    font-family: "SenBold";
-}
-
+/*update no. 2*/
 input {
     font-family: inherit !important;
 }
