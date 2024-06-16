@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kumafuji1202">
+    <meta name="pagename" content="横書き⇒縦書き変換器">
+    <link rel="canonical" href="https://kumafuji1202.github.io/direction-converter/" />
+    <meta name="twitter:url" content="https://kumafuji1202.github.io/direction-converter/">
+    <meta name="twitter:title" content="横書き⇒縦書き変換器">
+    <meta name="twitter:description" content="横書きの文章の文字を並べ替えて縦読みに変換します。">
+    <title>横書き⇒縦書き変換器</title>
+    <script src="../js-global/utils.js"></script>
+    <style>
+        #aeteoaofa {
+            display: flex;
+            width: 100%;
+        }
+
+        #aeteoaofa>#verticalContainer {
+            flex-grow: 1;
+        }
+
+        #horizontalContainer {
+            width: 500px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 500px;
+            resize: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>横書き⇒縦書き変換器</h1>
+    <button>
+        <a href="../">ホームに戻る</a>
+    </button>
+    <p>横書きの文章の文字を並べ替えて縦読みに変換します(1行最大1000文字)。変換後の文章は縦書きが使えない環境にコピペなどをして使えます。基本ラテン文字と半角数字、一部の記号は自動で全角に変換・向き変更されます。現在非<a href="https://ja.wikipedia.org/wiki/%E5%9F%BA%E6%9C%AC%E5%A4%9A%E8%A8%80%E8%AA%9E%E9%9D%A2" target="_blank">基本多言語面</a>文字は正しく変換されません。今後縦書き⇒横書き変換も実装する予定です。</p>
+    <div id="aeteoaofa">
+        <div id="horizontalContainer">
+            <h2>横書き(入力)</h2>
+            <textarea id="horizontal">　横書きの文章の文字を並べ替えて縦読みに
+変換します(1行最大1000文字)。変換
+後の文章は縦書きが使えない環境にコピペな
+どをして使えます。基本ラテン文字と半角数
+字、一部の記号は自動で全角に変換されます。
+現在非基本多言語面文字は正しく変換されま
+せん。今後縦書き⇒横書き変換も実装する予
+定です。</textarea>
+        </div>
+        <div id="verticalContainer">
+            <h2>縦書き(出力)</h2>
+            <textarea id="vertical" wrap="off">定せ現字ど後変　
+でん在︑をの換横
+す︒非一し文し書
+︒今基部て章まき
+　後本の使はすの
+　縦多記え縦︵文
+　書言号ま書１章
+　き語はすき行の
+　⇒面自︒が最文
+　横文動基使大字
+　書字で本え１を
+　きは全ラな０並
+　変正角テい０べ
+　換しにン環０替
+　もく変文境文え
+　実変換字に字て
+　装換さとコ︶縦
+　すされ半ピ︒読
+　るれま角ペ変み
+　予ます数な換に
+　　　︒　　　　</textarea>
+        </div>
+    </div>
+</body>
+<script>
+    var verticalizationTargets = "!#$%&@+*?~～ 「」『』（）｛｝(){}〔〕[]【】《》〈〉ー-〖〗…、，。/1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    var verticalizationResults = "！＃＄％＆＠＋＊？︴︴　﹁﹂﹃﹄︵︶︷︸︵︶︷︸︹︺︹︺︻︼︽︾︿﹀︱︱︗︘︙︑︑︒／１２３４５６７８９０ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ";
+
+    function verticalize(char) {
+        if (verticalizationTargets.includes(char)) {
+            return verticalizationResults.charAt(verticalizationTargets.indexOf(char));
+        } else {
+            return char;
+        }
+    }
+    getElem("horizontal").addEventListener("input", () => {
+        let input = getElem("horizontal").value.split("\n"); //入力を行ごとに分割
+        getElem("vertical").value = "";
+
+        //入力で一番長い行の文字数が出力の列数になる
+        for (let inputCol = 0; inputCol < 1000; inputCol++) { //出力での列ごとのループ(上から下)。入力での列を反映する。(左から右)
+            let colNotEmpty = false;
+            let thisColOutput = "";
+            for (let inputRow = input.length - 1; inputRow > -1; inputRow--) { //出力での行ごとのループ(左から右)。入力での行を反映する。(下から上)
+                let char = input[inputRow].charAt(inputCol);
+                thisColOutput += (char) ? verticalize(char) : "　";
+                if (char) colNotEmpty = true;
+            }
+            if (!colNotEmpty) break;
+            if (inputCol != 0) getElem("vertical").value += "\n";
+            getElem("vertical").value += thisColOutput;
+        }
+    });
+
+</script>
+
+</html>
