@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+/*@font-face {
+    font-family: "FdsaSans";
+    src: url(../resources/FdsaSans.otf) format("opentype");
+}
+
+html {
+    font-family: "FdsaSans";
+    line-height: 1.5em;
+}*/
+
+button,input {
+    background-color: inherit;
+    color: inherit;
+    font-family: inherit;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+select {
+    background-color: inherit;
+    color: inherit;
+    font-family: inherit;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+option {
+    background-color: white;
+    color: black;
+    font: inherit;
+}
