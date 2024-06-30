@@ -675,5 +675,37 @@ var changeLogs = [
                 }
             ]
         }
+    },
+    {
+        "versionNumber": "1.1.9",
+        "releaseDate": {
+            "year": 2024,
+            "month": 6,
+            "day": 30
+        },
+        "changes": {
+            "bugfixes": [
+                {
+                    "en": "Fixed Enemy middle color extractor not working",
+                    "ja": "Enemy中段の色抽出が使えない問題を修正"
+                }
+            ],
+            "additions": [
+                {
+                    "en": "Added flipper patterns 'Hourglass', 'Club', 'Sparkle'",
+                    "ja": "反転床模様「砂時計」「クラブ」「キラキラ」を追加"
+                }
+            ],
+            "changes": [
+                {
+                    "en": "Loading JSON savedata now automatically updates theme name in save form",
+                    "ja": "JSONデータを読み込んだ時に保存フォームのテーマ名欄が自動で更新されるようになった"
+                },
+                {
+                    "en": "Flipper obverse and reverse patterns can now be chosen separately",
+                    "ja": "反転床の模様が表裏別々に設定できるようになった"
+                }
+            ]
+        }
     }
 ];

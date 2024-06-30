@@ -241,7 +241,7 @@ let langDataRaw = {
             "ja": "プリセットを使用",
         },
         "textureExtractInfo": {
-            "en": "You can extract Rolling Sky spritesheets from <a href=\"https://mega.nz/file/4iEmzQrA#C1aniTxKeDZg2pUuLabl8mOkBhK8teP1juIgbdP45Ds\" target=\"_blank\">the IPA of the <b>Dinasour Valley</b> version</a> or <a href=\"https://mega.nz/file/QSMVzAZa#6eZ0SXw6FGLwom7M7wtDv_4hCbtCyk5DhEnCgnSu14o\" target=\"_blank\">APK of the <b>Chess Fortress</b> version(better quality)</a>, Rolling Universe spritesheets (including General and Background for the Rolling World theme) from the IPA of v2.2.1 (no decryption needed), and Rolling Fanmade spritesheets (excluding Pharaoh spritesheets, which can be found in Rolling Sky instead) from Rolling Sky Remake <a class=\"ae\" href=\"https://www.mediafire.com/file/t8pivs9totk3pj6/RSR0.6.5b.zip/file\" target=\"_blank\">v0.6b</a> PC version.",
+            "en": "You can extract Rolling Sky spritesheets from <a href=\"https://mega.nz/file/4iEmzQrA#C1aniTxKeDZg2pUuLabl8mOkBhK8teP1juIgbdP45Ds\" target=\"_blank\">the IPA of the <b>Dinosaur Valley</b> version</a> or <a href=\"https://mega.nz/file/QSMVzAZa#6eZ0SXw6FGLwom7M7wtDv_4hCbtCyk5DhEnCgnSu14o\" target=\"_blank\">APK of the <b>Chess Fortress</b> version(better quality)</a>, Rolling Universe spritesheets (including General and Background for the Rolling World theme) from the IPA of v2.2.1 (no decryption needed), and Rolling Fanmade spritesheets (excluding Pharaoh spritesheets, which can be found in Rolling Sky instead) from Rolling Sky Remake <a class=\"ae\" href=\"https://www.mediafire.com/file/t8pivs9totk3pj6/RSR0.6.5b.zip/file\" target=\"_blank\">v0.6b</a> PC version.",
             "ja": "Rolling Skyのオリジナルテクスチャは<a href=\"https://mega.nz/file/4iEmzQrA#C1aniTxKeDZg2pUuLabl8mOkBhK8teP1juIgbdP45Ds\" target=\"_blank\"><b>恐竜谷</b>のバージョンのIPA</a>または<a href=\"https://mega.nz/file/QSMVzAZa#6eZ0SXw6FGLwom7M7wtDv_4hCbtCyk5DhEnCgnSu14o\" target=\"_blank\"><b>割拠(以下略</b>のバージョンのTapTap版</a>(より画像品質が良い)から取り出せます。Rolling Universeのテクスチャ(Rolling WorldテーマのGeneralとBackgroundを含む)はv2.2.1のIPAから(暗号化解除の必要はありません)、Rolling Fanmadeのテクスチャ(ファラオ系以外。ファラオ系はRSにも入っている)はRolling Sky Remake <a class=\"ae\" href=\"https://www.mediafire.com/file/t8pivs9totk3pj6/RSR0.6.5b.zip/file\" target=\"_blank\">v0.6b</a> PC版からそれぞれ取り出せます。",
         },
         "groundSettingsHeading": {
@@ -501,7 +501,7 @@ let langDataRaw = {
             "ja": "非起動時のジャンプ床面部分の発光",
         },
         "jumpTextureUsageExpl": {
-            "en": "Only the bottom-left half of the jumppad texture will be used. For the jumppads in actual gameplay, a 180-degree-rotated copy of the said part will fill the rest. This makes the jumppad designs forcedly point-symmetrical.",
+            "en": "Only the bottom-left half of the jumppad texture will be used. For the jumppads in the actual gameplay, a 180-degree-rotated copy of the said part will fill the rest. This makes the jumppad designs forcedly point-symmetrical.",
             "ja": "ジャンプ床テクスチャは左下の1/2部分しか使われません。実際のジャンプ床では使用される部分が180度回転して複製されて残りの半分を埋めるので、ジャンプ床のデザインは強制的に点対称になります。",
         },
         "generalVariationHeading": {
@@ -1559,6 +1559,22 @@ let langDataRaw = {
             "en": "Needle (Knit Kingdom)",
             "ja": "縫い針 (ニット王国)",
         },
+        "flipTileHourglass": {
+            "en": "Hourglass (Chronos)",
+            "ja": "砂時計 (とき)",
+        },
+        "flipTileClub": {
+            "en": "Club (Phantom Thief)",
+            "ja": "クラブ (怪盗)",
+        },
+        "flipTileSparkle": {
+            "en": "Sparkle (Disco Tempo)",
+            "ja": "キラキラ (ミッドナイトディスコ)",
+        },
+        "flipTileParade": {
+            "en": "(Parade Pageantry)",
+            "ja": ""
+        },
         "flipTileBrazil": {
             "en": "Leaves (Brazil)",
             "ja": "四つ葉 (ブラジル)"
@@ -1638,6 +1654,10 @@ let langDataRaw = {
         "flipperFrameColor": {
             "en": "Frame",
             "ja": "枠"
+        },
+        "flipperInnerFrameColor": {
+            "en": "Inner Frame",
+            "ja": "内側の枠"
         },
         "flipperFrameBackgroundColor": {
             "en": "Frame background",
@@ -1820,7 +1840,7 @@ let langDataRaw = {
             "ja": "太い",
         },
         "mplNoLine": {
-            "en": "None",
+            "en": "Remove lines",
             "ja": "線無し",
         },
         "mplGlow": {
@@ -1940,7 +1960,7 @@ let langDataRaw = {
             "ja": "起動時",
         },
         "useRiserLine": {
-            "en": "Use riser edge line",
+            "en": "Add octagonal edge line",
             "ja": "Riserの縁に線を描画",
         },
         "filenameGeneral": {
@@ -2045,7 +2065,7 @@ let langDataRaw = {
         }
     }
 };
-["flipTileBrazil"].forEach(each => {
+["flipTileHourglass", "flipTileClub", "flipTileSparkle", "flipTileParade"].forEach(each => {
     langDataRaw.translations[each].ja = "🆕 " + langDataRaw.translations[each].ja;
     langDataRaw.translations[each].en = "🆕 " + langDataRaw.translations[each].en;
 });

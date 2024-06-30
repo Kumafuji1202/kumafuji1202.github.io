@@ -615,7 +615,7 @@ window.addEventListener("load", function () {
                 contextGeneral.createRadialGradient(182 + gradWidIn, 158 - gradWidIn, 0, 182 + gradWidIn, 158 - gradWidIn, gradWidOut), //左下
                 contextGeneral.createRadialGradient(328 - gradWidIn, 158 - gradWidIn, 0, 328 - gradWidIn, 158 - gradWidIn, gradWidOut), //右下
             ];
-                for(let each of grad) {
+                for (let each of grad) {
                     each.addColorStop(0, getElem("inactiveJumppadGlowColor").value + "00");
                     each.addColorStop(1, getElem("inactiveJumppadGlowColor").value);
                 };
@@ -2403,376 +2403,395 @@ window.addEventListener("load", function () {
 
         //翻転床
         if (selectedTopRightTypeOption.hasAttribute("data-flipper-available")) {
-            //表とУра
-            var flipperType = getElem("flipTileType").value;
-            var doTheFlipper = function (type, colCount, func) {
-                if (flipperType == type) {
-                    for (var me = 0; me < 2; me++) {
-                        var nn = me * 64 + 321;
-                        contextEnemy.save();
-                        contextEnemy.beginPath();
-                        contextEnemy.rect(nn, 0, 64, 64);
-                        contextEnemy.clip();
-                        var colors = [];
-                        for (var kf = 0; kf < colCount; kf++) {
-                            colors.push(getElem("flipperColor" + (kf + 1) + (["Reverse", "Obverse"])[me]).value);
-                        }
-                        //func(ctx, pos, cols, isObverse)
-                        func(contextEnemy, nn, colors, me == 1);
-                        contextEnemy.restore();
-                    }
-                }
-            };
             //テスト用↓
             //flipperType = "smiley";
-            //立方スタイル
-            doTheFlipper("cube", 2, function (c, u, b, e) {
-                c.fillStyle = b[0];
-                c.fillRect(u, 0, 64, 64);
-                c.fillStyle = b[1];
-                c.beginPath();
-                c.moveTo(u, 0);
-                c.lineTo(u + 9.5, 9.5);
-                c.lineTo(u + 9.5, 54.5);
-                c.lineTo(u, 64);
-                c.closePath();
-                c.moveTo(u + 64, 0);
-                c.lineTo(u + 54.5, 9.5);
-                c.lineTo(u + 54.5, 54.5);
-                c.lineTo(u + 64, 64);
-                c.closePath();
-                c.moveTo(u + 9.5, 9.5);
-                c.lineTo(u + 54.5, 9.5);
-                c.lineTo(u + 9.5, 54.5);
-                c.lineTo(u + 54.5, 54.5);
-                c.closePath();
-                c.fill();
-                return e;
-            });
-            //トランプスタイル
-            doTheFlipper("checker", 2, function (c, a, r, d) {
-                c.fillStyle = r[0];
-                c.fillRect(a, 0, 32, 32);
-                c.fillRect(a + 32, 32, 32, 32);
-                c.fillStyle = r[1];
-                c.fillRect(a, 32, 32, 32);
-                c.fillRect(a + 32, 0, 32, 32);
-                return d;
-            });
-            //冬スタイル
-            doTheFlipper("holly", 5, function (s, n, o, w) {
-                //背景
-                s.fillStyle = o[0];
-                s.fillRect(n, 0, 64, 64);
-                //枠
-                s.strokeStyle = o[1];
-                s.lineWidth = 5;
-                s.strokeRect(n + 1, 1, 62, 62);
-                //外側の点
-                s.fillStyle = o[4];
-                s.fillRect(n + 8, 8, 4, 4);
-                s.fillRect(n + 8, 52, 4, 4);
-                s.fillRect(n + 52, 8, 4, 4);
-                s.fillRect(n + 52, 52, 4, 4);
-                //めしべ
-                s.fillStyle = o[3];
-                s.beginPath();
-                s.arc(n + 32, 32, 1.5, 0, 2 * Math.PI, false);
-                s.closePath;
-                s.fill();
+            var flipperPatterns = {
+                //立方スタイル
+                "cube": {
+                    colorCount: 2,
+                    drawer: function (c, u, b, e) {
+                        c.fillStyle = b[0];
+                        c.fillRect(u, 0, 64, 64);
+                        c.fillStyle = b[1];
+                        c.beginPath();
+                        c.moveTo(u, 0);
+                        c.lineTo(u + 9.5, 9.5);
+                        c.lineTo(u + 9.5, 54.5);
+                        c.lineTo(u, 64);
+                        c.closePath();
+                        c.moveTo(u + 64, 0);
+                        c.lineTo(u + 54.5, 9.5);
+                        c.lineTo(u + 54.5, 54.5);
+                        c.lineTo(u + 64, 64);
+                        c.closePath();
+                        c.moveTo(u + 9.5, 9.5);
+                        c.lineTo(u + 54.5, 9.5);
+                        c.lineTo(u + 9.5, 54.5);
+                        c.lineTo(u + 54.5, 54.5);
+                        c.closePath();
+                        c.fill();
+                        return e;
+                    }
+                },
+                //トランプスタイル
+                "checker": {
+                    colorCount: 2,
+                    drawer: function (c, a, r, d) {
+                        c.fillStyle = r[0];
+                        c.fillRect(a, 0, 32, 32);
+                        c.fillRect(a + 32, 32, 32, 32);
+                        c.fillStyle = r[1];
+                        c.fillRect(a, 32, 32, 32);
+                        c.fillRect(a + 32, 0, 32, 32);
+                        return d;
+                    }
+                },
+                //冬スタイル
+                "holly": {
+                    colorCount: 5,
+                    drawer: function (s, n, o, w) {
+                        //背景
+                        s.fillStyle = o[0];
+                        s.fillRect(n, 0, 64, 64);
+                        //枠
+                        s.strokeStyle = o[1];
+                        s.lineWidth = 5;
+                        s.strokeRect(n + 1, 1, 62, 62);
+                        //外側の点
+                        s.fillStyle = o[4];
+                        s.fillRect(n + 8, 8, 4, 4);
+                        s.fillRect(n + 8, 52, 4, 4);
+                        s.fillRect(n + 52, 8, 4, 4);
+                        s.fillRect(n + 52, 52, 4, 4);
+                        //めしべ
+                        s.fillStyle = o[3];
+                        s.beginPath();
+                        s.arc(n + 32, 32, 1.5, 0, 2 * Math.PI, false);
+                        s.closePath;
+                        s.fill();
 
-                s.lineWidth = 2;
-                s.beginPath();
-                s.moveTo(n + 17.5, 10);
-                s.lineTo(n + 17.5, 17.5);
-                s.lineTo(n + 10, 17.5);
-                s.moveTo(n + 17.5, 54);
-                s.lineTo(n + 17.5, 46.5);
-                s.lineTo(n + 10, 46.5);
-                s.moveTo(n + 46.5, 10);
-                s.lineTo(n + 46.5, 17.5);
-                s.lineTo(n + 54, 17.5);
-                s.moveTo(n + 46.5, 54);
-                s.lineTo(n + 46.5, 46.5);
-                s.lineTo(n + 54, 46.5);
-                s.stroke();
+                        s.lineWidth = 2;
+                        s.beginPath();
+                        s.moveTo(n + 17.5, 10);
+                        s.lineTo(n + 17.5, 17.5);
+                        s.lineTo(n + 10, 17.5);
+                        s.moveTo(n + 17.5, 54);
+                        s.lineTo(n + 17.5, 46.5);
+                        s.lineTo(n + 10, 46.5);
+                        s.moveTo(n + 46.5, 10);
+                        s.lineTo(n + 46.5, 17.5);
+                        s.lineTo(n + 54, 17.5);
+                        s.moveTo(n + 46.5, 54);
+                        s.lineTo(n + 46.5, 46.5);
+                        s.lineTo(n + 54, 46.5);
+                        s.stroke();
 
-                //花びら
-                s.fillStyle = o[2];
-                s.beginPath();
-                //上左
-                s.moveTo(n + 30.5, 30);
-                s.lineTo(n + 30.5, 18);
-                s.lineTo(n + 20.5, 10);
-                s.lineTo(n + 20.5, 20);
-                s.closePath();
-                //左上
-                s.moveTo(n + 30, 30.5);
-                s.lineTo(n + 18, 30.5);
-                s.lineTo(n + 10, 20.5);
-                s.lineTo(n + 20, 20.5);
-                s.closePath();
+                        //花びら
+                        s.fillStyle = o[2];
+                        s.beginPath();
+                        //上左
+                        s.moveTo(n + 30.5, 30);
+                        s.lineTo(n + 30.5, 18);
+                        s.lineTo(n + 20.5, 10);
+                        s.lineTo(n + 20.5, 20);
+                        s.closePath();
+                        //左上
+                        s.moveTo(n + 30, 30.5);
+                        s.lineTo(n + 18, 30.5);
+                        s.lineTo(n + 10, 20.5);
+                        s.lineTo(n + 20, 20.5);
+                        s.closePath();
 
-                //下左
-                s.moveTo(n + 30.5, 34);
-                s.lineTo(n + 30.5, 46);
-                s.lineTo(n + 20.5, 54);
-                s.lineTo(n + 20.5, 44);
-                s.closePath();
-                //左下
-                s.moveTo(n + 30, 33.5);
-                s.lineTo(n + 18, 33.5);
-                s.lineTo(n + 10, 43.5);
-                s.lineTo(n + 20, 43.5);
-                s.closePath();
+                        //下左
+                        s.moveTo(n + 30.5, 34);
+                        s.lineTo(n + 30.5, 46);
+                        s.lineTo(n + 20.5, 54);
+                        s.lineTo(n + 20.5, 44);
+                        s.closePath();
+                        //左下
+                        s.moveTo(n + 30, 33.5);
+                        s.lineTo(n + 18, 33.5);
+                        s.lineTo(n + 10, 43.5);
+                        s.lineTo(n + 20, 43.5);
+                        s.closePath();
 
-                //上右
-                s.moveTo(n + 33.5, 30);
-                s.lineTo(n + 33.5, 18);
-                s.lineTo(n + 43.5, 10);
-                s.lineTo(n + 43.5, 20);
-                s.closePath();
-                //右上
-                s.moveTo(n + 34, 30.5);
-                s.lineTo(n + 46, 30.5);
-                s.lineTo(n + 54, 20.5);
-                s.lineTo(n + 44, 20.5);
-                s.closePath();
+                        //上右
+                        s.moveTo(n + 33.5, 30);
+                        s.lineTo(n + 33.5, 18);
+                        s.lineTo(n + 43.5, 10);
+                        s.lineTo(n + 43.5, 20);
+                        s.closePath();
+                        //右上
+                        s.moveTo(n + 34, 30.5);
+                        s.lineTo(n + 46, 30.5);
+                        s.lineTo(n + 54, 20.5);
+                        s.lineTo(n + 44, 20.5);
+                        s.closePath();
 
-                //下右
-                s.moveTo(n + 33.5, 34);
-                s.lineTo(n + 33.5, 46);
-                s.lineTo(n + 43.5, 54);
-                s.lineTo(n + 43.5, 44);
-                s.closePath();
-                //右下
-                s.moveTo(n + 34, 33.5);
-                s.lineTo(n + 46, 33.5);
-                s.lineTo(n + 54, 43.5);
-                s.lineTo(n + 44, 43.5);
-                s.closePath();
-                s.fill();
-                return w;
-            });
-            //春節スタイル
-            doTheFlipper("rhombus", 4, function (p, i, g, s) {
-                p.fillStyle = g[3];
-                p.fillRect(i, 0, 64, 64);
-                p.fillStyle = g[0];
-                p.fillRect(i + 7, 7, 50, 50);
-                p.fillStyle = g[2];
-                p.beginPath();
-                p.moveTo(i + 33, 6);
-                p.lineTo(i + 58, 33);
-                p.lineTo(i + 31, 58);
-                p.lineTo(i + 6, 31);
-                p.closePath();
-                p.fill();
-                p.strokeStyle = g[1];
-                p.lineWidth = 3;
-                p.strokeRect(i + 4, 4, 56, 56);
-                return s;
-            });
-            //マイクロスタイル
-            doTheFlipper("squares", 2, function (m, a, t, h) {
-                m.lineWidth = 4;
-                m.fillStyle = t[0];
-                m.fillRect(a, 0, 64, 64);
-                m.strokeStyle = t[1];
-                m.strokeRect(a + 1.5, 1.5, 61, 61);
-                m.strokeRect(a + 9.5, 9.5, 45, 45);
-                m.fillStyle = contextEnemy.strokeStyle;
-                m.fillRect(a + 20, 20, 24, 24);
-                return h;
-            });
-            //ディスコスタイル
-            doTheFlipper("uLines", 3, function (r, a, v, e) {
-                r.fillStyle = v[0];
-                r.fillRect(a, 0, 64, 64);
-                r.fillStyle = v[1];
-                r.fillRect(a + 7.5, 0, 49, 56.5);
-                r.fillStyle = v[0];
-                r.fillRect(a + 12.5, 0, 39, 50.5);
-                r.fillStyle = v[1];
-                r.fillRect(a + 20, 0, 24, 40);
-                return e;
-            });
-            //四周年スタイル
-            doTheFlipper("star", 2, function (b, d, a, y) {
-                b.fillStyle = a[0];
-                b.fillRect(d, 0, 64, 64);
-                b.strokeStyle = a[1];
-                b.lineWidth = 3;
-                b.strokeRect(d + 5, 5, 54, 54);
-                b.fillStyle = a[1];
-                var rad = 0;
-                b.beginPath();
-                var sizA = 24;
-                var sizB = 13;
-                b.moveTo(d + 32, 34 - sizA);
-                for (var kuma = 0; kuma < 5; kuma++) {
-                    rad += (0.2) * Math.PI;
-                    b.lineTo(d + 32 + sizB * Math.sin(rad), 34 - sizB * Math.cos(rad));
-                    rad += (0.2) * Math.PI;
-                    b.lineTo(d + 32 + sizA * Math.sin(rad), 34 - sizA * Math.cos(rad));
-                }
-                b.closePath();
-                b.fill();
-                return y;
-            });
-            //ケプラースタイル
-            doTheFlipper("semicircles", 3, function (s, t, a, r) {
-                s.fillStyle = a[0];
-                s.fillRect(t, 0, 64, 64);
+                        //下右
+                        s.moveTo(n + 33.5, 34);
+                        s.lineTo(n + 33.5, 46);
+                        s.lineTo(n + 43.5, 54);
+                        s.lineTo(n + 43.5, 44);
+                        s.closePath();
+                        //右下
+                        s.moveTo(n + 34, 33.5);
+                        s.lineTo(n + 46, 33.5);
+                        s.lineTo(n + 54, 43.5);
+                        s.lineTo(n + 44, 43.5);
+                        s.closePath();
+                        s.fill();
+                        return w;
+                    }
+                },
+                //春節スタイル
+                "rhombus": {
+                    colorCount: 4,
+                    drawer: function (p, i, g, s) {
+                        p.fillStyle = g[3];
+                        p.fillRect(i, 0, 64, 64);
+                        p.fillStyle = g[0];
+                        p.fillRect(i + 7, 7, 50, 50);
+                        p.fillStyle = g[2];
+                        p.beginPath();
+                        p.moveTo(i + 33, 6);
+                        p.lineTo(i + 58, 33);
+                        p.lineTo(i + 31, 58);
+                        p.lineTo(i + 6, 31);
+                        p.closePath();
+                        p.fill();
+                        p.strokeStyle = g[1];
+                        p.lineWidth = 3;
+                        p.strokeRect(i + 4, 4, 56, 56);
+                        return s;
+                    }
+                },
+                //マイクロスタイル
+                "squares": {
+                    colorCount: 2,
+                    drawer: function (m, a, t, h) {
+                        m.lineWidth = 4;
+                        m.fillStyle = t[0];
+                        m.fillRect(a, 0, 64, 64);
+                        m.strokeStyle = t[1];
+                        m.strokeRect(a + 1.5, 1.5, 61, 61);
+                        m.strokeRect(a + 9.5, 9.5, 45, 45);
+                        m.fillStyle = contextEnemy.strokeStyle;
+                        m.fillRect(a + 20, 20, 24, 24);
+                        return h;
+                    }
+                },
+                //ディスコスタイル
+                "uLines": {
+                    colorCount: 3,
+                    drawer: function (r, a, v, e) {
+                        r.fillStyle = v[0];
+                        r.fillRect(a, 0, 64, 64);
+                        r.fillStyle = v[1];
+                        r.fillRect(a + 7.5, 0, 49, 56.5);
+                        r.fillStyle = v[0];
+                        r.fillRect(a + 12.5, 0, 39, 50.5);
+                        r.fillStyle = v[1];
+                        r.fillRect(a + 20, 0, 24, 40);
+                        return e;
+                    }
+                },
+                //四周年スタイル
+                "star": {
+                    colorCount: 2,
+                    drawer: function (b, d, a, y) {
+                        b.fillStyle = a[0];
+                        b.fillRect(d, 0, 64, 64);
+                        b.strokeStyle = a[1];
+                        b.lineWidth = 3;
+                        b.strokeRect(d + 5, 5, 54, 54);
+                        b.fillStyle = a[1];
+                        var rad = 0;
+                        b.beginPath();
+                        var sizA = 24;
+                        var sizB = 13;
+                        b.moveTo(d + 32, 34 - sizA);
+                        for (var kuma = 0; kuma < 5; kuma++) {
+                            rad += (0.2) * Math.PI;
+                            b.lineTo(d + 32 + sizB * Math.sin(rad), 34 - sizB * Math.cos(rad));
+                            rad += (0.2) * Math.PI;
+                            b.lineTo(d + 32 + sizA * Math.sin(rad), 34 - sizA * Math.cos(rad));
+                        }
+                        b.closePath();
+                        b.fill();
+                        return y;
+                    }
+                },
+                //ケプラースタイル
+                "semicircles": {
+                    colorCount: 3,
+                    drawer: function (s, t, a, r) {
+                        s.fillStyle = a[0];
+                        s.fillRect(t, 0, 64, 64);
 
-                s.beginPath();
-                //左上
-                s.moveTo(t, 0);
-                s.arc(t, 0, 32, 0, 0.5 * Math.PI, false);
-                s.closePath();
-                //右下
-                s.moveTo(t + 64, 64);
-                s.arc(t + 64, 64, 32, -Math.PI, -0.5 * Math.PI, false);
-                s.closePath();
-                s.fillStyle = a[1];
-                s.fill();
+                        s.beginPath();
+                        //左上
+                        s.moveTo(t, 0);
+                        s.arc(t, 0, 32, 0, 0.5 * Math.PI, false);
+                        s.closePath();
+                        //右下
+                        s.moveTo(t + 64, 64);
+                        s.arc(t + 64, 64, 32, -Math.PI, -0.5 * Math.PI, false);
+                        s.closePath();
+                        s.fillStyle = a[1];
+                        s.fill();
 
-                s.beginPath();
-                //右上
-                s.moveTo(t + 64, 0);
-                s.arc(t + 64, 0, 32, 0.5 * Math.PI, Math.PI, false);
-                s.closePath();
-                //左下
-                s.moveTo(t, 64);
-                s.arc(t, 64, 32, -0.5 * Math.PI, 0, false);
-                s.closePath();
-                s.fillStyle = a[2];
-                s.fill();
-                return r;
-            });
-            //春節II
-            doTheFlipper("fortune", 2, function (l, u, c, k) {
-                l.lineCap = "round";
-                l.lineJoin = "round";
-                l.fillStyle = c[0];
-                l.fillRect(u, 0, 64, 64);
+                        s.beginPath();
+                        //右上
+                        s.moveTo(t + 64, 0);
+                        s.arc(t + 64, 0, 32, 0.5 * Math.PI, Math.PI, false);
+                        s.closePath();
+                        //左下
+                        s.moveTo(t, 64);
+                        s.arc(t, 64, 32, -0.5 * Math.PI, 0, false);
+                        s.closePath();
+                        s.fillStyle = a[2];
+                        s.fill();
+                        return r;
+                    }
+                },
+                //春節II
+                "fortune": {
+                    colorCount: 2,
+                    drawer: function (l, u, c, k) {
+                        l.lineCap = "round";
+                        l.lineJoin = "round";
+                        l.fillStyle = c[0];
+                        l.fillRect(u, 0, 64, 64);
 
-                l.strokeStyle = c[1];
+                        l.strokeStyle = c[1];
 
-                l.beginPath();
-                l.moveTo(u + 55, 32);
-                l.arc(u + 32, 32, 23, 0, 2 * Math.PI, false);
-                l.closePath();
+                        l.beginPath();
+                        l.moveTo(u + 55, 32);
+                        l.arc(u + 32, 32, 23, 0, 2 * Math.PI, false);
+                        l.closePath();
 
-                l.moveTo(u + 29, 23);
-                l.lineTo(u + 29, 15);
-                l.arc(u + 32, 32, 17, -9 / 16 * Math.PI, -5 / 6 * Math.PI, true);
+                        l.moveTo(u + 29, 23);
+                        l.lineTo(u + 29, 15);
+                        l.arc(u + 32, 32, 17, -9 / 16 * Math.PI, -5 / 6 * Math.PI, true);
 
-                l.moveTo(u + 29, 49);
-                l.lineTo(u + 29, 27);
-                l.arc(u + 32, 32, 17, -11 / 12 * Math.PI, 7 / 8 * Math.PI, true);
+                        l.moveTo(u + 29, 49);
+                        l.lineTo(u + 29, 27);
+                        l.arc(u + 32, 32, 17, -11 / 12 * Math.PI, 7 / 8 * Math.PI, true);
 
-                l.moveTo(u + 23, 27);
-                l.lineTo(u + 23, 47);
+                        l.moveTo(u + 23, 27);
+                        l.lineTo(u + 23, 47);
 
-                l.moveTo(u + 34, 15);
-                l.arc(u + 32, 32, 17, -7 / 16 * Math.PI, -3 / 10 * Math.PI, false);
+                        l.moveTo(u + 34, 15);
+                        l.arc(u + 32, 32, 17, -7 / 16 * Math.PI, -3 / 10 * Math.PI, false);
 
-                l.moveTo(u + 34, 22);
-                l.lineTo(u + 34, 27);
-                l.arc(u + 32, 32, 17, -1 / 12 * Math.PI, -1 / 5 * Math.PI, true);
-                l.closePath();
+                        l.moveTo(u + 34, 22);
+                        l.lineTo(u + 34, 27);
+                        l.arc(u + 32, 32, 17, -1 / 12 * Math.PI, -1 / 5 * Math.PI, true);
+                        l.closePath();
 
-                l.moveTo(u + 33, 33);
-                l.arc(u + 32, 32, 17, 1 / 64 * Math.PI, 15 / 32 * Math.PI, false);
-                l.closePath();
+                        l.moveTo(u + 33, 33);
+                        l.arc(u + 32, 32, 17, 1 / 64 * Math.PI, 15 / 32 * Math.PI, false);
+                        l.closePath();
 
-                l.moveTo(u + 34, 38);
-                l.lineTo(u + 48, 38);
+                        l.moveTo(u + 34, 38);
+                        l.lineTo(u + 48, 38);
 
-                l.moveTo(u + 40, 33);
-                l.lineTo(u + 40, 45);
+                        l.moveTo(u + 40, 33);
+                        l.lineTo(u + 40, 45);
 
-                l.lineWidth = 3;
-                l.stroke();
-                return k;
-            });
-            //ホライゾンクルーズ
-            doTheFlipper("ring", 3, function (r, i, n, g) {
-                r.fillStyle = n[0];
-                r.fillRect(i, 0, 64, 64);
-                r.lineWidth = 11;
-                r.strokeStyle = n[2];
-                r.beginPath();
-                r.arc(i + 32, 32, 23, 0, 2 * Math.PI, false);
-                r.stroke();
-                r.lineWidth = 4;
-                r.strokeStyle = n[1];
-                r.strokeRect(i + 2, 2, 60, 60);
-                return g;
-            });
-            //割拠盤上　逐鹿群雄
-            doTheFlipper("cross", 3, function (c, r, o, s) {
-                c.fillStyle = o[1];
-                c.fillRect(r, 0, 64, 64);
-                c.fillStyle = o[0];
-                c.fillRect(r + 4, 4, 56, 56);
-                c.fillStyle = o[2];
-                c.fillRect(r + 16, 14, 31, 36);
-                c.strokeStyle = o[0];
-                c.lineCap = "butt";
-                c.lineWidth = 11;
-                c.beginPath();
-                c.moveTo(r + 31.5, 16);
-                c.lineTo(r + 31.5, 48);
-                c.stroke();
-                c.lineWidth = 12;
-                c.beginPath();
-                c.moveTo(r + 18, 32);
-                c.lineTo(r + 45, 32);
-                c.stroke();
-                return s;
-            });
-            //旧ラボ
-            doTheFlipper("nuclear", 3, function (n, u, k, e) {
-                n.fillStyle = k[0];
-                n.fillRect(u, 0, 64, 64);
-                n.strokeStyle = k[1];
-                n.lineWidth = 2;
-                n.strokeRect(u + 4, 4, 56, 56);
+                        l.lineWidth = 3;
+                        l.stroke();
+                        return k;
+                    }
+                },
+                //ホライゾンクルーズ
+                "ring": {
+                    colorCount: 3,
+                    drawer: function (r, i, n, g) {
+                        r.fillStyle = n[0];
+                        r.fillRect(i, 0, 64, 64);
+                        r.lineWidth = 11;
+                        r.strokeStyle = n[2];
+                        r.beginPath();
+                        r.arc(i + 32, 32, 23, 0, 2 * Math.PI, false);
+                        r.stroke();
+                        r.lineWidth = 4;
+                        r.strokeStyle = n[1];
+                        r.strokeRect(i + 2, 2, 60, 60);
+                        return g;
+                    }
+                },
+                //割拠盤上　逐鹿群雄
+                "cross": {
+                    colorCount: 3,
+                    drawer: function (c, r, o, s) {
+                        c.fillStyle = o[1];
+                        c.fillRect(r, 0, 64, 64);
+                        c.fillStyle = o[0];
+                        c.fillRect(r + 4, 4, 56, 56);
+                        c.fillStyle = o[2];
+                        c.fillRect(r + 16, 14, 31, 36);
+                        c.strokeStyle = o[0];
+                        c.lineCap = "butt";
+                        c.lineWidth = 11;
+                        c.beginPath();
+                        c.moveTo(r + 31.5, 16);
+                        c.lineTo(r + 31.5, 48);
+                        c.stroke();
+                        c.lineWidth = 12;
+                        c.beginPath();
+                        c.moveTo(r + 18, 32);
+                        c.lineTo(r + 45, 32);
+                        c.stroke();
+                        return s;
+                    }
+                },
+                //旧ラボ
+                "nuclear": {
+                    colorCount: 3,
+                    drawer: function (n, u, k, e) {
+                        n.fillStyle = k[0];
+                        n.fillRect(u, 0, 64, 64);
+                        n.strokeStyle = k[1];
+                        n.lineWidth = 2;
+                        n.strokeRect(u + 4, 4, 56, 56);
 
-                n.fillStyle = k[2];
-                n.beginPath();
-                n.arc(u + 32, 32, 3.5, 0, 2 * Math.PI);
-                n.closePath();
-                n.fill();
-                for (let tr = 0; tr < 3; tr++) {
-                    let m = tr * 2 * Math.PI / 3;
-                    n.beginPath();
-                    n.arc(u + 32, 32, 19, tr * 2 * Math.PI / 3, (tr * 2 + 1) * Math.PI / 3);
-                    n.arc(u + 32, 32, 6, (tr * 2 + 1) * Math.PI / 3, tr * 2 * Math.PI / 3, true);
-                    n.closePath();
-                    n.fill();
-                }
-                return e;
-            });
-            //バイオハザード
-            doTheFlipper("biohazard", 3, function (l, a, b, c) {
-                l.fillStyle = b[0];
-                l.fillRect(a, 0, 64, 64);
-                l.strokeStyle = b[1];
-                l.lineWidth = 2;
-                l.strokeRect(a + 4, 4, 56, 56);
+                        n.fillStyle = k[2];
+                        n.beginPath();
+                        n.arc(u + 32, 32, 3.5, 0, 2 * Math.PI);
+                        n.closePath();
+                        n.fill();
+                        for (let tr = 0; tr < 3; tr++) {
+                            let m = tr * 2 * Math.PI / 3;
+                            n.beginPath();
+                            n.arc(u + 32, 32, 19, tr * 2 * Math.PI / 3, (tr * 2 + 1) * Math.PI / 3);
+                            n.arc(u + 32, 32, 6, (tr * 2 + 1) * Math.PI / 3, tr * 2 * Math.PI / 3, true);
+                            n.closePath();
+                            n.fill();
+                        }
+                        return e;
+                    }
+                },
+                //バイオハザード
+                "biohazard": {
+                    colorCount: 3,
+                    drawer: function (l, a, b, c) {
+                        l.fillStyle = b[0];
+                        l.fillRect(a, 0, 64, 64);
+                        l.strokeStyle = b[1];
+                        l.lineWidth = 2;
+                        l.strokeRect(a + 4, 4, 56, 56);
 
-                l.strokeStyle = b[2];
-                l.lineWidth = 3;
-                l.beginPath();
-                l.arc(a + 32, 33, 10, 0, 2 * Math.PI);
-                l.stroke();
-                l.fillStyle = b[2];
-                for (let ugul = 0; ugul < 3; ugul++) {
-                    let t = Math.PI * 2 * (ugul / 3);
-                    let pos = [turn(2, 2, t),
+                        l.strokeStyle = b[2];
+                        l.lineWidth = 3;
+                        l.beginPath();
+                        l.arc(a + 32, 33, 10, 0, 2 * Math.PI);
+                        l.stroke();
+                        l.fillStyle = b[2];
+                        for (let ugul = 0; ugul < 3; ugul++) {
+                            let t = Math.PI * 2 * (ugul / 3);
+                            let pos = [turn(2, 2, t),
                               turn(1, 4, t),
                               turn(-1, 22, t),
                               turn(18, 18, t),
@@ -2785,45 +2804,51 @@ window.addEventListener("load", function () {
                               turn(1, 22, t),
                               turn(-1, 4, t),
                               turn(-2, 2, t)];
-                    console.log(pos)
-                    l.beginPath();
-                    l.moveTo(a + 32 + pos[0].x, 32 + pos[0].y);
-                    l.bezierCurveTo(a + 32 + pos[1].x, 32 + pos[1].y, a + 32 + pos[2].x, 32 + pos[2].y, a + 32 + pos[3].x, 32 + pos[3].y);
-                    l.bezierCurveTo(a + 32 + pos[4].x, 32 + pos[4].y, a + 32 + pos[5].x, 32 + pos[5].y, a + 32 + pos[6].x, 32 + pos[6].y);
-                    l.bezierCurveTo(a + 32 + pos[7].x, 32 + pos[7].y, a + 32 + pos[8].x, 32 + pos[8].y, a + 32 + pos[9].x, 32 + pos[9].y);
-                    l.bezierCurveTo(a + 32 + pos[10].x, 32 + pos[10].y, a + 32 + pos[11].x, 32 + pos[11].y, a + 32 + pos[12].x, 32 + pos[12].y);
-                    l.closePath();
-                    //l.stroke();
-                    l.fill();
-                }
-                return c;
-            });
-            //8周年
-            doTheFlipper("eight", 3, function (a, c, h, t) {
-                a.fillStyle = h[1];
-                a.fillRect(c, 0, 64, 64);
-                a.fillStyle = h[0];
-                a.fillRect(c + 6.5, 6.5, 51, 51);
-                a.lineWidth = 5;
-                a.strokeStyle = h[1];
-                a.beginPath();
-                a.arc(c + 32, 22.5, 10, 0, 2 * Math.PI, false);
-                a.stroke();
-                a.beginPath();
-                a.arc(c + 32, 41.5, 9, 0, 2 * Math.PI, false);
-                a.stroke();
-                return t;
-            });
-            //飛花落花
-            doTheFlipper("sakura", 3, function (h, i, k, a) {
-                h.fillStyle = k[1];
-                h.fillRect(i, 0, 64, 64);
-                h.fillStyle = k[0];
-                h.fillRect(i + 6.5, 6.5, 51, 51);
-                h.fillStyle = k[2];
-                for (let petal = 0; petal < 5; petal++) {
-                    let pAngle = petal * (2 / 5) * Math.PI;
-                    let pos = [
+                            console.log(pos)
+                            l.beginPath();
+                            l.moveTo(a + 32 + pos[0].x, 32 + pos[0].y);
+                            l.bezierCurveTo(a + 32 + pos[1].x, 32 + pos[1].y, a + 32 + pos[2].x, 32 + pos[2].y, a + 32 + pos[3].x, 32 + pos[3].y);
+                            l.bezierCurveTo(a + 32 + pos[4].x, 32 + pos[4].y, a + 32 + pos[5].x, 32 + pos[5].y, a + 32 + pos[6].x, 32 + pos[6].y);
+                            l.bezierCurveTo(a + 32 + pos[7].x, 32 + pos[7].y, a + 32 + pos[8].x, 32 + pos[8].y, a + 32 + pos[9].x, 32 + pos[9].y);
+                            l.bezierCurveTo(a + 32 + pos[10].x, 32 + pos[10].y, a + 32 + pos[11].x, 32 + pos[11].y, a + 32 + pos[12].x, 32 + pos[12].y);
+                            l.closePath();
+                            //l.stroke();
+                            l.fill();
+                        }
+                        return c;
+                    }
+                },
+                //8周年
+                "eight": {
+                    colorCount: 3,
+                    drawer: function (a, c, h, t) {
+                        a.fillStyle = h[1];
+                        a.fillRect(c, 0, 64, 64);
+                        a.fillStyle = h[0];
+                        a.fillRect(c + 6.5, 6.5, 51, 51);
+                        a.lineWidth = 5;
+                        a.strokeStyle = h[1];
+                        a.beginPath();
+                        a.arc(c + 32, 22.5, 10, 0, 2 * Math.PI, false);
+                        a.stroke();
+                        a.beginPath();
+                        a.arc(c + 32, 41.5, 9, 0, 2 * Math.PI, false);
+                        a.stroke();
+                        return t;
+                    }
+                },
+                //飛花落花
+                "sakura": {
+                    colorCount: 3,
+                    drawer: function (h, i, k, a) {
+                        h.fillStyle = k[1];
+                        h.fillRect(i, 0, 64, 64);
+                        h.fillStyle = k[0];
+                        h.fillRect(i + 6.5, 6.5, 51, 51);
+                        h.fillStyle = k[2];
+                        for (let petal = 0; petal < 5; petal++) {
+                            let pAngle = petal * (2 / 5) * Math.PI;
+                            let pos = [
                         turn(0, 3, pAngle),
                         turn(7, 5.5, pAngle),
                         turn(10, 17, pAngle),
@@ -2833,259 +2858,379 @@ window.addEventListener("load", function () {
                         turn(-10, 17, pAngle),
                         turn(-7, 5.5, pAngle),
                     ];
-                    h.beginPath();
-                    h.moveTo(i + 32 + pos[0].x, 30 + pos[0].y);
-                    h.bezierCurveTo(i + 32 + pos[1].x, 30 + pos[1].y, i + 32 + pos[2].x, 30 + pos[2].y, i + 32 + pos[3].x, 30 + pos[3].y);
-                    h.lineTo(i + 32 + pos[4].x, 30 + pos[4].y);
-                    h.lineTo(i + 32 + pos[5].x, 30 + pos[5].y);
-                    h.bezierCurveTo(i + 32 + pos[6].x, 30 + pos[6].y, i + 32 + pos[7].x, 30 + pos[7].y, i + 32 + pos[0].x, 30 + pos[0].y);
-                    h.closePath();
-                    h.fill();
-                }
-                return a;
-            });
-            //新年
-            doTheFlipper("shootingstars", 3, function (h, a, p, y) {
-                h.fillStyle = p[0];
-                h.fillRect(a, 0, 64, 64);
-                h.strokeStyle = p[1];
-                h.lineWidth = 3;
-                h.strokeRect(a + 1.5, 1.5, 61, 61);
-
-                h.fillStyle = p[2]; //遊園地いい曲だね
-                h.beginPath();
-                for (let i = 0; i < 3; i++) {
-                    //星
-                    let starXpos = a + [19.5, 12.5, 28.5][i];
-                    let starYpos = [18.5, 41, 52][i];
-                    let starSize = [6.5, 8, 6.5][i];
-                    h.moveTo(starXpos, starYpos + starSize);
-                    for (let ii = 0; ii < 10; ii++) {
-                        let angle = (ii / 10) * 2 * Math.PI;
-                        let dist = starSize * (1 - (15 / 32) * (ii % 2));
-                        h.lineTo(starXpos + dist * Math.sin(angle), starYpos + dist * Math.cos(angle));
+                            h.beginPath();
+                            h.moveTo(i + 32 + pos[0].x, 30 + pos[0].y);
+                            h.bezierCurveTo(i + 32 + pos[1].x, 30 + pos[1].y, i + 32 + pos[2].x, 30 + pos[2].y, i + 32 + pos[3].x, 30 + pos[3].y);
+                            h.lineTo(i + 32 + pos[4].x, 30 + pos[4].y);
+                            h.lineTo(i + 32 + pos[5].x, 30 + pos[5].y);
+                            h.bezierCurveTo(i + 32 + pos[6].x, 30 + pos[6].y, i + 32 + pos[7].x, 30 + pos[7].y, i + 32 + pos[0].x, 30 + pos[0].y);
+                            h.closePath();
+                            h.fill();
+                        }
+                        return a;
                     }
-                    h.closePath();
+                },
+                //新年
+                "shootingstars": {
+                    colorCount: 3,
+                    drawer: function (h, a, p, y) {
+                        h.fillStyle = p[0];
+                        h.fillRect(a, 0, 64, 64);
+                        h.strokeStyle = p[1];
+                        h.lineWidth = 3;
+                        h.strokeRect(a + 1.5, 1.5, 61, 61);
 
-                    //跡
-                    h.moveTo(a + [29, 21, 37][i], [16, 34, 47][i]);
-                    h.bezierCurveTo(a + [32, 38, 46][i], [17, 32, 42][i],
-                        a + [43, 55, 58][i], [16, 17, 24][i],
-                        a + [55, 59, 60][i], [8, 8, 13][i]);
-                    h.bezierCurveTo(a + [45, 57, 58][i], [21, 19, 30][i],
-                        a + [35, 44, 50][i], [21, 38, 44][i],
-                        a + [30, 26, 41][i], [21, 42, 52][i]);
-                    h.closePath();
-                }
-                h.fill();
-                return y;
-            });
-            //うれしい
-            doTheFlipper("smiley", 3, function (s, m, i, l) {
-                s.fillStyle = i[1];
-                s.fillRect(m, 0, 64, 64);
-                s.strokeStyle = i[0];
-                s.lineCap = "round";
+                        h.fillStyle = p[2]; //遊園地いい曲だね
+                        h.beginPath();
+                        for (let i = 0; i < 3; i++) {
+                            //星
+                            let starXpos = a + [19.5, 12.5, 28.5][i];
+                            let starYpos = [18.5, 41, 52][i];
+                            let starSize = [6.5, 8, 6.5][i];
+                            h.moveTo(starXpos, starYpos + starSize);
+                            for (let ii = 0; ii < 10; ii++) {
+                                let angle = (ii / 10) * 2 * Math.PI;
+                                let dist = starSize * (1 - (15 / 32) * (ii % 2));
+                                h.lineTo(starXpos + dist * Math.sin(angle), starYpos + dist * Math.cos(angle));
+                            }
+                            h.closePath();
 
-                s.lineWidth = 5.5;
-                s.beginPath();
-                s.arc(m + 32, 33.5, 25, 0, 2 * Math.PI, false);
-                s.stroke();
+                            //跡
+                            h.moveTo(a + [29, 21, 37][i], [16, 34, 47][i]);
+                            h.bezierCurveTo(a + [32, 38, 46][i], [17, 32, 42][i],
+                                a + [43, 55, 58][i], [16, 17, 24][i],
+                                a + [55, 59, 60][i], [8, 8, 13][i]);
+                            h.bezierCurveTo(a + [45, 57, 58][i], [21, 19, 30][i],
+                                a + [35, 44, 50][i], [21, 38, 44][i],
+                                a + [30, 26, 41][i], [21, 42, 52][i]);
+                            h.closePath();
+                        }
+                        h.fill();
+                        return y;
+                    }
+                },
+                //うれしい
+                "smiley": {
+                    colorCount: 3,
+                    drawer: function (s, m, i, l) {
+                        s.fillStyle = i[1];
+                        s.fillRect(m, 0, 64, 64);
+                        s.strokeStyle = i[0];
+                        s.lineCap = "round";
 
-                s.lineWidth = 6;
-                s.beginPath();
-                s.moveTo(m + 23, 37.5);
-                s.lineTo(m + 23, 41.5);
-                s.moveTo(m + 41, 37.5);
-                s.lineTo(m + 41, 41.5);
-                s.stroke();
+                        s.lineWidth = 5.5;
+                        s.beginPath();
+                        s.arc(m + 32, 33.5, 25, 0, 2 * Math.PI, false);
+                        s.stroke();
 
-                s.lineWidth = 5.5;
-                if (l) {
-                    s.beginPath();
-                    s.moveTo(m + 22, 28);
-                    s.bezierCurveTo(m + 23, 21, /**/ m + 28, 20, /**/ m + 32, 20);
-                    s.bezierCurveTo(m + 36, 20, /**/ m + 41, 21, /**/ m + 42, 28);
-                    s.stroke();
-                } else {
-                    s.beginPath();
-                    s.moveTo(m + 22, 20);
-                    s.bezierCurveTo(m + 23, 27, /**/ m + 28, 28, /**/ m + 32, 28);
-                    s.bezierCurveTo(m + 36, 28, /**/ m + 41, 27, /**/ m + 42, 20);
-                    s.stroke();
-                }
-                return l;
-            });
-            //ニット王国
-            doTheFlipper("needle", 3, function (k, n, i, t) {
-                k.fillStyle = i[1];
-                k.fillRect(n, 0, 64, 64);
+                        s.lineWidth = 6;
+                        s.beginPath();
+                        s.moveTo(m + 23, 37.5);
+                        s.lineTo(m + 23, 41.5);
+                        s.moveTo(m + 41, 37.5);
+                        s.lineTo(m + 41, 41.5);
+                        s.stroke();
 
-                //枠
-                k.fillStyle = i[0];
-                k.beginPath();
-                //32,33を中心
-                k.moveTo(n + 5, 6);
-                k.arcTo(n + 32, 17, n + 59, 6, 40);
-                k.lineTo(n + 59, 6);
-                k.arcTo(n + 48, 33, n + 59, 60, 40);
-                k.lineTo(n + 59, 60);
-                k.arcTo(n + 32, 49, n + 5, 60, 40);
-                k.lineTo(n + 5, 60);
-                k.arcTo(n + 16, 33, n + 5, 6, 40);
-                k.closePath();
-                k.fill();
+                        s.lineWidth = 5.5;
+                        if (l) {
+                            s.beginPath();
+                            s.moveTo(m + 22, 28);
+                            s.bezierCurveTo(m + 23, 21, /**/ m + 28, 20, /**/ m + 32, 20);
+                            s.bezierCurveTo(m + 36, 20, /**/ m + 41, 21, /**/ m + 42, 28);
+                            s.stroke();
+                        } else {
+                            s.beginPath();
+                            s.moveTo(m + 22, 20);
+                            s.bezierCurveTo(m + 23, 27, /**/ m + 28, 28, /**/ m + 32, 28);
+                            s.bezierCurveTo(m + 36, 28, /**/ m + 41, 27, /**/ m + 42, 20);
+                            s.stroke();
+                        }
+                        return l;
+                    }
+                },
+                //ニット王国
+                "needle": {
+                    colorCount: 3,
+                    drawer: function (k, n, i, t) {
+                        k.fillStyle = i[1];
+                        k.fillRect(n, 0, 64, 64);
 
-                //針
-                k.fillStyle = i[2];
-                k.beginPath();
-                k.moveTo(n + 16, 49);
-                k.lineTo(n + 42, 20);
-                k.arcTo(n + 44, 18, n + 46, 20, 3);
-                k.arcTo(n + 48, 22, n + 46, 24, 3);
-                k.lineTo(n + 46, 24);
-                k.lineTo(n + 17, 50);
-                k.closePath();
-                k.fill();
+                        //枠
+                        k.fillStyle = i[0];
+                        k.beginPath();
+                        //32,33を中心
+                        k.moveTo(n + 5, 6);
+                        k.arcTo(n + 32, 17, n + 59, 6, 40);
+                        k.lineTo(n + 59, 6);
+                        k.arcTo(n + 48, 33, n + 59, 60, 40);
+                        k.lineTo(n + 59, 60);
+                        k.arcTo(n + 32, 49, n + 5, 60, 40);
+                        k.lineTo(n + 5, 60);
+                        k.arcTo(n + 16, 33, n + 5, 6, 40);
+                        k.closePath();
+                        k.fill();
 
-                k.fillStyle = i[0];
-                k.beginPath();
-                k.ellipse(n + 43, 23, 1.75, 1.25, -Math.PI / 4, 0, 2 * Math.PI);
-                k.fill();
-                return t;
-            });
-            //ブラジル
-            doTheFlipper("brazil", 3, function (b, r, z, l) {
-                b.fillStyle = z[0];
-                b.fillRect(r, 0, 64, 64);
-                b.strokeStyle = z[1];
-                b.lineWidth = 2;
-                b.strokeRect(r + 1, 1, 62, 62);
+                        //針
+                        k.fillStyle = i[2];
+                        k.beginPath();
+                        k.moveTo(n + 16, 49);
+                        k.lineTo(n + 42, 20);
+                        k.arcTo(n + 44, 18, n + 46, 20, 3);
+                        k.arcTo(n + 48, 22, n + 46, 24, 3);
+                        k.lineTo(n + 46, 24);
+                        k.lineTo(n + 17, 50);
+                        k.closePath();
+                        k.fill();
 
-                b.fillStyle = z[2];
-                b.beginPath();
-                b.moveTo(r + 6, 7);
-                b.arcTo(r + 29, 9, r + 31, 32, 28);
-                b.lineTo(r + 31, 32);
-                b.arcTo(r + 8, 30, r + 6, 7, 28);
-                b.closePath();
-                b.moveTo(r + 57, 7);
-                b.arcTo(r + 35, 9, r + 32, 32, 28);
-                b.lineTo(r + 32, 32);
-                b.arcTo(r + 55, 30, r + 57, 7, 28);
-                b.closePath();
-                b.moveTo(r + 6, 58);
-                b.arcTo(r + 29, 56, r + 31, 32, 28);
-                b.lineTo(r + 31, 33);
-                b.arcTo(r + 8, 35, r + 6, 57, 28);
-                b.closePath();
-                b.moveTo(r + 57, 58);
-                b.arcTo(r + 35, 56, r + 32, 32, 28);
-                b.lineTo(r + 32, 33);
-                b.arcTo(r + 55, 35, r + 57, 57, 28);
-                b.closePath();
-                b.fill();
-                b.globalAlpha = 0.875;
-                b.beginPath();
-                b.ellipse(r + 31.5, 32.5, 2, 2, 0, 0, 2 * Math.PI);
-                b.fill();
-                b.strokeStyle = z[2];
-                b.globalAlpha = 1;
-                b.lineWidth = 1;
-                b.fillRect(r + 31, 32, 1, 1);
-            });
-            //3D spacial zone
-            doTheFlipper("checkeredged", 2, function (z, o, n, e) {
-                z.fillStyle = n[0];
-                z.fillRect(o, 0, 64, 64);
-                z.fillStyle = n[1];
-                z.beginPath();
-                z.moveTo(o, 0);
-                z.lineTo(o + 32, 32);
-                z.lineTo(o, 64);
-                z.closePath();
-                z.moveTo(o + 64, 0);
-                z.lineTo(o + 32, 32);
-                z.lineTo(o + 64, 64);
-                z.closePath();
-                z.fill();
-                for (let tbpos = 0; tbpos < 4; tbpos++) {
-                    for (let lrpos = 0; lrpos < 4; lrpos++) {
-                        z.fillStyle = n[(tbpos + lrpos) % 2];
-                        z.fillRect(o + 8 + 12 * lrpos, 8 + 12 * tbpos, 12, 12);
+                        k.fillStyle = i[0];
+                        k.beginPath();
+                        k.ellipse(n + 43, 23, 1.75, 1.25, -Math.PI / 4, 0, 2 * Math.PI);
+                        k.fill();
+                        return t;
+                    }
+                },
+                //とき
+                "hourglass": {
+                    colorCount: 3,
+                    drawer: function (t, i, m, e) {
+                        t.fillStyle = m[0];
+                        t.fillRect(i, 0, 64, 64);
+                        t.strokeStyle = m[1];
+                        t.lineWidth = 3
+                        t.strokeRect(i + 1.5, 1.5, 61, 61);
+
+                        t.fillStyle = m[2];
+                        t.beginPath();
+                        t.moveTo(i + 22, 5.5);
+                        t.lineTo(i + 42, 5.5);
+                        t.lineTo(i + 14, 59.5);
+                        t.lineTo(i + 50, 59.5);
+                        t.closePath();
+                        t.fill();
+                        return e;
+                    }
+                },
+                //回答
+                "club": {
+                    colorCount: 4,
+                    drawer: function (c, l, u, b) {
+                        c.fillStyle = u[0];
+                        c.fillRect(l, 0, 64, 64);
+                        c.strokeStyle = u[1];
+                        c.lineWidth = 3;
+                        c.strokeRect(l + 1.5, 1.5, 62, 62);
+
+                        c.fillStyle = u[2];
+                        c.beginPath();
+                        c.moveTo(l + 9, 9.5);
+                        c.lineTo(l + 56.5, 9.5);
+                        c.lineTo(l + 56.5, 56.5);
+                        c.lineTo(l + 9, 56.5);
+                        c.closePath();
+                        c.fill();
+
+                        //中の記号
+                        c.fillStyle = u[3];
+                        c.fill(new Path2D("M" + (l + 26) + ",12.5 h14" +
+                            " v1 l-4,8 c4,-4.5 16,-3.5 16,7.5 c0,9 -10,10, -19,24" +
+                            " c-9,-14 -19,-15 -19,-24 c0,-11 12,-12 16,-7.5 l-4,-8 z"));
+                        return b;
+                    }
+                },
+                //ミッドナイトディスコ
+                "sparkle": {
+                    colorCount: 3,
+                    drawer: function (s, p, k, l) {
+                        s.fillStyle = k[0];
+                        s.fillRect(p, 0, 64, 64);
+                        s.strokeStyle = k[1];
+                        s.lineWidth = 2.5;
+                        s.strokeRect(p + 7.5, 7.5, 49, 49);
+
+                        s.fillStyle = k[2];
+                        s.beginPath();
+                        s.moveTo(p + 31.5, 17.5);
+                        s.bezierCurveTo(p + 33.5, 26.5, p + 37.5, 30.5, p + 46.5, 32.5);
+                        s.bezierCurveTo(p + 37.5, 34.5, p + 33.5, 38.5, p + 31.5, 47.5);
+                        s.bezierCurveTo(p + 29.5, 38.5, p + 25.5, 34.5, p + 16.5, 32.5);
+                        s.bezierCurveTo(p + 25.5, 30.5, p + 29.5, 26.5, p + 31.5, 17.5);
+                        s.closePath();
+                        s.fill();
+
+                        return l;
+                    }
+                },
+                //ブラジル
+                "brazil": {
+                    colorCount: 3,
+                    drawer: function (b, r, z, l) {
+                        b.fillStyle = z[0];
+                        b.fillRect(r, 0, 64, 64);
+                        b.strokeStyle = z[1];
+                        b.lineWidth = 2;
+                        b.strokeRect(r + 1, 1, 62, 62);
+
+                        b.fillStyle = z[2];
+                        b.beginPath();
+                        b.moveTo(r + 6, 7);
+                        b.arcTo(r + 29, 9, r + 31, 32, 28);
+                        b.lineTo(r + 31, 32);
+                        b.arcTo(r + 8, 30, r + 6, 7, 28);
+                        b.closePath();
+                        b.moveTo(r + 57, 7);
+                        b.arcTo(r + 35, 9, r + 32, 32, 28);
+                        b.lineTo(r + 32, 32);
+                        b.arcTo(r + 55, 30, r + 57, 7, 28);
+                        b.closePath();
+                        b.moveTo(r + 6, 58);
+                        b.arcTo(r + 29, 56, r + 31, 32, 28);
+                        b.lineTo(r + 31, 33);
+                        b.arcTo(r + 8, 35, r + 6, 57, 28);
+                        b.closePath();
+                        b.moveTo(r + 57, 58);
+                        b.arcTo(r + 35, 56, r + 32, 32, 28);
+                        b.lineTo(r + 32, 33);
+                        b.arcTo(r + 55, 35, r + 57, 57, 28);
+                        b.closePath();
+                        b.fill();
+                        b.globalAlpha = 0.875;
+                        b.beginPath();
+                        b.ellipse(r + 31.5, 32.5, 2, 2, 0, 0, 2 * Math.PI);
+                        b.fill();
+                        b.strokeStyle = z[2];
+                        b.globalAlpha = 1;
+                        b.lineWidth = 1;
+                        b.fillRect(r + 31, 32, 1, 1);
+                    }
+                },
+                //3D spacial zone
+                "checkeredged": {
+                    colorCount: 2,
+                    drawer: function (z, o, n, e) {
+                        z.fillStyle = n[0];
+                        z.fillRect(o, 0, 64, 64);
+                        z.fillStyle = n[1];
+                        z.beginPath();
+                        z.moveTo(o, 0);
+                        z.lineTo(o + 32, 32);
+                        z.lineTo(o, 64);
+                        z.closePath();
+                        z.moveTo(o + 64, 0);
+                        z.lineTo(o + 32, 32);
+                        z.lineTo(o + 64, 64);
+                        z.closePath();
+                        z.fill();
+                        for (let tbpos = 0; tbpos < 4; tbpos++) {
+                            for (let lrpos = 0; lrpos < 4; lrpos++) {
+                                z.fillStyle = n[(tbpos + lrpos) % 2];
+                                z.fillRect(o + 8 + 12 * lrpos, 8 + 12 * tbpos, 12, 12);
+                            }
+                        }
+                        return e;
+                    }
+                },
+                //RW風
+                "heart": {
+                    colorCount: 3,
+                    drawer: function (c, i, t, s) {
+                        c.fillStyle = t[0];
+                        c.fillRect(i, 0, 64, 64);
+                        c.strokeStyle = t[1];
+                        c.lineWidth = 3;
+                        c.strokeRect(i + 4, 4, 56, 56);
+
+                        c.fillStyle = t[2];
+                        c.beginPath();
+                        c.moveTo(i + 32, 10);
+                        c.bezierCurveTo(i + 50, 24, i + 54, 28, i + 53, 40);
+                        c.bezierCurveTo(i + 52, 53, i + 36, 55, i + 32, 47);
+                        c.bezierCurveTo(i + 28, 55, i + 12, 53, i + 11, 40);
+                        c.bezierCurveTo(i + 11, 28, i + 13, 24, i + 32, 10);
+                        c.closePath();
+                        c.fill();
+                        return s;
+                    }
+                },
+                //天空の城風
+                "cits": {
+                    colorCount: 3,
+                    drawer: function (c, i, t, s) {
+                        c.fillStyle = t[0];
+                        c.fillRect(i, 0, 64, 64);
+                        c.strokeStyle = t[1];
+                        c.lineWidth = 3;
+                        c.strokeRect(i + 4, 4, 56, 56);
+
+                        c.fillStyle = t[2];
+                        c.beginPath();
+                        c.moveTo(i + 32, 58);
+                        c.lineTo(i + 14, 40);
+                        c.lineTo(i + 32, 22);
+                        c.lineTo(i + 50, 40);
+                        c.closePath();
+                        c.fill();
+                        c.beginPath();
+                        c.moveTo(i + 32, 6);
+                        c.lineTo(i + 18, 20);
+                        c.lineTo(i + 32, 34);
+                        c.lineTo(i + 46, 20);
+                        c.closePath();
+                        c.fill();
+                        return s;
+                    }
+                },
+                //偽の床
+                "fakeground": {
+                    colorCount: 2,
+                    drawer: function (f, a, k, e) {
+                        let fgFlipperPath = new Path2D();
+                        fgFlipperPath.rect(a, 0, 64, 64);
+
+                        f.fillStyle = k[0];
+                        f.fill(fgFlipperPath);
+
+                        f.strokeStyle = k[1];
+                        multipleLines([6, 4], [0.5, 5], f, fgFlipperPath);
+                        return e;
+                    }
+                },
+                //陽光ペア風
+                "sunshine": {
+                    colorCount: 3,
+                    drawer: function (s, n, u, y) {
+                        theSunsetGlowThing(n, 0, u[0], u[1], u[2], 0);
+                        return s;
                     }
                 }
-                return e;
-            });
-            //RW風
-            doTheFlipper("heart", 3, function (c, i, t, s) {
-                c.fillStyle = t[0];
-                c.fillRect(i, 0, 64, 64);
-                c.strokeStyle = t[1];
-                c.lineWidth = 3;
-                c.strokeRect(i + 4, 4, 56, 56);
-
-                c.fillStyle = t[2];
-                c.beginPath();
-                c.moveTo(i + 32, 10);
-                c.bezierCurveTo(i + 50, 24, i + 54, 28, i + 53, 40);
-                c.bezierCurveTo(i + 52, 53, i + 36, 55, i + 32, 47);
-                c.bezierCurveTo(i + 28, 55, i + 12, 53, i + 11, 40);
-                c.bezierCurveTo(i + 11, 28, i + 13, 24, i + 32, 10);
-                c.closePath();
-                c.fill();
-                return s;
-            });
-            //天空の城風
-            doTheFlipper("cits", 3, function (c, i, t, s) {
-                c.fillStyle = t[0];
-                c.fillRect(i, 0, 64, 64);
-                c.strokeStyle = t[1];
-                c.lineWidth = 3;
-                c.strokeRect(i + 4, 4, 56, 56);
-
-                c.fillStyle = t[2];
-                c.beginPath();
-                c.moveTo(i + 32, 58);
-                c.lineTo(i + 14, 40);
-                c.lineTo(i + 32, 22);
-                c.lineTo(i + 50, 40);
-                c.closePath();
-                c.fill();
-                c.beginPath();
-                c.moveTo(i + 32, 6);
-                c.lineTo(i + 18, 20);
-                c.lineTo(i + 32, 34);
-                c.lineTo(i + 46, 20);
-                c.closePath();
-                c.fill();
-                return s;
-            });
-            //偽の床
-            doTheFlipper("fakeground", 2, function (f, a, k, e) {
-                let fgFlipperPath = new Path2D();
-                fgFlipperPath.rect(a, 0, 64, 64);
-
-                f.fillStyle = k[0];
-                f.fill(fgFlipperPath);
-
-                f.strokeStyle = k[1];
-                multipleLines([6, 4], [0.5, 5], f, fgFlipperPath);
-                return e;
-            });
-            //陽光ペア風
-            doTheFlipper("sunshine", 3, function (s, n, u, y) {
-                theSunsetGlowThing(n, 0, u[0], u[1], u[2], 0);
-                return s;
-            });
-            //インポート画像
-            if (flipperType == "import") {
+            }
+            //表とУра
+            for (let me = 0; me < 2; me++) {
+                let nn = me * 64 + 321;
+                let face = ["Reverse", "Obverse"][me];
+                let flipperType = getElem(`flipTile${face}Type`).value;
+                //インポート画像
+                if (flipperType == "import") {
+                    contextEnemy.save();
+                    contextEnemy.translate(nn+32, 32);
+                    contextEnemy.rotate(Math.PI);
+                    contextEnemy.translate(-nn-32, -32);
+                    contextEnemy.drawImage(getElem(`flipper${face}Img`), nn, 0, 64, 64);
+                    contextEnemy.restore();
+                    continue;
+                }
+                //備え付けの模様
+                let flipperTypeData = flipperPatterns[flipperType];
+                if (!flipperTypeData) continue;
                 contextEnemy.save();
-                contextEnemy.translate(384, 32);
-                contextEnemy.rotate(Math.PI);
-                contextEnemy.translate(-384, -32);
-                contextEnemy.drawImage(getElem("flipperReverseImg"), 384, 0, 64, 64);
-                contextEnemy.drawImage(getElem("flipperObverseImg"), 320, 0, 64, 64);
+                contextEnemy.beginPath();
+                contextEnemy.rect(nn, 0, 64, 64);
+                contextEnemy.clip();
+                let colors = [];
+                for (let kf = 0; kf < flipperTypeData.colorCount; kf++) {
+                    colors.push(getElem("flipperColor" + (kf + 1) + face).value);
+                }
+                //func(ctx, pos, cols, isObverse)
+                flipperTypeData.drawer(contextEnemy, nn, colors, me == 1);
                 contextEnemy.restore();
             }
             //側面
@@ -3328,7 +3473,7 @@ window.addEventListener("load", function () {
                 //線
                 if (getElem("BLStripeLine").checked) {
                     var stripesLinePath = new Path2D();
-                    for(let each of strpPosArr) {
+                    for (let each of strpPosArr) {
                         stripesLinePath.moveTo(0, each);
                         stripesLinePath.lineTo(256, each);
                     }

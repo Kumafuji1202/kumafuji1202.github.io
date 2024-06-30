@@ -1828,11 +1828,13 @@
                             <input type="hidden" id="flipTileAvailable" value="false"> <!-- 複数個所で使うのでここで受け渡しをする -->
                             <div id="flipTileUnavailableMessage" data-translation-key="texturePartUnavailable"></div>
                             <div id="flipTileForm">
+                                <!--コレ今後複製じゃなくて自動生成できるようにしたい-->
                                 <fieldset id="flipTileTopForm">
                                     <legend>
                                         <label>
+                                            <span data-translation-key="flipperObverse"></span>
                                             <span data-translation-key="flipTileType"></span>
-                                            <select id="flipTileType">
+                                            <select id="flipTileObverseType">
                                                 <optgroup data-translation-key="patternStyleFromRS" label="">
                                                     <option data-translation-key="flipTileCube" value="cube"></option>
                                                     <!-- 立方スタイル: 色A=前後の枠と左右の内側三角 色B=左右の枠と前後の内側三角 -->
@@ -1857,6 +1859,86 @@
                                                     <option data-translation-key="flipTileShootingStars" value="shootingstars"></option>
                                                     <option data-translation-key="flipTileSmiley" value="smiley"></option>
                                                     <option data-translation-key="flipTileNeedle" value="needle"></option>
+                                                    <option data-translation-key="flipTileHourglass" value="hourglass"></option>
+                                                    <option data-translation-key="flipTileClub" value="club"></option>
+                                                    <option data-translation-key="flipTileSparkle" value="sparkle"></option>
+                                                    <!--<option data-translation-key="flipTileParade" value="parade"></option>-->
+                                                    <option data-translation-key="flipTileBrazil" value="brazil"></option>
+                                                </optgroup>
+                                                <option data-translation-key="flipTileCheckerEdged" value="checkeredged" data-g></option>
+                                                <!-- 3D Spacial Zoneスタイル-->
+                                                <option data-translation-key="flipTileHeart" value="heart"></option>
+                                                <!-- RWスタイル, ただし向きは改良 -->
+                                                <option data-translation-key="flipTileSunshine" value="sunshine"></option>
+                                                <option data-translation-key="flipTileCits" value="cits"></option>
+                                                <!-- 天空の城風(自作) -->
+                                                <option data-translation-key="flipTileFakeGround" value="fakeground"></option>
+                                                <option data-translation-key="importImages" value="import"></option>
+                                            </select>
+                                        </label>
+                                        <!-- 新しく追加したらsavadataandinteractiveform.jsも更新する-->
+                                    </legend>
+                                    <div id="flipperObverseColorForm">
+                                        <div>
+                                            <label><span data-translation-key="FlipperColor1"></span><input type="color" id="flipperColor1Obverse" value="#FFFB96"></label>
+                                        </div>
+                                        <div>
+                                            <label><span data-translation-key="FlipperColor2"></span><input type="color" id="flipperColor2Obverse" value="#ECC75D"></label>
+                                        </div>
+                                        <div>
+                                            <label><span data-translation-key="FlipperColor3"></span><input type="color" id="flipperColor3Obverse" value="#F6E079"></label>
+                                        </div>
+                                        <div>
+                                            <label><span data-translation-key="FlipperColor4"></span><input type="color" id="flipperColor4Obverse" value="#ECC75D"></label>
+                                        </div>
+                                        <div>
+                                            <label><span data-translation-key="FlipperColor5"></span><input type="color" id="flipperColor5Obverse" value="#F6E079"></label>
+                                        </div>
+                                    </div>
+                                    <div id="importFlipperObverseCustomizationForm">
+                                        <div id="importFlipperObverse" class="middleText">
+                                            <span data-translation-key="recommendedImgSize"></span>64x64):
+                                            <label for="flipperObverseImportControl"><img height="64" width="64" id="flipperObverseImg" class="imgImport"></label>
+                                            <input id="flipperObverseImportControl" type="file" accept="image/*" data-loading-process="flipperObverseImportControlLoadingProgress" data-load-destination="flipperObverseImg" data-img-clear-button="flipperObverseImgClear">
+                                            <a id="flipperObverseImgClear">X</a>
+                                            <span id="flipperObverseImportControlLoadingProgress"></span>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset id="flipTileBottomForm">
+                                    <legend>
+                                        <label>
+                                            <span data-translation-key="flipperReverse"></span>
+                                            <span data-translation-key="flipTileType"></span>
+                                            <select id="flipTileReverseType">
+                                                <optgroup data-translation-key="patternStyleFromRS" label="">
+                                                    <option data-translation-key="flipTileCube" value="cube"></option>
+                                                    <!-- 立方スタイル: 色A=前後の枠と左右の内側三角 色B=左右の枠と前後の内側三角 -->
+                                                    <option data-translation-key="flipTileChecker" value="checker"></option>
+                                                    <!-- トランプスタイル: 色A=左奥と右手前 色B=右奥と左手前 -->
+                                                    <option data-translation-key="flipTileHolly" value="holly"></option>
+                                                    <option data-translation-key="flipTileRhombus" value="rhombus"></option>
+                                                    <option data-translation-key="flipTileSquares" value="squares"></option>
+                                                    <option data-translation-key="flipTileULines" value="uLines"></option>
+                                                    <!-- マイクロチップスタイル: 色A=線 色B=背景 -->
+                                                    <option data-translation-key="flipTileStar" value="star"></option>
+                                                    <option data-translation-key="flipTileSemicircles" value="semicircles"></option>
+                                                    <!-- ケプラースタイル: 色B=左奥と右手前 色C=右奥と左手前 -->
+                                                    <option data-translation-key="flipTileDaoFu" value="fortune"></option>
+                                                    <!-- ajrスタイル-->
+                                                    <option data-translation-key="flipTileRing" value="ring"></option>
+                                                    <option data-translation-key="flipTileCross" value="cross"></option>
+                                                    <option data-translation-key="flipTileNuclear" value="nuclear"></option>
+                                                    <option data-translation-key="flipTileBiohazard" value="biohazard"></option>
+                                                    <option data-translation-key="flipTileEight" value="eight"></option>
+                                                    <option data-translation-key="flipTileSakura" value="sakura"></option>
+                                                    <option data-translation-key="flipTileShootingStars" value="shootingstars"></option>
+                                                    <option data-translation-key="flipTileSmiley" value="smiley"></option>
+                                                    <option data-translation-key="flipTileNeedle" value="needle"></option>
+                                                    <option data-translation-key="flipTileHourglass" value="hourglass"></option>
+                                                    <option data-translation-key="flipTileClub" value="club"></option>
+                                                    <option data-translation-key="flipTileSparkle" value="sparkle"></option>
+                                                    <!--<option data-translation-key="flipTileParade" value="parade"></option>-->
                                                     <option data-translation-key="flipTileBrazil" value="brazil"></option>
                                                 </optgroup>
                                                 <option data-translation-key="flipTileCheckerEdged" value="checkeredged" data-g></option>
@@ -1873,44 +1955,25 @@
                                         <!-- 新しく追加したらsavadataandinteractiveform.jsも更新する-->
                                     </legend>
                                     <div id="flipperNoCustomization" data-translation-key="jumppadCustomizationDefaultContent"></div>
-                                    <div id="flipperColorForm">
+                                    <div id="flipperReverseColorForm">
                                         <div>
-                                            <span data-translation-key="FlipperColor1"></span>
-                                            <label><span data-translation-key="flipperObverse"></span><input type="color" id="flipperColor1Obverse" value="#FFFB96"></label>
-                                            <label><span data-translation-key="flipperReverse"></span><input type="color" id="flipperColor1Reverse" value="#8EB4B2"></label>
+                                            <label><span data-translation-key="FlipperColor1"></span><input type="color" id="flipperColor1Reverse" value="#8EB4B2"></label>
                                         </div>
                                         <div>
-                                            <span data-translation-key="FlipperColor2"></span>
-                                            <label><span data-translation-key="flipperObverse"></span><input type="color" id="flipperColor2Obverse" value="#ECC75D"></label>
-                                            <label><span data-translation-key="flipperReverse"></span><input type="color" id="flipperColor2Reverse" value="#737E7E"></label>
+                                            <label><span data-translation-key="FlipperColor2"></span><input type="color" id="flipperColor2Reverse" value="#737E7E"></label>
                                         </div>
                                         <div>
-                                            <span data-translation-key="FlipperColor3"></span>
-                                            <label><span data-translation-key="flipperObverse"></span><input type="color" id="flipperColor3Obverse" value="#F6E079"></label>
-                                            <label><span data-translation-key="flipperReverse"></span><input type="color" id="flipperColor3Reverse" value="#829A98"></label>
+                                            <label><span data-translation-key="FlipperColor3"></span><input type="color" id="flipperColor3Reverse" value="#829A98"></label>
                                         </div>
                                         <div>
-                                            <span data-translation-key="FlipperColor4"></span>
-                                            <label><span data-translation-key="flipperObverse"></span><input type="color" id="flipperColor4Obverse" value="#ECC75D"></label>
-                                            <label><span data-translation-key="flipperReverse"></span><input type="color" id="flipperColor4Reverse" value="#737E7E"></label>
+                                            <label><span data-translation-key="FlipperColor4"></span><input type="color" id="flipperColor4Reverse" value="#737E7E"></label>
                                         </div>
                                         <div>
-                                            <span data-translation-key="FlipperColor5"></span>
-                                            <label><span data-translation-key="flipperObverse"></span><input type="color" id="flipperColor5Obverse" value="#F6E079"></label>
-                                            <label><span data-translation-key="flipperReverse"></span><input type="color" id="flipperColor5Reverse" value="#829A98"></label>
+                                            <label><span data-translation-key="FlipperColor5"></span><input type="color" id="flipperColor5Reverse" value="#829A98"></label>
                                         </div>
                                     </div>
-                                    <div id="importFlipperCustomizationForm">
-                                        <div id="importFlipperObverse" class="middleText">
-                                            <span data-translation-key="flipperObverse"></span>
-                                            <span data-translation-key="recommendedImgSize"></span>64x64):
-                                            <label for="flipperObverseImportControl"><img height="64" width="64" id="flipperObverseImg" class="imgImport"></label>
-                                            <input id="flipperObverseImportControl" type="file" accept="image/*" data-loading-process="flipperObverseImportControlLoadingProgress" data-load-destination="flipperObverseImg" data-img-clear-button="flipperObverseImgClear">
-                                            <a id="flipperObverseImgClear">X</a>
-                                            <span id="flipperObverseImportControlLoadingProgress"></span>
-                                        </div>
+                                    <div id="importFlipperReverseCustomizationForm">
                                         <div id="importFlipperReverse" class="middleText">
-                                            <span data-translation-key="flipperReverse"></span>
                                             <span data-translation-key="recommendedImgSize"></span>64x64):
                                             <label for="flipperReverseImportControl"><img height="64" width="64" id="flipperReverseImg" class="imgImport"></label>
                                             <input id="flipperReverseImportControl" type="file" accept="image/*" data-loading-process="flipperReverseImportControlLoadingProgress" data-load-destination="flipperReverseImg" data-img-clear-button="flipperReverseImgClear">
@@ -2396,7 +2459,7 @@
                 <h2 data-translation-key="versionInformationWindow">Version information</h2>
                 <window-content>
                     <h3 data-translation-key="appTitle"></h3>
-                    v1.1.8 <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank" data-translation-key="changelogLink"></a></span><br>
+                    v1.1.9 <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank" data-translation-key="changelogLink"></a></span><br>
                     by Kumafuji1202
                     <a target="_blank" href="https://scratch.mit.edu/users/kumafuji1202/"><img src="../../../resources/scratchIcon.png"></a>
                     <a target="_blank" href="https://www.youtube.com/@Kumafuji1202"><img src="../../../resources/youtubeIcon.png"></a>
@@ -2407,36 +2470,20 @@
                         <h1 data-translation-key="recentUpdates"></h1>
                         <ol id="recentVersionList">
                             <li>
+                                <h2>1.1.9 (2024 Jun 30)</h2>
+                                <ul>
+                                    <li>Fixed Enemy middle color extractor not working</li>
+                                    <li>Added flipper patterns 'Hourglass', 'Club', 'Sparkle'</li>
+                                    <li>Loading JSON savedata now automatically updates theme name in save form</li>
+                                    <li>Flipper obverse and reverse patterns can now be chosen separately</li>
+                                </ul>
+                            </li>
+                            <li>
                                 <h2>1.1.8 (2024 Apr 06)</h2>
                                 <ul>
                                     <li>Added flipper pattern 'Leaves'</li>
                                     <li>Some code made faster by replacing <code>Array.forEach()</code> with <code>for(... of ...)</code></li>
                                     <li>Fixed portrait mode UI not being applied... hopefully</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <h2>1.1.7 (2024 Feb 27)</h2>
-                                <ul>
-                                    <li>Added flipper patterns 'Shooting stars', '☻', 'Needle'</li>
-                                    <li>You can now extract-import Enemy Middle(D and E) colors from existing spritesheets</li>
-                                    <li>
-                                        Changes to the UI
-                                        <ul>
-                                            <li>Contents of the 'Save/Load' tab, 'Recent Updates' and language/theme settings moved to new toolbar at the top-right</li>
-                                            <li>Portrait mode is now supported</li>
-                                            <li>You can now open/close sections of the Tile setting form</li>
-                                            <li>Hovering on output canvases will show texture type names and clicking on them will open corresponding Tile setting form sections</li>
-                                            <li>Changed button styles</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        Your theme setting is now stored in Local Storage
-                                        <ul>
-                                            <li>You can clear the saved data (and revert everything to default) from a button in Setting window</li>
-                                        </ul>
-                                    </li>
-                                    <li>Updated visuals of changelog page</li>
-                                    <li>Recent update additions are now marked with 🆕</li>
                                 </ul>
                             </li>
                         </ol>

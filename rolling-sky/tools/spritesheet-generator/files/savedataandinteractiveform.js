@@ -326,7 +326,8 @@ var dataFormat = [
     {id:"ChrisPaletteBTone2Face", prop:"value"},
     {id:"ChrisPaletteBTone3Face", prop:"value"},
     //Flip
-    {id:"flipTileType", prop:"value"},
+    {id:"flipTileObverseType", prop:"value"},
+    {id:"flipTileReverseType", prop:"value"},
     {id:"flipperColor1Obverse", prop:"value"},
     {id:"flipperColor1Reverse", prop:"value"},
     {id:"flipperColor2Obverse", prop:"value"},
@@ -552,7 +553,7 @@ window.addEventListener("load", function(){
                             getElem(set.id).setAttribute(set.prop, data[set.id]);
                     }
                 }else{
-                    //ここから互換性用のコードA, dataFormatで要求されたデータが保存データに無いとき[新追加要素など]処理がここに流れてくる。
+                    //ここから後方互換性用のコードA, dataFormatで要求されたデータが保存データに無いとき[新追加要素など]処理がここに流れてくる。
                     //特別に処理がない限り、保存データにあってdataFormatで要求されて[いない]データは無視される。
                     if (set.id == "lineStyle"){
                         getElem(set.id).setAttribute(set.prop, data.lineAura == "true" ? "double" : "normal");
@@ -572,6 +573,13 @@ window.addEventListener("load", function(){
                     if (set.id == "activeJumppadGlow"){
                         getElem(set.id).setAttribute(set.prop, data.disableActiveJumppadGlow ? "none" : "normal");
                     }
+                    //1.1.9からflipTileTypeはflipTileObverseTypeとflipTileReverseTypeに分離された
+                    if (set.id == "flipTileObverseType"){
+                        getElem(set.id).setAttribute(set.prop, data.flipTileType);
+                    }
+                    if (set.id == "flipTileReverseType"){
+                        getElem(set.id).setAttribute(set.prop, data.flipTileType);
+                    }
                 }
             }
             //ここから特別処理コードB. ここには1つのセーブデータエントリが複数のコントロールを制御する/に制御されている場合などの処理を書く。
@@ -585,7 +593,7 @@ window.addEventListener("load", function(){
         getElem("loadSavedTheme").addEventListener("change", function () {
             //確認
             if (!window.confirm(lang.callText("loadSavedThemeConfirmation"))) return;
-        
+            getElem("themeName").value = this.files[0].name.substring(0, this.files[0].name.lastIndexOf("."));
             var savedDataFileReader = new FileReader();
             savedDataFileReader.addEventListener("loadstart", function () {
                 getElem("loadStatus").innerHTML = lang.callText("fileLoading");
@@ -613,6 +621,7 @@ window.addEventListener("load", function(){
         getElem("generateButton").setClick(generateSaveDataInner, true);
     
         for(let set of dataFormat){
+            console.log(set.id);
             if (!(["src"]).includes(set.prop)) getElem(set.id).addEventListener("change", generateSaveDataInner,true);
         }
     
@@ -706,220 +715,250 @@ window.addEventListener("load", function(){
     }
     
     /*反転床の更新*/{
-        function changeFlipTileForm() {
-            var flipTileType = getElem("flipTileType").value;
+            //反転床の翻訳・色数データ
+        var flipTileData = {
+            "cube": {
+                colorCount: 2,
+                translationKeys: [
+                    "cubeFlipperColorA",
+                    "cubeFlipperColorB"
+                ]
+            },
+            "checker": {
+                colorCount: 2,
+                translationKeys: [
+                    "checkerFlipperColorA",
+                    "checkerFlipperColorB"
+                ]
+            },
+            "holly": {
+                colorCount: 5,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "hollyFlipperPetalColor1",
+                    "hollyFlipperPetalColor2",
+                    "hollyFlipperSpotColor"
+                ]
+            },
+            "rhombus": {
+                colorCount: 4,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "rhombusFlipperRhombusColor",
+                    "flipperFrameBackgroundColor"
+                ]
+            },
+            "squares": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "uLines": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "star": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "semicircles": {
+                colorCount: 3,
+                translationKeys: [
+                    "demisemicirclesFlipperCenterColor",
+                    "demisemicirclesFlipperColorB",
+                    "demisemicirclesFlipperColorC"
+                ]
+            },
+            "fortune": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "ring": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "cross": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "nuclear": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "biohazard": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "eight": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "sakura": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "shootingstars": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "smiley": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "needle": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ]
+            },
+            "hourglass": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "club": {
+                colorCount: 4,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "flipperInnerFrameColor",
+                    "patternColor"
+                ]
+            },
+            "sparkle": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "brazil": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "checkeredged": {
+                colorCount: 2,
+                translationKeys: [
+                    "alternatingEdgeColsFlipperColorA",
+                    "alternatingEdgeColsFlipperColorB"
+                ]
+            },
+            "heart": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "cits": {
+                colorCount: 3,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ]
+            },
+            "fakeground": {
+                colorCount: 2,
+                translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor"
+                ]
+            },
+            "sunshine": {
+                colorCount: 3,
+                translationKeys: [
+                    "sunshineMain",
+                    "sunshineDarker",
+                    "sunshineAccent"
+                ]
+            }
+        }
+        function changeFlipTileForm(face) {
+            //模様
+            var flipTileType = getElem(`flipTile${face}Type`).value;
             var notTheSamePattern = ["import"];
+            //反転床インポート系と色設定系の切り替え
             if (notTheSamePattern.includes(flipTileType)) {
-                getElem("flipperColorForm").classList.add("hidden");
+                getElem(`flipper${face}ColorForm`).classList.add("hidden");
                 getElem("flipperNoCustomization").classList.add("hidden");
-                getElem("importFlipperCustomizationForm").classList.remove("hidden");
+                getElem(`importFlipper${face}CustomizationForm`).classList.remove("hidden");
                 return;
             }
-            getElem("flipperColorForm").classList.remove("hidden");
-            getElem("importFlipperCustomizationForm").classList.add("hidden");
+            getElem(`flipper${face}ColorForm`).classList.remove("hidden");
+            getElem(`importFlipper${face}CustomizationForm`).classList.add("hidden");
             getElem("flipperNoCustomization").classList.add("hidden");
-            var flipTileData = {
-                "cube": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "cubeFlipperColorA",
-                        "cubeFlipperColorB"
-                    ]
-                },
-                "checker": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "checkerFlipperColorA",
-                        "checkerFlipperColorB"
-                    ]
-                },
-                "holly": {
-                    colorCount: 5,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "hollyFlipperPetalColor1",
-                        "hollyFlipperPetalColor2",
-                        "hollyFlipperSpotColor"
-                    ]
-                },
-                "rhombus": {
-                    colorCount: 4,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "rhombusFlipperRhombusColor",
-                        "flipperFrameBackgroundColor"
-                    ]
-                },
-                "squares": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "patternColor"
-                    ]
-                },
-                "uLines": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "patternColor"
-                    ]
-                },
-                "star": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "patternColor"
-                    ]
-                },
-                "semicircles": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "demisemicirclesFlipperCenterColor",
-                        "demisemicirclesFlipperColorB",
-                        "demisemicirclesFlipperColorC"
-                    ]
-                },
-                "fortune": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "ring": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "patternColor"
-                    ]
-                },
-                "cross": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "nuclear": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "biohazard": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "eight": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "patternColor"
-                    ]
-                },
-                "sakura": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "shootingstars": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "smiley": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "patternColor"
-                    ]
-                },
-                "needle": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "patternColor"
-                    ]
-                },
-                "brazil": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "checkeredged": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "alternatingEdgeColsFlipperColorA",
-                        "alternatingEdgeColsFlipperColorB"
-                    ]
-                },
-                "heart": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "cits": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor",
-                        "patternColor"
-                    ]
-                },
-                "fakeground": {
-                    colorCount: 2,
-                    translationKeys: [
-                        "backgroundColor",
-                        "flipperFrameColor"
-                    ]
-                },
-                "sunshine": {
-                    colorCount: 3,
-                    translationKeys: [
-                        "sunshineMain",
-                        "sunshineDarker",
-                        "sunshineAccent"
-                    ]
-                }
-            };
             var currentFlipData = flipTileData[flipTileType];
-            for (let num in Array.from(getElem("flipperColorForm").children)){
-                let div = getElem("flipperColorForm").children[num];
+            //色設定の表示・非表示を切り替え&翻訳設定
+            for (let num in Array.from(getElem(`flipper${face}ColorForm`).children)){
+                let div = getElem(`flipper${face}ColorForm`).children[num];
                 if (num > currentFlipData.colorCount - 1) {
                     div.classList.add("hidden");
                     continue;
                 }
                 div.classList.remove("hidden");
-                var labelElem = div.children[0];
+                var labelElem = div.children[0].children[0];
                 labelElem.setAttribute("data-translation-key", currentFlipData.translationKeys[num]);
                 labelElem.innerHTML = lang.callText(currentFlipData.translationKeys[num]);
             }
         }
-        changeFlipTileForm();
-        getElem("flipTileType").addEventListener("change", changeFlipTileForm);
-        otherUpdateFunctions.push(changeFlipTileForm);
+        changeFlipTileForm("Obverse");
+        changeFlipTileForm("Reverse");
+        getElem("flipTileObverseType").addEventListener("change", () => changeFlipTileForm("Obverse"));
+        getElem("flipTileReverseType").addEventListener("change", () => changeFlipTileForm("Reverse"));
+        otherUpdateFunctions.push(() => {changeFlipTileForm("Obverse"); changeFlipTileForm("Reverse")});
     }
     
     /*メインストライプの更新*/{
@@ -1063,7 +1102,7 @@ window.addEventListener("load", function(){
         function extractColors(colors){
             getElem("extractColorTableBody").innerHTML = "";
             let context = getElem("textureColorExtractCanvas").getContext("2d", {willReadFrequently: true});
-            for (let each in colors) {
+            for (let each of colors) {
                 let pixelData = context.getImageData(each.x, each.y, 1, 1);
                 let pixelHex = "#";
                 for(let i = 0; i < 3; i++){
