@@ -266,6 +266,51 @@
     </footer>
 </body>
 
+<script>
+    var params = new URL(document.location).searchParams;
+    if (params) {
+        if (params.get("action") == "fdsa") {
+            let vidIDs = [
+                "dQw4w9WgXcQ", //元祖
+                //動画リメイク
+                "1iqyYitzTuw", //東方
+                //リミックス
+                "qbnt_vmk4fU", //かめりあ
+                "q-LopB221Yc", //Jim Yosef
+                "s5wTiLJ9NVs", //Krysiek
+                "vLRyJ0dawjM", //DJ Barbecue
+                "PixZKFyE0RU", //frnzvrgs
+                "Jqa1Ugmv9yY", //Akyra Eurobeat
+                "dXJy3VElWY4", //毬栗
+                "uDbqt1pB08I", //Zyzzremixz
+                "rWzE1QENyEk", //Vapor VHS
+                "4w2icYjruEY", //ピアノ by LittleTranscriber
+                "RmK_V1FHH-o", //ピアノ by PianoX
+                "NHShFsBj0cs", //ピアノ by SheetMusicBoss
+                "jAUwItiAhBI", //ピアノ by Piano Music Bros.
+                "bPZSDBvDmVw", //LoFi
+                "nxeA7_XRxiY", //オルゴール
+                //合成
+                "6omHDfHITZ4?t=7", //夜にかける
+            ];
+            let selectedID = "";
+            if (!params.get("d")) {
+                selectedID = "dQw4w9WgXcQ";
+            } else if (params.get("d") == "random") {
+                selectedID = vidIDs[Math.floor(vidIDs.length * Math.random())];
+            } else {
+                if (Math.random < 0.01) {
+                    selectedID = "yPYZpwSpKmA"; //Together Forever w6_Yt-X1iRM
+                } else {
+                    selectedID = vidIDs[+params.get("d") % vidIDs.length];
+                }
+            }
+            document.location = "https://youtu.be/" + selectedID;
+        }
+    }
+
+</script>
+
 <script id="languageSetting">
     var langMgr = new LanguageManager({
         languages: [{
