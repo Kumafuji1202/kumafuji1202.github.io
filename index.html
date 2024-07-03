@@ -294,10 +294,10 @@
                 "6omHDfHITZ4?t=7", //夜にかける
             ];
             let selectedID = "";
-            if (!params.get("d") || (params.get("d") != +params.get("d"))) {
-                selectedID = vidIDs[0];
-            } else if (params.get("d") == "random") {
+            if (params.get("d") == "random") {
                 selectedID = vidIDs[Math.floor(vidIDs.length * Math.random())];
+            } else if (!params.get("d") || (params.get("d") != +params.get("d"))) {
+                selectedID = vidIDs[0];
             } else {
                 if (Math.random < 0.01) {
                     selectedID = "yPYZpwSpKmA"; //Together Forever w6_Yt-X1iRM
