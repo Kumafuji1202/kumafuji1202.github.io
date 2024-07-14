@@ -65,15 +65,17 @@
             padding: 20px 0;
         }
 
-        .equal-lr-flex{
+        .equal-lr-flex {
             display: flex;
         }
-        .equal-lr-flex > *{
+
+        .equal-lr-flex>* {
             flex-basis: 400px;
             background: var(--section-bg);
         }
-        
-        section, nav{
+
+        section,
+        nav {
             padding: 10px;
         }
 
@@ -160,6 +162,7 @@
                             <li><span data-translation-key="siteNames.youTube"></span>: <a href="https://www.youtube.com/@Kumafuji1202"></a> <a href="https://www.youtube.com/@bassclef8vaalta"></a></li>
                             <li><span data-translation-key="siteNames.scratch"></span>: <a href="https://scratch.mit.edu/users/kumafuji1202/"></a></li>
                             <li><span data-translation-key="siteNames.gitHub"></span>: <a href="https://github.com/kumafuji1202"></a></li>
+                            <li><span data-translation-key="siteNames.discord"></span>: <code>kumafuji1202</code></li>
                         </ul>
                     </nav>
                     <hr>
@@ -205,6 +208,7 @@
                             <li>2024 May 31 <span data-translation-key="recentUpds.u240531"></span></li>
                             <li>2024 Jun 16 <span data-translation-key="recentUpds.u240616"></span></li>
                             <li>2024 Jun 30 <span data-translation-key="recentUpds.u240630"></span></li>
+                            <li>2024 Jul 14 <span data-translation-key="recentUpds.u240714"></span></li>
                         </ul>
                     </section>
                 </div>
@@ -227,6 +231,10 @@
 
                 <h3 data-translation-key="siteMap.webTools.others"></h3>
                 <ul>
+                    <li>
+                        <h4><a href="arabic-to-presentation/" data-translation-key="siteMap.webTools.arabic2presB"></a></h4>
+                        <p data-translation-key="siteMap.webTools.arabic2presB.introduction"></p>
+                    </li>
                     <li>
                         <h4><a href="https://turbowarp.org/683396130?hqpen&size=500x500" data-translation-key="siteMap.webTools.mcadc"></a></h4>
                         <p data-translation-key="siteMap.webTools.mcadc.introduction"></p>
@@ -265,7 +273,6 @@
         <!--なんか入れて（？？？？？？？？？？？？？？？？）ｆｄさｆｄさｆｄさ fdssaassasasaaasa-->
     </footer>
 </body>
-
 <script>
     var params = new URL(document.location).searchParams;
     if (params) {
@@ -310,7 +317,6 @@
     }
 
 </script>
-
 <script id="languageSetting">
     var langMgr = new LanguageManager({
         languages: [{
@@ -339,23 +345,29 @@
                 "tok": "lipu pi jan Kumapusi",
                 "zse": "Kumafuji1202 popo"
             },
-            "siteNames.youTube" : {
+            "siteNames.youTube": {
                 "en": "YouTube",
                 "en-Shaw": "·𐑿𐑑𐑿𐑚",
                 "ja": "YouTube",
                 "zse": "YouTube"
             },
-            "siteNames.scratch" : {
+            "siteNames.scratch": {
                 "en": "Scratch",
                 "en-Shaw": "·𐑕𐑒𐑮𐑨𐑗",
                 "ja": "Scratch",
                 "zse": "Scratch"
             },
-            "siteNames.gitHub" : {
+            "siteNames.gitHub": {
                 "en": "FdsaHub",
                 "en-Shaw": "·𐑜𐑦𐑑𐑣𐑳𐑚",
                 "ja": "FdsaHub",
                 "zse": "FdsaHub"
+            },
+            "siteNames.discord": {
+                "en": "Discord",
+                "en-Shaw": "·𐑛𐑦𐑕𐑒𐑹𐑛",
+                "ja": "Discord",
+                "zse": "Discord"
             },
             "ui.langSelect.label": {
                 "en": "Select Language",
@@ -371,10 +383,10 @@
                 "zse": "Dide kike"
             },
             "aboutMe.content": {
-                "en": "Hi, I'm Kumafuji1202. I'm a highschool student who lives in Japan. I speak Japanese (my native language) and English. I'm currently studying Russian, Ainu and Cantonese. I like to code, listen to music, and compose music. Recently I've been interested in linguistics and writing systems.",
+                "en": "Hi, I'm Kumafuji1202. I'm a highschool student who lives in Japan. I speak Japanese (my native language) and English. I'm currently studying Russian, Ainu and Cantonese. I like to code, listen to music, and compose music. Recently I've been interested in linguistics and writing systems. Please contact me if there are anything you want to be fixed in this site.",
                 "en-Shaw": "𐑣𐑲, 𐑲𐑥 Kumafuji1202 (·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦). 𐑲𐑥 𐑩 𐑣𐑲𐑕𐑒𐑵𐑤 𐑕𐑑𐑿𐑛𐑩𐑯𐑑 𐑣𐑵 𐑤𐑦𐑝𐑟 𐑦𐑯 ·𐑡𐑩𐑐𐑨𐑯. 𐑲 𐑕𐑐𐑰𐑒 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 (𐑥𐑲 𐑯𐑱𐑑𐑦𐑝 𐑤𐑨𐑙𐑜𐑢𐑦𐑡) 𐑯 ·𐑦𐑙𐑜𐑤𐑦𐑖. 𐑲𐑥 𐑒𐑳𐑮𐑩𐑯𐑑𐑤𐑦 𐑕𐑑𐑳𐑛𐑦𐑦𐑙 ·𐑮𐑳𐑖𐑩𐑯, ·𐑲𐑯𐑵 𐑯 ·𐑒𐑨𐑯𐑑𐑩𐑯𐑰𐑟. 𐑲 𐑤𐑲𐑒 𐑑 𐑒𐑴𐑛, 𐑤𐑦𐑕𐑯 𐑑 𐑥𐑿𐑟𐑦𐑒, 𐑯𐑒𐑩𐑥𐑐𐑴𐑟 𐑥𐑿𐑟𐑦𐑒. 𐑮𐑰𐑕𐑯𐑑𐑤𐑦, 𐑲𐑝 𐑚𐑦𐑯 𐑦𐑯𐑑𐑮𐑩𐑕𐑑𐑩𐑛 𐑦𐑯 𐑤𐑦𐑙𐑜𐑢𐑦𐑕𐑑𐑦𐑒𐑕 𐑯 𐑮𐑲𐑑𐑦𐑙 𐑕𐑦𐑕𐑑𐑩𐑥𐑟.",
-                "ja": "どうも、Kumafuji1202 (クマフジ、低高高高-高 or 低高低低) です。日本在住の高校生です。日本語(母語)と英語(ペラペラではない())を喋ります。ロシア語、アイヌ語と広東語を勉強中です。プログラミングや音楽が趣味です。最近は言語とか文字にハマっています。",
-                "zse": "Gogi biki! Kike diza Kumafuji1202. Diza kita kida godi tuti kapa kidu popi Nihon dudu. Goto Nihon kabo zese diku English kabo zese. Kike godi tuti kapa Rossija kabo zese diku Jyut kabo zese."
+                "ja": "どうも、Kumafuji1202 (クマフジ、低高高高-高 or 低高低低) です。日本在住の高校生です。日本語(母語)と英語を喋ります。ロシア語、アイヌ語と広東語を勉強中です。プログラミングや音楽が趣味です。最近は言語とか文字にハマっています。",
+                "zse": " !   Kumafuji1202.       Nihon .  Nihon    English  . Kike godi tuti kapa Rossija kabo zese diku Jyut kabo zese."
             },
             "janPonaMi": {
                 "en": "My Friends",
@@ -383,43 +395,43 @@
                 "tok": "jan pona mi",
                 "zse": "Kike gogi didi peka"
             },
-            "friends.qwert" : {
+            "friends.qwert": {
                 "en": "Qwert",
                 "en-Shaw": "·𐑒𐑢𐑻𐑑",
                 "ja": "Qwertさん",
                 "zse": "Qwert"
             },
-            "friends.tsukikun" : {
+            "friends.tsukikun": {
                 "en": "Tsukikun",
                 "en-Shaw": "·𐑑𐑕𐑫𐑒𐑦𐑒𐑫𐑙",
                 "ja": "つきくん",
                 "zse": "Tsukikun"
             },
-            "friends.sciTech" : {
+            "friends.sciTech": {
                 "en": "Sci-Tech",
                 "en-Shaw": "·𐑕𐑲𐑑𐑧𐑒",
                 "ja": "科学技術さん",
                 "zse": "Sci-Tech"
             },
-            "friends.mamushi" : {
+            "friends.mamushi": {
                 "en": "Mamushi",
                 "en-Shaw": "·𐑥𐑩𐑥𐑵𐑖𐑦",
                 "ja": "まむしさん",
                 "zse": "Mamushi"
             },
-            "friends.mawario" : {
+            "friends.mawario": {
                 "en": "Mawario",
                 "en-Shaw": "·𐑥𐑩𐑢𐑸𐑦𐑴",
                 "ja": "マワリオさん",
                 "zse": "Mawario"
             },
-            "friends.menn" : {
+            "friends.menn": {
                 "en": "Menn",
                 "en-Shaw": "·𐑥𐑧𐑯",
                 "ja": "めんさん",
                 "zse": "Menn"
             },
-            "friends.shin" : {
+            "friends.shin": {
                 "en": "SHIN",
                 "en-Shaw": "·𐑖𐑦𐑯",
                 "ja": "SHINさん",
@@ -487,6 +499,11 @@
                 "en-Shaw": "𐑳𐑚𐑛𐑱𐑑𐑦𐑛 ·𐑖𐑱𐑝𐑾𐑯 𐑒𐑰𐑚𐑹𐑛 𐑑𐑵𐑤·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼",
                 "ja": "テクスチャメーカー更新"
             },
+            "recentUpds.u240714": {
+                "en": "added Arabic -> Presentation Forms-B tool",
+                "en-Shaw": "𐑨𐑛𐑦𐑛 fdsafdsfa",
+                "ja": "アラビア文字変換機追加"
+            },
             "siteMap.webTools": {
                 "en": "My Webtools",
                 "en-Shaw": "𐑥𐑲 𐑢𐑧𐑚𐑑𐑵𐑤𐑟",
@@ -529,6 +546,16 @@
                 "en-Shaw": "𐑳𐑞𐑼𐑟",
                 "ja": "非RS",
                 "zse": "Detu dige toto"
+            },
+            "siteMap.webTools.arabic2presB": {
+                "en": "Arabic Script -> Arabic Presentation Forms-B Converter",
+                "en-Shaw": "·𐑨𐑮𐑩𐑚𐑦𐑒 𐑕𐑒𐑮𐑦𐑐𐑑 -> ·𐑨𐑮𐑩𐑚𐑦𐑒 𐑐𐑮𐑧𐑟𐑩𐑯𐑑𐑱𐑖𐑩𐑯 𐑓𐑹𐑥𐑟-B 𐑒𐑩𐑯𐑝𐑻𐑑𐑼",
+                "ja": "アラビア文字Unicodeブロック → アラビア文字表示形B 変換器"
+            },
+            "siteMap.webTools.arabic2presB.introduction": {
+                "en": "This tool converts Arabic script Unicode block text into Arabic Presentation Forms-B text so that the letters look all connected and in the right order even in environments that do not support LTR layout / IMFI letter shapes.",
+                "en-Shaw": "𐑞𐑦𐑕 𐑑𐑵𐑤 𐑒𐑩𐑯𐑝𐑻𐑑𐑕 ·𐑨𐑮𐑩𐑚𐑦𐑒 𐑕𐑒𐑮𐑦𐑐𐑑 ·𐑿𐑯𐑦𐑒𐑴𐑛 𐑚𐑤𐑪𐑒 𐑑𐑧𐑒𐑕𐑑 𐑦𐑯𐑑𐑵 ·𐑨𐑮𐑩𐑚𐑦𐑒 𐑐𐑮𐑧𐑟𐑩𐑯𐑑𐑱𐑖𐑩𐑯 𐑓𐑹𐑥𐑟-B 𐑑𐑧𐑒𐑕𐑑 𐑕𐑴 𐑞𐑨𐑑 𐑞 𐑤𐑧𐑑𐑼𐑟 𐑤𐑫𐑒 𐑷𐑤 𐑒𐑩𐑯𐑧𐑒𐑑𐑦𐑛 𐑯 𐑦𐑯 𐑞 𐑮𐑲𐑑 𐑹𐑛𐑼 𐑰𐑝𐑩𐑯 𐑦𐑯 𐑦𐑯𐑝𐑲𐑤𐑩𐑥𐑧𐑯𐑑𐑕 𐑞𐑨𐑑 𐑛𐑵 𐑯𐑪𐑑 𐑕𐑳𐑐𐑹𐑑 𐑤.𐑑.𐑮. 𐑤𐑱𐑬𐑑 / ⸰𐑦𐑥𐑓𐑲 (IMFI) 𐑤𐑧𐑑𐑼 𐑖𐑱𐑐𐑕.",
+                "ja": "アラビア文字Unicodeブロックを使用したテキストをアラビア文字表示形Bに変換して、右横書きや位置による字形変化に対応していない環境でも文字を正しい形・順番で表示させるようにします。"
             },
             "siteMap.webTools.mcadc": {
                 "en": "Minecraft Armor Damage Calculator",

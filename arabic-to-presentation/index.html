@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kumafuji1202">
+    <meta name="pagename" content="Arabic Script -> Arabic Presentation Forms-B Converter">
+    <link rel="canonical" href="https://kumafuji1202.github.io/arabic-to-presentation/" />
+    <meta name="twitter:url" content="https://kumafuji1202.github.io/arabic-to-presentation/">
+    <meta name="twitter:title" content="Arabic Script -> Arabic Presentation Forms-B Converter">
+    <meta name="twitter:description" content="This tool converts Arabic script Unicode block text into Arabic Presentation Forms-B text so that the letters look all connected and in the right order even in environments that do not support LTR layout / IMFI letter shapes.">
+    <title>Arabic Script -> Arabic Presentation Forms-B Converter</title>
+    <script src="../js-global/utils.js"></script>
+    <link rel="stylesheet" href="../css-global/global.css" />
+    <style>
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            font: inherit;
+            box-sizing: border-box;
+        }
+        #arabic {
+            direction: rtl;
+        }
+        #apf-b {
+            direction: rtl;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Arabic Script -> Arabic Presentation Forms-B Converter</h1>
+    <a href="../">Return to Top Page</a>
+    <br>
+    <p>This tool converts Arabic script Unicode block text into <a href="https://en.wikipedia.org/wiki/Arabic_Presentation_Forms-B">Arabic Presentation Forms-B</a> text so that the letters look all connected and in the right order even in environments that do not support <a href="https://en.wikipedia.org/wiki/Bidirectional_text">LTR layout</a> / <a href="https://en.wikipedia.org/wiki/IMFI">IMFI letter shapes</a>.</p>
+    <label for="conversionType">Conversion type: </label>
+    <select id="conversionType">
+        <option value="noReverse">Forcing connection only (substitution only)</option>
+        <option value="reverse">For use in environments that don't support RTL text layout (reverse letter order)</option>
+    </select>
+    <div>About "reverse letter order": Since this reordering only reverses the text, when the text spans multiple lines (whether or not line-breaks are in the text data), the lines will be in reverse order. In such cases I recommend you that you do the reversal line by line.</div>
+    <div id="arabicContainer">
+        <label for="arabic"><h2>Arabic script</h2></label>
+        <textarea id="arabic" spellcheck="false" lang="ar">الكتابة العربية هو نظام الكتابة المستخدم في كتابة اللغة العربية، وفي كتابة لغات أخرى في آسيا وأفريقيا كذلك، مثل اللغات الأذرية والسندية والبشتوية والفارسية والبنجابية والكردية واللرية والأردية والمندنكوية وغيرها.</textarea>
+    </div>
+
+    <div id="apfContainer">
+        <h2>Arabic Presentation Forms-B</h2>
+        <div id="apf-b" lang="ar"></div>
+        <button id="toClipboard">Copy to Clipboard</button><br>
+    </div>
+</body>
+<script>
+    var arabicLetters = {
+        "ا": {iso: "ﺍ", f: "ﺎ"},
+        "ب": {iso: "ﺏ", f: "ﺐ", m: "ﺒ", i: "ﺑ"},
+        "ت": {iso: "ﺕ", f: "ﺖ", m: "ﺘ", i: "ﺗ"},
+        "ث": {iso: "ﺙ", f: "ﺚ", m: "ﺜ", i: "ﺛ"},
+        "ج": {iso: "ﺝ", f: "ﺞ", m: "ﺠ", i: "ﺟ"},
+        "ح": {iso: "ﺡ", f: "ﺢ", m: "ﺤ", i: "ﺣ"},
+        "خ": {iso: "ﺥ", f: "ﺦ", m: "ﺨ", i: "ﺧ"},
+        "د": {iso: "ﺩ", f: "ﺪ"},
+        "ذ": {iso: "ﺫ", f: "ﺬ"},
+        "ر": {iso: "ﺭ", f: "ﺮ"},
+        "ز": {iso: "ﺯ", f: "ﺰ"},
+        "س": {iso: "ﺱ", f: "ﺲ", m: "ﺴ", i: "ﺳ"},
+        "ش": {iso: "ﺵ", f: "ﺶ", m: "ﺸ", i: "ﺷ"},
+        "ص": {iso: "ﺹ", f: "ﺺ", m: "ﺼ", i: "ﺻ"},
+        "ض": {iso: "ﺽ", f: "ﺾ", m: "ﻀ", i: "ﺿ"},
+        "ط": {iso: "ﻁ", f: "ﻂ", m: "ﻄ", i: "ﻃ"},
+        "ظ": {iso: "ﻅ", f: "ﻆ", m: "ﻈ", i: "ﻇ"},
+        "ع": {iso: "ﻉ", f: "ﻊ", m: "ﻌ", i: "ﻋ"},
+        "غ": {iso: "ﻍ", f: "ﻎ", m: "ﻐ", i: "ﻏ"},
+        "ف": {iso: "ﻑ", f: "ﻒ", m: "ﻔ", i: "ﻓ"},
+        "ق": {iso: "ﻕ", f: "ﻖ", m: "ﻘ", i: "ﻗ"},
+        "ك": {iso: "ﻙ", f: "ﻚ", m: "ﻜ", i: "ﻛ"},
+        "ق": {iso: "ﻕ", f: "ﻖ", m: "ﻘ", i: "ﻗ"},
+        "ل": {iso: "ﻝ", f: "ﻞ", m: "ﻠ", i: "ﻟ"},
+        "م": {iso: "ﻡ", f: "ﻢ", m: "ﻤ", i: "ﻣ"},
+        "ن": {iso: "ﻥ", f: "ﻦ", m: "ﻨ", i: "ﻧ"},
+        "ه": {iso: "ﻩ", f: "ﻪ", m: "ﻬ", i: "ﻫ"},
+        "و": {iso: "ﻭ", f: "ﻮ"},
+        "ي": {iso: "ﻱ", f: "ﻲ", m: "ﻴ", i: "ﻳ"},
+        "آ": {iso: "ﺁ", f: "ﺂ"},
+        "ة": {iso: "ﺓ", f: "ﺔ"},
+        "ى": {iso: "ﻯ", f: "ﻰ"},
+        //letters with hamza
+        "أ": {iso: "ﺃ", f: "ﺄ"},
+        "ؤ": {iso: "ﺅ", f: "ﺆ"},
+        "إ": {iso: "ﺇ", f: "ﺈ"},
+        "ـ": "tatweel",
+    },
+        alif = "اآأإ",
+        laamalif = "ﻻﻼﻵﻶﻷﻸﻹﻺ";
+    function convertArabic(){
+        let txt = getElem("arabic").value;
+        let lastLetterHasMedial = false;
+        let convdTxt = "";
+        for(let i = 0; i < txt.length; i++){
+            let char = txt.charAt(i);
+            //もし変換対象でなければそのまま
+            if (!arabicLetters[char] || char == "ـ"){
+                convdTxt += char;
+                lastLetterHasMedial = char == "ـ";
+                continue;
+            }
+            //convdTxt += "-";//変形確認用
+            //もし変換対象なら
+            let charForms = arabicLetters[char];
+            //もし次がアリフで変換対象がラームなら合字に置き換え
+            if (char == "ل" && alif.includes(txt.charAt(i+1)) && txt.charAt(i+1) !== "" ){
+                if (lastLetterHasMedial){
+                    //前の文字と接続できる -> 語末形
+                    convdTxt += laamalif.charAt(alif.indexOf(txt.charAt(i+1)) * 2 + 1);
+                }else{
+                    //前の文字と接続できない -> 独立形
+                    convdTxt += laamalif.charAt(alif.indexOf(txt.charAt(i+1)) * 2);
+                }
+                lastLetterHasMedial = false;
+                i++;
+                continue;
+            }
+            //ラーム・アリフ以外
+            if (lastLetterHasMedial){
+                //前の文字と接続できる
+                if (arabicLetters[txt.charAt(i+1)] && charForms.m){
+                    //次の文字が変換対象かつ語中形があれば語中形
+                    convdTxt += charForms.m;
+                    lastLetterHasMedial = true;
+                }else{
+                    //でなければ語末形
+                    convdTxt += charForms.f;
+                    lastLetterHasMedial = false;
+                }
+            }else{
+                //前の文字と接続できない
+                if (arabicLetters[txt.charAt(i+1)] && charForms.i){
+                    //次の文字が変換対象かつ語頭形があれば語頭形
+                    convdTxt += charForms.i;
+                    lastLetterHasMedial = true;
+                }else{
+                    //でなければ独立形
+                    convdTxt += charForms.iso;
+                    lastLetterHasMedial = false;
+                }
+            }
+        }
+        if (getElem("conversionType").value == "noReverse"){
+            getElem("apf-b").innerHTML = convdTxt;
+        }else{
+            getElem("apf-b").innerHTML = "";
+            for(let i = 0; i < convdTxt.length; i++){
+                getElem("apf-b").innerHTML = convdTxt.charAt(i) + getElem("apf-b").innerHTML;
+            }
+        }
+    }
+    getElem("arabic").addEventListener("input", convertArabic);
+    getElem("conversionType").addEventListener("change", () => {
+        convertArabic();
+    });
+    convertArabic();
+    getElem("toClipboard").setClick(() => {
+        navigator.clipboard.writeText(getElem("apf-b").innerHTML);
+    })
+</script>
+
+</html>
