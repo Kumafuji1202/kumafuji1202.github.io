@@ -161,7 +161,7 @@ window.addEventListener("load", function(){
     getElem("generateButton").setClick(generateSaveDataInner, true);
 
     for(let set of saveDataFormat){
-        if (!(["src"]).includes(set.prop) && set.prop) getElem(set.id).addEventListener("change", generateSaveDataInner,true);
+        getElem(set.id).addEventListener("change", generateSaveDataInner,true);
     }
 
     generateSaveData = generateSaveDataInner;
