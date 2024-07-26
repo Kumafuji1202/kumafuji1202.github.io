@@ -1,5 +1,12 @@
 /*
-update no. 2
+[data-translation-key]または[tr-key]
+  翻訳キー
+[data-onetime-translation]または[tr-ot]
+  論理属性。1回しか使わない翻訳文章用。属性で言語ごとに翻訳を設定する。
+[tr-ot-言語ID]
+  tr-ot用
+
+
 langList
     {
         languages:[
@@ -43,7 +50,7 @@ function LanguageManager(langList) {
         this.currentLang = langCode;
         document.documentElement.setAttribute("lang", langCode);
         //言語置き換え
-        document.querySelectorAll("*[data-translation-key]").forEach(function (elementToTranslate) {
+        for (let elementToTranslate of Array.from(document.querySelectorAll("*[data-translation-key], *[tr-key], *[data-onetime-translation], *[tr-ot]"))) {
             var propertyToTranslate = "";
             switch (elementToTranslate.tagName) {
                 case "AREA":
@@ -97,17 +104,24 @@ function LanguageManager(langList) {
                 default:
                     propertyToTranslate = "innerHTML";
             }
-            let q = this.langDatabase.translations[elementToTranslate.getAttribute("data-translation-key")];
-            let translatedText = q ? q[this.currentLang] :
-                (propertyToTranslate == "innerHTML" ?
-                    "<span style=\"color:red;\">missing <em>" + foundLang.langName + " </em>translation for translation key \"<s>" + elementToTranslate.getAttribute("data-translation-key") + "</s>\"</span>" :
-                    "missing " + foundLang.langName + " translation for translation key \"" + elementToTranslate.getAttribute("data-translation-key") + "\"");
+            let translatedText = ""
+            if (elementToTranslate.hasAttribute("data-translation-key") || elementToTranslate.hasAttribute("tr-key")) {
+                let q = this.langDatabase.translations[elementToTranslate.getAttribute("data-translation-key") || elementToTranslate.getAttribute("tr-key")];
+                translatedText = q ? q[this.currentLang] :
+                    (propertyToTranslate == "innerHTML" ?
+                        "<span style=\"color:red;\">missing <em>" + foundLang.langName + " </em>translation for translation key \"<s>" + elementToTranslate.getAttribute("data-translation-key") + "</s>\"</span>" :
+                        "missing " + foundLang.langName + " translation for translation key \"" + elementToTranslate.getAttribute("data-translation-key") + "\"");
+            } else if (elementToTranslate.hasAttribute("onetime-translation") || elementToTranslate.hasAttribute("tr-ot")) {
+                console.log("fsdafdsafds")
+                translatedText = elementToTranslate.getAttribute("tr-ot-" + langCode);
+            }
+
             if (propertyToTranslate === "innerHTML") {
                 elementToTranslate.innerHTML = translatedText;
             } else {
                 elementToTranslate.setAttribute(propertyToTranslate, translatedText);
             }
-        }, this);
+        }
         return true;
     };
     //選択ボックスの用意
