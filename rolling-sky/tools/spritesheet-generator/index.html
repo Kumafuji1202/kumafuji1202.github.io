@@ -4,120 +4,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Kumafuji1202">
-    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.1.9">
+    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.2.0">
     <meta name="twitter:url" content="https://kumafuji1202.github.io/rolling-sky/tools/spritesheet-generator/">
-    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.1.9">
+    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.2.0">
     <meta name="twitter:description" content="A web tool made by Kumafuji1202 to make spritesheets for Rolling Sky edits / Rolling Sky Remake levels easier.">
     <title data-translation-key="appTitle">
         Rolling Sky Spritesheet Generator
     </title>
+
+    <!-- cssを読み込む -->
     <link id="RSStylesheet" rel="stylesheet" href="../../rs.css">
-    <link id="mainStylesheet" rel="stylesheet" href="files/main.css">
-    <link id="formstylesheet" rel="stylesheet" href="files/form.css">
-    <link id="layoutstylesheet" rel="stylesheet" href="files/layout.css">
-    <link id="colorstylesheet" rel="stylesheet" href="files/colors.css">
-    <link id="gridLayout2" rel="stylesheet" href="files/grid2rows.css">
-    <link id="gridLayout3" rel="stylesheet" href="files/grid3rows.css">
+    <link id="mainStylesheet" rel="stylesheet" href="files/css/main.css">
+    <link id="formstylesheet" rel="stylesheet" href="files/css/form.css">
+    <link id="layoutstylesheet" rel="stylesheet" href="files/css/layout.css">
+    <link id="colorstylesheet" rel="stylesheet" href="files/css/colors.css">
+    <link id="gridLayout2" rel="stylesheet" href="files/css/grid2rows.css">
+    <link id="gridLayout3" rel="stylesheet" href="files/css/grid3rows.css">
     <link rel="canonical" href="https://kumafuji1202.github.io/rolling-sky/tools/spritesheet-generator/">
+
+    <!-- ライブラリを読み込む -->
     <script id="library" src="../../../js-global/utils.js"></script>
-    <script id="zipper" src="files/jszip.min.js"></script>
-    <script id="saver" src="files/FileSaver.min.js"></script>
-    <script id="closeConfirmer">
-        var disableConfirmation = false;
-        window.addEventListener('beforeunload', function(e) {
-            if (disableConfirmation) return;
-            e.preventDefault();
-            e.returnValue = '';
-        });
-    </script>
+    <script id="zipper" src="files/js/libraries/jszip.min.js"></script>
+    <script id="saver" src="files/js/libraries/FileSaver.min.js"></script>
     <script id="languageLibrary" src="../../../js-global/lang.js"></script>
-    <script id="languageData" src="files/langdata.js"></script>
-    <script id="saveLoadSystem" src="files/savedataandinteractiveform.js"></script>
-    <script id="imageGenerator" src="files/imagegen.js"></script>
-    <script id="pseudoMediaQuery" src="files/gridpseudomediaquery.js"></script>
-    <script id="colorMode_LanguageChanger">
-        window.addEventListener("load", function() {
-            document.getElementById("designSelectBox").addEventListener("change", function() {
-                document.documentElement.setAttribute("data-theme", document.getElementById("designSelectBox").value);
-                localStorage.setItem("colorTheme", document.getElementById("designSelectBox").value);
-            }, true);
-            var themCol = localStorage.getItem("colorTheme");
-            if (themCol) {
-                document.documentElement.setAttribute("data-theme", themCol);
-                document.getElementById("designSelectBox").value = themCol;
-            }
 
-            document.getElementById("languageSelectBox").addEventListener("change", function() {
-                localStorage.setItem("language", document.getElementById("languageSelectBox").value);
-            }, true);
-            var langSet = localStorage.getItem("language");
-            if (langSet) {
-                lang.useLanguage(langSet);
-                document.getElementById("languageSelectBox").value = langSet;
-            }
-        }, true);
+    <!-- データのみのjsを読み込む -->
+    <script id="data" src="files/js/staticData.js"></script>
 
-    </script>
-    <script id="imageLoadingSystem">
-        window.addEventListener("load", function() {
-            for (let elem of document.querySelectorAll("input[type=file][data-loading-process]")){
-                elem.addEventListener("change", function() {
-                    var frd = new FileReader();
-                    var prc = document.getElementById(elem.getAttribute("data-loading-process"));
-                    frd.addEventListener("loadstart", function() {
-                        prc.innerHTML = lang.callText("fileLoading");
-                    });
-                    frd.addEventListener("error", function() {
-                        prc.innerHTML = lang.callText("loadError");
-                    });
-                    frd.addEventListener("loadend", function() {
-                        prc.innerHTML = lang.callText("loadFileComplete");
-                        document.getElementById(elem.getAttribute("data-load-destination")).setAttribute("src", frd.result);
-                    });
-                    frd.readAsDataURL(elem.files[0]);
-                }, true);
-                if (elem.hasAttribute("data-img-clear-button")) {
-                    document.getElementById(elem.getAttribute("data-img-clear-button")).classList.add("formSmallButton");
-                    document.getElementById(elem.getAttribute("data-img-clear-button")).addEventListener("click", function() {
-                        if (window.confirm(lang.callText("imgRemoveConfirmation"))) {
-                            document.getElementById(elem.getAttribute("data-load-destination")).removeAttribute("src");
-                        }
-                    });
-                }
-            }
-        }, true);
-
-    </script>
-    <script id="g">
-        function showFanmades() {
-            for (let each of document.querySelectorAll("*[data-g]")) {
-                each.setAttribute("data-h", "");
-            }
-            return "ɵ";
-        }
-
-    </script>
-    <style id="h">
-        *[data-g]:not([data-h]) {
-            display: none;
-        }
-
-        .ae {
-            color: inherit !important;
-            text-decoration: inherit !important;
-        }
-
-    </style>
-    <script id="globeRotater">
-        window.addEventListener("load", function() {
-            var globeEmojis = ["🌏", "🌎", "🌍"];
-            var globeRotat = 0;
-            setInterval(function() {
-                document.getElementById("globeEmoji").innerHTML = globeEmojis[globeRotat++ % 3];
-            }, 500);
-        });
-
-    </script>
+    <!-- 残りのjsは最後に置く -->
 </head>
 
 <body>
@@ -128,9 +42,9 @@
             <p id="creatorName">by Kumafuji1202 <a href="../../../" data-translation-key="returnToTop"></a></p>
             <nav id="toolbar">
                 <ul>
-                    <li title="Settings" data-window-open-button="settingsWindow" style="background-image: url(files/settingIcon.svg)"></li>
-                    <li title="Save/Load" data-window-open-button="saveWindow" style="background-image: url(files/saveIcon.svg)"></li>
-                    <li title="Version/Update information" data-window-open-button="updateWindow" style="background-image: url(files/helpIcon.svg)"></li>
+                    <li title="Settings" data-window-open-button="settingsWindow" style="background-image: url(files/graphics/UI/settingIcon.svg)"></li>
+                    <li title="Save/Load" data-window-open-button="saveWindow" style="background-image: url(files/graphics/UI/saveIcon.svg)"></li>
+                    <li title="Version/Update information" data-window-open-button="updateWindow" style="background-image: url(files/graphics/UI/helpIcon.svg)"></li>
                 </ul>
             </nav>
         </div>
@@ -756,6 +670,7 @@
                                             <!--
                                             <option data-translation-key="topRightSpaceTravel" value="spacetravel" data-option-form="spacetravelCustomizationForm" data-flipper-available data-neonbox-available></option>
                                             -->
+                                            <option data-translation-key="topRightNewGeneric" value="newgeneric" data-option-form="newGenericCustomizationForm" data-flipper-available data-neonbox-available></option>
                                         </select>
                                     </label>
                                 </legend>
@@ -1680,6 +1595,38 @@
                                     <label><span>と(20)</span><input type="color" id="jadeRabbit20" value="#DC261C" data-preset-ausjadrab="#DC261C" data-preset-tempfair="#FB0803"></label><br>
                                     <!-- も, ら(39), -->
                                 </div>
+                                <!-- カスタム nw -->
+                                <div id="newGenericCustomizationForm">
+                                    <h3 data-translation-key="TRAdditionalPalette"></h3>
+                                    <canvas width="320" height="192" id="newGenericIdMap" class="idMap"></canvas>
+                                    <div class="mayScrollHorizontally">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <td></td>
+                                                    <th><span><span data-translation-key="tone#"></span>1</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>2</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>3</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>4</span></th>
+                                                    <td></td>
+                                                    <th><span><span data-translation-key="tone#"></span>1</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>2</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>3</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>4</span></th>
+                                                    <td></td>
+                                                    <th><span><span data-translation-key="tone#"></span>1</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>2</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>3</span></th>
+                                                    <th><span><span data-translation-key="tone#"></span>4</span></th>
+                                                </tr>
+                                            </thead>
+                                            <!-- ここに「あ(#0)」から「み(#31)」までがformGeneration.jsによって生成される -->
+                                            <tbody id="newGenericList">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <a class="button" id="importNewGenericColors" data-translation-key="importNewGenericColors" data-window-open-button="colorImportWindow"></a><br>
+                                </div>
                                 <!-- カスタム cs -->
                                 <!-- インポート im -->
                             </fieldset>
@@ -1835,45 +1782,6 @@
                                             <span data-translation-key="flipperObverse"></span>
                                             <span data-translation-key="flipTileType"></span>
                                             <select id="flipTileObverseType">
-                                                <optgroup data-translation-key="patternStyleFromRS" label="">
-                                                    <option data-translation-key="flipTileCube" value="cube"></option>
-                                                    <!-- 立方スタイル: 色A=前後の枠と左右の内側三角 色B=左右の枠と前後の内側三角 -->
-                                                    <option data-translation-key="flipTileChecker" value="checker"></option>
-                                                    <!-- トランプスタイル: 色A=左奥と右手前 色B=右奥と左手前 -->
-                                                    <option data-translation-key="flipTileHolly" value="holly"></option>
-                                                    <option data-translation-key="flipTileRhombus" value="rhombus"></option>
-                                                    <option data-translation-key="flipTileSquares" value="squares"></option>
-                                                    <option data-translation-key="flipTileULines" value="uLines"></option>
-                                                    <!-- マイクロチップスタイル: 色A=線 色B=背景 -->
-                                                    <option data-translation-key="flipTileStar" value="star"></option>
-                                                    <option data-translation-key="flipTileSemicircles" value="semicircles"></option>
-                                                    <!-- ケプラースタイル: 色B=左奥と右手前 色C=右奥と左手前 -->
-                                                    <option data-translation-key="flipTileDaoFu" value="fortune"></option>
-                                                    <!-- ajrスタイル-->
-                                                    <option data-translation-key="flipTileRing" value="ring"></option>
-                                                    <option data-translation-key="flipTileCross" value="cross"></option>
-                                                    <option data-translation-key="flipTileNuclear" value="nuclear"></option>
-                                                    <option data-translation-key="flipTileBiohazard" value="biohazard"></option>
-                                                    <option data-translation-key="flipTileEight" value="eight"></option>
-                                                    <option data-translation-key="flipTileSakura" value="sakura"></option>
-                                                    <option data-translation-key="flipTileShootingStars" value="shootingstars"></option>
-                                                    <option data-translation-key="flipTileSmiley" value="smiley"></option>
-                                                    <option data-translation-key="flipTileNeedle" value="needle"></option>
-                                                    <option data-translation-key="flipTileHourglass" value="hourglass"></option>
-                                                    <option data-translation-key="flipTileClub" value="club"></option>
-                                                    <option data-translation-key="flipTileSparkle" value="sparkle"></option>
-                                                    <!--<option data-translation-key="flipTileParade" value="parade"></option>-->
-                                                    <option data-translation-key="flipTileBrazil" value="brazil"></option>
-                                                </optgroup>
-                                                <option data-translation-key="flipTileCheckerEdged" value="checkeredged" data-g></option>
-                                                <!-- 3D Spacial Zoneスタイル-->
-                                                <option data-translation-key="flipTileHeart" value="heart"></option>
-                                                <!-- RWスタイル, ただし向きは改良 -->
-                                                <option data-translation-key="flipTileSunshine" value="sunshine"></option>
-                                                <option data-translation-key="flipTileCits" value="cits"></option>
-                                                <!-- 天空の城風(自作) -->
-                                                <option data-translation-key="flipTileFakeGround" value="fakeground"></option>
-                                                <option data-translation-key="importImages" value="import"></option>
                                             </select>
                                         </label>
                                         <!-- 新しく追加したらsavadataandinteractiveform.jsも更新する-->
@@ -1911,45 +1819,6 @@
                                             <span data-translation-key="flipperReverse"></span>
                                             <span data-translation-key="flipTileType"></span>
                                             <select id="flipTileReverseType">
-                                                <optgroup data-translation-key="patternStyleFromRS" label="">
-                                                    <option data-translation-key="flipTileCube" value="cube"></option>
-                                                    <!-- 立方スタイル: 色A=前後の枠と左右の内側三角 色B=左右の枠と前後の内側三角 -->
-                                                    <option data-translation-key="flipTileChecker" value="checker"></option>
-                                                    <!-- トランプスタイル: 色A=左奥と右手前 色B=右奥と左手前 -->
-                                                    <option data-translation-key="flipTileHolly" value="holly"></option>
-                                                    <option data-translation-key="flipTileRhombus" value="rhombus"></option>
-                                                    <option data-translation-key="flipTileSquares" value="squares"></option>
-                                                    <option data-translation-key="flipTileULines" value="uLines"></option>
-                                                    <!-- マイクロチップスタイル: 色A=線 色B=背景 -->
-                                                    <option data-translation-key="flipTileStar" value="star"></option>
-                                                    <option data-translation-key="flipTileSemicircles" value="semicircles"></option>
-                                                    <!-- ケプラースタイル: 色B=左奥と右手前 色C=右奥と左手前 -->
-                                                    <option data-translation-key="flipTileDaoFu" value="fortune"></option>
-                                                    <!-- ajrスタイル-->
-                                                    <option data-translation-key="flipTileRing" value="ring"></option>
-                                                    <option data-translation-key="flipTileCross" value="cross"></option>
-                                                    <option data-translation-key="flipTileNuclear" value="nuclear"></option>
-                                                    <option data-translation-key="flipTileBiohazard" value="biohazard"></option>
-                                                    <option data-translation-key="flipTileEight" value="eight"></option>
-                                                    <option data-translation-key="flipTileSakura" value="sakura"></option>
-                                                    <option data-translation-key="flipTileShootingStars" value="shootingstars"></option>
-                                                    <option data-translation-key="flipTileSmiley" value="smiley"></option>
-                                                    <option data-translation-key="flipTileNeedle" value="needle"></option>
-                                                    <option data-translation-key="flipTileHourglass" value="hourglass"></option>
-                                                    <option data-translation-key="flipTileClub" value="club"></option>
-                                                    <option data-translation-key="flipTileSparkle" value="sparkle"></option>
-                                                    <!--<option data-translation-key="flipTileParade" value="parade"></option>-->
-                                                    <option data-translation-key="flipTileBrazil" value="brazil"></option>
-                                                </optgroup>
-                                                <option data-translation-key="flipTileCheckerEdged" value="checkeredged" data-g></option>
-                                                <!-- 3D Spacial Zoneスタイル-->
-                                                <option data-translation-key="flipTileHeart" value="heart"></option>
-                                                <!-- RWスタイル, ただし向きは改良 -->
-                                                <option data-translation-key="flipTileSunshine" value="sunshine"></option>
-                                                <option data-translation-key="flipTileCits" value="cits"></option>
-                                                <!-- 天空の城風(自作) -->
-                                                <option data-translation-key="flipTileFakeGround" value="fakeground"></option>
-                                                <option data-translation-key="importImages" value="import"></option>
                                             </select>
                                         </label>
                                         <!-- 新しく追加したらsavadataandinteractiveform.jsも更新する-->
@@ -2188,7 +2057,7 @@
                                     <option data-translation-key="mplGlow" value="glow"></option><!-- 砂漠 -->
                                 </select>
                             </label><br>
-                            <a class="button" id="importMiddleColors" data-translation-key="importMiddleColors" data-window-open-button="enemyMiddleColorImportWindow"></a><br>
+                            <a class="button" id="importMiddleColors" data-translation-key="importMiddleColors" data-window-open-button="colorImportWindow"></a><br>
                             <a class="button" id="swapMainPalette" data-translation-key="swapMainPalette"></a>
                         </div>
                         <!-- F -->
@@ -2428,20 +2297,13 @@
                         <div id="loadStatus"></div>
 
 
-                        <h2 data-translation-key="saveBatch"></h2>
+                        <h2 data-translation-key="saveTheme"></h2>
                         <label><span data-translation-key="themeName"></span><input type="text" id="themeName" value="My Theme"></label>
-                        <script>
-                            window.addEventListener("load", function() {
-                                document.getElementById("themeName").addEventListener("input", function() {
-                                    document.getElementById("saveTheme").setAttribute("download", document.getElementById("themeName").value + ".rstheme");
-                                }, true);
-                            });
-
-                        </script>
+                        <h3 data-translation-key="saveBatch"></h3>
                         <a id="downloadZip" class="button blockLink" data-translation-key="downloadZip"></a>
 
-                        <h2 data-translation-key="saveIndiv"></h2>
-                        <a id="saveTheme" class="button blockLink" data-translation-key="saveTheme" download="My Theme.rstheme"></a>
+                        <h3 data-translation-key="saveIndiv"></h3>
+                        <a id="saveTheme" class="button blockLink" data-translation-key="saveJSON" download="My Theme.rstheme"></a>
 
                         <a id="downloadGeneral" class="button blockLink" data-translation-key="downloadGeneral" download="General.png"></a>
                         <a id="downloadFragile" class="button blockLink" data-translation-key="downloadFragile" download="Fragile.png"></a>
@@ -2458,17 +2320,24 @@
             <window>
                 <h2 data-translation-key="versionInformationWindow">Version information</h2>
                 <window-content>
-                    <h3 data-translation-key="appTitle"></h3>
-                    v1.1.9 <span id="appVersion" style="font-size:10px;"><a href="files/updateinfo.html" target="_blank" data-translation-key="changelogLink"></a></span><br>
-                    by Kumafuji1202
-                    <a target="_blank" href="https://scratch.mit.edu/users/kumafuji1202/"><img src="../../../resources/scratchIcon.png"></a>
-                    <a target="_blank" href="https://www.youtube.com/@Kumafuji1202"><img src="../../../resources/youtubeIcon.png"></a>
+                    <h3><span data-translation-key="appTitle"></span> <span tr-key="versionName"></span></h3>
+                    by <a href="../../../" title="to Top page">Kumafuji1202</a>
                     <p id="updateNav">
                         Send feedbacks and recieve update information in this tool's <a href="https://discord.com/channels/400983101507108874/1125786002330505367" target="_blank">official discord thread</a> in <a href="https://discord.gg/rolling-world-400983101507108874" target="_blank">Rolling Lounge</a> server!
                     </p>
                     <div id="updateInfo">
+                        <h1><a href="files/subpages/changelogs.html" target="_blank" data-translation-key="changelogLink"></a></h1>
                         <h1 data-translation-key="recentUpdates"></h1>
                         <ol id="recentVersionList">
+                            <li>
+                                <h2>1.2.0 (2024 Jul 26)</h2>
+                                <ul>
+                                    <li>Added Enemy top-right pattern "New Generic" (with color extraction tool)</li>
+                                    <li>Added flipper patterns 'Crest' (from Kingdom War)</li>
+                                    <li>JS/CSS/image files organized into folders</li>
+                                    <li>Fixed Enemy top-right presets not working</li>
+                                </ul>
+                            </li>
                             <li>
                                 <h2>1.1.9 (2024 Jun 30)</h2>
                                 <ul>
@@ -2478,25 +2347,18 @@
                                     <li>Flipper obverse and reverse patterns can now be chosen separately</li>
                                 </ul>
                             </li>
-                            <li>
-                                <h2>1.1.8 (2024 Apr 06)</h2>
-                                <ul>
-                                    <li>Added flipper pattern 'Leaves'</li>
-                                    <li>Some code made faster by replacing <code>Array.forEach()</code> with <code>for(... of ...)</code></li>
-                                    <li>Fixed portrait mode UI not being applied... hopefully</li>
-                                </ul>
-                            </li>
                         </ol>
                     </div>
                 </window-content>
                 <a href="#" data-window-close-button class="button">Close</a>
             </window>
         </window-positioner>
-        <window-positioner id="enemyMiddleColorImportWindow">
+        <window-positioner id="colorImportWindow">
             <window>
                 <h2 data-translation-key="colorImportWindow"></h2>
                 <window-content>
                     <h3 data-translation-key="openImportOrigin"></h3>
+                    id: <code id="colorExtractorDatasetId"></code>
                     <div>
                         <label for="enemyColorImport"><a class="button" data-translation-key="openFileControl"></a></label>
                         <input id="enemyColorImport" type="file" accept="image/*" data-loading-process="enemyColorImportControlLoadingProgress" data-load-destination="enemyColorImportImg"><br>
@@ -2523,5 +2385,54 @@
         </window-positioner>
     </dialogue-group>
 </body>
+
+<!-- 読み込み順の関係で最初に置けないjsとか -->
+<script src="files/js/UI/formGeneration.js"></script>
+<script id="closeConfirmer">
+    var disableConfirmation = false;
+    window.addEventListener('beforeunload', function(e) {
+        if (disableConfirmation) return;
+        e.preventDefault();
+        e.returnValue = '';
+    });
+
+</script>
+<script src="files/js/design.js"></script>
+<script id="pseudoMediaQuery" src="files/js/UI/gridpseudomediaquery.js"></script>
+
+<!-- UL系 -->
+<script id="saveLoadSystem" src="files/js/UI/accordions.js"></script>
+<script id="saveLoadSystem" src="files/js/UI/dialogues.js"></script>
+<!-- ツール -->
+<script id="saveLoadSystem" src="files/js/tools/enemyPresets.js"></script>
+<script id="saveLoadSystem" src="files/js/tools/colorExtractor.js"></script>
+<script id="saveLoadSystem" src="files/js/tools/others.js"></script>
+<!-- 読み込み・フォーム更新 -->
+<script id="saveLoadSystem" src="files/js/dataSaveandLoad.js"></script>
+<script id="saveLoadSystem" src="files/js/UI/rangeNumberSync.js"></script>
+<script id="saveLoadSystem" src="files/js/UI/togglingForms.js"></script>
+
+<script id="imageGenerator" src="files/js/imagegen.js"></script>
+<script id="imageLoadingSystem" src="files/js/tools/imageLoadingSystem.js"></script>
+<script id="g">
+    function showFanmades() {
+        for (let each of document.querySelectorAll("*[data-g]")) {
+            each.setAttribute("data-h", "");
+        }
+        return "ɵ";
+    }
+
+</script>
+<style id="h">
+    *[data-g]:not([data-h]) {
+        display: none;
+    }
+
+    .ae {
+        color: inherit !important;
+        text-decoration: inherit !important;
+    }
+
+</style>
 
 </html>

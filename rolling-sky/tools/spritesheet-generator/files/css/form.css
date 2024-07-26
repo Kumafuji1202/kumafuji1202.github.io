@@ -49,8 +49,10 @@ input[type=number] {
     color: inherit;
 }
 
-canvas {
+canvas:not(.idMap) {
     width: 100%;
+}
+canvas {
     display: block;
 }
 .outputOverlay{
@@ -74,12 +76,12 @@ canvas {
 html[data-theme=light] #output canvas,
 html[data-theme=light] #formContainer canvas,
 html[data-theme=light] .imgImport {
-    background-image: url(transparent.png);
+    background-image: url(../graphics/UI/transparent.png);
 }
 html[data-theme=dark] #output canvas,
 html[data-theme=dark] #formContainer canvas,
 html[data-theme=dark] .imgImport {
-    background-image: url(transparentbg-dark.png);
+    background-image: url(../graphics/UI/transparentbg-dark.png);
 }
 
 td {
@@ -114,6 +116,11 @@ label > span:first-child::after {
 
 input[type=file] {
     display: none;
+}
+
+.mayScrollHorizontally {
+    overflow-x: auto;
+    max-width: 100%;
 }
 
 .listTable > tbody th, .listTable > tbody td{
@@ -159,7 +166,7 @@ table.colorSettingTable > tbody th{
     display: inline-block;
     height: 16px;
     margin: 0 8px 0;
-    content: url("accordionIcon.svg");
+    content: url("../graphics/UI/accordionIcon.svg");
     transition: transform 0.5s ease-in-out;
     transform: rotate(90deg);
     align-self: center;

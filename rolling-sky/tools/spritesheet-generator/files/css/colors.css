@@ -4,13 +4,13 @@
 }
 
 html[data-theme=light] #header {
-    background-image: url(Background84%20-%20repeatable.png);
+    background-image: url(../graphics/backgrounds/Background84%20-%20repeatable.png);
     border-bottom-color: #000000;
 }
 
 html[data-theme=dark] #header {
     background-color: #121217;
-    background-image: url(Background68.png);
+    background-image: url(../graphics/backgrounds/Background68.png);
     background-position: center -50px;
     border-bottom-color: #804000;
     color: #00c0c0;
@@ -66,7 +66,7 @@ html[data-theme=dark] #formNav li:not(.selectedTab) {
 
 /*formbody*/
 html[data-theme=light] #formBody {
-    background-image: url(Background8.png);
+    background-image: url(../graphics/backgrounds/Background8.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: #ffffff;
@@ -77,7 +77,7 @@ html[data-theme=light] #formContainer {
 }
 
 html[data-theme=dark] #formBody {
-    background-image: url(Background48.png);
+    background-image: url(../graphics/backgrounds/Background48.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: #0d1a1e;
@@ -89,14 +89,14 @@ html[data-theme=dark] #formContainer {
 }
 
 html[data-theme=light] #output {
-    background-image: url(Background100.png);
+    background-image: url(../graphics/backgrounds/Background100.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: #FFEDAA;
 }
 
 html[data-theme=dark] #output {
-    background-image: url(Background29.png);
+    background-image: url(../graphics/backgrounds/Background29.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-color: #000E0D;

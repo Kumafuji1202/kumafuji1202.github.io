@@ -707,5 +707,42 @@ var changeLogs = [
                 }
             ]
         }
+    },
+    {
+        "versionNumber": "1.2.0",
+        "releaseDate": {
+            "year": 2024,
+            "month": 7,
+            "day": 26
+        
+        },
+        "changes": {
+            "bugfixes": [
+                {
+                    "en": "Fixed Enemy top-right presets not working",
+                    "ja": "Enemyのプリセットが使えない問題を修正"
+                }
+            ],
+            "additions": [
+                {
+                    "en": "Added Enemy top-right pattern \"New Generic\" (with color extraction tool)",
+                    "ja": "Enemy右上設定「新汎用」を追加(色抽出機能付き)"
+                },
+                {
+                    "en": "Added flipper patterns 'Crest' (from Kingdom War)",
+                    "ja": "反転床模様「紋章」を追加"
+                }
+            ],
+            "changes": [
+                {
+                    "en": "JS/CSS/image files organized into folders",
+                    "ja": "JS/CSS/画像ファイルをフォルダに整理"
+                },
+                {
+                    "en": "A small change to layout of the 'save/load' window",
+                    "ja": "「保存・読込」ウインドウのレイアウトを少し変更"
+                }
+            ]
+        }
     }
 ];
