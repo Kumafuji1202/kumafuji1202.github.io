@@ -4,9 +4,10 @@ Number.prototype.clamp = function (min, max) {
     if (this < min) return min;
     return this;
 };
-
-String.prototype.isSurrogate = function () {return String.fromCharCode(0xd800) <= this && this < String.fromCharCode(0xe000)};
-String.prototype.lengthAt = function(position){
+String.prototype.isSurrogate = function () {
+    return String.fromCharCode(0xd800) <= this.charAt(0) && this.charAt(0) < String.fromCharCode(0xe000);
+};
+String.prototype.lengthAt = function (position) {
     return (this.charAt(position).isSurrogate()) ? 2 : 1;
 };
 
@@ -36,9 +37,17 @@ Col.fromColorCode = (colorCode) => {
     }
 };
 
-function getElem(id){
+function getElem(id) {
     return document.getElementById(id);
 }
-HTMLElement.prototype.setClick = function(callback, bubble = false){
+HTMLElement.prototype.setClick = function (callback, bubble = false) {
     this.addEventListener("click", callback, bubble);
 };
+//HTMLInputElement.prototype.v = HTMLInputElement.prototype.value;
+
+
+
+var turn = (x, y, angle) => ({
+    x: x * Math.cos(angle) - y * Math.sin(angle),
+    y: x * Math.sin(angle) + y * Math.cos(angle)
+});
