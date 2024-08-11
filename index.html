@@ -12,7 +12,9 @@
     <link rel="icon" href="https://yt3.googleusercontent.com/QHv5o9xCHNz9NWOZ3CYQX0JNTCaAa7hgvFPxeVQqSzgavG0FpBvodxYz55zJJE-9_WeJGwCI=s900-c-k-c0x00ffffff-no-rj">
     -->
     <link rel="stylesheet" href="css-global/centered-contents.css">
+    <link rel="stylesheet" href="css-global/global.css">
     <script src="js-global/lang.js"></script>
+    <script src="js-global/utils.js"></script>
     <style>
         html {
             --header-footer-bg: #543;
@@ -58,6 +60,9 @@
             padding: 5px 0;
         }
 
+        a {
+            color: var(--link-color);
+        }
         h1 {
             font-size: 36px;
             margin: 0;
@@ -110,7 +115,6 @@
             border: var(--li-link-border);
             font-size: 14px;
             text-decoration: none;
-            color: var(--link-color);
             transition: all 0.3s ease;
             display: inline-block;
         }
@@ -174,7 +178,7 @@
                             <li><span data-translation-key="friends.sciTech"></span>: <a href="https://www.youtube.com/@sci-tech3200"></a></li>
                             <li><span data-translation-key="friends.mamushi"></span>: <a href="https://www.youtube.com/@mamuc_"></a> <a href="https://ma-mushi.itch.io/"></a></li>
                             <li><span data-translation-key="friends.menn"></span>: <a href="https://www.youtube.com/@Menn9844"></a> <a href="https://github.com/menn-9844"></a></li>
-                            <li><span data-translation-key="friends.mawario"></span>: <a href="https://mawario.netlify.app/"></a> <a href="https://mawario.itch.io"></a> <a href="https://www.youtube.com/@mawario"></a> <a href="https://github.com/mawario103"></a></li>
+                            <li><span data-translation-key="friends.mawario"></span>: <a href="https://mawario.netlify.app/"></a> <a href="https://mawario.itch.io"></a> <a href="https://www.youtube.com/@mawario"></a> <a href="https://github.com/mawario103"></a> <a href="https://twitter.com/mawario_103"></a></li>
                             <li><span data-translation-key="friends.shin"></span>: <a href="https://www.youtube.com/@TENMAY"></a></li>
                         </ul>
                     </section>
@@ -208,7 +212,8 @@
                             <li>2024 Jun 16 <span data-translation-key="recentUpds.u240616"></span></li>
                             <li>2024 Jun 30 <span data-translation-key="recentUpds.u240630"></span></li>
                             <li>2024 Jul 14 <span data-translation-key="recentUpds.u240714"></span></li>
-                            <li>2024 May 31 <span data-translation-key="recentUpds.u240726"></span></li>
+                            <li>2024 Jul 26 <span data-translation-key="recentUpds.u240726"></span></li>
+                            <li>2024 Aug 11 <span data-translation-key="recentUpds.u240811"></span></li>
                         </ul>
                     </section>
                 </div>
@@ -231,6 +236,10 @@
 
                 <h3 data-translation-key="siteMap.webTools.others"></h3>
                 <ul>
+                    <li>
+                        <h4><a href="control-clipboard/" data-translation-key="siteMap.webTools.controlCopy"></a></h4>
+                        <p data-translation-key="siteMap.webTools.controlCopy.introduction"></p>
+                    </li>
                     <li>
                         <h4><a href="arabic-to-presentation/" data-translation-key="siteMap.webTools.arabic2presB"></a></h4>
                         <p data-translation-key="siteMap.webTools.arabic2presB.introduction"></p>
@@ -270,6 +279,7 @@
     <div id="footerSpacer"></div>
     <footer>
         2024 Kumafuji1202, CSS partly by Menn ｆｄさｆｄさｆｄさ
+        <a target="_blank" href="https://icons8.com/icon/13963/twitter">Twitter</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
         <!--なんか入れて（？？？？？？？？？？？？？？？？）ｆｄさｆｄさｆｄさ fdssaassasasaaasa-->
     </footer>
 </body>
@@ -297,6 +307,7 @@
                 "jAUwItiAhBI", //ピアノ by Piano Music Bros.
                 "bPZSDBvDmVw", //LoFi
                 "nxeA7_XRxiY", //オルゴール
+                "znZ7yu-4j0c", //DJ TOM
                 //合成
                 "6omHDfHITZ4?t=7", //夜にかける
             ];
@@ -484,11 +495,6 @@
                 "en-Shaw": "𐑮𐑰𐑕𐑩𐑯𐑑 𐑳𐑐𐑛𐑱𐑑𐑕",
                 "ja": "最近の更新"
             },
-            "recentUpds.u240531": {
-                "en": "added Shavian keyboard tool",
-                "en-Shaw": "𐑨𐑛𐑦𐑛 ·𐑖𐑱𐑝𐑾𐑯 𐑒𐑰𐑚𐑹𐑛 𐑑𐑵𐑤",
-                "ja": "ショー文字キーボード追加"
-            },
             "recentUpds.u240616": {
                 "en": "updated Shavian keyboard tool <br> added Direction Converter",
                 "en-Shaw": "𐑳𐑚𐑛𐑱𐑑𐑦𐑛 ·𐑖𐑱𐑝𐑾𐑯 𐑒𐑰𐑚𐑹𐑛 𐑑𐑵𐑤 <br> 𐑨𐑛𐑦𐑛 𐑣𐑪𐑮𐑦𐑟𐑪𐑯𐑑𐑩𐑤 𐑒𐑩𐑯𐑝𐑻𐑛𐑼",
@@ -496,7 +502,7 @@
             },
             "recentUpds.u240630": {
                 "en": "updated Spritesheet Generator",
-                "en-Shaw": "𐑳𐑚𐑛𐑱𐑑𐑦𐑛·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼",
+                "en-Shaw": "𐑳𐑚𐑛𐑱𐑑𐑦𐑛 ·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼",
                 "ja": "テクスチャメーカー更新"
             },
             "recentUpds.u240714": {
@@ -508,6 +514,11 @@
                 "en": "updated Spritesheet Generator and Direction Converter",
                 "en-Shaw": "𐑨𐑛𐑦𐑛 ·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼 𐑯 𐑣𐑪𐑮𐑦𐑟𐑪𐑯𐑑𐑩𐑤 𐑒𐑩𐑯𐑝𐑻𐑛𐑼",
                 "ja": "テクスチャメーカーと横書き⇒縦書き変換器更新"
+            },
+            "recentUpds.u240811": {
+                "en": "added Copy Control Characters tool",
+                "en-Shaw": "𐑨𐑛𐑦𐑛 \"𐑒𐑪𐑓𐑦 𐑒𐑩𐑯𐑑𐑮𐑴𐑤 𐑒𐑨𐑮𐑩𐑒𐑑𐑼𐑟\" 𐑑𐑵𐑤",
+                "ja": "制御文字コピー追加"
             },
             "siteMap.webTools": {
                 "en": "My Webtools",
@@ -551,6 +562,16 @@
                 "en-Shaw": "𐑳𐑞𐑼𐑟",
                 "ja": "非RS",
                 "zse": "Detu dige toto"
+            },
+            "siteMap.webTools.controlCopy": {
+                "en": "Copy Control Characters",
+                "en-Shaw": "𐑒𐑪𐑓𐑦 𐑒𐑩𐑯𐑑𐑮𐑴𐑤 𐑒𐑨𐑮𐑩𐑒𐑑𐑼𐑟",
+                "ja": "制御文字コピー"
+            },
+            "siteMap.webTools.controlCopy.introduction": {
+                "en": "Copies Unicode control characters to clipboard.",
+                "en-Shaw": "𐑒𐑪𐑓𐑰𐑟 ·𐑿𐑯𐑦𐑒𐑴𐑛 𐑒𐑩𐑯𐑑𐑮𐑴𐑤 𐑒𐑨𐑮𐑩𐑒𐑑𐑼𐑟 𐑑 𐑒𐑤𐑦𐑐𐑚𐑹𐑛.",
+                "ja": "Unicode制御文字をクリップボードにコピー"
             },
             "siteMap.webTools.arabic2presB": {
                 "en": "Arabic Script -> Arabic Presentation Forms-B Converter",
@@ -642,7 +663,15 @@
     for (let elem of Array.from(document.querySelectorAll("a[href^=\"http\"]:empty"))) {
         elem.setAttribute("target", "_blank");
         let hre = elem.getAttribute("href");
-        elem.style.content = `url(https://www.google.com/s2/favicons?domain=${hre})`;
+        if (hre.match(/^(https:\/\/)?twitter\.com\//)) {
+            elem.style.content = "url(resources/icons8-twitter-16.png)";
+            elem.setClick( e => {
+                if (!confirm("Are you sure you want to jump to Twitter?")) {e.preventDefault(); return;}
+                if (!confirm("Are you sure you want to jump to TWITTER?")) e.preventDefault();
+            })
+        } else {
+            elem.style.content = `url(https://www.google.com/s2/favicons?domain=${hre})`;
+        }
         /*if (hre.includes("www.youtube.com")) {
             elem.setAttribute("title", langMgr.callText("siteNames.youTube"));
             continue;

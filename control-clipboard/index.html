@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Copy Control Characters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="pagename" content="Control Characters Copy" />
+    <meta name="author" content="Kumafuji1202" />
+    <meta name="twitter:url" content="https://kumafuji1202.github.io/control-clipboard/" />
+    <meta name="keywords" content="hoge, puyo, hogehoge">
+    <link rel="canonical" href="https://kumafuji1202.github.io/control-clipboard/" />
+    <meta name="twitter:title" content="qux" />
+    <meta name="twitter:description" content="Lorem ipsum dolor sit amet" />
+    <meta name="theme-color" content="#123456" />
+    <link rel="stylesheet" href="../css-global/global.css" />
+    <script src="../js-global/lang.js"></script>
+    <script src="../js-global/utils.js"></script>
+    <style>
+        html {
+            background: #cbf;
+            overflow-x: hidden; 
+        }
+        
+        button:hover {
+            background: #fff;
+            color: black;
+            transform: scale(1.1);
+            transition: transform 0.01s ease-out;
+        }
+        button:active {
+            background: #64a;
+            color: white;
+            transform: scale(0.9);
+        }
+
+        #list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        #list>* {
+            /*height: 100px;*/
+            font-size: 1.5em;
+            margin: 5px;
+            transition: transform 0.25s ease-out;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Copy Control Characters</h1>
+    <a href="../">Back</a>
+    <div id="copyStatus">Copy Status</div>
+    <div id="list"></div>
+</body>
+<script>
+    var codes = [
+        {
+            name: "Zero-width space",
+            code: 0x200B
+        },
+        {
+            name: "Zero-width non-joiner",
+            code: 0x200C
+        },
+        {
+            name: "Zero-width joiner",
+            code: 0x200D
+        },
+        {
+            name: "Left-to-right mark",
+            code: 0x200E
+        },
+        {
+            name: "Right-to-left mark",
+            code: 0x200F
+        },
+        {
+            name: "Left-to-right embedding",
+            code: 0x202A
+        },
+        {
+            name: "Right-to-left embedding",
+            code: 0x202B
+        },
+        {
+            name: "Pop directional formatting",
+            code: 0x202C
+        },
+        {
+            name: "Left-to-right override",
+            code: 0x202D
+        },
+        {
+            name: "Right-to-left override",
+            code: 0x202E
+        },
+        {
+            name: "Word joiner",
+            code: 0x2060
+        },
+        {
+            name: "Left-to-right isolate",
+            code: 0x2066
+        },
+        {
+            name: "Right-to-left isolate",
+            code: 0x2067
+        },
+        {
+            name: "First strong isolate",
+            code: 0x2068
+        },
+        {
+            name: "Pop directional isolate",
+            code: 0x2069
+        },
+        {
+            name: "Variation selector 1",
+            code: 0xFE00
+        },
+        {
+            name: "Variation selector 2",
+            code: 0xFE01
+        },
+        {
+            name: "Variation selector 3",
+            code: 0xFE02
+        },
+        {
+            name: "Variation selector 15",
+            code: 0xFE0E
+        },
+        {
+            name: "Variation selector 16",
+            code: 0xFE0F
+        },
+        {
+            name: "Variation selector 17",
+            code: 0xE0100
+        },
+        {
+            name: "Variation selector 18",
+            code: 0xE0101
+        },
+    ];
+
+    function toClipboard(e) {
+        navigator.clipboard.writeText(String.fromCodePoint(e.target.title))
+        .then(() => {
+            getElem("copyStatus").innerHTML = `Successfully copied ${e.target.innerHTML} to clipboard`;
+        }, () => {});
+    }
+    for (let code of codes) {
+        let buttonElem = document.createElement("button");
+        buttonElem.innerHTML = `${code.name} (U+${code.code.toString(16).toUpperCase()})`;
+        buttonElem.title = +code.code;
+        buttonElem.setClick(toClipboard);
+        getElem("list").appendChild(buttonElem);
+    }
+
+</script>
+
+</html>

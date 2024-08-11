@@ -10,7 +10,8 @@ html {
     line-height: 1.5em;
 }*/
 
-button,input {
+button,
+input {
     background-color: inherit;
     color: inherit;
     font-family: inherit;
@@ -26,10 +27,27 @@ select {
     border-style: solid;
     border-radius: 5px;
     border-width: 1px;
+    height: 1.5em;
 }
 
 option {
     background-color: white;
     color: black;
     font: inherit;
+}
+
+ul:not(.has-markers) {
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+ul:not(.has-markers) > li{
+    display: block;
+}
+
+table:not(.no-border), table:not(.no-border) th, table:not(.no-border) td{
+    border: 1px solid;
+    border-collapse: collapse;
+}
+table:not(.no-border) th, table:not(.no-border) td{
+    padding: 0.25em;
 }
