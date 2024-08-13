@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Copy Control Characters</title>
+    <title tr-key="ui.appName"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="pagename" content="Copy Control Characters" />
     <meta name="author" content="Kumafuji1202" />
@@ -17,16 +17,25 @@
     <script src="../js-global/utils.js"></script>
     <style>
         html {
-            background: #cbf;
-            overflow-x: hidden; 
+            background: #a8d;
+            overflow-x: hidden;
+            color: white;
         }
         
+        button {
+            border: 2px solid white;
+        }
+        button:not(:hover) a {
+            color: white;
+        } 
+
         button:hover {
             background: #fff;
-            color: black;
+            color: #84c;
             transform: scale(1.1);
             transition: transform 0.01s ease-out;
         }
+
         button:active {
             background: #64a;
             color: white;
@@ -49,112 +58,246 @@
 </head>
 
 <body>
-    <h1>Copy Control Characters</h1>
-    <a href="../">Back</a>
+    <h1 tr-key="ui.appName"></h1>
+    <nav>
+        <button>
+            <a href="../">Back / 戻る</a>
+        </button>
+        <label for="languageSelectBox" data-translation-key="ui.langSelect.label"></label>
+        <select id="languageSelectBox"></select>
+    </nav>
+    <p tr-ot tr-ot-en="Click on / tap square to copy a control character to your clipboard." tr-ot-ja="下のボタンをクリックして制御文字をクリップボードにコピー"></p>
     <div id="copyStatus">Copy Status</div>
     <div id="list"></div>
 </body>
 <script>
-    var codes = [
-        {
-            name: "Zero-width space",
+    var codes = [{
+            name: {
+                "en": "Zero-width space",
+                "ja": "ゼロ幅スペース",
+            },
             code: 0x200B
         },
         {
-            name: "Zero-width non-joiner",
+            name: {
+                "en": "Zero-width non-joiner",
+                "ja": "ゼロ幅非接合子",
+            },
             code: 0x200C
         },
         {
-            name: "Zero-width joiner",
+            name: {
+                "en": "Zero-width joiner",
+                "ja": "ゼロ幅接合子",
+            },
             code: 0x200D
         },
         {
-            name: "Left-to-right mark",
+            name: {
+                "en": "Left-to-right mark",
+                "ja": "左横書きマーク",
+            },
             code: 0x200E
         },
         {
-            name: "Right-to-left mark",
+            name: {
+                "en": "Right-to-left mark",
+                "ja": "右横書きマーク",
+            },
             code: 0x200F
         },
         {
-            name: "Left-to-right embedding",
+            name: {
+                "en": "Left-to-right embedding",
+                "ja": "左横書き埋め込み",
+            },
             code: 0x202A
         },
         {
-            name: "Right-to-left embedding",
+            name: {
+                "en": "Right-to-left embedding",
+                "ja": "右横書き埋め込み",
+            },
             code: 0x202B
         },
         {
-            name: "Pop directional formatting",
+            name: {
+                "en": "Pop directional formatting",
+                "ja": "書字方向指定解除",
+            },
             code: 0x202C
         },
         {
-            name: "Left-to-right override",
+            name: {
+                "en": "Left-to-right override",
+                "ja": "左横書き上書き",
+            },
             code: 0x202D
         },
         {
-            name: "Right-to-left override",
+            name: {
+                "en": "Right-to-left override",
+                "ja": "右横書き上書き",
+            },
             code: 0x202E
         },
         {
-            name: "Word joiner",
+            name: {
+                "en": "Word joiner",
+                "ja": "単語接合子",
+            },
             code: 0x2060
         },
         {
-            name: "Left-to-right isolate",
+            name: {
+                "en": "Left-to-right isolate",
+                "ja": "左横書きisolate",
+            },
             code: 0x2066
         },
         {
-            name: "Right-to-left isolate",
+            name: {
+                "en": "Right-to-left isolate",
+                "ja": "右横書きisolate",
+            },
             code: 0x2067
         },
         {
-            name: "First strong isolate",
+            name: {
+                "en": "First strong isolate",
+                "ja": "First strong isolate",
+            },
             code: 0x2068
         },
         {
-            name: "Pop directional isolate",
+            name: {
+                "en": "Pop directional isolate",
+                "ja": "異体字セレクタ1",
+            },
             code: 0x2069
         },
         {
-            name: "Variation selector 1",
+            name: {
+                "en": "Variation selector 1",
+                "ja": "異体字セレクタ1",
+            },
             code: 0xFE00
         },
         {
-            name: "Variation selector 2",
+            name: {
+                "en": "Variation selector 2",
+                "ja": "異体字セレクタ2",
+            },
             code: 0xFE01
         },
         {
-            name: "Variation selector 3",
+            name: {
+                "en": "Variation selector 3",
+                "ja": "異体字セレクタ3",
+            },
             code: 0xFE02
         },
         {
-            name: "Variation selector 15",
+            name: {
+                "en": "Variation selector 15",
+                "ja": "異体字セレクタ15",
+            },
             code: 0xFE0E
         },
         {
-            name: "Variation selector 16",
+            name: {
+                "en": "Variation selector 16",
+                "ja": "異体字セレクタ16",
+            },
             code: 0xFE0F
         },
         {
-            name: "Variation selector 17",
+            name: {
+                "en": "Variation selector 17",
+                "ja": "異体字セレクタ17",
+            },
             code: 0xE0100
         },
         {
-            name: "Variation selector 18",
+            name: {
+                "en": "Variation selector 18",
+                "ja": "異体字セレクタ18",
+            },
             code: 0xE0101
+        },
+        {
+            name: {
+                "en": "Variation selector 19",
+                "ja": "異体字セレクタ19",
+            },
+            code: 0xE0102
+        },
+        {
+            name: {
+                "en": "Variation selector 20",
+                "ja": "異体字セレクタ20",
+            },
+            code: 0xE0103
+        },
+        {
+            name: {
+                "en": "Variation selector 21",
+                "ja": "異体字セレクタ21",
+            },
+            code: 0xE0104
+        },
+        {
+            name: {
+                "en": "Variation selector 22",
+                "ja": "異体字セレクタ22",
+            },
+            code: 0xE0105
+        },
+        {
+            name: {
+                "en": "Variation selector 23",
+                "ja": "異体字セレクタ23",
+            },
+            code: 0xE0106
         },
     ];
 
+    var lang = new LanguageManager({
+        languages: [{
+                name: "English",
+                code: "en"
+            },
+            {
+                name: "日本語",
+                code: "ja"
+            }
+        ],
+        translations: {
+            "ui.appName": {
+                en: "Copy Control Characters",
+                ja: "制御文字コピペ"
+            },
+            "ui.langSelect.label": {
+                en: "Select Language",
+                ja: "言語を選択",
+            }
+        }
+    });
+    lang.initSite(document.getElementById("languageSelectBox"));
+
     function toClipboard(e) {
         navigator.clipboard.writeText(String.fromCodePoint(e.target.title))
-        .then(() => {
-            getElem("copyStatus").innerHTML = `Successfully copied ${e.target.innerHTML} to clipboard`;
-        }, () => {});
+            .then(() => {
+                getElem("copyStatus").innerHTML = `Successfully copied ${e.target.innerHTML} to clipboard`;
+            }, () => {});
     }
     for (let code of codes) {
         let buttonElem = document.createElement("button");
-        buttonElem.innerHTML = `${code.name} (U+${code.code.toString(16).toUpperCase()})`;
+        buttonElem.setAttribute("type", "button");
+        buttonElem.setAttribute("tr-ot", "");
+        buttonElem.setAttribute("tr-ot-ja", `${code.name.ja} (U+${code.code.toString(16).toUpperCase()})`);
+        buttonElem.setAttribute("tr-ot-en", `${code.name.en} (U+${code.code.toString(16).toUpperCase()})`);
+        buttonElem.innerHTML = buttonElem.getAttribute("tr-ot-" + lang.currentLang);
         buttonElem.title = +code.code;
         buttonElem.setClick(toClipboard);
         getElem("list").appendChild(buttonElem);
