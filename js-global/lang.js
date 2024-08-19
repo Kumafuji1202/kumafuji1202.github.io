@@ -29,6 +29,7 @@ useLanguage: ページを翻訳
 langdatabase: 生のデータベースオブジェクト
 initSelectBox: 言語選択ボックスを設定
 callText: 翻訳テキストを呼び出し
+currentLang: 現在の言語コード
 */
 
 //currentLang = 現在の設定言語コード

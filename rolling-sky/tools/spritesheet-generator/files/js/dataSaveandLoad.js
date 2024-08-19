@@ -84,6 +84,10 @@ window.addEventListener("load", function(){
                     getElem(set.id).value = data[set.id];
                 } else if (set.prop == "checked") {
                     getElem(set.id).checked = data[set.id] == "true";
+                } else if (set.prop == "radio") {
+                    console.log("set");
+                    document.querySelector(`[name=\"${set.id}\"][value=\"${data[set.id]}\"]`).checked = true;
+                    //new FormData(getElem("form-content")).set(set.id, data[set.id]);
                 } else {
                     getElem(set.id).setAttribute(set.prop, data[set.id]);
                 }
@@ -146,12 +150,18 @@ window.addEventListener("load", function(){
     function generateSaveDataInner() {
         var json = "{\n\t\"version\": \"" + versionName + "\",\n\t\"versionNum\": " + versionNum + ",";
         for(let set of saveDataFormat) {
+            //ラジオボタン
+            if (set.prop == "radio"){
+                console.log("fda");
+                json += `\n\t\"${set.id}\": \"${new FormData(getElem("form-content")).get(set.id)}\",`;
+                continue;
+            }
             if (!getElem(set.id)) {
                 console.warn(`saveDataFormat で要求された ID ${set.id} に対応する要素が HTML側に存在しません`);
                 continue;
             }
             //TODO: set.idにあってhtmlにないidはここにエラーを出すので開発補助のために何か報告をする
-            json += "\n\t\"" + set.id + "\": \"" + getElem(set.id)[set.prop ? set.prop : "value"] + "\",";
+            json += `\n\t\"${set.id}\": \"${getElem(set.id)[set.prop ? set.prop : "value"]}\",`;
         }
         json += "\n\t\"enemyStripes\": " + getElem("stripeJSONData").value;
         json += "\n}";
@@ -160,7 +170,14 @@ window.addEventListener("load", function(){
     }
     getElem("generateButton").setClick(generateSaveDataInner, true);
 
+    //自動でセーブを更新するイベントリスナー
     for(let set of saveDataFormat){
+        if (set.prop == "radio") {
+            for(let radioElem of Array.from(document.getElementsByName(set.id))){
+                radioElem.addEventListener("change", generateSaveDataInner,true);
+            }
+            continue;
+        }
         getElem(set.id).addEventListener("change", generateSaveDataInner,true);
     }
 

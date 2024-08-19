@@ -173,11 +173,11 @@
                     <section>
                         <h2 data-translation-key="janPonaMi"></h2>
                         <ul>
-                            <li><span data-translation-key="friends.qwert"></span>: <a href="https://www.youtube.com/@qwhp_64"></a> <a href="https://scratch.mit.edu/users/qwert-hptgbdesu"></a></li>
+                            <li><span data-translation-key="friends.qwert"></span>: <a href="https://www.youtube.com/@qwhp_64"></a> <a href="https://scratch.mit.edu/users/qwert-hptgbdesu/"></a></li>
                             <li><span data-translation-key="friends.tsukikun"></span>: <a href="https://www.youtube.com/@tsukikun7"></a> <a href="https://scratch.mit.edu/users/tsukikun17/"></a></li>
                             <li><span data-translation-key="friends.sciTech"></span>: <a href="https://www.youtube.com/@sci-tech3200"></a></li>
                             <li><span data-translation-key="friends.mamushi"></span>: <a href="https://www.youtube.com/@mamuc_"></a> <a href="https://ma-mushi.itch.io/"></a></li>
-                            <li><span data-translation-key="friends.menn"></span>: <a href="https://www.youtube.com/@Menn9844"></a> <a href="https://github.com/menn-9844"></a></li>
+                            <li><span data-translation-key="friends.menn"></span>: <a href="https://www.youtube.com/@Menn9844"></a> <a href="https://github.com/menn-9844"></a> <a href="https://menn9844.itch.io/"></a></li>
                             <li><span data-translation-key="friends.mawario"></span>: <a href="https://mawario.netlify.app/"></a> <a href="https://mawario.itch.io"></a> <a href="https://www.youtube.com/@mawario"></a> <a href="https://github.com/mawario103"></a> <a href="https://twitter.com/mawario_103"></a></li>
                             <li><span data-translation-key="friends.shin"></span>: <a href="https://www.youtube.com/@TENMAY"></a></li>
                         </ul>
@@ -214,6 +214,7 @@
                             <li>2024 Jul 14 <span data-translation-key="recentUpds.u240714"></span></li>
                             <li>2024 Jul 26 <span data-translation-key="recentUpds.u240726"></span></li>
                             <li>2024 Aug 11 <span data-translation-key="recentUpds.u240811"></span></li>
+                            <li>2024 Aug 19 <span data-translation-key="recentUpds.u240726"></span></li>
                         </ul>
                     </section>
                 </div>
@@ -534,10 +535,10 @@
                 "zse": "Rolling Sky"
             },
             "siteMap.webTools.rs.rstm": {
-                "en": "Spritesheet Generator v1.2.0",
-                "en-Shaw": "·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼 𐑝1.2.0",
-                "ja": "テクスチャメーカー v1.2.0",
-                "zse": "Kida Tuko Bika kaka kidu Toto v1.2.0"
+                "en": "Spritesheet Generator v1.2.1",
+                "en-Shaw": "·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼 𐑝1.2.1",
+                "ja": "テクスチャメーカー v1.2.1",
+                "zse": "Kida Tuko Bika kaka kidu Toto v1.2.1"
             },
             "siteMap.webTools.rs.rstm.introduction": {
                 "en": "A web tool made by me to make spritesheets for Rolling Sky edits / Rolling Sky Remake levels easier.",
@@ -667,7 +668,10 @@
             elem.style.content = "url(resources/icons8-twitter-16.png)";
             elem.setClick( e => {
                 if (!confirm("Are you sure you want to jump to Twitter?")) {e.preventDefault(); return;}
-                if (!confirm("Are you sure you want to jump to TWITTER?")) e.preventDefault();
+                if (!confirm("Are you sure you want to jump to TWITTER?")) {e.preventDefault(); return;}
+                if (!confirm("Are you really sure you want to jump to the site of TWITTER?")) {e.preventDefault(); return;}
+                if (!confirm("Are you aware that you will be sent to the site of TWITTER and do you agree to be sent there?")) {e.preventDefault(); return;}
+                if (!confirm("Press OK to confirm.")) {e.preventDefault(); return;}
             })
         } else {
             elem.style.content = `url(https://www.google.com/s2/favicons?domain=${hre})`;

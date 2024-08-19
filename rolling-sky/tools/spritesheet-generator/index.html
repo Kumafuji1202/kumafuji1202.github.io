@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Kumafuji1202">
-    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.2.0">
+    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.2.1">
     <meta name="twitter:url" content="https://kumafuji1202.github.io/rolling-sky/tools/spritesheet-generator/">
-    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.2.0">
+    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.2.1">
     <meta name="twitter:description" content="A web tool made by Kumafuji1202 to make spritesheets for Rolling Sky edits / Rolling Sky Remake levels easier.">
     <title data-translation-key="appTitle">
-        Rolling Sky Spritesheet Generator
+        Rolling Sky Spritesheet Generator v1.2.1
     </title>
 
     <!-- cssを読み込む -->
@@ -614,7 +614,7 @@
                                     <span data-translation-key="linearLightStyle"></span>
                                     <select id="linearLightStyle">
                                         <option value="original" data-translation-key="linearLightStyleOriginal"></option>
-                                        <option value="scratch" data-translation-key="linearLightStyleScratch"></option>
+                                        <!--<option value="scratch" data-translation-key="linearLightStyleScratch"></option>-->
                                     </select>
                                 </label><br>
                                 <label><span data-translation-key="linearLightSameColor"></span><input type="checkbox" id="linearLightSameColor" checked></label>
@@ -854,6 +854,12 @@
                                     <h3 data-translation-key="1UpPrimaryGradation"></h3>
                                     <label><span data-translation-key="topEnd"></span><input type="color" id="1UpPrimaryGradationTop" value="#242323" data-preset-1up="#242323" data-preset-8bits="#082A17" data-preset-bluegame="#101B36"></label><br>
                                     <label><span data-translation-key="bottomEnd"></span><input type="color" id="1UpPrimaryGradationBottom" value="#888275" data-preset-1up="#888275" data-preset-8bits="#327725" data-preset-bluegame="#2252AD"></label>
+                                    <h3 data-translation-key="1UpPrimaryGradationConflictSolution"></h3>
+                                    <p data-translation-key="1UpPrimaryGradationConflictSolutionExplainer"></p>
+                                    <ul>
+                                        <li><label><input type="radio" name="1UpPrimaryGradationConflictSolution" value="console" checked><span tr-key="1UpPriorConsole"></span></label></li>
+                                        <li><label><input type="radio" name="1UpPrimaryGradationConflictSolution" value="minijump"><span tr-key="1UpPriorHjmp"></span></label></li>
+                                    </ul>
                                     <h3 data-translation-key="1UpSecondaryGradation"></h3>
                                     <label><span data-translation-key="leftEnd"></span><input type="color" id="1UpSecondaryGradationLeft" value="#686767" data-preset-1up="#686767" data-preset-8bits="#1FB78E" data-preset-bluegame="#009BB3"></label><br>
                                     <label><span data-translation-key="rightEnd"></span><input type="color" id="1UpSecondaryGradationRight" value="#E9E8E6" data-preset-1up="#E9E8E6" data-preset-8bits="#67E16E" data-preset-bluegame="#42F6EB"></label><br>

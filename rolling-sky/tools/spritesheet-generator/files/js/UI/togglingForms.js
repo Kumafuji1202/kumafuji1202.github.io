@@ -157,10 +157,13 @@ function initRow(rowElem) {
 
 function updateJSONFromForm() {
     var json = "[";
+    let hasBefore = false;
     for (let pos in Array.from(rowList.children)) {
+        if (hasBefore) json += ", ";
+        console.log("ieuagbiaeug");
         let row = rowList.children[pos];
-        json += "{\"light\": \"" + row.children[0].children[0].value + "\", \"medium\": \"" + row.children[1].children[0].value + "\", \"dark\": \"" + row.children[2].children[0].value + "\", \"width\": \"" + row.children[3].children[0].value + "\"}";
-        if (pos + 1 != rowList.children.length) json += ", ";
+        json += `{\"light\": \"${row.children[0].children[0].value}\", \"medium\": \"${row.children[1].children[0].value}\", \"dark\": \"${row.children[2].children[0].value}\", \"width\": \"${row.children[3].children[0].value}\"}`;
+        hasBefore = true;
     }
     json += "]";
     getElem("stripeJSONData").value = json;

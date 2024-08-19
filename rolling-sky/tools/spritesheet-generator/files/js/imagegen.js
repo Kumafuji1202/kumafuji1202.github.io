@@ -32,12 +32,12 @@ tileOutlinePath.lineTo(542, -30.5);
 tileOutlinePath.closePath();
 
 var sixSquares = new Path2D();
-sixSquares.rect(353.5, 12.5, 146, 146);
-sixSquares.rect(12.5, 182.5, 146, 146);
-sixSquares.rect(353.5, 182.5, 146, 146);
-sixSquares.rect(12.5, 353.5, 146, 146);
-sixSquares.rect(182.5, 353.5, 146, 146);
-sixSquares.rect(353.5, 353.5, 146, 146);
+sixSquares.rect(353.5, 12.5, 145.5, 145.5);
+sixSquares.rect(12.5, 183.25, 145.5, 145.5);
+sixSquares.rect(353.5, 183.25, 145.5, 145.5);
+sixSquares.rect(12.5, 354, 145.5, 145.5);
+sixSquares.rect(183.25, 354, 145.5, 145.5);
+sixSquares.rect(353.5, 354, 145.5, 145.5);
 
 var fiveSquares = new Path2D();
 fiveSquares.moveTo(328, 212.5);
@@ -487,14 +487,14 @@ function generateGeneral() {
         groundLinesPath.closePath();
 
     }
-    groundLinesPath.moveTo(182.5, 182.5);
-    groundLinesPath.lineTo(182.5, 328.5);
-    groundLinesPath.lineTo(328.5, 328.5);
+    groundLinesPath.moveTo(183.25, 183.25);
+    groundLinesPath.lineTo(183.25, 328.75);
+    groundLinesPath.lineTo(328.75, 328.75);
 
     var jumppadInactiveLinesPath = new Path2D();
-    jumppadInactiveLinesPath.rect(182.5, 12.5, 146, 146);
+    jumppadInactiveLinesPath.rect(183.25, 12.5, 145.5, 145.5);
     var jumppadActiveLinesPath = new Path2D();
-    jumppadActiveLinesPath.rect(12.5, 12.5, 146, 146);
+    jumppadActiveLinesPath.rect(12.5, 12.5, 145.5, 145.5);
 
     //線の描画(処理)
     if (["glowing", "sharp"].includes(ls)) { //内部に発光させる
@@ -634,12 +634,12 @@ function generateGeneral() {
     //ジャンプ床//
     if (jumppadStyle != "import") {
         contextGeneral.fillStyle = jc.c;
-        contextGeneral.fillRect(182.5, 12.5, 146, 146);
+        contextGeneral.fillRect(183.25, 12.5, 145.5, 145.5);
         contextGeneral.fillStyle = ajc.c;
-        contextGeneral.fillRect(12.5, 12.5, 146, 146);
+        contextGeneral.fillRect(12.5, 12.5, 145.5, 145.5);
     } else { //インポートジャンプ床
-        contextGeneral.drawImage(getElem("jumppadInactiveImg"), 182.5, 12.5, 146, 146);
-        contextGeneral.drawImage(getElem("jumppadActiveImg"), 12.5, 12.5, 146, 146);
+        contextGeneral.drawImage(getElem("jumppadInactiveImg"), 183.25, 12.5, 145.5, 145.5);
+        contextGeneral.drawImage(getElem("jumppadActiveImg"), 12.5, 12.5, 145.5, 145.5);
 
         jpPrevCxt.clearRect(0, 0, jpPrevCxt.canvas.width, jpPrevCxt.canvas.height);
 
@@ -1729,6 +1729,10 @@ function generateEnemy() {
     //描画
 
     //A1
+    contextEnemy.fillStyle = getElem("radialLightOuter").value;
+    contextEnemy.globalAlpha = 1 / 64;
+    contextEnemy.fillRect(0, 0, 192, 128);
+    contextEnemy.globalAlpha = 1;
     var radialLight = contextEnemy.createRadialGradient(64, 64, 0, 64, 64, 51);
     radialLight.addColorStop(0, "#FFFFFF");
     radialLight.addColorStop(0.5, getElem("radialLightInner").value);
@@ -2260,7 +2264,7 @@ function generateEnemy() {
         quadToneVariaton(contextEnemy, "jadeRabbit31-", 482, 96, 30, 32, 17, 16);
     }
     case "newgeneric": {
-        for (let region in newGenericInfo){
+        for (let region in newGenericInfo) {
             let regionData = newGenericInfo[region];
             quadToneVariaton(contextEnemy, "newGeneric_region_" + region + "_tone_", regionData.left, regionData.top, 32, 32, 16, 16);
         }
@@ -2448,9 +2452,14 @@ function generateEnemy() {
         contextEnemy.fillStyle = getElem("smallJumpInactiveTop").value;
         contextEnemy.fillRect(256, 30, 58, 34);
         contextEnemy.fillStyle = getElem("smallJumpActiveSide").value;
-        contextEnemy.fillRect(314, 0, 6, 30);
+        contextEnemy.fillRect(314, 0, 7, 30);
+        if (getElem("topRightType").value != "oneup" || new FormData(getElem("form-content")).get("1UpPrimaryGradationConflictSolution") == "minijump") {
+
+            contextEnemy.fillRect(212, 58, 4, 2);
+        }
         contextEnemy.fillStyle = getElem("smallJumpInactiveSide").value;
-        contextEnemy.fillRect(314, 30, 6, 34);
+        contextEnemy.fillRect(314, 30, 7, 34);
+        contextEnemy.fillRect(192, 120, 8, 8);
         let hjStyle = "simple"; //getElem("smallJumpType").value;
         if (hjStyle != "simple") {
             let isActive = true;

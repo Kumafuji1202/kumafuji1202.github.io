@@ -1,6 +1,6 @@
 // Version data
-var versionName = "v1.2.0";
-var versionNum = 20;
+var versionName = "v1.2.1";
+var versionNum = 21;
 
 // Language data
 var langDataRaw = {
@@ -977,6 +977,22 @@ var langDataRaw = {
         "1UpPrimaryGradation": {
             "en": "Primary Gradation (used for fighters and consoles)",
             "ja": "第一グラデーション(戦闘機とゲーム機に使用)",
+        },
+        "1UpPrimaryGradationConflictSolution": {
+            "en": "Conflict solution",
+            "ja": "競合の解決",
+        },
+        "1UpPrimaryGradationConflictSolutionExplainer": {
+            "en": "The bottom edges of sides of activated half jump tiles use a small incomprehensibly random location on the Primary Gradation region along with one on the 64x64 square at the top right. The Console obstacle also uses the region (note that the Fighter which also uses the Primary Gradation does not), and thus these two objects conflict. You can either:",
+            "ja": "起動した半ジャンプ床の側面は下端が64×64の正方形の部分とは別に第一グラデーションの領域上の中央付近の理解不能な場所にある小さな領域を使用します。この領域はゲーム機の障礙物にも用いられ(同じ第一グラデーションを用いる戦闘機は使用しない)、そのため競合します。以下の解決方法のうち作成するテーマに配置するオブジェクトにあったものをお選びください。",
+        },
+        "1UpPriorConsole": {
+            "en": "prioritize Console (the Primary Gradation color will appear on sides of activated Small Jump pads, so it's not recommended to use Small Jump unless the primary gradation color is near that of the background enough)",
+            "ja": "ゲーム機を優先する(起動した半ジャンプ床の側面下端に第一グラデーションの色が現れる為、グラデーションのいろが背景の色に十分に近くない限り半ジャンプ床の使用は推奨されません。)",
+        },
+        "1UpPriorHjmp": {
+            "en": "prioritize half jump (a small rectangle will appear on the Console obstacle)",
+            "ja": "半ジャンプ床を優先する(ゲーム機上に小さな長方形が現れます。)",
         },
         "1UpSecondaryGradation": {
             "en": "Secondary Gradation (used for monsters)",
@@ -3440,6 +3456,7 @@ var saveDataFormat = [
     //px
     {id:"1UpPrimaryGradationTop"},
     {id:"1UpPrimaryGradationBottom"},
+    {id:"1UpPrimaryGradationConflictSolution", prop: "radio"},
     {id:"1UpSecondaryGradationLeft"},
     {id:"1UpSecondaryGradationRight"},
     {id:"1UpInvaderEyeSurroundingInner"},

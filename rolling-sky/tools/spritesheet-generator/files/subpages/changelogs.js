@@ -744,5 +744,34 @@ var changeLogs = [
                 }
             ]
         }
+    },
+    {
+        "versionNumber": "1.2.1",
+        "releaseDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 19
+        
+        },
+        "changes": {
+            "bugfixes": [
+                {
+                    "en": "Fixed Enemy bottom-left stripe settings",
+                    "ja": "Enemy下左の細い線の保存システムが壊れている問題を修正"
+                },
+                {
+                    "en": "Fixed small jump pad side textures",
+                    "ja": "小ジャンプの側面を修正"
+                },
+                {
+                    "en": "Fixed Tile edges",
+                    "ja": "床タイルの端の位置を微調整"
+                },
+                {
+                    "en": "Added almost-transparent background to transparent parts of Enemy top left",
+                    "ja": "Enemy上左の透明部分にほぼ透明な色を追加"
+                }
+            ]
+        }
     }
 ];
