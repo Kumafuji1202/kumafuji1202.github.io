@@ -12,12 +12,23 @@ html {
 
 button,
 input {
-    background-color: inherit;
-    color: inherit;
+    background: var(--control-bg);
+    color: var(--control-text);
+    border-color: var(--control-line);
     font-family: inherit;
     border-style: solid;
     border-radius: 5px;
     border-width: 1px;
+}
+
+button:hover,
+input[type=button]:hover,
+input[type=submit]:hover{
+    background: var(--button-hover-bg);
+    color: var(--button-hover-text);
+    color: var(--button-hover-line);
+    transform: scale(1.1);
+    color: inherit;
 }
 
 select {

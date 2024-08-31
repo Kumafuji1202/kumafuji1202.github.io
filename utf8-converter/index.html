@@ -1,0 +1,199 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Kumafuji1202">
+    <meta name="pagename" content="UTF-8 Converter">
+    <link rel="canonical" href="https://kumafuji1202.github.io/utf8-converter/" />
+    <meta name="twitter:url" content="https://kumafuji1202.github.io/utf8-converter/">
+    <meta name="twitter:title" content="UTF-8 Converter">
+    <meta name="twitter:description" content="UTF-8の16進数とテキスト間の変換。">
+    <title>UTF-8 Converter</title>
+    <link rel="stylesheet" href="../css-global/centered-contents.css">
+    <link rel="stylesheet" href="../css-global/global.css">
+    <style>
+        html {
+            background-color: #808080;
+            --background: #808080;
+            --text: #ffffff;
+            --control-bg: #404040;
+            --control-line: #ffffff;
+            --control-text: #ffffff;
+            --button-hover-bg: #404040;
+            --button-hover-line: #ffffff;
+            --button-hover-text: #ffffff;
+            color: var(--text);
+        }
+        a{
+            color: #ffffff;
+        }
+
+    </style>
+    <script src="../js-global/utils.js"></script>
+    <script>
+        var hexnumber = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"],
+            binary = ["0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"];
+
+        function prefill(str, fillchar, unitlength) {
+            let retstr = str;
+            if (str.length % unitlength != 0) {
+                for (let m = 0; m < unitlength - str.length % unitlength; m++) {
+                    retstr = fillchar + retstr;
+                }
+            }
+            return retstr;
+        }
+
+        function splitutf8binary(bin) {
+            let bytes = [];
+            for (let bytepos = 0; bytepos * 8 < bin.length;) {
+                if (bin.charAt(bytepos * 8) == "0") {
+                    //1バイト文字
+                    bytes.push(bin.substring(8 * bytepos, 8 * bytepos + 8));
+                    bytepos++;
+                } else if (bin.substring(8 * bytepos, 8 * bytepos + 3) == "110") {
+                    //2バイト文字
+                    bytes.push(bin.substring(8 * bytepos, 8 * bytepos + 16));
+                    bytepos += 2;
+                } else if (bin.substring(8 * bytepos, 8 * bytepos + 4) == "1110") {
+                    //3バイト文字
+                    bytes.push(bin.substring(8 * bytepos, 8 * bytepos + 24));
+                    bytepos += 3;
+                } else if (bin.substring(8 * bytepos, 8 * bytepos + 5) == "11110") {
+                    //4バイト文字
+                    bytes.push(bin.substring(8 * bytepos, 8 * bytepos + 32));
+                    bytepos += 4;
+                } else {
+                    throw Error("invalid byte");
+                }
+            }
+            return bytes;
+        }
+
+        function utf8bintounicode(char) {
+            if (char.length == 8 && char.charAt(0) == "0") {
+                return char.substring(1, 8);
+            } else if (char.length == 16 && char.substring(0, 3) == "110") {
+                return char.substring(3, 8) + char.substring(10, 16);
+            } else if (char.length == 24 && char.substring(0, 4) == "1110") {
+                return char.substring(4, 8) + char.substring(10, 16) + char.substring(18, 24);
+            } else if (char.length == 32 && char.substring(0, 5) == "11110") {
+                return char.substring(5, 8) + char.substring(10, 16) + char.substring(18, 24) + char.substring(26, 32);
+            }
+        }
+
+        function unicodetoutf8bin(chrCode) {
+            let chrBin = chrCode.toString(2);
+            console.log("converting " + chrCode.toString(16));
+            if (chrCode <= 0x7f) {
+                return prefill(chrBin, "0", 8);
+            } else if (chrCode <= 0x07ff) {
+                let prefilled = prefill(chrBin, "0", 11);
+                return "110" + prefilled.substring(0, 5) + "10" + prefilled.substring(5, 11);
+            } else if (chrCode <= 0xffff) {
+                let prefilled = prefill(chrBin, "0", 16);
+                return "1110" + prefilled.substring(0, 4) + "10" + prefilled.substring(4, 10) + "10" + prefilled.substring(10, 16);
+            } else {
+                let prefilled = prefill(chrBin, "0", 21);
+                return "11110" + prefilled.substring(0, 3) + "10" + prefilled.substring(3, 9) + "10" + prefilled.substring(9, 15) + "10" + prefilled.substring(15, 21);
+            }
+        }
+
+        function bintohex(bin) {
+            let binstr = prefill(bin, "0", 4);
+            let retstr = "";
+            for (let m = 0; m < binstr.length / 4; m++) {
+                let nibble = binstr.substring(m * 4, m * 4 + 4);
+                retstr += hexnumber[eval("0b" + nibble)];
+            }
+            return retstr;
+        }
+
+        function hextobin(hex) {
+            let retstr = "";
+            for (let m = 0; m < hex.length; m++) {
+                let char = hex.charAt(m);
+                if (hexnumber.includes(char.toLowerCase())) {
+                    let dec = eval("0x" + char);
+                    retstr += binary[dec];
+                }
+            }
+            return retstr;
+        }
+
+        function u2tconvert(utf8) {
+            document.getElementById("u2tcodepoints").innerHTML = "";
+            document.getElementById("u2tstring").innerHTML = "";
+            splitutf8binary(hextobin(utf8)).forEach(function(char) {
+                let unic = utf8bintounicode(char);
+                document.getElementById("u2tcodepoints").innerHTML += "u+" + bintohex(unic) + " ";
+                document.getElementById("u2tstring").innerHTML += String.fromCodePoint(eval("0b" + unic));
+            });
+        }
+
+        function t2uconvert(text) {
+            document.getElementById("t2ucodepoints").innerHTML = "";
+            document.getElementById("t2uutf8hex").innerHTML = "";
+            let i = 0;
+            let cp = 0;
+            while (cp = text.codePointAt(i), cp != undefined) {
+                document.getElementById("t2ucodepoints").innerHTML += "u+" + cp.toString(16) + " ";
+                let utf8 = unicodetoutf8bin(cp);
+                document.getElementById("t2uutf8hex").innerHTML += eval("0b" + utf8).toString(16) + " ";
+                if (text.lengthAt(i) == 2) i++;
+                i++;
+            }
+        }
+
+    </script>
+</head>
+
+<body id="container-flex">
+    <div id="contents">
+        <h1>UTF-8 Converter</h1>
+        <a href="../">Back</a>
+        <h2>Text to UTF-8 hex</h2>
+        <form>
+            <input type="text" value="💺ぬüs" placeholder="Input text to convert..." id="text" size="30">
+            <input type="submit" value="Convert to Hex" id="convert2hex">
+        </form>
+        <output id="t2uOut">
+            <div>
+                <span>Codepoints:</span>
+                <span id="t2ucodepoints"></span>
+            </div>
+            <div>
+                <span>UTF-8 hex:</span>
+                <span id="t2uutf8hex"></span>
+            </div>
+        </output>
+        <h2>UTF-8 hex to Codepoints/Text</h2>
+        <form>
+            <input type="text" value="f09f92ba e381ac c3bc 73" placeholder="Input UTF-8 hex..." id="utf8hex" size="30">
+            <input type="submit" value="Convert to Unicode" id="convert2utf8">
+        </form>
+        <output id="u2tOut">
+            <div>
+                <span>Codepoints:</span>
+                <span id="u2tcodepoints"></span>
+            </div>
+            <div>
+                <span>String:</span>
+                <span id="u2tstring"></span>
+            </div>
+        </output>
+        <script>
+            document.getElementById("convert2utf8").addEventListener("click", function(e) {
+                e.preventDefault();
+                u2tconvert(document.getElementById('utf8hex').value);
+            });
+            document.getElementById("convert2hex").addEventListener("click", function(e) {
+                e.preventDefault();
+                t2uconvert(document.getElementById('text').value);
+            })
+
+        </script>
+    </div>
+</body>
+
+</html>
