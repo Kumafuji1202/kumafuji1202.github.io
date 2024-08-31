@@ -24,7 +24,8 @@
             --button-hover-text: #ffffff;
             color: var(--text);
         }
-        a{
+
+        a {
             color: #ffffff;
         }
 
@@ -148,51 +149,53 @@
     </script>
 </head>
 
-<body id="container-flex">
-    <div id="contents">
-        <h1>UTF-8 Converter</h1>
-        <a href="../">Back</a>
-        <h2>Text to UTF-8 hex</h2>
-        <form>
-            <input type="text" value="💺ぬüs" placeholder="Input text to convert..." id="text" size="30">
-            <input type="submit" value="Convert to Hex" id="convert2hex">
-        </form>
-        <output id="t2uOut">
-            <div>
-                <span>Codepoints:</span>
-                <span id="t2ucodepoints"></span>
-            </div>
-            <div>
-                <span>UTF-8 hex:</span>
-                <span id="t2uutf8hex"></span>
-            </div>
-        </output>
-        <h2>UTF-8 hex to Codepoints/Text</h2>
-        <form>
-            <input type="text" value="f09f92ba e381ac c3bc 73" placeholder="Input UTF-8 hex..." id="utf8hex" size="30">
-            <input type="submit" value="Convert to Unicode" id="convert2utf8">
-        </form>
-        <output id="u2tOut">
-            <div>
-                <span>Codepoints:</span>
-                <span id="u2tcodepoints"></span>
-            </div>
-            <div>
-                <span>String:</span>
-                <span id="u2tstring"></span>
-            </div>
-        </output>
-        <script>
-            document.getElementById("convert2utf8").addEventListener("click", function(e) {
-                e.preventDefault();
-                u2tconvert(document.getElementById('utf8hex').value);
-            });
-            document.getElementById("convert2hex").addEventListener("click", function(e) {
-                e.preventDefault();
-                t2uconvert(document.getElementById('text').value);
-            })
+<body>
+    <div id="container-flex">
+        <div id="contents">
+            <h1>UTF-8 Converter</h1>
+            <a href="../">Back</a>
+            <h2>Text to UTF-8 hex</h2>
+            <form>
+                <input type="text" value="💺ぬüs" placeholder="Input text to convert..." id="text" size="30">
+                <input type="submit" value="Convert to Hex" id="convert2hex">
+            </form>
+            <output id="t2uOut">
+                <div>
+                    <span>Codepoints:</span>
+                    <span id="t2ucodepoints"></span>
+                </div>
+                <div>
+                    <span>UTF-8 hex:</span>
+                    <span id="t2uutf8hex"></span>
+                </div>
+            </output>
+            <h2>UTF-8 hex to Codepoints/Text</h2>
+            <form>
+                <input type="text" value="f09f92ba e381ac c3bc 73" placeholder="Input UTF-8 hex..." id="utf8hex" size="30">
+                <input type="submit" value="Convert to Unicode" id="convert2utf8">
+            </form>
+            <output id="u2tOut">
+                <div>
+                    <span>Codepoints:</span>
+                    <span id="u2tcodepoints"></span>
+                </div>
+                <div>
+                    <span>String:</span>
+                    <span id="u2tstring"></span>
+                </div>
+            </output>
+            <script>
+                document.getElementById("convert2utf8").addEventListener("click", function(e) {
+                    e.preventDefault();
+                    u2tconvert(document.getElementById('utf8hex').value);
+                });
+                document.getElementById("convert2hex").addEventListener("click", function(e) {
+                    e.preventDefault();
+                    t2uconvert(document.getElementById('text').value);
+                })
 
-        </script>
+            </script>
+        </div>
     </div>
 </body>
 
