@@ -17,19 +17,44 @@ var canvasGeneral = getElem("generalOutput"),
     canvasEnemy = getElem("enemyOutput"),
     contextEnemy = canvasEnemy.getContext("2d");
 
+
+var sixSquares = new Path2D();
+sixSquares.rect(353.5, 12.5, 145.5, 145.5); //右上
+sixSquares.rect(12.5, 183.25, 145.5, 145.5); //左中
+sixSquares.rect(353.5, 183.25, 145.5, 145.5); //右中
+sixSquares.rect(12.5, 354, 145.5, 145.5); //左下
+sixSquares.rect(183.25, 354, 145.5, 145.5); //中下
+sixSquares.rect(353.5, 354, 145.5, 145.5); //右下
+//x: 12.5 -> 158 | 183.25 -> 328.75 | 353.5 -> 499
+//y: 12.5 -> 158 | 183.25 -> 328.75 | 354 -> 499.5
 //General, Fragile, FragileActive, Mover, MoverAutoで使用する床の端のパス
-var tileOutlinePath = new Path2D();
-tileOutlinePath.rect(-30.5, 139.5, 61, 233);
-tileOutlinePath.rect(-30.5, 482, 232, 61);
-tileOutlinePath.rect(310.5, 482, 232, 61);
-tileOutlinePath.rect(341, 140.5, 31, 61);
-tileOutlinePath.moveTo(310.5, -30.5);
-tileOutlinePath.lineTo(310.5, 30.5);
-tileOutlinePath.lineTo(482, 30.5);
-tileOutlinePath.lineTo(482, 372);
-tileOutlinePath.lineTo(542, 372);
-tileOutlinePath.lineTo(542, -30.5);
-tileOutlinePath.closePath();
+var tileOutlinePath = new Path2D(); {
+    let inwardWidth = 18.5;
+    let firstTileLow = 12 + inwardWidth;
+    let firstTileHigh = 158.5 - inwardWidth;
+    let middleTileLow = 183.25 + inwardWidth;
+    let middleTileHigh = 329.25 - inwardWidth;
+    let rightTileLeft = 353.5 + inwardWidth;
+    let rightTileRight = 500 - inwardWidth;
+    let bottomTileTop = 353 + inwardWidth;
+    let bottomTileBottom = 500 - inwardWidth;
+    //左
+    tileOutlinePath.rect(firstTileLow, firstTileHigh, -61, bottomTileTop - firstTileHigh); //(-30.5, 139.5) (30.5, 371.5)
+    //左下
+    tileOutlinePath.rect(-30, bottomTileBottom, middleTileLow + 30, 61); //(-30.5, 481.5) (201.5, 543)
+    //右下
+    tileOutlinePath.rect(middleTileHigh, bottomTileBottom, 200, 61);
+    //右上内部
+    tileOutlinePath.rect(rightTileLeft, firstTileHigh, -30, middleTileLow - firstTileHigh);
+    //右上
+    tileOutlinePath.moveTo(middleTileHigh, -30.5);
+    tileOutlinePath.lineTo(middleTileHigh, firstTileLow);
+    tileOutlinePath.lineTo(rightTileRight, firstTileLow);
+    tileOutlinePath.lineTo(rightTileRight, bottomTileTop);
+    tileOutlinePath.lineTo(542, rightTileLeft);
+    tileOutlinePath.lineTo(542, -30.5);
+    tileOutlinePath.closePath();
+}
 
 var sixSquares = new Path2D();
 sixSquares.rect(353.5, 12.5, 145.5, 145.5);
@@ -149,6 +174,51 @@ function drawTilePatterns(context, colors, func) {
 
 function getColObj(inputID) {
     return Col.fromColorCode(getElem(inputID).value);
+}
+
+//Enemyのneonbox部分を描画する
+function drawNeonboxPart(reduction = 0, useInvisBox = false) {
+    contextEnemy.fillStyle = "#434A5B";
+    contextEnemy.fillRect(448, 0, 64, 16);
+    contextEnemy.fillStyle = getColObj("neonBoxSign").c;
+    contextEnemy.fillRect(448, 16, 64, 16);
+
+    let grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+    grad.addColorStop(0, "#0A6DED");
+    grad.addColorStop(1, "#50E2FA");
+    contextEnemy.fillStyle = grad;
+    contextEnemy.fillRect(448, 32, 64, 32);
+
+    grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+    grad.addColorStop(0, "#FF8002");
+    grad.addColorStop(1, "#F8FB8F");
+    contextEnemy.fillStyle = grad;
+    contextEnemy.fillRect(448, 64, 64, 32);
+
+    if (!useInvisBox) {
+        grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+        grad.addColorStop(0, "#A826F9");
+        grad.addColorStop(1, "#FE7EDB");
+        contextEnemy.fillStyle = grad;
+        contextEnemy.fillRect(448, 96, 64, 32);
+    }
+
+    grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
+    grad.addColorStop(0, "#058865");
+    grad.addColorStop(1, "#B0DE59");
+    contextEnemy.fillStyle = grad;
+    if (!useInvisBox) contextEnemy.fillRect(448, 128, 64, 32);
+    else contextEnemy.fillRect(448, 96, 64, 32);
+    //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
+
+    if (reduction == 0) {
+        //デフォルトでB10下半分を埋める
+        oneUpGradation = contextEnemy.createLinearGradient(448, 0, 512, 0);
+        oneUpGradation.addColorStop(0, getElem("1UpSecondaryGradationLeft").value);
+        oneUpGradation.addColorStop(1, getElem("1UpSecondaryGradationRight").value);
+        contextEnemy.fillStyle = oneUpGradation;
+        contextEnemy.fillRect(448, 160, 64, 32);
+    }
 }
 
 
@@ -1276,84 +1346,109 @@ function generateFragiles() {
     contextFragileActive.lineWidth = 4;
     contextFragile.strokeStyle = getElem("fragileLineColor").value;
     contextFragileActive.strokeStyle = getElem("fragileActiveLineColor").value;
+
+    //線
+    let fragileLineType = "default";
+    let fActiveLineType = "default";
     //fs = "double";
-
-    function rolling(sky, m) {
-        if (fs == "stripes" || (fs == "boxes" && m)) {
-            sky.stroke(sixSquares);
-            sky.strokeRect(182.5, 182.5, 146, 146);
-            if (fs != "boxes") {
-                sky.lineWidth = 2;
-                sky.stroke(tileOutlinePath);
-            }
-        } else {
-            sky.beginPath();
-            sky.moveTo(12.5, 182.5);
-            sky.lineTo(12.5, 353.5);
-            sky.moveTo(12.5, 499.5);
-            sky.lineTo(182.5, 499.5);
-            sky.moveTo(328.5, 499.5);
-            sky.lineTo(499.5, 499.5);
-            sky.moveTo(340, 12.5);
-            sky.lineTo(499.5, 12.5);
-            sky.lineTo(499.5, 353.5);
-            sky.moveTo(353.5, 158.5);
-            sky.closePath();
-            sky.moveTo(353.5, 182.5);
-            sky.closePath();
-            sky.stroke();
-
-            if (fs == "cave") {
-                sky.beginPath();
-                sky.moveTo(391, 23);
-                sky.lineTo(489, 23);
-                sky.lineTo(489, 121);
-                sky.moveTo(459, 33);
-                sky.lineTo(479, 33);
-                sky.lineTo(479, 53);
-                sky.stroke();
-            }
-            if (fs == "bubbles") {
-                let hexagonsThick = new Path2D();
-                hexagonsThick.addPath(createHexagonPath(207, 305, 12));
-                hexagonsThick.addPath(createHexagonPath(475, 38, 12));
-                sky.lineWidth = 4;
-                sky.stroke(hexagonsThick);
-
-                let hexagonsThin = new Path2D();
-                hexagonsThin.addPath(createHexagonPath(238, 309, 8));
-                hexagonsThin.addPath(createHexagonPath(203, 276, 8));
-                hexagonsThin.addPath(createHexagonPath(444, 34, 8));
-                hexagonsThin.addPath(createHexagonPath(479, 67, 8));
-                sky.lineWidth = 3;
-                sky.stroke(hexagonsThin);
-            }
-            if (fs == "double") {
-                sky.beginPath();
-                sky.moveTo(22, 182.5);
-                sky.lineTo(22, 363);
-                sky.lineTo(12.5, 363);
-                sky.moveTo(12.5, 490);
-                sky.lineTo(192, 490);
-                sky.lineTo(192, 499.5);
-                sky.moveTo(319, 499.5);
-                sky.lineTo(319, 490);
-                sky.lineTo(499.5, 490);
-                sky.moveTo(340, 22);
-                sky.lineTo(490, 22);
-                sky.lineTo(490, 363);
-                sky.lineTo(499.5, 363);
-                sky.moveTo(353.5, 149);
-                sky.lineTo(363, 149);
-                sky.lineTo(363, 192);
-                sky.lineTo(353.5, 192);
-                sky.stroke();
-            }
-        }
+    switch (fs) {
+        case "stripes":
+            fragileLineType = fActiveLineType = "boxes";
+            break;
+        case "boxes":
+            fActiveLineType = "boxes";
+        case "double":
+        case "cave":
+        case "bubbles":
     }
 
-    rolling(contextFragile, false);
-    rolling(contextFragileActive, true);
+    for (let q = 0; q < 2; q++) {
+        let cxt = [contextFragile, contextFragileActive][q];
+        //基本線
+        switch ([fragileLineType, fActiveLineType][q]) {
+            case "default":
+                cxt.beginPath();
+                cxt.moveTo(12.5, 183.25);
+                cxt.lineTo(12.5, 354);
+                cxt.moveTo(12.5, 499.5);
+                cxt.lineTo(183.25, 499.5);
+                cxt.moveTo(328.75, 499.5);
+                cxt.lineTo(499, 499.5);
+                cxt.moveTo(340, 12.5);
+                cxt.lineTo(499, 12.5);
+                cxt.lineTo(499, 354);
+                cxt.moveTo(353.5, 158);
+                cxt.closePath();
+                cxt.moveTo(353.5, 183.25);
+                cxt.closePath();
+                cxt.stroke();
+                break;
+            case "boxes":
+                cxt.stroke(sixSquares);
+                cxt.strokeRect(182.5, 182.5, 146, 146);
+        }
+        //追加線
+        if (fs == "stripes") {
+            cxt.lineWidth = 2;
+            cxt.stroke(tileOutlinePath);
+        }
+        if (fs == "cave") {
+            cxt.beginPath();
+            cxt.moveTo(391, 23);
+            cxt.lineTo(489, 23);
+            cxt.lineTo(489, 121);
+            cxt.moveTo(459, 33);
+            cxt.lineTo(479, 33);
+            cxt.lineTo(479, 53);
+            cxt.stroke();
+        }
+        if (fs == "bubbles") {
+            let hexagonsThick = new Path2D();
+            hexagonsThick.addPath(createHexagonPath(207, 305, 12));
+            hexagonsThick.addPath(createHexagonPath(475, 38, 12));
+            cxt.lineWidth = 4;
+            cxt.stroke(hexagonsThick);
+
+            let hexagonsThin = new Path2D();
+            hexagonsThin.addPath(createHexagonPath(238, 309, 8));
+            hexagonsThin.addPath(createHexagonPath(203, 276, 8));
+            hexagonsThin.addPath(createHexagonPath(444, 34, 8));
+            hexagonsThin.addPath(createHexagonPath(479, 67, 8));
+            cxt.lineWidth = 3;
+            cxt.stroke(hexagonsThin);
+        }
+        if (fs == "double") {
+            cxt.beginPath();
+            cxt.moveTo(22, 182.5);
+            cxt.lineTo(22, 363);
+            cxt.lineTo(12.5, 363);
+            cxt.moveTo(12.5, 490);
+            cxt.lineTo(192, 490);
+            cxt.lineTo(192, 499.5);
+            cxt.moveTo(319, 499.5);
+            cxt.lineTo(319, 490);
+            cxt.lineTo(499.5, 490);
+            cxt.moveTo(340, 22);
+            cxt.lineTo(490, 22);
+            cxt.lineTo(490, 363);
+            cxt.lineTo(499.5, 363);
+            cxt.moveTo(353.5, 149);
+            cxt.lineTo(363, 149);
+            cxt.lineTo(363, 192);
+            cxt.lineTo(353.5, 192);
+            cxt.stroke();
+        }
+        if (fs == "intshuttle") {
+            cxt.beginPath();
+            cxt.moveTo(391, 23);
+            cxt.lineTo(489, 23);
+            cxt.lineTo(489, 121);
+            cxt.moveTo(459, 33);
+            cxt.lineTo(479, 33);
+            cxt.lineTo(479, 53);
+            cxt.stroke();
+        }
+    }
 
     //化学スタイルActive時の追加
     if (fs == "bubbles") {
@@ -1692,15 +1787,15 @@ function generateEnemy() {
         contextEnemy.fillStyle = outer;
         contextEnemy.fillRect(x, y, 64, 64);
         //cr#b
+        contextEnemy.fillStyle = inner;
+        contextEnemy.fillRect(x + 6, y + 6, 52, 52);
         if (hasGradation) {
-            var the = contextEnemy.createRadialGradient(x + 32, y + 32, 10, x + 32, y + 32, 96);
+            /*var the = contextEnemy.createRadialGradient(x + 32, y + 32, 10, x + 32, y + 32, 96);
             the.addColorStop(0, inner);
             the.addColorStop(1, outer);
-            contextEnemy.fillStyle = the;
-        } else {
-            contextEnemy.fillStyle = inner;
+            contextEnemy.fillStyle = the;*/
+            rectInnerGlow(x, y, 64, 64, 24, 50, outer, contextEnemy);
         }
-        contextEnemy.fillRect(x + 6, y + 6, 52, 52);
     }
     //4トーンで並べられた補助パレットの1塊
     function quadToneVariaton(context, nameOrSet, x, y, outerSizeX, outerSizeY, topLeftSizeX = outerSizeX / 2, topLeftSizeY = outerSizeY / 2) {
@@ -1791,45 +1886,8 @@ function generateEnemy() {
 
     //ネオンボックス
     if (selectedTopRightTypeOption.hasAttribute("data-neonbox-available")) {
-        contextEnemy.fillStyle = "#434A5B";
-        contextEnemy.fillRect(448, 0, 64, 16);
-        contextEnemy.fillStyle = getColObj("neonBoxSign").c;
-        contextEnemy.fillRect(448, 16, 64, 16);
-
-        let grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-        grad.addColorStop(0, "#0A6DED");
-        grad.addColorStop(1, "#50E2FA");
-        contextEnemy.fillStyle = grad;
-        contextEnemy.fillRect(448, 32, 64, 32);
-
-        grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-        grad.addColorStop(0, "#FF8002");
-        grad.addColorStop(1, "#F8FB8F");
-        contextEnemy.fillStyle = grad;
-        contextEnemy.fillRect(448, 64, 64, 32);
-
-        if (getElem("topRightType").value != "sunshine") {
-            grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-            grad.addColorStop(0, "#A826F9");
-            grad.addColorStop(1, "#FE7EDB");
-            contextEnemy.fillStyle = grad;
-            contextEnemy.fillRect(448, 96, 64, 32);
-        }
-
-        grad = contextEnemy.createLinearGradient(448, 0, 512, 0);
-        grad.addColorStop(0, "#058865");
-        grad.addColorStop(1, "#B0DE59");
-        contextEnemy.fillStyle = grad;
-        if (getElem("topRightType").value != "sunshine") contextEnemy.fillRect(448, 128, 64, 32);
-        else contextEnemy.fillRect(448, 96, 64, 32);
-        //contextEnemy.drawImage(neonBoxImg, 448, 0);// なぜかこれを使うと画像が保存できない 念のため保存
-
-        //デフォルトでB10下半分を埋める
-        oneUpGradation = contextEnemy.createLinearGradient(448, 0, 512, 0);
-        oneUpGradation.addColorStop(0, getElem("1UpSecondaryGradationLeft").value);
-        oneUpGradation.addColorStop(1, getElem("1UpSecondaryGradationRight").value);
-        contextEnemy.fillStyle = oneUpGradation;
-        contextEnemy.fillRect(448, 160, 64, 32);
+        if (getElem("topRightType").value != "sunshine") drawNeonboxPart();
+        else drawNeonboxPart(1, true);
     }
 
     switch (getElem("topRightType").value) {
@@ -1929,11 +1987,15 @@ function generateEnemy() {
         fillBorderedSquarePalette(256, 0, getElem("crystalCollection1Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection1Outer").value, crHasGradation);
         fillBorderedSquarePalette(320, 0, getElem("crystalCollection2Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection2Outer").value, crHasGradation);
         fillBorderedSquarePalette(384, 0, getElem("crystalCollection3Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection3Outer").value, crHasGradation);
-        fillBorderedSquarePalette(448, 0, getElem("crystalCollection4Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection4Outer").value, crHasGradation);
         fillBorderedSquarePalette(256, 64, getElem("crystalCollection5Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection5Outer").value, crHasGradation);
         fillBorderedSquarePalette(320, 64, getElem("crystalCollection6Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection6Outer").value, crHasGradation);
         fillBorderedSquarePalette(384, 64, getElem("crystalCollection7Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection7Outer").value, crHasGradation);
-        fillBorderedSquarePalette(448, 64, getElem("crystalCollection8Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection8Outer").value, crHasGradation);
+        if (getElem("crystalUseNeonbox").checked) {
+            drawNeonboxPart(1);
+        } else {
+            fillBorderedSquarePalette(448, 0, getElem("crystalCollection4Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection4Outer").value, crHasGradation);
+            fillBorderedSquarePalette(448, 64, getElem("crystalCollection8Inner").value, getElem(crAllSameColor ? "crystalCollection1Outer" : "crystalCollection8Outer").value, crHasGradation);
+        }
     }
     break;
     case "geometry": {
@@ -2209,18 +2271,18 @@ function generateEnemy() {
         let sunshineMainColors = [getElem("sunshineMain1").value, getElem("sunshineMain2").value, getElem("sunshineMain3").value];
         let sunshineDarkColors = [getElem("sunshineDark1").value, getElem("sunshineDark2").value, getElem("sunshineDark3").value];
         let sunshineAccentColors = [getElem("sunshineAccent1").value, getElem("sunshineAccent2").value, getElem("sunshineAccent3").value];
-        theSunsetGlowThing(256, 0, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 0);
-        theSunsetGlowThing(256, 64, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 1);
-        theSunsetGlowThing(256, 128, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 2);
-        theSunsetGlowThing(320, 0, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 0);
-        theSunsetGlowThing(320, 64, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 1);
-        theSunsetGlowThing(320, 128, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 2);
+        theSunsetGlowThing(448, 128, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 3);
         theSunsetGlowThing(384, 0, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 0);
         theSunsetGlowThing(384, 64, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 1);
         theSunsetGlowThing(384, 128, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 2);
-        theSunsetGlowThing(448, 128, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 3);
-        theSunsetGlowThing(192, 0, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 3);
-        theSunsetGlowThing(192, 64, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 3);
+        theSunsetGlowThing(258, 0, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 0);
+        theSunsetGlowThing(258, 64, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 1);
+        theSunsetGlowThing(258, 128, sunshineMainColors[0], sunshineDarkColors[0], sunshineAccentColors[0], 2);
+        theSunsetGlowThing(321, 0, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 0);
+        theSunsetGlowThing(321, 64, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 1);
+        theSunsetGlowThing(321, 128, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 2);
+        theSunsetGlowThing(194, 0, sunshineMainColors[1], sunshineDarkColors[1], sunshineAccentColors[1], 3);
+        theSunsetGlowThing(194, 64, sunshineMainColors[2], sunshineDarkColors[2], sunshineAccentColors[2], 3);
     }
     break;
     case "kepler": {
@@ -2829,224 +2891,11 @@ function generateEnemy() {
     //B
     switch (getElem("topRightType").value) {
         case "crystal": {
-            etrpc = getElem("crystalObjPreview").getContext("2d");
-            etrpc.clearRect(0, 0, 400, 200);
-            etrpc.textBaseline = "alphabetic";
-            etrpc.fillStyle = "#000000";
-            etrpc.textAlign = "left";
-            etrpc.font = "12px Sen";
-            etrpc.fillText(lang.callText("tetriminoes"), 8, 16, 300);
-            etrpc.fillText(lang.callText("crystalGate"), 8, 76, 300);
-            for (var ja = 0; ja < 4; ja++) {
-                etrpc.fillText(([2, 1, 7, 6])[ja], 224 + 4 * ja, 92 + 16 * ja, 300);
+            for (let elem of Array.from(document.querySelectorAll("#crystalObjPreview [data-fill]"))) {
+                elem.setAttribute("fill", getElem(elem.getAttribute("data-fill")).value);
+                elem.setAttribute("stroke", getElem("tetriminoOuterSameColor").checked ? getElem("crystalCollection1Outer").value : getElem(elem.getAttribute("data-stroke")).value);
             }
-            for (var nein = 0; nein < 7; nein++) {
-                etrpc.fillText(([5, 3, 2, 1, 7, 6, 8])[nein], 96, 96 + 12 * nein, 300);
-                etrpc.fillText(([5, 3, 2, 1, 7, 6, 8])[nein], 280 + 2 * nein, 88 + 12 * nein, 300);
-            }
-            etrpc.fillText(lang.callText("iceCube"), 320, 16, 300);
-            etrpc.fillText(lang.callText("crystalTree"), 120, 76, 300);
-            etrpc.fillText(lang.callText("russianTowers"), 296, 92, 300);
-            etrpc.textAlign = "center";
-            etrpc.textBaseline = "middle";
-
-            etrpc.lineWidth = 1;
-            var prepareColors = function (colorNum) {
-                etrpc.strokeStyle = getElem("tetriminoOuterSameColor").checked ? getElem("crystalCollection1Outer").value : getElem("crystalCollection" + colorNum + "Outer").value;
-                etrpc.fillStyle = getElem("crystalCollection" + colorNum + "Inner").value;
-            };
-            var doTheTetris = function (colorNum, array) {
-                prepareColors(colorNum);
-                for (var esso = 0; esso < array.length / 2; esso++) {
-                    etrpc.fillRect(array[2 * esso], array[2 * esso + 1], 12, 12);
-                }
-                for (var unDosTresCuatro = 0; unDosTresCuatro < array.length / 2; unDosTresCuatro++) {
-                    etrpc.strokeRect(array[2 * unDosTresCuatro], array[2 * unDosTresCuatro + 1], 12, 12);
-                }
-            };
-
-            //テトリミノ
-            doTheTetris(1,
-                           [20, 24,
-                            8, 36,
-                            20, 36,
-                            8, 48]);
-            doTheTetris(2,
-                           [56, 36,
-                            68, 36,
-                            44, 48,
-                            56, 48]);
-            doTheTetris(3,
-                           [116, 36,
-                            92, 48,
-                            104, 48,
-                            116, 48]);
-            doTheTetris(4,
-                           [152, 24,
-                            152, 36,
-                            152, 48,
-                            140, 48]);
-            doTheTetris(5,
-                           [176, 36,
-                            188, 36,
-                            176, 48,
-                            188, 48]);
-            doTheTetris(6,
-                           [212, 12,
-                            212, 24,
-                            212, 36,
-                            212, 48]);
-            doTheTetris(7,
-                           [248, 36,
-                            236, 48,
-                            248, 48,
-                            260, 48]);
-            doTheTetris(8,
-                           [284, 24,
-                            284, 36,
-                            296, 36,
-                            284, 48]);
-
-            //結晶門
-            doTheTetris(5,
-                           [32, 84,
-                            44, 84,
-                            56, 84]);
-            doTheTetris(3,
-                           [20, 96,
-                            32, 96,
-                            44, 96,
-                            56, 96,
-                            68, 96]);
-            doTheTetris(2,
-                           [8, 108,
-                            20, 108,
-                            32, 108,
-                            44, 108,
-                            56, 108,
-                            68, 108,
-                            80, 108]);
-            for (var si = 0; si < 4; si++) {
-                doTheTetris(([1, 7, 6, 8])[si],
-                           [8, 120 + 12 * si,
-                            20, 120 + 12 * si,
-                            68, 120 + 12 * si,
-                            80, 120 + 12 * si]);
-            }
-
-            //出現氷塊
-            //側面
-            prepareColors(6);
-            etrpc.beginPath();
-            etrpc.moveTo(368, 48);
-            etrpc.lineTo(392, 24);
-            etrpc.lineTo(392, 56);
-            etrpc.lineTo(368, 80);
-            etrpc.closePath();
-            etrpc.fill();
-            etrpc.stroke();
-            etrpc.fillStyle = "#000000";
-            etrpc.fillText("6", 388, 72, 100);
-            //手前
-            prepareColors(7);
-            etrpc.beginPath();
-            etrpc.moveTo(320, 48);
-            etrpc.lineTo(368, 48);
-            etrpc.lineTo(368, 80);
-            etrpc.lineTo(320, 80);
-            etrpc.closePath();
-            etrpc.fill();
-            etrpc.stroke();
-            etrpc.fillStyle = "#000000";
-            etrpc.fillText("7", 312, 64, 100);
-            //上面
-            prepareColors(1);
-            etrpc.beginPath();
-            etrpc.moveTo(320, 48);
-            etrpc.lineTo(344, 24);
-            etrpc.lineTo(392, 24);
-            etrpc.lineTo(368, 48);
-            etrpc.closePath();
-            etrpc.fill();
-            etrpc.stroke();
-            etrpc.fillStyle = "#000000";
-            etrpc.fillText("1", 380, 16, 100);
-
-            //結晶の木(小)
-            //奥
-            etrpc.fillStyle = getElem("crystalCollection3Inner").value;
-            etrpc.fillRect(152, 80, 24, 24);
-            //上
-            etrpc.fillStyle = getElem("crystalCollection7Inner").value;
-            etrpc.beginPath();
-            etrpc.moveTo(136, 80);
-            etrpc.lineTo(128, 88);
-            etrpc.lineTo(160, 88);
-            etrpc.lineTo(152, 80);
-            etrpc.closePath();
-            etrpc.fill();
-            //左
-            etrpc.fillStyle = getElem("crystalCollection6Inner").value;
-            etrpc.beginPath();
-            etrpc.moveTo(112, 104);
-            etrpc.lineTo(120, 96);
-            etrpc.lineTo(120, 128);
-            etrpc.lineTo(112, 120);
-            etrpc.closePath();
-            etrpc.fill();
-            //右
-            etrpc.fillStyle = getElem("crystalCollection1Inner").value;
-            etrpc.beginPath();
-            etrpc.moveTo(176, 104);
-            etrpc.lineTo(168, 96);
-            etrpc.lineTo(168, 128);
-            etrpc.lineTo(176, 120);
-            etrpc.closePath();
-            etrpc.fill();
-            //手前
-            etrpc.fillStyle = getElem("crystalCollection2Inner").value;
-            etrpc.fillRect(128, 96, 32, 32);
-
-            var doTheTrees = function (x, y, halfWidth, height, colorNum) {
-                prepareColors(colorNum);
-                etrpc.beginPath();
-                etrpc.moveTo(x - halfWidth, y + height);
-                etrpc.lineTo(x - halfWidth, y);
-                etrpc.lineTo(x + halfWidth, y);
-                etrpc.lineTo(x + halfWidth, y + height);
-                etrpc.moveTo(x - halfWidth + 4, y);
-                etrpc.lineTo(x - halfWidth + 4, y + height);
-                etrpc.moveTo(x + halfWidth - 4, y);
-                etrpc.lineTo(x + halfWidth - 4, y + height);
-                etrpc.fill();
-                etrpc.stroke();
-            };
-
-            //中
-            for (var amgis = 0; amgis < 4; amgis++) {
-                doTheTrees(208, 80 + 16 * amgis, 12 + 4 * amgis, 16, ([2, 1, 7, 6])[amgis]);
-            }
-            etrpc.beginPath();
-            etrpc.moveTo(184, 144);
-            etrpc.lineTo(232, 144);
-            etrpc.lineTo(224, 152);
-            etrpc.lineTo(192, 152);
-            etrpc.closePath();
-            etrpc.fill();
-            etrpc.stroke();
-
-            //大
-            for (var iDidDoDoing = 0; iDidDoDoing < 7; iDidDoDoing++) {
-                doTheTrees(268, 80 + 12 * iDidDoDoing, 8 + 2 * iDidDoDoing, 12, ([5, 3, 2, 1, 7, 6, 8])[iDidDoDoing]);
-            }
-            etrpc.beginPath();
-            etrpc.moveTo(248, 164);
-            etrpc.lineTo(288, 164);
-            etrpc.lineTo(284, 168);
-            etrpc.lineTo(252, 168);
-            etrpc.closePath();
-            etrpc.fill();
-            etrpc.stroke();
+            getElem("crystalNeonboxRestriction").setAttribute("stroke", getElem("crystalUseNeonbox").checked ? "#ff0000" : "none");
         }
         break;
 

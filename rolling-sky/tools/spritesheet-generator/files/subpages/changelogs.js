@@ -593,7 +593,7 @@ var changeLogs = [
             "additions": [
                 {
                     "en": "Added flipper patterns 'Shooting stars', '☻', 'Needle'",
-                    "ja": "反転床模様「流れ星」「スマイリー」「縫い針」を追加"
+                    "ja": "反転床模様「流れ星」「床にTBS」「縫い針」を追加"
                 },
                 {
                     "en": "You can now extract-import Enemy Middle(D and E) colors from existing spritesheets",
@@ -764,12 +764,53 @@ var changeLogs = [
                     "ja": "小ジャンプの側面を修正"
                 },
                 {
-                    "en": "Fixed Tile edges",
+                    "en": "Fixed tile edges",
                     "ja": "床タイルの端の位置を微調整"
                 },
                 {
                     "en": "Added almost-transparent background to transparent parts of Enemy top left",
                     "ja": "Enemy上左の透明部分にほぼ透明な色を追加"
+                }
+            ]
+        }
+    },
+    {
+        "versionNumber": "1.2.2",
+        "releaseDate": {
+            "year": 2024,
+            "month": 9,
+            "day": 20
+        
+        },
+        "changes": {
+            "bugfixes": [
+                {
+                    "en": "Fixed 'Sunshine' Enemy top-right patterns being out of place by 1-2 pxs (I fricking hate my past self)",
+                    "ja": "「陽光」テーマのEnemy右上が1~2pxズレていた問題を修正(過去の自分マヅィで嫌い)"
+                },
+                {
+                    "en": "Fixed Fragile/FragileActive/Mover/MoverAuto tile edges",
+                    "ja": "踏むと落ちるタイルと移動床の端の位置を微調整"
+                }
+            ],
+            "additions": [
+                {
+                    "en": "Added flipper patterns 'Eclipse', 'Sparkle II' (from Kingdom War), 'Probably Leaves' (from The Wizard of Oz)",
+                    "ja": "反転床模様「蝕」「キラキラⅡ」「葉?」を追加"//ParadeObverse, ParadeReverse, Smile, Frown, Keyhole(?) yet to be added
+                },
+                {
+                    "en": "Added option to use neonbox regions in \'Crystal\' Enemy top-left settings",
+                    "ja": "Alone用に「結晶」Enemy右上設定にネオンボックスを使用するオプションを追加"
+                }
+            ],
+            "changes": [
+                {
+                    "en": "Split flipper pattern '☻' into 'Smile'(obverse design) and 'Frown'(reverse design)",
+                    "ja": "反転床模様「床にTBS」を「床にTBS」(表)と「:(」(裏)に分離"
+                },
+                {
+                    "en": "Replaced 'Crystal' Enemy top right setting canvas previews with svg",
+                    "ja": "「結晶」Enemy右上設定のプレヴューをSVGに変更"
                 }
             ]
         }

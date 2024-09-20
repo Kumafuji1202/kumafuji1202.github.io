@@ -138,6 +138,12 @@ table.colorSettingTable > tbody th{
     text-align: left;
 }
 
+html[data-theme=light] .objectPreview{
+    background-image: url(../graphics/UI/transparent.png);
+}
+html[data-theme=dark] .objectPreview {
+    background-image: url(../graphics/UI/transparentbg-dark.png);
+}
 /*アコーディオン*/
 
 .accordionOuter{

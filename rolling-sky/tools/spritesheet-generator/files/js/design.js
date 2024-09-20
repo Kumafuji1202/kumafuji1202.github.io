@@ -23,8 +23,9 @@ document.getElementById("languageSelectBox").addEventListener("change", function
 }, true);
 var langSet = localStorage.getItem("language");
 if (langSet) {
-    lang.useLanguage(langSet);
-    document.getElementById("languageSelectBox").value = langSet;
+    lang.initSite(getElem("languageSelectBox"));
+    console.log(langSet);
+    getElem("languageSelectBox").value = langSet;
 }
 
 //TODO

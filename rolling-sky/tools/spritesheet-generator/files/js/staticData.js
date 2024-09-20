@@ -1,6 +1,6 @@
 // Version data
-var versionName = "v1.2.1";
-var versionNum = 21;
+var versionName = "v1.2.2";
+var versionNum = 22;
 
 // Language data
 var langDataRaw = {
@@ -565,6 +565,10 @@ var langDataRaw = {
             "en": "Decorated corner(Cave)",
             "ja": "角の装飾(洞窟)"
         },
+        "fragileStyleIntShuttle": {
+            "en": "Arrows(Interstellar Shuttle)",
+            "ja": "矢印(星間シャトル)"
+        },
         "fragileLineStyleDouble": {
             "en": "Double",
             "ja": "二重"
@@ -709,6 +713,10 @@ var langDataRaw = {
             "en": "Gem lighter color",
             "ja": "明るい色"
         },
+        "useNeonbox": {
+            "en": "Use Neonboxes",
+            "ja": "ネオンボックスを使用"
+        },
         "objectPreview": {
             "en": "Object preview",
             "ja": "プレヴュー"
@@ -802,20 +810,24 @@ var langDataRaw = {
             "ja": "起動後の縁の影",
         },
         "topRightCrystal": {
-            "en": "Crystal (cr)",
-            "ja": "結晶 (cr)",
+            "en": "Crystal (Tetris, Candy, Alone) (cr)",
+            "ja": "結晶 (テトリス、飴、Alone) (cr)",
+        },
+        "crystalUseNeonboxExplainer": {
+            "en": "Since RSR does not use the Enemy texture for neonboxes, this box does not have to be checked for RSR levels. Turning on this settings will corrupt the looks of two tetrominoes, tall crystal trees, and crystal gates.",
+            "ja": "RSRはネオンボックスにEnemyのテクスチャを使用しないので、RSR用のテクスチャを作成する場合はこのチェックボックスのチェックは不要です。このチェックボックスをONにするとテトリミノ2つ、結晶の木(大)と結晶門がきれいに表示されなくなります。",
         },
         "russianTowerTop": {
             "en": "Russian tower top",
-            "ja": "ロシア風タワー頂点 (cr1)",
+            "ja": "ロシア風タワー頂点",
         },
         "russianTowerMiddleTop": {
             "en": "Russian tower middle top face",
-            "ja": "ロシア風タワーの中間の上面 (cr2)",
+            "ja": "ロシア風タワーの中間の上面",
         },
         "russianTowerLowerTop": {
             "en": "Russian tower lower top face",
-            "ja": "ロシア風タワーの下の方の上面 (cr3)",
+            "ja": "ロシア風タワーの下の方の上面",
         },
         "crystalInnerColor": {
             "en": "Inner Color",
@@ -834,36 +846,36 @@ var langDataRaw = {
             "ja": "全てのテトリミノにグラデーションを適用する",
         },
         "crystalCollection1": {
-            "en": "Color 1(cr4)",
-            "ja": "パレット色1(cr4)",
+            "en": "Color 1",
+            "ja": "パレット色1",
         },
         "crystalCollection2": {
-            "en": "Color 2(cr5)",
-            "ja": "パレット色2(cr5)",
+            "en": "Color 2",
+            "ja": "パレット色2",
         },
         "crystalCollection3": {
-            "en": "Color 3(cr6)",
-            "ja": "パレット色3(cr6)",
+            "en": "Color 3",
+            "ja": "パレット色3",
         },
         "crystalCollection4": {
-            "en": "Color 4(cr7)",
-            "ja": "パレット色4(cr7)",
+            "en": "Color 4",
+            "ja": "パレット色4",
         },
         "crystalCollection5": {
-            "en": "Color 5(cr8)",
-            "ja": "パレット色5(cr8)",
+            "en": "Color 5",
+            "ja": "パレット色5",
         },
         "crystalCollection6": {
-            "en": "Color 6(cr9)",
-            "ja": "パレット色6(cr9)",
+            "en": "Color 6",
+            "ja": "パレット色6",
         },
         "crystalCollection7": {
-            "en": "Color 7(cr10)",
-            "ja": "パレット色7(cr10)",
+            "en": "Color 7",
+            "ja": "パレット色7",
         },
         "crystalCollection8": {
-            "en": "Color 8(cr11)",
-            "ja": "パレット色8(cr11)",
+            "en": "Color 8",
+            "ja": "パレット色8",
         },
         "tetriminoes": {
             "en": "Tetriminoes",
@@ -886,8 +898,8 @@ var langDataRaw = {
             "ja": "ロシア風の塔",
         },
         "topRightGeometry": {
-            "en": "Geometry (cb)",
-            "ja": "幾何 (cb)",
+            "en": "Geometry (Cube, Matrix) (cb)",
+            "ja": "幾何 (立方、行列) (cb)",
         },
         "TRPresetCube": {
             "en": "Cube (Enemy29)",
@@ -959,8 +971,8 @@ var langDataRaw = {
         },
 
         "topRight1Up": {
-            "en": "Pixel (px)",
-            "ja": "像素 (px)",
+            "en": "Pixel (1UP, 8Bit) (px)",
+            "ja": "像素 (1UP、8ビット) (px)",
         },
         "TRPreset1Up": {
             "en": "1UP (Enemy27)",
@@ -1023,8 +1035,8 @@ var langDataRaw = {
             "ja": "羽",
         },
         "topRightAncient": {
-            "en": "Ancient (ac)",
-            "ja": "古代 (ac)",
+            "en": "Ancient (Relics, Fairy Tale) (ac)",
+            "ja": "古代 (遺跡、童話) (ac)",
         },
         "TRPresetRelics": {
             "en": "Relics (Enemy34)",
@@ -1096,8 +1108,8 @@ var langDataRaw = {
         },
 
         "topRightNeon": {
-            "en": "Neon (dz)",
-            "ja": "眩光 (dz)",
+            "en": "Neon (Neon, Dazzle, Faster) (dz)",
+            "ja": "眩光 (ネオン、ダズル、より速く) (dz)",
         },
         "TRPresetNeon": {
             "en": "Neon (Enemy47)",
@@ -1197,8 +1209,8 @@ var langDataRaw = {
         },
 
         "topRightHBD": {
-            "en": "3rd Anniversary (bd)",
-            "ja": "三周年 (bd)",
+            "en": "3rd Anniversary (Happy Birthday, Anniversary) (bd)",
+            "ja": "三周年 (ハッピーバースデー、周年祭り) (bd)",
         },
         "TRPresetHBD": {
             "en": "Happy Birthday (Enemy62)",
@@ -1278,8 +1290,8 @@ var langDataRaw = {
         },
 
         "topRightT4A": {
-            "en": "4th Anniversary (t4a)",
-            "ja": "四周年 (t4a)",
+            "en": "4th Anniversary (T4A, Birthday Party, ADo7Y) (t4a)",
+            "ja": "四周年 (四周年、誕生パーティー、球の夢にも7年) (t4a)",
         },
         "TRPresetT4A": {
             "en": "The 4th Anniversary (Enemy87)",
@@ -1295,7 +1307,7 @@ var langDataRaw = {
         },
         "TRPresetDreamTravel": {
             "en": "Dream Travel (Enemy133)",
-            "ja": "夢幻の旅路 (Enemy133)",
+            "ja": "夢幻の旅 (Enemy133)",
         },
         "t4aBalloonGradation": {
             "en": "Balloons(Gradation)",
@@ -1335,8 +1347,8 @@ var langDataRaw = {
         },
 
         "topRightSunshine": {
-            "en": "Sunshine (ss)",
-            "ja": "陽光 (ss)",
+            "en": "Sunshine (Sunset Glow, Morning Dawn) (ss)",
+            "ja": "陽光 (黄昏、曙) (ss)",
         },
         "TRPresetSunset": {
             "en": "Sunset Glow (Enemy91)",
@@ -1364,8 +1376,8 @@ var langDataRaw = {
         },
 
         "topRightKepler": {
-            "en": "Kepler (kp)",
-            "ja": "ケプラー (kp)"
+            "en": "Kepler (Kepler's Dream, Stars) (kp)",
+            "ja": "ケプラー (ケプラーの夢、星の川) (kp)"
         },
         "TRPresetKepler": {
             "en": "Kepler's Dream (Enemy95)",
@@ -1576,21 +1588,37 @@ var langDataRaw = {
             "en": "☻ (Happy)",
             "ja": "床にTBS (うれしい)",
         },
+        "flipTileSmile": {
+            "en": "Smile (Happy)",
+            "ja": "床にTBS (うれしい)",
+        },
+        "flipTileFrown": {
+            "en": "Frown (Happy)",
+            "ja": ":( (うれしい)",
+        },
         "flipTileNeedle": {
             "en": "Needle (Knit Kingdom)",
-            "ja": "縫い針 (ニット王国)",
+            "ja": "縫い針 (ニット王国)"
         },
         "flipTileHourglass": {
             "en": "Hourglass (Chronos)",
-            "ja": "砂時計 (とき)",
+            "ja": "砂時計 (とき)"
         },
         "flipTileClub": {
             "en": "Club (Phantom Thief)",
-            "ja": "クラブ (怪盗)",
+            "ja": "クラブ (怪盗)"
         },
         "flipTileSparkle": {
             "en": "Sparkle (Disco Tempo)",
-            "ja": "キラキラ (ミッドナイトディスコ)",
+            "ja": "キラキラ (ミッドナイトディスコ)"
+        },
+        "flipTileEnchantedLamp": {
+            "en": "Eclipse (Enchanted Lamp)",
+            "ja": "蝕󠄀 (魔法のランプ)"
+        },
+        "flipTileSparkleTwo": {
+            "en": "Sparkle II (Westland)",
+            "ja": "キラキラ Ⅱ (ウェストランド)"
         },
         "flipTileParade": {
             "en": "(Parade Pageantry)",
@@ -1603,6 +1631,10 @@ var langDataRaw = {
         "flipTileKingdomWar": {
             "en": "Crest (Kingdom War)",
             "ja": "紋章 (王国戦争)"
+        },
+        "flipTileWizardOfOz": {
+            "en": "Crest (Wizard of Oz)",
+            "ja": "葉? (オズの魔法使い)"
         },
         "flipTileCheckerEdged": {
             "en": "Checker + edge (3D Spatial Zone)",
@@ -2096,16 +2128,16 @@ var langDataRaw = {
 };
 
 //Marking new features with a 🆕
-["topRightNewGeneric", "flipTileParade", "flipTileKingdomWar"].forEach(each => {
+["flipTileEnchantedLamp", "flipTileParade", "useNeonbox", "flipTileSparkleTwo", "flipTileWizardOfOz"].forEach(each => {
     langDataRaw.translations[each].ja = "🆕 " + langDataRaw.translations[each].ja;
     langDataRaw.translations[each].en = "🆕 " + langDataRaw.translations[each].en;
 });
 var lang = new LanguageManager(langDataRaw);
 
-window.addEventListener("load", function () {
+/*window.addEventListener("load", function () {
     lang.initSelectBox(document.getElementById("languageSelectBox"), "en");
     lang.useLanguage("en");
-}, true);
+}, true);*/
 
 //Color Extractor tool data
 var newGenericInfo = [
@@ -2204,6 +2236,7 @@ var colorExtractorData = {
 
 //Flip tile data (Translation keys and patterns)
 //反転床の翻訳・色数データ
+//
 var flipTileData = {
     //立方スタイル
     "cube": {
@@ -2897,6 +2930,86 @@ var flipTileData = {
             }
         }
     },
+    //うれしい(表)
+    "smile": {
+        nameTranslationKey: "flipTileSmile",
+        colorCount: 2,
+        translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ],
+        pattern: {
+
+            colorCount: 3,
+            drawer: function (s, m, i, l) {
+                s.fillStyle = i[1];
+                s.fillRect(m, 0, 64, 64);
+                s.strokeStyle = i[0];
+                s.lineCap = "round";
+
+                s.lineWidth = 5.5;
+                s.beginPath();
+                s.arc(m + 32, 33.5, 25, 0, 2 * Math.PI, false);
+                s.stroke();
+
+                s.lineWidth = 6;
+                s.beginPath();
+                s.moveTo(m + 23, 37.5);
+                s.lineTo(m + 23, 41.5);
+                s.moveTo(m + 41, 37.5);
+                s.lineTo(m + 41, 41.5);
+                s.stroke();
+
+                s.lineWidth = 5.5;
+                s.beginPath();
+                s.moveTo(m + 22, 28);
+                s.bezierCurveTo(m + 23, 21, /**/ m + 28, 20, /**/ m + 32, 20);
+                s.bezierCurveTo(m + 36, 20, /**/ m + 41, 21, /**/ m + 42, 28);
+                s.stroke();
+                return l;
+            }
+        }
+    },
+    //うれしい(裏側)
+    "frown": {
+        nameTranslationKey: "flipTileFrown",
+        colorCount: 2,
+        translationKeys: [
+                    "backgroundColor",
+                    "patternColor"
+                ],
+        pattern: {
+
+            colorCount: 3,
+            drawer: function (s, m, i, l) {
+                s.fillStyle = i[1];
+                s.fillRect(m, 0, 64, 64);
+                s.strokeStyle = i[0];
+                s.lineCap = "round";
+
+                s.lineWidth = 5.5;
+                s.beginPath();
+                s.arc(m + 32, 33.5, 25, 0, 2 * Math.PI, false);
+                s.stroke();
+
+                s.lineWidth = 6;
+                s.beginPath();
+                s.moveTo(m + 23, 37.5);
+                s.lineTo(m + 23, 41.5);
+                s.moveTo(m + 41, 37.5);
+                s.lineTo(m + 41, 41.5);
+                s.stroke();
+
+                s.lineWidth = 5.5;
+                s.beginPath();
+                s.moveTo(m + 22, 20);
+                s.bezierCurveTo(m + 23, 27, /**/ m + 28, 28, /**/ m + 32, 28);
+                s.bezierCurveTo(m + 36, 28, /**/ m + 41, 27, /**/ m + 42, 20);
+                s.stroke();
+                return l;
+            }
+        }
+    },
     //ニット王国
     "needle": {
         nameTranslationKey: "flipTileNeedle",
@@ -3094,6 +3207,78 @@ var flipTileData = {
                 b.globalAlpha = 1;
                 b.lineWidth = 1;
                 b.fillRect(r + 31, 32, 1, 1);
+                
+                return l;
+            }
+        }
+    },
+    //aghnarns
+    "sparkletwo": {
+        nameTranslationKey: "flipTileSparkleTwo",
+        colorCount: 3,
+        translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ],
+        pattern: {
+            colorCount: 3,
+            drawer: function (context, xpos, colors, isObverse) {
+                context.fillStyle = colors[0];
+                context.fillRect(xpos, 0, 64, 64);
+                //
+                context.strokeStyle = colors[1];
+                context.lineWidth = 3;
+                context.strokeRect(xpos + 1, 1, 62, 62);
+                context.lineWidth = 2.5;
+                context.strokeRect(xpos + 8, 8, 48, 48);
+
+                context.fillStyle = colors[2];
+                context.beginPath();
+                context.moveTo(xpos  + 31.5, 17.5);
+                context.bezierCurveTo(xpos  + 33.5, 26.5, xpos  + 37.5, 30.5, xpos  + 46.5, 32.5);
+                context.bezierCurveTo(xpos  + 37.5, 34.5, xpos  + 33.5, 38.5, xpos  + 31.5, 47.5);
+                context.bezierCurveTo(xpos  + 29.5, 38.5, xpos  + 25.5, 34.5, xpos  + 16.5, 32.5);
+                context.bezierCurveTo(xpos  + 25.5, 30.5, xpos  + 29.5, 26.5, xpos  + 31.5, 17.5);
+                context.closePath();
+                context.fill();
+
+                return isObverse;
+            }
+        }
+    },
+    "crescent": {
+        nameTranslationKey: "flipTileEnchantedLamp",
+        colorCount: 3,
+        translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ],
+        pattern: {
+            colorCount: 3,
+            drawer: function (m, o, O, n) {
+                m.fillStyle = O[0];
+                m.fillRect(o, 0, 64, 64);
+                m.strokeStyle = O[1];
+                m.lineWidth = 3;
+                m.strokeRect(o + 1, 1, 62, 62);
+
+                m.fillStyle = O[2];
+                m.beginPath();
+                m.arc(o + 34, 32.5, 19.5, 0, 2*Math.PI);
+                m.closePath();
+                m.fill();
+                m.fillStyle = O[0];
+                m.beginPath();
+                m.arc(o + 39.25, 27.5, 14, 0, 2*Math.PI);
+                m.closePath();
+                m.fill();
+                m.fillStyle = O[0];
+                m.fillRect(o + 35.5, 12, 4, 4);
+                m.fillRect(o + 52, 26.5, 4, 4);
+                
+                return n;
             }
         }
     },
@@ -3168,6 +3353,87 @@ var flipTileData = {
                 k.closePath();
                 k.fill();
 
+            }
+        }
+    },
+    "wizardOfOz": {
+        nameTranslationKey: "flipTileWizardOfOz",
+        colorCount: 3,
+        translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor"
+                ],
+        pattern: {
+            colorCount: 3,
+            drawer: function (t, w, o, O) {
+                t.fillStyle = o[0];
+                t.fillRect(w, 0, 64, 64);
+                t.strokeStyle = o[1];
+                t.lineWidth = 3;
+                t.strokeRect(w + 1.5, 1.5, 61, 61);
+
+                t.fillStyle = o[2];
+                t.beginPath();
+                //中央
+                t.moveTo(w + 32, 10);
+                t.lineTo(w + 22, 20);
+                t.lineTo(w + 32, 30);
+                t.lineTo(w + 42, 20);
+                t.closePath();
+
+                //側面
+                t.moveTo(w + 16.5, 19);
+                t.lineTo(w + 6.5, 29);
+                t.lineTo(w + 6.5, 44);
+                t.lineTo(w + 16.5, 34);
+                t.closePath();
+                t.moveTo(w + 47.5, 19);
+                t.lineTo(w + 57.5, 29);
+                t.lineTo(w + 57.5, 44);
+                t.lineTo(w + 47.5, 34);
+                t.closePath();
+
+                //上
+                t.moveTo(w + 15, 4);
+                t.lineTo(w + 29, 4);
+                t.lineTo(w + 19, 14);
+                t.lineTo(w + 5, 14);
+                t.closePath();
+                t.moveTo(w + 49, 4);
+                t.lineTo(w + 35, 4);
+                t.lineTo(w + 45, 14);
+                t.lineTo(w + 59, 14);
+                t.closePath();
+                t.fill();
+
+                //下
+                t.strokeStyle = o[2];
+                t.lineWidth = 1;
+                t.beginPath();
+                t.moveTo(w + 19, 36);
+                t.lineTo(w + 29, 46);
+                t.lineTo(w + 29, 58);
+                t.lineTo(w + 19, 48);
+                t.closePath();
+                t.moveTo(w + 45, 36);
+                t.lineTo(w + 35, 46);
+                t.lineTo(w + 35, 58);
+                t.lineTo(w + 45, 48);
+                t.closePath();
+                t.fill();
+                t.stroke();
+
+                //線
+                t.lineWidth = 2;
+                t.beginPath();
+                t.moveTo(w + 19.5, 36);
+                t.lineTo(w + 19.5, 18);
+                t.lineTo(w + 30, 7.5);
+                t.moveTo(w + 34, 7.5);
+                t.lineTo(w + 44.5, 18);
+                t.lineTo(w + 44.5, 36);
+                t.stroke();
             }
         }
     },
@@ -3432,6 +3698,7 @@ var saveDataFormat = [
     {id:"floaterInactiveShadowColor"},
     {id:"floaterActiveShadowColor"},
     //cr
+    {id:"crystalUseNeonbox", prop:"checked"},
     {id:"russianTowerTop"},
     {id:"russianTowerMiddleTop"},
     {id:"russianTowerLowerTop"},

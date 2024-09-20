@@ -43,9 +43,15 @@ function getElem(id) {
 HTMLElement.prototype.setClick = function (callback, bubble = false) {
     this.addEventListener("click", callback, bubble);
 };
+Element.prototype.setAttributes = function (attributeData) {
+    for (let set in attributeData){
+        this.setAttribute(set, attributeData[set]);
+    }
+    return this;
+};
 //HTMLInputElement.prototype.v = HTMLInputElement.prototype.value;
 
-
+document.newSVGElem = name => document.createElementNS('http://www.w3.org/2000/svg', name);
 
 var turn = (x, y, angle) => ({
     x: x * Math.cos(angle) - y * Math.sin(angle),

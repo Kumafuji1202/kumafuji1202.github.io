@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Kumafuji1202">
-    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.2.1">
+    <meta name="pagename" content="Rolling Sky Spritesheet Generator v1.2.2">
     <meta name="twitter:url" content="https://kumafuji1202.github.io/rolling-sky/tools/spritesheet-generator/">
-    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.2.1">
+    <meta name="twitter:title" content="Rolling Sky Spritesheet Generator v1.2.2">
     <meta name="twitter:description" content="A web tool made by Kumafuji1202 to make spritesheets for Rolling Sky edits / Rolling Sky Remake levels easier.">
     <title data-translation-key="appTitle">
-        Rolling Sky Spritesheet Generator v1.2.1
+        Rolling Sky Spritesheet Generator v1.2.2
     </title>
 
     <!-- cssを読み込む -->
@@ -380,6 +380,7 @@
                                                     </optgroup>
                                                     <optgroup data-translation-key="patternStyleFanmade" label="">
                                                         <option value="cave" data-translation-key="fragileStyleCave"></option>
+                                                        <!--<option value="intshuttle" data-translation-key="fragileStyleIntShuttle"></option>-->
                                                     </optgroup>
                                                     <option value="double" data-translation-key="fragileLineStyleDouble"></option>
                                                 </select>
@@ -693,6 +694,9 @@
                                 </div>
                                 <!-- 結晶 cr -->
                                 <div id="crystalTRCustomizationForm">
+                                    <label><span data-translation-key="useNeonbox"></span><input type="checkbox" id="crystalUseNeonbox"></label>
+                                    <p tr-key="crystalUseNeonboxExplainer"></p><br>
+
                                     <label><span data-translation-key="russianTowerTop"></span><input type="color" id="russianTowerTop" value="#D8F9FF"></label><br>
                                     <label><span data-translation-key="russianTowerMiddleTop"></span><input type="color" id="russianTowerMiddleTop" value="#BDF5FF"></label><br>
                                     <label><span data-translation-key="russianTowerLowerTop"></span><input type="color" id="russianTowerLowerTop" value="#96F3FF"></label><br>
@@ -753,7 +757,72 @@
                                         </tbody>
                                     </table>
                                     <div data-translation-key="objectPreview"></div>
-                                    <canvas id="crystalObjPreview" width="400" height="200"></canvas>
+                                    <svg id="crystalObjPreview" class="objectPreview" viewbox="0,0 400,200" width="400" height="200">
+                                        <!-- 一部はformGeneration.jsで生成 -->
+                                        <g>
+                                            <text x="10" y="15">テトリミノ</text>
+                                            <g id="tetriminoShowcase" transform="translate(12,12) scale(12)" stroke-width="0.1">
+                                            </g>
+                                        </g>
+                                        <g transform="translate(8,80)">
+                                            <text x="0" y="0">出現氷塊</text>
+                                            <g transform="translate(10,10)">
+                                                <path d="M48,24 L72,0 L72,32 L48,56 Z" data-fill="crystalCollection6Inner" data-stroke="crystalCollection6Outer"></path>
+                                                <!--側面-->
+                                                <path d="M0,24 L24,0 L72,0 L48,24 Z" data-fill="crystalCollection1Inner" data-stroke="crystalCollection1Outer"></path>
+                                                <!--上面-->
+                                                <rect x="0" y="24" width="48" height="32" data-fill="crystalCollection7Inner" data-stroke="crystalCollection7Outer"></rect>
+                                            </g>
+                                        </g>
+                                        <g transform="translate(100,80)">
+                                            <text x="0" y="0">結晶の木</text>
+                                            <g transform="translate(10,10)">
+                                                <rect x="40" y="0" width="24" height="24" data-fill="crystalCollection3Inner" data-stroke="crystalCollection3Outer"></rect>
+                                                <!--奥-->
+                                                <path d="M24,0 L16,8 L48,8 L40,0 Z" data-fill="crystalCollection7Inner" data-stroke="crystalCollection7Outer"></path>
+                                                <!--上-->
+                                                <path d="M0,24 L8,16 8,48 0,40 Z" data-fill="crystalCollection6Inner" data-stroke="crystalCollection6Outer"></path>
+                                                <!--左-->
+                                                <path d="M64,24 L56,16 56,48 64,40 Z" data-fill="crystalCollection1Inner" data-stroke="crystalCollection1Outer"></path>
+                                                <!--上面-->
+                                                <rect x="16" y="16" width="32" height="32" data-fill="crystalCollection2Inner" data-stroke="crystalCollection2Outer"></rect>
+                                                <!--奥-->
+                                            </g>
+                                            <g transform="translate(108,10)">
+                                                <g data-fill="crystalCollection2Inner" data-stroke="crystalCollection2Outer">
+                                                    <rect x="-12" y="0" width="4" height="16"></rect>
+                                                    <rect x="-8" y="0" width="16" height="16"></rect>
+                                                    <rect x="8" y="0" width="4" height="16"></rect>
+                                                </g>
+                                                <g data-fill="crystalCollection1Inner" data-stroke="crystalCollection1Outer">
+                                                    <rect x="-16" y="16" width="4" height="16"></rect>
+                                                    <rect x="-12" y="16" width="24" height="16"></rect>
+                                                    <rect x="12" y="16" width="4" height="16"></rect>
+                                                </g>
+                                                <g data-fill="crystalCollection7Inner" data-stroke="crystalCollection7Outer">
+                                                    <rect x="-20" y="32" width="4" height="16"></rect>
+                                                    <rect x="-16" y="32" width="32" height="16"></rect>
+                                                    <rect x="16" y="32" width="4" height="16"></rect>
+                                                </g>
+                                                <g data-fill="crystalCollection6Inner" data-stroke="crystalCollection6Outer">
+                                                    <rect x="-24" y="48" width="4" height="16"></rect>
+                                                    <rect x="-20" y="48" width="40" height="16"></rect>
+                                                    <rect x="20" y="48" width="4" height="16"></rect>
+                                                    <path d="M-24,64 L24,64 16,72 -16,72 Z"></path>
+                                                </g>
+                                            </g>
+                                            <g id="middleCrystalTree" transform="translate(168,10)">
+                                                <path d="M-20,84 L20,84 16,88 -16,88 Z" data-fill="crystalCollection8Inner" data-stroke="crystalCollection8Outer"></path>
+                                            </g>
+                                        </g>
+                                        <g transform="translate(300,80)">
+                                            <text x="0" y="0">結晶門</text>
+                                            <g id="crystalGate" transform="translate(5, 10) scale(12)" stroke-width="0.1"></g>
+                                        </g>
+                                        <g id="crystalNeonboxRestriction" stroke="#ff0000" transform="translate(250,10)">
+                                            <path d="M 0,0 H 140 V 180 H 0 Z M 140,0 L 0,180" fill="none" stroke-width="10"></path>
+                                        </g>
+                                    </svg>
                                 </div>
                                 <!-- 幾何 cb -->
                                 <div id="geometryCustomizationForm">
@@ -1365,6 +1434,7 @@
                                     <span data-translation-key="presets"></span>:
                                     <input type="button" data-translation-key="TRPresetSunset" data-preset="sunset">
                                     <input type="button" data-translation-key="TRPresetDawn" data-preset="dawn">
+                                    <!--<input type="button" data-translation-ksey="TRPresetDawn" data-preset="geclipse" value="Gold Eclipse (Enemy153)">-->
                                     <p data-translation-key="sunshineFlipperGuide"></p>
                                     <table>
                                         <thead>
@@ -1378,21 +1448,21 @@
                                         <tbody>
                                             <tr>
                                                 <th><span data-translation-key="tone#"></span>1</th>
-                                                <td><label><input type="color" id="sunshineMain1" value="#ffffff" data-preset-sunset="#ffffff" data-preset-dawn="#ffffff"></label></td>
-                                                <td><label><input type="color" id="sunshineDark1" value="#e6e8ee" data-preset-sunset="#e9ebf0" data-preset-dawn="#e6e8ee"></label></td>
-                                                <td><label><input type="color" id="sunshineAccent1" value="#9ef9fe" data-preset-sunset="#fac367" data-preset-dawn="#9ef9fe"></label></td>
+                                                <td><label><input type="color" id="sunshineMain1" value="#ffffff" data-preset-sunset="#ffffff" data-preset-dawn="#ffffff"></label><!-- data-preset-geclipse="#ffffff" --></td>
+                                                <td><label><input type="color" id="sunshineDark1" value="#e6e8ee" data-preset-sunset="#e9ebf0" data-preset-dawn="#e6e8ee"></label><!-- data-preset-geclipse="#e6e8ee" --></td>
+                                                <td><label><input type="color" id="sunshineAccent1" value="#9ef9fe" data-preset-sunset="#fac367" data-preset-dawn="#9ef9fe"></label><!-- data-preset-geclipse="#f7e36b" --></td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="tone#"></span>2</th>
-                                                <td><label><input type="color" id="sunshineMain2" value="#eaedf4" data-preset-sunset="#e7eaef" data-preset-dawn="#eaedf4"></label></td>
-                                                <td><label><input type="color" id="sunshineDark2" value="#c5cbd8" data-preset-sunset="#c5cbd8" data-preset-dawn="#c5cbd8"></label></td>
-                                                <td><label><input type="color" id="sunshineAccent2" value="#6addea" data-preset-sunset="#f7a51d" data-preset-dawn="#6addea"></label></td>
+                                                <td><label><input type="color" id="sunshineMain2" value="#eaedf4" data-preset-sunset="#e7eaef" data-preset-dawn="#eaedf4"></label><!-- data-preset-geclipse="#eaedf4" --></td>
+                                                <td><label><input type="color" id="sunshineDark2" value="#c5cbd8" data-preset-sunset="#c5cbd8" data-preset-dawn="#c5cbd8"></label><!-- data-preset-geclipse="#c5cbd8" --></td>
+                                                <td><label><input type="color" id="sunshineAccent2" value="#6addea" data-preset-sunset="#f7a51d" data-preset-dawn="#6addea"></label><!-- data-preset-geclipse="#f7d321" --></td>
                                             </tr>
                                             <tr>
                                                 <th><span data-translation-key="tone#"></span>3</th>
-                                                <td><label><input type="color" id="sunshineMain3" value="#babfca" data-preset-sunset="#babfca" data-preset-dawn="#babfca"></label></td>
-                                                <td><label><input type="color" id="sunshineDark3" value="#9fa5b1" data-preset-sunset="#9fa5b1" data-preset-dawn="#9fa5b1"></label></td>
-                                                <td><label><input type="color" id="sunshineAccent3" value="#6aa5af" data-preset-sunset="#ba792f" data-preset-dawn="#6aa5af"></label></td>
+                                                <td><label><input type="color" id="sunshineMain3" value="#babfca" data-preset-sunset="#babfca" data-preset-dawn="#babfca"></label><!-- data-preset-geclipse="#babfca" --></td>
+                                                <td><label><input type="color" id="sunshineDark3" value="#9fa5b1" data-preset-sunset="#9fa5b1" data-preset-dawn="#9fa5b1"></label><!-- data-preset-geclipse="#9fa5b1" --></td>
+                                                <td><label><input type="color" id="sunshineAccent3" value="#6aa5af" data-preset-sunset="#ba792f" data-preset-dawn="#6aa5af"></label><!-- data-preset-geclipse="#bd9631" --></td>
                                             </tr>
                                         </tbody>
                                     </table>

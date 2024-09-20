@@ -81,6 +81,10 @@ window.addEventListener("load", function(){
         for (let set of saveDataFormat) {
             if (data[set.id]) {
                 if (!set.prop || set.prop == "value"){
+                    if ((set.id == "flipTileObverseType" || set.id == "flipTileReverseType") && data[set.id] == "smiley"){
+                        getElem(set.id).value = (set.id == "flipTileObverseType") ? "smile" : "frown";
+                        continue;
+                    }
                     getElem(set.id).value = data[set.id];
                 } else if (set.prop == "checked") {
                     getElem(set.id).checked = data[set.id] == "true";
