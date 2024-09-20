@@ -2882,54 +2882,6 @@ var flipTileData = {
             }
         }
     },
-    //うれしい
-    "smiley": {
-        nameTranslationKey: "flipTileSmiley",
-        colorCount: 2,
-        translationKeys: [
-                    "backgroundColor",
-                    "patternColor"
-                ],
-        pattern: {
-
-            colorCount: 3,
-            drawer: function (s, m, i, l) {
-                s.fillStyle = i[1];
-                s.fillRect(m, 0, 64, 64);
-                s.strokeStyle = i[0];
-                s.lineCap = "round";
-
-                s.lineWidth = 5.5;
-                s.beginPath();
-                s.arc(m + 32, 33.5, 25, 0, 2 * Math.PI, false);
-                s.stroke();
-
-                s.lineWidth = 6;
-                s.beginPath();
-                s.moveTo(m + 23, 37.5);
-                s.lineTo(m + 23, 41.5);
-                s.moveTo(m + 41, 37.5);
-                s.lineTo(m + 41, 41.5);
-                s.stroke();
-
-                s.lineWidth = 5.5;
-                if (l) {
-                    s.beginPath();
-                    s.moveTo(m + 22, 28);
-                    s.bezierCurveTo(m + 23, 21, /**/ m + 28, 20, /**/ m + 32, 20);
-                    s.bezierCurveTo(m + 36, 20, /**/ m + 41, 21, /**/ m + 42, 28);
-                    s.stroke();
-                } else {
-                    s.beginPath();
-                    s.moveTo(m + 22, 20);
-                    s.bezierCurveTo(m + 23, 27, /**/ m + 28, 28, /**/ m + 32, 28);
-                    s.bezierCurveTo(m + 36, 28, /**/ m + 41, 27, /**/ m + 42, 20);
-                    s.stroke();
-                }
-                return l;
-            }
-        }
-    },
     //うれしい(表)
     "smile": {
         nameTranslationKey: "flipTileSmile",
