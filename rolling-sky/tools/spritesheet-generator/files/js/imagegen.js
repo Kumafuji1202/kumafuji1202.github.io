@@ -2792,7 +2792,7 @@ function generateEnemy() {
     }
 
     //G
-    if (!selectedTopRightTypeOption.hasAttribute("data-overrides-risers") && !selectedSubBTypeOption.hasAttribute("data-overrides-risers")) {
+    if (!selectedTopRightTypeOption.hasAttribute("data-overrides-risers") && (!selectedSubBTypeOption.hasAttribute("data-overrides-risers") || !selectedTopRightTypeOption.hasAttribute("data-subB-available"))) {
         contextEnemy.strokeStyle = "#000000";
         switch (getElem("bottomRightType").value) {
             case "outlined":

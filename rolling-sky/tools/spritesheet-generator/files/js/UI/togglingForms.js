@@ -32,7 +32,7 @@ function checkIfCommonObjsAreAvailable() {
     //MiniJ
     setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-minijump-available"), "smallJumpForm", "smallJumpUnavailableMessage");
     //BRight
-    setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-overrides-risers", true) && selectedOptionHasAttribute("subBType", "data-overrides-risers", true), "bottomRightForm", "bottomRightUnavailableMessage");
+    setShowCommonObjForm(selectedOptionHasAttribute("topRightType", "data-overrides-risers", true) && (selectedOptionHasAttribute("subBType", "data-overrides-risers", true) || selectedOptionHasAttribute("topRightType", "data-subB-available", true)), "bottomRightForm", "bottomRightUnavailableMessage");
 }
 checkIfCommonObjsAreAvailable();
 getElem("topRightType").addEventListener("change", checkIfCommonObjsAreAvailable);

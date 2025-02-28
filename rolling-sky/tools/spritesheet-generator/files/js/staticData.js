@@ -1,6 +1,6 @@
 // Version data
-var versionName = "v1.2.2";
-var versionNum = 22;
+var versionName = "v1.2.3";
+var versionNum = 23;
 
 // Language data
 var langDataRaw = {

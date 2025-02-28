@@ -814,5 +814,22 @@ var changeLogs = [
                 }
             ]
         }
+    },
+    {
+        "versionNumber": "1.2.3",
+        "releaseDate": {
+            "year": 2025,
+            "month": 2,
+            "day": 28
+        
+        },
+        "changes": {
+            "bugfixes": [
+                {
+                    "en": "Fixed Enemy bottom-right region becoming transparent and uneditable when primary theme region is set to a type that uses the secondary theme region while secondary theme region is internally set to the Candy type",
+                    "ja": "Enemy第二テーマ領域が飴用に設定されている状態で第二テーマ領域を使う右上設定に切り替えると右下が透明になり編集ができなくなる問題を修正"
+                }
+            ]
+        }
     }
 ];
