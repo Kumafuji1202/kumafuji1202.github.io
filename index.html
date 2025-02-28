@@ -173,10 +173,15 @@
                     <section>
                         <h2 data-translation-key="janPonaMi"></h2>
                         <ul>
-                            <li><span data-translation-key="friends.qwert"></span>: <a href="https://www.youtube.com/@qwhp_64"></a> <a href="https://scratch.mit.edu/users/qwert-hptgbdesu/"></a></li>
+                            <li><span data-translation-key="friends.qwert"></span>:
+                                <a href="https://www.youtube.com/@qwhp_64"></a>
+                                <a href="https://scratch.mit.edu/users/qwert-hptgbdesu/"></a>
+                                <a href="https://github.com/qwertub54"></a>
+                                <a href="https://www.tiktok.com/@qtwr37"></a>
+                            </li>
                             <li><span data-translation-key="friends.tsukikun"></span>: <a href="https://www.youtube.com/@tsukikun7"></a> <a href="https://scratch.mit.edu/users/tsukikun17/"></a></li>
                             <li><span data-translation-key="friends.sciTech"></span>: <a href="https://www.youtube.com/@sci-tech3200"></a></li>
-                            <li><span data-translation-key="friends.mamushi"></span>: <a href="https://www.youtube.com/@mamuc_"></a> <a href="https://ma-mushi.itch.io/"></a></li>
+                            <li><span data-translation-key="friends.mamushi"></span>: <a href="https://www.youtube.com/@mamuc_"></a> <a href="https://ma-mushi.itch.io/"></a> <a href="https://twitter.com/mamushi_daze/photo"></a></li>
                             <li><span data-translation-key="friends.menn"></span>: <a href="https://www.youtube.com/@Menn9844"></a> <a href="https://github.com/menn-9844"></a> <a href="https://menn9844.itch.io/"></a></li>
                             <li><span data-translation-key="friends.mawario"></span>: <a href="https://mawario.netlify.app/"></a> <a href="https://mawario.itch.io"></a> <a href="https://www.youtube.com/@mawario"></a> <a href="https://github.com/mawario103"></a> <a href="https://twitter.com/mawario_103"></a></li>
                             <li><span data-translation-key="friends.shin"></span>: <a href="https://www.youtube.com/@TENMAY"></a></li>
@@ -324,6 +329,34 @@
             } else {
                 if (Math.random < 0.01) {
                     selectedID = "yPYZpwSpKmA"; //Together Forever w6_Yt-X1iRM
+                } else {
+                    selectedID = vidIDs[+params.get("d") % vidIDs.length];
+                }
+            }
+            document.location = "https://youtu.be/" + selectedID;
+        }
+        if (params.get("action") == "oi") {
+            let vidIDs = [
+                "zP64_4mPjKM",
+                "s0JaQUK139s",
+                "YtY842VxLks",
+                "p-WSwHDexD8",
+                "gH6mfX4x4Pk",
+                "ISkkqowNZIc",
+                "xt0tdCWs0hQ",
+                "sB1C2CnSteQ",
+                "XqmgXVZukSA",
+                "fF_q53CvOzI",
+                "22f3KDkLtBg"
+            ];
+            let selectedID = "";
+            if (params.get("d") == "random") {
+                selectedID = vidIDs[Math.floor(vidIDs.length * Math.random())];
+            } else if (!params.get("d") || (params.get("d") != +params.get("d"))) {
+                selectedID = vidIDs[0];
+            } else {
+                if (Math.random < 0.01) {
+                    selectedID = "8kX74Q4V3wQ";
                 } else {
                     selectedID = vidIDs[+params.get("d") % vidIDs.length];
                 }
@@ -673,23 +706,24 @@
     });
     langMgr.initSite(document.getElementById("languageSelectBox"));
 
+    let twitterConfirmMsgList = [
+        "Are you sure you want to jump to Twitter? 本当にTwitterに移動しますか?",
+        "Are you sure you want to jump to TWITTER? 本当に**Twitter**に移動しますか?",
+        "Are you really sure you want to jump to the site of TWITTER? 本当にTwitterに移動したいですか?",
+        "Are you aware that you will be sent to the site of TWITTER and do you agree to be sent there? これに同意することによってあなたがTwitterに送られるということを認識し、かつそれに同意しますか?",
+        "Please press OK again to confirm that it is your actual intention to be shown the contents of the site of Twitter. Twitterへのアクセスが確かにあなたの実際の意図であることを確認するためには、「OK」を押してください。",
+        "Please press OK yet again to surely confirm that it is indeed your actual intention to have contents of Twitter reflected onto your retinae and process that images with your own brain cells. Twitterへアクセスし、それによってTwitterのコンテンツをあなたの網膜に投影し、その画像をあなたの脳細胞で処理することが間違いなくあなたの実際の意図であるということを確かに確認するためには、もう一度「OK」を押してください。",
+        "By pressing OK, you confirm that you have agreed that the developer of this website does not take any responsibility whatsoever for any potential damage to your brain and your mental wellbeing caused by your deliberate choice of browsing on Twitter, thereby letting pixels of Twitter contents in your vision. OKをクリックすることによって、Twitterサイトに移動し、それによってTwitterのサイトコンテンツのピクセルを視界に入れるというあなたの意図的な選択によって発生する可能性のある脳及び心理的福祉に対する如何なる損害についてもこのサイトの開発者は如何なる責任をとることも無いということに同意したことを確認します。",
+        "Press OK to confirm. 「OK」を押して進む"
+    ]
+
     for (let elem of Array.from(document.querySelectorAll("a[href^=\"http\"]:empty"))) {
         elem.setAttribute("target", "_blank");
         let hre = elem.getAttribute("href");
         if (hre.match(/^(https:\/\/)?twitter\.com\//)) {
             elem.style.content = "url(resources/icons8-twitter-16.png)";
             elem.setClick(e => {
-                let confirmMsgList = [
-                    "Are you sure you want to jump to Twitter? 本当にTwitterに移動しますか?",
-                    "Are you sure you want to jump to TWITTER? 本当に**Twitter**に移動しますか?",
-                    "Are you really sure you want to jump to the site of TWITTER? 本当にTwitterに移動したいですか?",
-                    "Are you aware that you will be sent to the site of TWITTER and do you agree to be sent there? これに同意することによってあなたがTwitterに送られるということを認識し、かつそれに同意しますか?",
-                    "Please press OK again to confirm that it is your actual intention to be shown the contents of the site of Twitter. Twitterへのアクセスが確かにあなたの実際の意図であることを確認するためには、「OK」を押してください。",
-                    "Please press OK yet again to surely confirm that it is indeed your actual intention to have contents of Twitter reflected onto your retinae and process that images with your own brain cells. Twitterへアクセスし、それによってTwitterのコンテンツをあなたの網膜に投影し、その画像をあなたの脳細胞で処理することが間違いなくあなたの実際の意図であるということを確かに確認するためには、もう一度「OK」を押してください。",
-                    "By pressing OK, you confirm that you have agreed that the developer of this website does not take any responsibility whatsoever for any potential damage to your brain and your mental wellbeing caused by your deliberate choice of browsing on Twitter, thereby letting pixels of Twitter contents in your vision. OKをクリックすることによって、Twitterサイトに移動し、それによってTwitterのサイトコンテンツのピクセルを視界に入れるというあなたの意図的な選択によって発生する可能性のある脳及び心理的福祉に対する如何なる損害についてもこのサイトの開発者は如何なる責任をとることも無いということに同意したことを確認します。",
-                    "Press OK to confirm. 「OK」を押して進む"
-                ]
-                for (let msg of confirmMsgList) {
+                for (let msg of twitterConfirmMsgList) {
                     if (!confirm(msg)) {
                         e.preventDefault();
                         return;
