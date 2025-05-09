@@ -1,556 +1,558 @@
 <!doctype html>
 <html lang="ja">
-
-<head>
-    <meta charset="utf-8" />
-    <title>
-        404 Not Found
-    </title>
-    <link rel="stylesheet" href="https://kumafuji1202.github.io/css-global/global.css" />
-    <link rel="stylesheet" href="https://kumafuji1202.github.io/css-global/centered-contents.css" />
-    <script src="https://kumafuji1202.github.io/js-global/lang.js"></script>
-    <script src="https://kumafuji1202.github.io/js-global/utils.js"></script>
-    <style>
-        body {
-            background: #e0f0ff;
-        }
-
-        #contents {
-            background: #cef;
-        }
-
-    </style>
-    <style>
-        /*シーンの回転*/
-        @keyframes sceneRotater {
-            from {
-                transform: rotate3d(0, 0, 0, 0deg);
+    <head>
+        <meta charset="utf-8" />
+        <title>404 Not Found</title>
+        <link rel="stylesheet" href="https://kumafuji1202.github.io/css-global/global.css" />
+        <link rel="stylesheet" href="https://kumafuji1202.github.io/css-global/centered-contents.css" />
+        <script src="https://kumafuji1202.github.io/js-global/lang.js"></script>
+        <script src="https://kumafuji1202.github.io/js-global/utils.js"></script>
+        <script src="https://kumafuji1202.github.io/js-global/movedFiles.js"></script>
+        <script>
+            var movement = movedFiles.find((i) => window.location.pathname.substring(0, i.from.length) == i.from);
+            if (movement) {
+                setTimeout(() => {
+                    window.location.pathname = movement.to + window.location.pathname.substring(i.from.length);
+                }, 5000);
+            }
+        </script>
+        <style>
+            body {
+                background: #e0f0ff;
             }
 
-            to {
-                transform: rotate3d(0, 0, 1, 360deg);
+            #contents {
+                background: #cef;
             }
-        }
+        </style>
+        <style>
+            /* seat */
+            /*シーンの回転*/
+            @keyframes sceneRotater {
+                from {
+                    transform: rotate3d(0, 0, 0, 0deg);
+                }
 
-        /*座席💺の舞*/
-        @keyframes seatMover {
-
-            0%,
-            10%,
-            20% {
-                transform: scaleZ(1);
-                animation-timing-function: ease-in;
-            }
-
-            5%,
-            15%,
-            25% {
-                transform: scaleZ(0.9);
-                animation-timing-function: ease-out;
+                to {
+                    transform: rotate3d(0, 0, 1, 360deg);
+                }
             }
 
-            30%,
-            40%,
-            50% {
-                transform: scale3d(0.2, 0.2, 0.2);
-                animation-timing-function: ease-out;
+            /*座席💺の舞*/
+            @keyframes seatMover {
+                0%,
+                10%,
+                20% {
+                    transform: scaleZ(1);
+                    animation-timing-function: ease-in;
+                }
+
+                5%,
+                15%,
+                25% {
+                    transform: scaleZ(0.9);
+                    animation-timing-function: ease-out;
+                }
+
+                30%,
+                40%,
+                50% {
+                    transform: scale3d(0.2, 0.2, 0.2);
+                    animation-timing-function: ease-out;
+                }
+
+                35%,
+                45%,
+                55% {
+                    transform: scale3d(0.3, 0.3, 0.3);
+                    animation-timing-function: ease-out;
+                }
+
+                60%,
+                70%,
+                80% {
+                    transform: scale(0.2);
+                    animation-timing-function: ease-out;
+                }
+
+                65%,
+                75%,
+                85% {
+                    transform: scale(1) scaleZ(0.2);
+                    animation-timing-function: ease-out;
+                }
+
+                100% {
+                    transform: rotate3d(0, 0, 1, 7turn) translateZ(0px);
+                }
             }
 
-            35%,
-            45%,
-            55% {
-                transform: scale3d(0.3, 0.3, 0.3);
-                animation-timing-function: ease-out;
+            @keyframes seatTest {
+                0% {
+                    transform: translate(150px, 150px) skewY(90deg);
+                    animation-timing-function: ease-out;
+                }
+                9% {
+                    transform: translate(150px, 60px);
+                    animation-timing-function: ease-out;
+                }
+                10% {
+                    transform: translate(150px, 50px) scaleZ(1.05);
+                    animation-timing-function: ease-out;
+                }
+                11% {
+                    transform: translate(150px, 40px);
+                    animation-timing-function: ease-out;
+                }
+                19% {
+                    transform: translate(150px, -40px);
+                    animation-timing-function: ease-out;
+                }
+                20% {
+                    transform: translate(150px, -50px) scaleZ(1.05);
+                    animation-timing-function: ease-out;
+                }
+                21% {
+                    transform: translate(150px, -60px);
+                    animation-timing-function: ease-out;
+                }
+                30% {
+                    transform: translate(150px, -150px);
+                    animation-timing-function: ease-out;
+                }
+                40% {
+                    transform: translate(0px, 150px);
+                    animation-timing-function: ease-out;
+                }
+                50% {
+                    transform: translate(0px, 50px);
+                    animation-timing-function: ease-out;
+                }
+                60% {
+                    transform: translate(0px, -50px);
+                    animation-timing-function: ease-out;
+                }
+                70% {
+                    transform: translate(0px, -150px);
+                    animation-timing-function: ease-out;
+                }
             }
 
-            60%,
-            70%,
-            80% {
-                transform: scale(0.2);
-                animation-timing-function: ease-out;
+            @keyframes seatMover2 {
+                0% {
+                    transform: rotate3d(0, 0, 0, 0deg);
+                }
+
+                10% {
+                    transform: rotate3d(0, 0, 1, 360deg);
+                    animation-timing-function: ease-out;
+                }
+
+                12%,
+                16%,
+                20% {
+                    transform: translateZ(50px);
+                    animation-timing-function: ease-in;
+                }
+
+                14%,
+                18% {
+                    transform: translateZ(0px);
+                    animation-timing-function: ease-out;
+                }
+
+                22% {
+                    transform: rotate3d(0, 0, 0, 0deg);
+                }
+
+                32% {
+                    transform: rotate3d(0, 0, 1, 4turn) translateZ(200px);
+                }
+
+                40% {
+                    transform: rotate3d(0, 0, 1, 7turn) translateZ(0px);
+                }
+
+                40%,
+                44%,
+                48%,
+                52% {
+                    transform: scaleZ(1);
+                    animation-timing-function: ease-in;
+                }
+
+                42%,
+                46%,
+                50%,
+                54% {
+                    transform: scaleZ(0.9);
+                    animation-timing-function: ease-out;
+                }
+
+                56%,
+                60%,
+                64%,
+                68% {
+                    transform: scale3d(0.2, 0.2, 0.2);
+                    animation-timing-function: ease-out;
+                }
+
+                58%,
+                62%,
+                66%,
+                70% {
+                    transform: scale3d(0.3, 0.3, 0.3);
+                    animation-timing-function: ease-out;
+                }
+
+                72% {
+                    transform: translate(-150px, -150px);
+                    animation-timing-function: ease-out;
+                }
+
+                75% {
+                    transform: translate(-150px, 150px);
+                    animation-timing-function: ease-out;
+                }
+
+                78% {
+                    transform: translate(150px, 150px);
+                    animation-timing-function: ease-out;
+                }
+
+                81% {
+                    transform: translate(150px, -150px);
+                    animation-timing-function: ease-out;
+                }
+
+                84% {
+                    transform: translate(-150px, -150px);
+                    animation-timing-function: ease-out;
+                }
+                87% {
+                    transform: scale(1);
+                    animation-timing-function: ease-out;
+                }
+                91%,
+                95%,
+                99% {
+                    transform: scale(0.2);
+                    animation-timing-function: ease-out;
+                }
+
+                89%,
+                93%,
+                97% {
+                    transform: scale(1) scaleZ(0.2);
+                    animation-timing-function: ease-out;
+                }
+                100% {
+                    transform: scale(1);
+                    animation-timing-function: ease-out;
+                }
             }
 
-            65%,
-            75%,
-            85% {
-                transform: scale(1) scaleZ(0.2);
-                animation-timing-function: ease-out;
+            plane,
+            planegroup {
+                position: absolute;
+                display: block;
+                transform-origin: bottom;
             }
 
-            100% {
-                transform: rotate3d(0, 0, 1, 7turn) translateZ(0px);
-            }
-        }
-
-        @keyframes seatTest {
-            0% {
-                transform: translate(150px, 150px) skewY(90deg);
-                animation-timing-function: ease-out;
-            }
-            9% {
-                transform: translate(150px, 60px);
-                animation-timing-function: ease-out;
-            }
-            10% {
-                transform: translate(150px, 50px) scaleZ(1.05);
-                animation-timing-function: ease-out;
-            }
-            11% {
-                transform: translate(150px, 40px);
-                animation-timing-function: ease-out;
-            }
-            19% {
-                transform: translate(150px, -40px);
-                animation-timing-function: ease-out;
-            }
-            20% {
-                transform: translate(150px, -50px) scaleZ(1.05);
-                animation-timing-function: ease-out;
-            }
-            21% {
-                transform: translate(150px, -60px);
-                animation-timing-function: ease-out;
-            }
-            30% {
-                transform: translate(150px, -150px);
-                animation-timing-function: ease-out;
-            }
-            40% {
-                transform: translate(0px, 150px);
-                animation-timing-function: ease-out;
-            }
-            50% {
-                transform: translate(0px, 50px);
-                animation-timing-function: ease-out;
-            }
-            60% {
-                transform: translate(0px, -50px);
-                animation-timing-function: ease-out;
-            }
-            70% {
-                transform: translate(0px, -150px);
-                animation-timing-function: ease-out;
-            }
-        }
-
-        @keyframes seatMover2 {
-            0% {
-                transform: rotate3d(0, 0, 0, 0deg);
+            /**/
+            #seatView div,
+            #seatView planegroup {
+                transform-style: preserve-3d;
             }
 
-            10% {
-                transform: rotate3d(0, 0, 1, 360deg);
-                animation-timing-function: ease-out;
+            /*ビュー全体*/
+            #seatView {
+                height: 500px;
+                border: 5px solid black;
+                perspective: 800px;
+                overflow: hidden;
+                background: #8cf;
             }
 
-            12%,
-            16%,
-            20% {
-                transform: translateZ(50px);
-                animation-timing-function: ease-in;
+            /*視点*/
+            #seatCamera {
+                transform: rotate3d(1, 0, 0, 60deg);
+                position: absolute;
+                left: calc(50% - 250px);
+                width: 500px;
+                height: 500px;
+                margin: auto;
             }
 
-            14%,
-            18% {
-                transform: translateZ(0px);
-                animation-timing-function: ease-out;
-            }
-
-            22% {
-                transform: rotate3d(0, 0, 0, 0deg);
-            }
-
-            32% {
-                transform: rotate3d(0, 0, 1, 4turn) translateZ(200px);
-            }
-
-            40% {
-                transform: rotate3d(0, 0, 1, 7turn) translateZ(0px);
-            }
-
-            40%,
-            44%,
-            48%,
-            52%{
-                transform: scaleZ(1);
-                animation-timing-function: ease-in;
-            }
-
-            42%,
-            46%,
-            50%,
-            54%{
-                transform: scaleZ(0.9);
-                animation-timing-function: ease-out;
-            }
-
-            56%,
-            60%,
-            64%,
-            68%{
-                transform: scale3d(0.2, 0.2, 0.2);
-                animation-timing-function: ease-out;
-            }
-
-            58%,
-            62%,
-            66%,
-            70%{
-                transform: scale3d(0.3, 0.3, 0.3);
-                animation-timing-function: ease-out;
-            }
-            
-            72%{
-                transform: translate(-150px, -150px);
-                animation-timing-function: ease-out;
-            }
-            
-            75%{
-                transform: translate(-150px, 150px);
-                animation-timing-function: ease-out;
-            }
-            
-            78%{
-                transform: translate(150px, 150px);
-                animation-timing-function: ease-out;
-            }
-            
-            81%{
-                transform: translate(150px, -150px);
-                animation-timing-function: ease-out;
-            }
-            
-            84%{
-                transform: translate(-150px, -150px);
-                animation-timing-function: ease-out;
-            }
-            87%{
-                transform: scale(1);
-                animation-timing-function: ease-out;
-            }
-            91%,
-            95%,
-            99%{
-                transform: scale(0.2);
-                animation-timing-function: ease-out;
-            }
-
-            89%,
-            93%,
-            97%{
-                transform: scale(1) scaleZ(0.2);
-                animation-timing-function: ease-out;
-            }
-            100% {
-                transform: scale(1);
-                animation-timing-function: ease-out;
-            }
-        }
-
-        plane,
-        planegroup {
-            position: absolute;
-            display: block;
-            transform-origin: bottom;
-        }
-
-        /**/
-        #seatView div,
-        #seatView planegroup {
-            transform-style: preserve-3d;
-        }
-
-        /*ビュー全体*/
-        #seatView {
-            height: 500px;
-            border: 5px solid black;
-            perspective: 800px;
-            overflow: hidden;
-            background: #8cf;
-        }
-
-        /*視点*/
-        #seatCamera {
-            transform: rotate3d(1, 0, 0, 60deg);
-            position: absolute;
-            left: calc(50% - 250px);
-            width: 500px;
-            height: 500px;
-            margin: auto;
-        }
-
-        /*シーン*/
-        #seatScene {
+            /*シーン*/
+            #seatScene {
                 transform: rotate3d(0, 0, 1, 50deg);
-            background: #ffffff80;
-            border: 1px solid black;
-            width: 100%;
-            height: 100%;
+                background: #ffffff80;
+                border: 1px solid black;
+                width: 100%;
+                height: 100%;
 
-            animation-name: sceneRotater;
-            animation-duration: 20s;
-            animation-iteration-count: infinite;
-            animation-play-state: running;
-            animation-timing-function: linear;
-        }
+                animation-name: sceneRotater;
+                animation-duration: 20s;
+                animation-iteration-count: infinite;
+                animation-play-state: running;
+                animation-timing-function: linear;
+            }
 
-        /*椅子*/
-        #seatObj {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            top: 250px;
-            left: 250px;
-            color: white;
-            transform-origin: top left;
-            animation-name: seatMover2;
-            animation-duration: 12.5s;
-            animation-iteration-count: infinite;
-            animation-play-state: running;
-            animation-timing-function: linear;
-        }
+            /*椅子*/
+            #seatObj {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                top: 250px;
+                left: 250px;
+                color: white;
+                transform-origin: top left;
+                animation-name: seatMover2;
+                animation-duration: 12.5s;
+                animation-iteration-count: infinite;
+                animation-play-state: running;
+                animation-timing-function: linear;
+            }
 
-        #base {
-            width: 100px;
-            height: 100px;
-            top: -50px;
-            left: -50px;
-            background-color: #ddd;
-        }
+            #base {
+                width: 100px;
+                height: 100px;
+                top: -50px;
+                left: -50px;
+                background-color: #ddd;
+            }
 
-        /*脚の前面*/
-        .legFront,
-        .legBack {
-            width: 20px;
-            height: 50px;
-            left: -10px;
-            background-color: #67757F;
-        }
+            /*脚の前面*/
+            .legFront,
+            .legBack {
+                width: 20px;
+                height: 50px;
+                left: -10px;
+                background-color: #67757f;
+            }
 
-        .legFront {
-            top: -10px;
-            transform: rotate3d(-1, 0, 0, 90deg);
-        }
+            .legFront {
+                top: -10px;
+                transform: rotate3d(-1, 0, 0, 90deg);
+            }
 
-        /*脚の後ろ面*/
-        .legBack {
-            top: -90px;
-            transform: rotate(180deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            /*脚の後ろ面*/
+            .legBack {
+                top: -90px;
+                transform: rotate(180deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        /*脚の側面*/
-        .legLeftSide,
-        .legRightSide {
-            width: 80px;
-            height: 50px;
-            top: -50px;
-            background-color: #9AAAB4;
-        }
+            /*脚の側面*/
+            .legLeftSide,
+            .legRightSide {
+                width: 80px;
+                height: 50px;
+                top: -50px;
+                background-color: #9aaab4;
+            }
 
-        .legLeftSide {
-            left: -30px;
-            transform: rotate(-90deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .legLeftSide {
+                left: -30px;
+                transform: rotate(-90deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .legRightSide {
-            left: -50px;
-            transform: rotate(90deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .legRightSide {
+                left: -50px;
+                transform: rotate(90deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        /*脚の配置*/
-        #leftLeg {
-            left: 35px;
-        }
+            /*脚の配置*/
+            #leftLeg {
+                left: 35px;
+            }
 
-        #rightLeg {
-            left: -35px;
-        }
+            #rightLeg {
+                left: -35px;
+            }
 
-        /*座面クッション*/
-        #cushionFront {
-            width: 100px;
-            height: 35px;
-            top: 15px;
-            left: -50px;
-            transform: translateZ(40px) rotate3d(-1, 0, 0, 90deg);
-            background-color: #2a6797;
-        }
+            /*座面クッション*/
+            #cushionFront {
+                width: 100px;
+                height: 35px;
+                top: 15px;
+                left: -50px;
+                transform: translateZ(40px) rotate3d(-1, 0, 0, 90deg);
+                background-color: #2a6797;
+            }
 
-        .cushionSide {
-            width: 100px;
-            height: 35px;
-            top: -35px;
-            background-color: #5dadec;
-        }
+            .cushionSide {
+                width: 100px;
+                height: 35px;
+                top: -35px;
+                background-color: #5dadec;
+            }
 
-        #cushionLeft {
-            transform: rotate(-90deg) translateZ(40px) rotate3d(-1, 0, 0, 90deg);
-        }
+            #cushionLeft {
+                transform: rotate(-90deg) translateZ(40px) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        #cushionRight {
-            left: -100px;
-            transform: rotate(90deg) translateZ(40px) rotate3d(-1, 0, 0, 90deg);
-        }
+            #cushionRight {
+                left: -100px;
+                transform: rotate(90deg) translateZ(40px) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        #seatBase {
-            width: 100px;
-            height: 90px;
-            top: -40px;
-            left: -50px;
-            transform: translateZ(75px);
-            background-color: #5dadec;
-        }
+            #seatBase {
+                width: 100px;
+                height: 90px;
+                top: -40px;
+                left: -50px;
+                transform: translateZ(75px);
+                background-color: #5dadec;
+            }
 
-        /*肘掛け*/
-        .armrestLowerFront,
-        .armrestLowerBack {
-            width: 10px;
-            height: 40px;
-            left: -5px;
-            background-color: #67757F;
-        }
+            /*肘掛け*/
+            .armrestLowerFront,
+            .armrestLowerBack {
+                width: 10px;
+                height: 40px;
+                left: -5px;
+                background-color: #67757f;
+            }
 
-        .armrestLowerFront {
-            top: 0px;
-            transform: rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestLowerFront {
+                top: 0px;
+                transform: rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestLowerBack {
-            top: -80px;
-            transform: rotate(180deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestLowerBack {
+                top: -80px;
+                transform: rotate(180deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestLowerLeft,
-        .armrestLowerRight {
-            width: 80px;
-            height: 40px;
-            top: -40px;
-            background-color: #9AAAB4;
-        }
+            .armrestLowerLeft,
+            .armrestLowerRight {
+                width: 80px;
+                height: 40px;
+                top: -40px;
+                background-color: #9aaab4;
+            }
 
-        .armrestLowerLeft {
-            left: -35px;
-            transform: rotate(-90deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestLowerLeft {
+                left: -35px;
+                transform: rotate(-90deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestLowerRight {
-            left: -45px;
-            transform: rotate(90deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestLowerRight {
+                left: -45px;
+                transform: rotate(90deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestUpperFront,
-        .armrestUpperBack {
-            width: 16px;
-            height: 10px;
-            left: -8px;
-            background-color: #9AAAB4;
-        }
-        .armrestUpperFront {
-            top: 40px;
-            transform: translateZ(40px) rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestUpperFront,
+            .armrestUpperBack {
+                width: 16px;
+                height: 10px;
+                left: -8px;
+                background-color: #9aaab4;
+            }
+            .armrestUpperFront {
+                top: 40px;
+                transform: translateZ(40px) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestUpperBack {
-            top: -50px;
-            transform: translateZ(40px) rotate(180deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestUpperBack {
+                top: -50px;
+                transform: translateZ(40px) rotate(180deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestUpperLeft,
-        .armrestUpperRight {
-            width: 90px;
-            height: 10px;
-            top: -5px;
-            background-color: #CCD6DD;
-        }
+            .armrestUpperLeft,
+            .armrestUpperRight {
+                width: 90px;
+                height: 10px;
+                top: -5px;
+                background-color: #ccd6dd;
+            }
 
-        .armrestUpperLeft {
-            left: -38px;
-            transform: translateZ(40px) rotate(-90deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestUpperLeft {
+                left: -38px;
+                transform: translateZ(40px) rotate(-90deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestUpperRight {
-            left: -54px;
-            transform: translateZ(40px) rotate(90deg) rotate3d(-1, 0, 0, 90deg);
-        }
+            .armrestUpperRight {
+                left: -54px;
+                transform: translateZ(40px) rotate(90deg) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .armrestTop {
-            height: 90px;
-            width: 16px;
-            top: -40px;
-            left: -8px;
-            transform: translateZ(50px);
-            background-color: #9AAAB4;
-        }
-        
-        /*肘掛けの配置*/
-        #rightArmrest {
-            transform: translate3d(-55px, -20px, 60px);
-        }
+            .armrestTop {
+                height: 90px;
+                width: 16px;
+                top: -40px;
+                left: -8px;
+                transform: translateZ(50px);
+                background-color: #9aaab4;
+            }
 
-        #leftArmrest {
-            transform: translate3d(55px, -20px, 60px);
-        }
+            /*肘掛けの配置*/
+            #rightArmrest {
+                transform: translate3d(-55px, -20px, 60px);
+            }
 
-        /*背凭れ*/
-        #backrestFront,
-        #backrestTop,
-        #backrestBack {
-            width: 100px;
-            left: -50px;
-        }
+            #leftArmrest {
+                transform: translate3d(55px, -20px, 60px);
+            }
 
-        #backrestFront {
-            height: 100px;
-            top: -140px;
-            background-color: #4289C1;
-            transform: translateZ(75px) rotate3d(-1, 0, 0, 90deg);
-        }
+            /*背凭れ*/
+            #backrestFront,
+            #backrestTop,
+            #backrestBack {
+                width: 100px;
+                left: -50px;
+            }
 
-        #backrestBack {
-            height: 125px;
-            top: -185px;
-            background-color: #4289C1;
-            transform: rotate(180deg) translateZ(50px) rotate3d(-1, 0, 0, 90deg);
-        }
+            #backrestFront {
+                height: 100px;
+                top: -140px;
+                background-color: #4289c1;
+                transform: translateZ(75px) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        #backrestTop {
-            height: 20px;
-            top: -60px;
-            transform: translateZ(175px);
-            background-color: #5DADEC;
-        }
+            #backrestBack {
+                height: 125px;
+                top: -185px;
+                background-color: #4289c1;
+                transform: rotate(180deg) translateZ(50px) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        .backrestSide {
-            width: 20px;
-            height: 125px;
-            top: -175px;
-            background-color: #5DADEC;
-        }
+            #backrestTop {
+                height: 20px;
+                top: -60px;
+                transform: translateZ(175px);
+                background-color: #5dadec;
+            }
 
-        #backrestLeft {
-            left: 40px;
-            transform: rotate(-90deg) translateZ(50px) rotate3d(-1, 0, 0, 90deg);
-        }
+            .backrestSide {
+                width: 20px;
+                height: 125px;
+                top: -175px;
+                background-color: #5dadec;
+            }
 
-        #backrestRight {
-            left: -60px;
-            transform: rotate(90deg) translateZ(50px) rotate3d(-1, 0, 0, 90deg);
-        }
+            #backrestLeft {
+                left: 40px;
+                transform: rotate(-90deg) translateZ(50px) rotate3d(-1, 0, 0, 90deg);
+            }
 
-        #headThing {
-            height: 40px;
-            width: 50px;
-            top: -80px;
-            left: -25px;
-            position: static;
-            background-color: #E1E8ED;
-            margin: 0 auto 0;
-        }
+            #backrestRight {
+                left: -60px;
+                transform: rotate(90deg) translateZ(50px) rotate3d(-1, 0, 0, 90deg);
+            }
 
-    </style>
-</head>
-
-<body>
+            #headThing {
+                height: 40px;
+                width: 50px;
+                top: -80px;
+                left: -25px;
+                position: static;
+                background-color: #e1e8ed;
+                margin: 0 auto 0;
+            }
+        </style>
+    </head>
 
     <body>
         <div id="container-flex">
@@ -620,11 +622,10 @@
                     </div>
                 </div>
                 <p>The page you were looking for doesn't seem to exist. Here is a CSS-animated dancing seat💺.</p>
-                <p>𐑞 𐑐𐑱𐑡 𐑿 𐑢𐑻 𐑤𐑫𐑒𐑦𐑙 𐑓 𐑛𐑳𐑟𐑯𐑛 𐑕𐑰𐑥 𐑑 𐑦𐑜𐑟𐑦𐑕𐑑. 𐑣𐑽 𐑦𐑟 𐑩 𐑒.𐑕.𐑖.-𐑨𐑯𐑦𐑯𐑱𐑑𐑦𐑛 𐑛𐑨𐑯𐑕𐑦𐑣 𐑕𐑰𐑑.</p>
+                <p>𐑞 𐑐𐑱𐑡 𐑿 𐑢𐑻 𐑤𐑫𐑒𐑦𐑙 𐑓 𐑛𐑳𐑟𐑯𐑛 𐑕𐑰𐑥 𐑑 𐑦𐑜𐑟𐑦𐑕𐑑. 𐑣𐑽 𐑦𐑟 𐑩 𐑒.𐑕.𐑖.-𐑨𐑯𐑦𐑥𐑱𐑑𐑦𐑛 𐑛𐑨𐑯𐑕𐑦𐑣 𐑕𐑰𐑑.</p>
+                <p>あなたが探していたページは存在しないようです。ここには代わりにCSS製の踊る座席があります。</p>
                 <a href="https://kumafuji1202.github.io/">Return to Top Page</a>
             </div>
         </div>
     </body>
-</body>
-
 </html>
