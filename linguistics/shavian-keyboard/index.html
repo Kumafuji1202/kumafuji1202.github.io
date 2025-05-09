@@ -9,11 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="pagename" content="Shavian Alphabet Soft Keyboard (wip)" />
         <meta name="author" content="Kumafuji1202" />
-        <meta name="twitter:url" content="https://kumafuji1202.github.io/shavian-keyboard/" />
+        <meta name="twitter:url" content="https://kumafuji1202.github.io/linguistics/shavian-keyboard/" />
         <meta name="keywords" content="Shavian, ·𐑖𐑱𐑝𐑾𐑯, Shavian input">
         <link
             rel="canonical"
-            href="https://kumafuji1202.github.io/shavian-keyboard/" />
+            href="https://kumafuji1202.github.io/linguistics/shavian-keyboard/" />
         <meta
             name="twitter:title"
             content="Shavian Alphabet Soft Keyboard (wip)" />
@@ -21,10 +21,12 @@
             name="twitter:description"
             content="" />
         <meta name="theme-color" content="#001020" />
-        <link rel="stylesheet" href="../css-global/global.css" />
-        <link rel="stylesheet" href="../css-global/centered-contents.css" />
-        <script src="../js-global/lang.js"></script>
-        <script src="../js-global/utils.js"></script>
+        <link rel="stylesheet" href="../../css-global/global.css" />
+        <link rel="stylesheet" href="../../css-global/centered-contents.css" />
+        <link rel="stylesheet" href="../../css-global/keyboards.css" />
+        <script src="../../js-global/lang.js"></script>
+        <script src="../../js-global/utils.js"></script>
+        <script src="../../js-global/keyboards.js"></script>
         <style>
             html {
                 background-color: #001020;
@@ -53,12 +55,6 @@
                 flex-direction: column;
                 padding: 0;
             }
-            ul {
-                list-style: none;
-            }
-            ul.keyboardRow {
-                display: flex;
-            }
             h1{
                 font-size: 20px;
             }
@@ -74,35 +70,31 @@
             #inputArea:placeholder-shown{
                 text-shadow: none;
             }
-            #keyboard {
+            .keyboard {
                 width: inherit;
                 /*position: fixed;*/
                 bottom: 0;
-                user-select: none;
-                align-content: center;
+            }
+            .keyArea:not(.current){
+                display: none;
             }
             .keyArea {
                 background: var(--kbd-main-bg);
-                display: none;
             }
-            .keyArea.gridKeyboard.current {
-                display: grid;
-            }
-            #bottomBar {
-                height: var(--key-height);
+            .kbdBottomBar {
                 background: var(--kbd-bottom-bg);
                 display: flex;
                 flex-direction: row;
+                user-select: none;
             }
-            #bottomBar > div {
+            .kbdBottomBar > div {
                 width: calc(1 * var(--key-height));
             }
-            #bottomBar > div#spaceBar {
+            .kbdBottomBar > div#spaceBar {
                 font-size: 20px;
                 flex-grow: 1;
             }
             .keySlot {
-                align-content: center;
                 transition-duration: 0.5s;
                 transition-delay: 100ms;
                 color: var(--key-text);
@@ -132,7 +124,7 @@
                 <h1 data-translation-key="ui.appName"></h1>
                 <nav>
                     <button>
-                        <a href="../" data-translation-key="ui.backToTop"></a>
+                        <a href="../../" data-translation-key="ui.backToTop"></a>
                     </button>
                     <label
                         for="languageSelectBox"
@@ -148,10 +140,10 @@
                     inputmode="none"
                     rows="10"></textarea>
                 <label for="inputArea">
-                    <div id="keyboard">
+                    <div class="keyboard">
                         <div class="keyArea current" id="mainKeys"></div>
                         <div class="keyArea" id="symbolKeys"></div>
-                        <div id="bottomBar"><!--
+                        <div class="kbdBottomBar"><!--
                             <div class="keySlot" title="switch to Orthodox">
                                 
                             </div>-->
@@ -221,61 +213,7 @@
         });
         lang.initSite(document.getElementById("languageSelectBox"));
 
-        //ここから入力
-        var inputArea = getElem("inputArea");
-        
-        var defaultKeyHandlers = {
-            //既定のキーハンドラ。キーの中身をそのまま出力する。
-            letter: (e) => {
-                e.preventDefault();
-                let cursorAfterPos = inputArea.selectionStart;
-                let output =
-                    e.target.getAttribute("data-output") || e.target.innerHTML;
-                inputArea.value =
-                    inputArea.value.substring(0, cursorAfterPos) +
-                    output +
-                    inputArea.value.substring(inputArea.selectionEnd);
-                //強制的にフォーカスを戻す
-                inputArea.focus({ focusVisible: false });
-                inputArea.selectionEnd = inputArea.selectionStart = cursorAfterPos + output.length;
-            },
-            enter: (e) => {
-                e.preventDefault();
-                inputArea.value =
-                    inputArea.value.substring(0, inputArea.selectionStart) +
-                    "\n" +
-                    inputArea.value.substring(inputArea.selectionEnd);
-                //強制的にフォーカスを戻す
-                inputArea.focus({ focusVisible: false });
-                inputArea.selectionEnd = ++inputArea.selectionStart;
-            },
-            //カーソルを移動させるキー
-            moveLeft: (e) => {
-                e.preventDefault();
-                //強制的にフォーカスを戻す
-                inputArea.focus({ focusVisible: false });
-                inputArea.selectionEnd = inputArea.selectionStart -= (inputArea.value.charAt(inputArea.selectionStart - 1).isSurrogate() ? 2 : 1);
-            },
-            moveRight: (e) => {
-                e.preventDefault();
-                //強制的にフォーカスを戻す
-                inputArea.focus({ focusVisible: false });
-                inputArea.selectionEnd = inputArea.selectionStart += (inputArea.value.charAt(inputArea.selectionStart).isSurrogate() ? 2 : 1);
-            },
-            //1文字左を削除
-            delPrev: (e) => {
-                e.preventDefault();
-                let cursorAfterPos = inputArea.selectionStart;
-                if (cursorAfterPos != 0){ //入力テキストの始めにカーソルがあるなら何もしない
-                    //前がutf16で2バイト文字か4バイト文字かを判定(カーソルの直前のバイトがサロゲートか判定)
-                    let removeStringSize = inputArea.value.charAt(cursorAfterPos - 1).isSurrogate() ? 2 : 1;
-                    inputArea.value = inputArea.value.substring(0, cursorAfterPos - removeStringSize) + inputArea.value.substring(inputArea.selectionEnd);
-                    inputArea.selectionEnd = inputArea.selectionStart = cursorAfterPos - removeStringSize;
-                }
-                //強制的にフォーカスを戻す
-                inputArea.focus({ focusVisible: false });
-            }
-        };
+        //ここから入力関連の設定
 
         var keyboardInfo = {
             //displayはnullにするとhandlerが指定されない限り既定ハンドラは割り当てられない。
@@ -392,58 +330,13 @@
             //ラテン文字
         };
         
-        function prepareKeyboard(id, keyArea) {
-            let k = keyboardInfo[id];
-            if (k.style == "grid") {
-                //css用意
-                keyArea.classList.add("gridKeyboard");
-                keyArea.style.height = `calc(${k.size.height} * var(--key-height)`; // k.size.height;
-                {
-                    let t = "1fr";
-                    for (let i = 0; i < k.size.width - 1; i++) {
-                        t += " 1fr";
-                    }
-                    keyArea.style["grid-template-columns"] = t;
-                }
-
-                //キー配置
-                for (let key of k.keys) {
-                    let keySlotElem = document.createElement("div");
-                    keyArea.appendChild(keySlotElem);
-                    keySlotElem.classList.add("keySlot");
-                    if (typeof key == "string") {
-                        keySlotElem.innerHTML = key;
-                    } else {
-                        keySlotElem.innerHTML = key.display;
-                        if (key.position) keySlotElem.style["grid-area"] = key.position;
-                        //keySlotElem.style["grid-area"] = (key.position.y + 1) + " / " + (key.position.x + 1);
-
-                        if (key.display === null) {
-                            keySlotElem.classList.add("notKey");
-                            if (!key.handler) continue;
-                        }
-                    }
-                    keyArea.appendChild(keySlotElem);
-
-                    //ハンドラ設定
-                    if (key.handler){
-                        keySlotElem.setClick(key.handler);
-                        continue;
-                    }
-                    if (k.handler){
-                        keySlotElem.setClick(k.handler);
-                        continue;
-                    }
-                    keySlotElem.setClick(defaultKeyHandlers.letter);
-                }
-            }
-        }
-        prepareKeyboard("shavian.phonetic", getElem("mainKeys"));
-        prepareKeyboard("symbols", getElem("symbolKeys"));
-        getElem("spaceBar").setClick(defaultKeyHandlers.letter);
-        getElem("periodKey").setClick(defaultKeyHandlers.letter);
-        getElem("commaKey").setClick(defaultKeyHandlers.letter);
-        getElem("enterKey").setClick(defaultKeyHandlers.enter);
+        var inputarea = getElem("inputArea");
+        prepareKeyboard(keyboardInfo["shavian.phonetic"], getElem("mainKeys"), inputarea);
+        prepareKeyboard(keyboardInfo.symbols, getElem("symbolKeys"), inputarea);
+        designateAsKey(getElem("spaceBar"), inputarea);
+        designateAsKey(getElem("periodKey"), inputarea);
+        designateAsKey(getElem("commaKey"), inputarea);
+        designateAsKey(getElem("enterKey"), inputarea, defaultKeyHandlers.enter);
         getElem("switchButton").setClick(function(){
             if (getElem("mainKeys").classList.contains("current")){
                 getElem("mainKeys").classList.remove("current");
