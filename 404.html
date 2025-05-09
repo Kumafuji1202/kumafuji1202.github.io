@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://kumafuji1202.github.io/css-global/centered-contents.css" />
         <script src="https://kumafuji1202.github.io/js-global/lang.js"></script>
         <script src="https://kumafuji1202.github.io/js-global/utils.js"></script>
-        <script src="https://kumafuji1202.github.io/js-global/moved-files.js"></script>
+        <script src="js-global/moved-files.js"></script>
         <script>
             var movement = movedFiles.find(i => window.location.pathname.substring(0, i.from.length) == i.from);
             if (movement) {
@@ -18,11 +18,11 @@
                     getElem("main-ja").innerHTML = `<em>${movement.name["ja"]}</em>はアドレスを変更しました。5秒後に現在のアドレスにリダイレクトします。`;
                     getElem("main-en-Shaw").innerHTML = `<em>${movement.name["en-Shaw"]}</em> 𐑣𐑨𐑟 𐑗𐑱𐑯𐑡𐑛 𐑦𐑑𐑕 ⸰𐑿.𐑮.𐑤. 𐑿 𐑢𐑦𐑤 𐑚𐑰 𐑷𐑑𐑩𐑥𐑨𐑑𐑦𐑒𐑩𐑤𐑰 𐑮𐑰𐑛𐑼𐑧𐑑𐑒𐑦𐑛 𐑑 𐑦𐑑𐑕 𐑒𐑻𐑩𐑯𐑑 ⸰𐑿.𐑮.𐑤. 𐑦𐑯 5 𐑕𐑧𐑒𐑩𐑯𐑛𐑟.`;
                     getElem("bottomLink").innerHTML = "If redirect is not working, click this link to proceed.<br>リダイレクトされない場合はこのリンクをクリックして進んで下さい。";
-                    getElem("bottomLink").setAttribute("href", "https://kumafuji1202.github.io" + movement.to);
+                    getElem("bottomLink").setAttribute("href", "https://kumafuji1202.github.io" + movement.to + window.location.pathname.substring(movement.from.length));
                 });
-                /*setTimeout(() => {
+                setTimeout(() => {
                     window.location.pathname = movement.to + window.location.pathname.substring(movement.from.length);
-                }, 5000);*/
+                }, 5000);
             }
         </script>
         <style>
