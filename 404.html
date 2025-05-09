@@ -12,7 +12,7 @@
             var movement = movedFiles.find((i) => window.location.pathname.substring(0, i.from.length) == i.from);
             if (movement) {
                 setTimeout(() => {
-                    window.location.pathname = movement.to + window.location.pathname.substring(i.from.length);
+                    window.location.pathname = movement.to + window.location.pathname.substring(movement.from.length);
                 }, 5000);
             }
         </script>
