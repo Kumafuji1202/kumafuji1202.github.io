@@ -28,12 +28,16 @@
         a {
             color: #ffffff;
         }
+        
+        .hex{
+            font-family: monospace;
+        }
 
     </style>
     <script src="../js-global/utils.js"></script>
     <script>
-        var hexnumber = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"],
-            binary = ["0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"];
+        var hexdigit = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"],
+            nibble = ["0000", "0001", "0010", "0011", "0100", "0101", "0110", "0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110", "1111"];
 
         function prefill(str, fillchar, unitlength) {
             let retstr = str;
@@ -105,7 +109,7 @@
             let retstr = "";
             for (let m = 0; m < binstr.length / 4; m++) {
                 let nibble = binstr.substring(m * 4, m * 4 + 4);
-                retstr += hexnumber[eval("0b" + nibble)];
+                retstr += hexdigit[eval("0b" + nibble)];
             }
             return retstr;
         }
@@ -114,9 +118,9 @@
             let retstr = "";
             for (let m = 0; m < hex.length; m++) {
                 let char = hex.charAt(m);
-                if (hexnumber.includes(char.toLowerCase())) {
+                if (hexdigit.includes(char.toLowerCase())) {
                     let dec = eval("0x" + char);
-                    retstr += binary[dec];
+                    retstr += nibble[dec];
                 }
             }
             return retstr;
@@ -162,28 +166,31 @@
             <output id="t2uOut">
                 <div>
                     <span>Codepoints:</span>
-                    <span id="t2ucodepoints"></span>
+                    <span id="t2ucodepoints" class="hex"></span>
                 </div>
                 <div>
                     <span>UTF-8 hex:</span>
-                    <span id="t2uutf8hex"></span>
+                    <span id="t2uutf8hex" class="hex"></span>
                 </div>
             </output>
             <h2>UTF-8 hex to Codepoints/Text</h2>
             <form>
-                <input type="text" value="f09f92ba e381ac c3bc 73" placeholder="Input UTF-8 hex..." id="utf8hex" size="30">
+                <input type="text" value="f09f92ba e381ac c3bc 73" placeholder="Input UTF-8 hex..." id="utf8hex" class="hex" size="30">
                 <input type="submit" value="Convert to Unicode" id="convert2utf8">
             </form>
             <output id="u2tOut">
                 <div>
                     <span>Codepoints:</span>
-                    <span id="u2tcodepoints"></span>
+                    <span id="u2tcodepoints" class="hex"></span>
                 </div>
                 <div>
                     <span>String:</span>
                     <span id="u2tstring"></span>
                 </div>
             </output>
+            <form>
+                <input type="button" value="Copy output string" id="copy">
+            </form>
             <script>
                 document.getElementById("convert2utf8").addEventListener("click", function(e) {
                     e.preventDefault();
@@ -193,6 +200,9 @@
                     e.preventDefault();
                     t2uconvert(document.getElementById('text').value);
                 })
+                document.getElementById("copy").addEventListener("click", function() {
+                    navigator.clipboard.writeText(document.getElementById("u2tstring").innerHTML);
+                });
 
             </script>
         </div>
