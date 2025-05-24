@@ -796,7 +796,7 @@ var changeLogs = [
             "additions": [
                 {
                     "en": "Added flipper patterns 'Eclipse', 'Sparkle II' (from Kingdom War), 'Probably Leaves' (from The Wizard of Oz)",
-                    "ja": "反転床模様「蝕」「キラキラⅡ」「葉?」を追加"//ParadeObverse, ParadeReverse, Smile, Frown, Keyhole(?) yet to be added
+                    "ja": "反転床模様「蝕」「キラキラⅡ」「葉?」を追加"
                 },
                 {
                     "en": "Added option to use neonbox regions in \'Crystal\' Enemy top-left settings",
@@ -828,6 +828,23 @@ var changeLogs = [
                 {
                     "en": "Fixed Enemy bottom-right region becoming transparent and uneditable when primary theme region is set to a type that uses the secondary theme region while secondary theme region is internally set to the Candy type",
                     "ja": "Enemy第二テーマ領域が飴用に設定されている状態で第二テーマ領域を使う右上設定に切り替えると右下が透明になり編集ができなくなる問題を修正"
+                }
+            ]
+        }
+    },
+    {
+        "versionNumber": "1.2.4",
+        "releaseDate": {
+            "year": 2025,
+            "month": 5,
+            "day": 25
+        
+        },
+        "changes": {
+            "additions": [
+                {
+                    "en": "Added flipper patterns 'Rhombus' (from NEWBORN) and 'Broken Rhombus' (from Breaking)",
+                    "ja": "反転床模様「菱形」「壊れた菱形」を追加"//ParadeObverse, ParadeReverse, Keyhole(?) yet to be added
                 }
             ]
         }

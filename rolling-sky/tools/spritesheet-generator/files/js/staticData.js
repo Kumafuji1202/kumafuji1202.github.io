@@ -1,6 +1,6 @@
 // Version data
-var versionName = "v1.2.3";
-var versionNum = 23;
+var versionName = "v1.2.4";
+var versionNum = 24;
 
 // Language data
 var langDataRaw = {
@@ -1533,7 +1533,7 @@ var langDataRaw = {
             "ja": "花模様 (幻のクリスマス)",
         },
         "flipTileRhombus": {
-            "en": "Rhombus (Spring Festival)",
+            "en": "Rhombus I (Spring Festival)",
             "ja": "四角模様 (春節)",
         },
         "flipTileSquares": {
@@ -1633,8 +1633,16 @@ var langDataRaw = {
             "ja": "紋章 (王国戦争)"
         },
         "flipTileWizardOfOz": {
-            "en": "Crest (Wizard of Oz)",
-            "ja": "葉? (オズの魔法使い)"
+            "en": "Bush (Wizard of Oz)",
+            "ja": "葉 (オズの魔法使い)"
+        },
+        "flipTileNewborn": {
+            "en": "Rhombus II (NEWBORN)",
+            "ja": "菱形 (新しい人生)"
+        },
+        "flipTileBreaking": {
+            "en": "Broken rhombus (Breaking)",
+            "ja": "壊れた菱形 (蛻)"
         },
         "flipTileCheckerEdged": {
             "en": "Checker + edge (3D Spatial Zone)",
@@ -2128,7 +2136,7 @@ var langDataRaw = {
 };
 
 //Marking new features with a 🆕
-["flipTileEnchantedLamp", "flipTileParade", "useNeonbox", "flipTileSparkleTwo", "flipTileWizardOfOz"].forEach(each => {
+["flipTileNewborn", "flipTileBreaking"].forEach(each => {
     langDataRaw.translations[each].ja = "🆕 " + langDataRaw.translations[each].ja;
     langDataRaw.translations[each].en = "🆕 " + langDataRaw.translations[each].en;
 });
@@ -2325,7 +2333,7 @@ var flipTileData = {
                 s.fillStyle = o[3];
                 s.beginPath();
                 s.arc(n + 32, 32, 1.5, 0, 2 * Math.PI, false);
-                s.closePath;
+                s.closePath();
                 s.fill();
 
                 s.lineWidth = 2;
@@ -2750,7 +2758,6 @@ var flipTileData = {
                               turn(1, 22, t),
                               turn(-1, 4, t),
                               turn(-2, 2, t)];
-                    console.log(pos)
                     l.beginPath();
                     l.moveTo(a + 32 + pos[0].x, 32 + pos[0].y);
                     l.bezierCurveTo(a + 32 + pos[1].x, 32 + pos[1].y, a + 32 + pos[2].x, 32 + pos[2].y, a + 32 + pos[3].x, 32 + pos[3].y);
@@ -3026,7 +3033,7 @@ var flipTileData = {
                 t.fillStyle = m[0];
                 t.fillRect(i, 0, 64, 64);
                 t.strokeStyle = m[1];
-                t.lineWidth = 3
+                t.lineWidth = 3;
                 t.strokeRect(i + 1.5, 1.5, 61, 61);
 
                 t.fillStyle = m[2];
@@ -3389,6 +3396,102 @@ var flipTileData = {
             }
         }
     },
+    "rhombusNew": {
+        nameTranslationKey: "flipTileNewborn",
+        colorCount: 4,
+        translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor",
+                    "patternColor"
+                ],
+        pattern: {
+            colorCount: 4,
+            drawer: function (fdsa, rewq, nusa, O) {
+                fdsa.fillStyle = nusa[0];
+                fdsa.fillRect(rewq, 0, 64, 64);
+                fdsa.strokeStyle = nusa[3];
+                fdsa.lineWidth = 3;
+                fdsa.strokeRect(rewq + 2, 2, 60, 60);
+                fdsa.strokeStyle = nusa[1];
+                fdsa.lineWidth = 2;
+                fdsa.strokeRect(rewq + 1, 1, 62, 62);
+
+                fdsa.lineJoin = "round";
+                fdsa.lineWidth = 3;
+                fdsa.fillStyle = nusa[2];
+                fdsa.strokeStyle = nusa[3];
+                fdsa.beginPath();
+                fdsa.moveTo(rewq + 47, 32);
+                fdsa.lineTo(rewq + 32, 52);
+                fdsa.lineTo(rewq + 17, 32);
+                fdsa.lineTo(rewq + 32, 12);
+                fdsa.closePath();
+                fdsa.moveTo(rewq + 21, 15.5);
+                fdsa.lineTo(rewq + 15, 23);
+                fdsa.lineTo(rewq + 9, 15.5);
+                fdsa.lineTo(rewq + 15, 8);
+                fdsa.closePath();
+                fdsa.moveTo(rewq + 43, 48.5);
+                fdsa.lineTo(rewq + 49, 41);
+                fdsa.lineTo(rewq + 55, 48.5);
+                fdsa.lineTo(rewq + 49, 56);
+                fdsa.closePath();
+                fdsa.stroke();
+                fdsa.fill();
+            }
+        }
+    },
+    "breaking": {
+        nameTranslationKey: "flipTileBreaking",
+        colorCount: 4,
+        translationKeys: [
+                    "backgroundColor",
+                    "flipperFrameColor",
+                    "patternColor",
+                    "patternColor"
+                ],
+        pattern: {
+            colorCount: 4,
+            drawer: function (fdsa, rewq, nusa, O) {
+                fdsa.fillStyle = nusa[0];
+                fdsa.fillRect(rewq, 0, 64, 64);
+                fdsa.strokeStyle = nusa[3];
+                fdsa.lineWidth = 3;
+                fdsa.strokeRect(rewq + 2, 2, 60, 60);
+                fdsa.strokeStyle = nusa[1];
+                fdsa.lineWidth = 2;
+                fdsa.strokeRect(rewq + 1, 1, 62, 62);
+                
+                fdsa.lineJoin = "round";
+                fdsa.lineWidth = 3;
+                fdsa.fillStyle = nusa[2];
+                fdsa.strokeStyle = nusa[3];
+                fdsa.beginPath();
+                fdsa.moveTo(rewq + 51, 32);
+                fdsa.lineTo(rewq + 32, 56);
+                fdsa.lineTo(rewq + 13, 32);
+                fdsa.lineTo(rewq + 27, 14);
+                fdsa.lineTo(rewq + 30, 31);
+                fdsa.lineTo(rewq + 41, 24);
+                fdsa.lineTo(rewq + 42, 29);
+                fdsa.lineTo(rewq + 46, 27);
+                fdsa.closePath();
+                fdsa.moveTo(rewq + 40, 10);
+                fdsa.lineTo(rewq + 42, 19);
+                fdsa.lineTo(rewq + 34, 23);
+                fdsa.lineTo(rewq + 32, 14);
+                fdsa.closePath();
+                fdsa.moveTo(rewq + 49, 14);
+                fdsa.lineTo(rewq + 52, 19);
+                fdsa.lineTo(rewq + 48, 23.5);
+                fdsa.lineTo(rewq + 45, 18.5);
+                fdsa.closePath();
+                fdsa.stroke();
+                fdsa.fill();
+            }
+        }
+    },
     /*3D spacial zone
     "checkeredged": {
         nameTranslationKey: "flipTileCheckerEdged",
@@ -3531,7 +3634,7 @@ var flipTileData = {
             }
         }
     },
-}
+};
 
 var saveDataFormat = [
     {id:"groundColor"},
@@ -4098,4 +4201,4 @@ var enemyNewGeneralTopRightDefault = {
 	"newGeneric_region_31_tone_2": "#ffd834",
 	"newGeneric_region_31_tone_3": "#ebc630",
 	"newGeneric_region_31_tone_4": "#d9b52c"
-}
+};
