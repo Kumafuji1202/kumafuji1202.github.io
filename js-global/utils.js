@@ -40,11 +40,16 @@ Col.fromColorCode = (colorCode) => {
 function getElem(id) {
     return document.getElementById(id);
 }
+
+function onPageLoad(func) {
+    return window.addEventListener("load", func);
+}
+
 HTMLElement.prototype.setClick = function (callback, bubble = false) {
     this.addEventListener("click", callback, bubble);
 };
 Element.prototype.setAttributes = function (attributeData) {
-    for (let set in attributeData){
+    for (let set in attributeData) {
         this.setAttribute(set, attributeData[set]);
     }
     return this;
@@ -57,3 +62,7 @@ var turn = (x, y, angle) => ({
     x: x * Math.cos(angle) - y * Math.sin(angle),
     y: x * Math.sin(angle) + y * Math.cos(angle)
 });
+//wiop
+Number.prototype.compress = function(middle){
+    return Math.acos(8 / (4 + this * this) - 1) / Math.PI;
+}

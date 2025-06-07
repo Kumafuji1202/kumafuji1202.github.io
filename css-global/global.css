@@ -23,6 +23,7 @@ a.button{
     border-width: 1px;
     margin: auto 2px auto;
     text-decoration: none;
+    padding: 0.2em;
 }
 
 button:hover,
@@ -30,10 +31,10 @@ input[type=button]:hover,
 input[type=submit]:hover,
 a.button:hover{
     background: var(--button-hover-bg);
+    color: inherit;
     color: var(--button-hover-text);
     color: var(--button-hover-line);
     transform: scale(1.1);
-    color: inherit;
 }
 
 select {
