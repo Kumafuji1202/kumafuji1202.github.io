@@ -65,4 +65,4 @@ var turn = (x, y, angle) => ({
 //wiop
 Number.prototype.compress = function(middle){
     return Math.acos(8 / (4 + this * this) - 1) / Math.PI;
-}
+};

@@ -30,28 +30,35 @@ langdatabase: 生のデータベースオブジェクト
 initSelectBox: 言語選択ボックスを設定
 callText: 翻訳テキストを呼び出し
 currentLang: 現在の言語コード
+イベント
+langSet
 */
 
 //currentLang = 現在の設定言語コード
-function LanguageManager(langList) {
-    //言語のデータベース
-    this.langDatabase = langList;
-    this.currentLang = "";
+class LanguageManager extends EventTarget {
+    constructor(langList) {
+        super();
+        //言語のデータベース
+        this.langDatabase = langList;
+        this.currentLang = "";
+    }
     //ページ全体を翻訳する
-    this.useLanguage = (langCode) => {
+    useLanguage(langCode) {
         //言語オブジェクト探索
         let foundLang = false;
         for (let i = 0; i < this.langDatabase.languages.length; i++) {
             if (this.langDatabase.languages[i].code == langCode) foundLang = true;
         }
         if (!foundLang) {
-            console.log("no language data for language code \"" + langCode + "\" defined");
+            console.log('no language data for language code "' + langCode + '" defined');
             return false;
         }
         this.currentLang = langCode;
         document.documentElement.setAttribute("lang", langCode);
         //言語置き換え
-        for (let elementToTranslate of Array.from(document.querySelectorAll("*[data-translation-key], *[tr-key], *[data-onetime-translation], *[tr-ot]"))) {
+        for (let elementToTranslate of Array.from(
+            document.querySelectorAll("*[data-translation-key], *[tr-key], *[data-onetime-translation], *[tr-ot]")
+        )) {
             var propertyToTranslate = "";
             switch (elementToTranslate.tagName) {
                 case "AREA":
@@ -78,7 +85,7 @@ function LanguageManager(langList) {
                 case "TEMPLATE":
                 case "TRACK":
                 case "WBR":
-                    throw new Error("no text to translate in element \"" + elementToTranslate.tagName + "\"");
+                    throw new Error('no text to translate in element "' + elementToTranslate.tagName + '"');
                 case "INPUT":
                     switch (elementToTranslate.getAttribute("type")) {
                         case "button":
@@ -96,7 +103,11 @@ function LanguageManager(langList) {
                             propertyToTranslate = "placeholder";
                             break;
                         default:
-                            throw new Error("\"input\" elements of type \"" + elementToTranslate.getAttribute("type") + "\" have no text to translate.");
+                            throw new Error(
+                                '"input" elements of type "' +
+                                    elementToTranslate.getAttribute("type") +
+                                    '" have no text to translate.'
+                            );
                     }
                     break;
                 case "TEXTAREA":
@@ -105,15 +116,33 @@ function LanguageManager(langList) {
                 default:
                     propertyToTranslate = "innerHTML";
             }
-            let translatedText = ""
+            let translatedText = "";
             if (elementToTranslate.hasAttribute("data-translation-key") || elementToTranslate.hasAttribute("tr-key")) {
-                let q = this.langDatabase.translations[elementToTranslate.getAttribute("data-translation-key") || elementToTranslate.getAttribute("tr-key")];
-                translatedText = q ? q[this.currentLang] :
-                    (propertyToTranslate == "innerHTML" ?
-                        "<span style=\"color:red;\">missing <em>" + foundLang.langName + " </em>translation for translation key \"<s>" + elementToTranslate.getAttribute("data-translation-key") + "</s>\"</span>" :
-                        "missing " + foundLang.langName + " translation for translation key \"" + elementToTranslate.getAttribute("data-translation-key") + "\"");
-            } else if (elementToTranslate.hasAttribute("onetime-translation") || elementToTranslate.hasAttribute("tr-ot")) {
-                console.log("fsdafdsafds")
+                let q =
+                    this.langDatabase.translations[
+                        elementToTranslate.getAttribute("data-translation-key") ||
+                            elementToTranslate.getAttribute("tr-key")
+                    ];
+                translatedText = q ?
+                    q[this.currentLang]
+                    : propertyToTranslate == "innerHTML" ? (
+                        '<span style="color:red;">missing <em>' +
+                        foundLang.langName +
+                        ' </em>translation for translation key "<s>' +
+                        elementToTranslate.getAttribute("data-translation-key") +
+                        '</s>"</span>'
+                    ) : (
+                        "missing " +
+                        foundLang.langName +
+                        ' translation for translation key "' +
+                        elementToTranslate.getAttribute("data-translation-key") +
+                        '"'
+                    );
+            } else if (
+                elementToTranslate.hasAttribute("onetime-translation") ||
+                elementToTranslate.hasAttribute("tr-ot")
+            ) {
+                console.log("fsdafdsafds");
                 translatedText = elementToTranslate.getAttribute("tr-ot-" + langCode);
             }
 
@@ -123,10 +152,11 @@ function LanguageManager(langList) {
                 elementToTranslate.setAttribute(propertyToTranslate, translatedText);
             }
         }
+        this.dispatchEvent(new Event("langSet"));
         return true;
-    };
+    }
     //選択ボックスの用意
-    this.initSelectBox = (selectFormElement, defaultLang) => {
+    initSelectBox(selectFormElement, defaultLang) {
         this.langDatabase.languages.forEach(function (language) {
             var optionElem = document.createElement("option");
             optionElem.setAttribute("value", language.code);
@@ -134,24 +164,32 @@ function LanguageManager(langList) {
             selectFormElement.appendChild(optionElem);
         });
         selectFormElement.value = defaultLang;
-        selectFormElement.addEventListener("input", () => {
-            this.useLanguage(selectFormElement.value);
-        }, true);
+        selectFormElement.addEventListener(
+            "input",
+            () => {
+                this.useLanguage(selectFormElement.value);
+            },
+            true
+        );
         this.useLanguage(defaultLang);
-    };
-    this.callText = (key, throwError = false) => {
+    }
+    callText(key, throwError = false) {
         if (this.langDatabase.translations[key][this.currentLang] === undefined) {
             if (throwError) {
-                throw new Error("No translation key for \"" + key + "\" in \"" + this.currentLang);
+                throw new Error('No translation key for "' + key + '" in "' + this.currentLang);
             }
-            return "No translation key for \"" + key + "\" in \"" + this.currentLang;
+            return 'No translation key for "' + key + '" in "' + this.currentLang;
         }
         return this.langDatabase.translations[key][this.currentLang];
-    };
-    this.initSite = (selectFormElement, languageLocalStorageKey = "language", defaultLang = "en") => {
-        selectFormElement.addEventListener("change", function () {
-            localStorage.setItem("language", selectFormElement.value);
-        }, true);
+    }
+    initSite(selectFormElement, languageLocalStorageKey = "language", defaultLang = "en") {
+        selectFormElement.addEventListener(
+            "change",
+            function () {
+                localStorage.setItem("language", selectFormElement.value);
+            },
+            true
+        );
         let langSet = localStorage.getItem(languageLocalStorageKey);
         if (langSet) {
             if (!this.useLanguage(langSet)) langSet = defaultLang;
@@ -161,5 +199,6 @@ function LanguageManager(langList) {
             langSet = defaultLang;
         }
         this.initSelectBox(selectFormElement, langSet);
+        this.dispatchEvent(new Event("langSet"));
     }
 }

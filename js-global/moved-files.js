@@ -16,7 +16,16 @@ var movedFiles = [
             "ja": "X-SAMPA 発音記号入力ツール",
         },
         "from": "/xsampa-input",
-        "to": "/linguistics/xsampa-ime"
+        "to": "/linguistics/ime/xsampa"
+    },
+    {
+        "name": {
+            "en": "X-SAMPA(-based) Phonetic Symbol Input Tool",
+            "en-Shaw": "⸰𐑦-𐑕𐑩𐑥𐑓𐑨(X-SAMPA)(-𐑚𐑱𐑕𐑑) 𐑓𐑩𐑯𐑧𐑑𐑦𐑒 𐑕𐑦𐑥𐑚𐑩𐑤 𐑦𐑯𐑐𐑫𐑑 𐑑𐑵𐑤",
+            "ja": "X-SAMPA 発音記号入力ツール",
+        },
+        "from": "/linguistics/xsampa-ime",
+        "to": "/linguistics/ime/xsampa"
     },
     {
         "name": {

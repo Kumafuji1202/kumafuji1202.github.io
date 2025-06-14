@@ -1,6 +1,6 @@
 window.addEventListener("load", function () {
     window.closeAllWindows = (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
         getElem(windowManager.windowGroupID).removeAttribute("opened");
         for (let each of document.querySelectorAll("window-positioner[opened]")) each.removeAttribute("opened");
     };
