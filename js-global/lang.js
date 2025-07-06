@@ -47,13 +47,17 @@ class LanguageManager extends EventTarget {
         //言語オブジェクト探索
         let foundLang = false;
         for (let i = 0; i < this.langDatabase.languages.length; i++) {
-            if (this.langDatabase.languages[i].code == langCode) foundLang = true;
+            if (this.langDatabase.languages[i].code == langCode){
+                foundLang = true;
+                if (this.langDatabase.languages[i].lang) this.currentLang = this.langDatabase.languages[i].lang;
+                else this.currentLang = this.langDatabase.languages[i].code;
+                break;
+            }
         }
         if (!foundLang) {
             console.log('no language data for language code "' + langCode + '" defined');
             return false;
         }
-        this.currentLang = langCode;
         document.documentElement.setAttribute("lang", langCode);
         //言語置き換え
         for (let elementToTranslate of Array.from(
@@ -160,6 +164,7 @@ class LanguageManager extends EventTarget {
         this.langDatabase.languages.forEach(function (language) {
             var optionElem = document.createElement("option");
             optionElem.setAttribute("value", language.code);
+            optionElem.setAttribute("lang", language.code);
             optionElem.innerHTML = language.name;
             selectFormElement.appendChild(optionElem);
         });

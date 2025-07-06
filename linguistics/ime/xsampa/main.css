@@ -1,6 +1,7 @@
 
         html {
-            font-family: "Segoe UI";
+            font-family: Andika, "Segoe UI";
+            font-feature-settings: "ss13" 1;
             --ui-bg-image: url(../../../resources/Background117.png);
             --ui-area-separator-color: #fff;
             --outer-ui-text-color: #fff;
@@ -77,6 +78,7 @@
             color: var(--input-area-text-color);
             font-size: 25px;
             font-family: inherit;
+            font-feature-settings: inherit;
             resize: none;
             width: 100%;
             flex-grow: 1;
