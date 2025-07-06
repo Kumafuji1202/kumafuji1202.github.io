@@ -18,7 +18,7 @@
     <div id="ui">
         <div id="input">
             <header>
-                <h1>X-SAMPA 発音記号入力ツール</h1>
+                <h1>X-SAMPA 発音記号入力ツール <small>1.3</small></h1>
                 <p><a href="https://ja.wikipedia.org/wiki/X-SAMPA">X-SAMPA</a>をベースにした発音記号入力補助ツールです。<a href="../../">トップページに戻る</a></p>
             </header>
             <textarea id="area" spellcheck="false" placeholder="ここに入力..."></textarea>
@@ -34,7 +34,7 @@
                     <table class="list" id="consonant-list">
                         <thead>
                             <tr>
-                                <th colspan="12">子音 (記号が2つあるセルは左が無声、右が有声)</th>
+                                <th colspan="12">子音</th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -66,39 +66,66 @@
                                 <td colspan="2" class="impossible"></td>
                             </tr>
                             <tr>
-                                <th>破裂音</th>
-                                <td><span class="symbol-code has-superscript">p <code>p</code></span> <span class="symbol-code has-superscript">b <code>b</code></span></td>
-                                <td><span class="symbol-code">p̪ <code>p_d</code><br><span class="nonipa">(ȹ <code>P\</code></span></span> <span class="symbol-code">b̪ <code>b_d</code><br><span class="nonipa">ȸ <code>D\</code>)</span></span></td>
-                                <td colspan="3"><span class="symbol-code has-superscript">t <code>t</code></span> <span class="symbol-code has-superscript">d <code>d</code></span></td>
-                                <td><span class="symbol-code">ʈ <code>t`</code></span> <span class="symbol-code">ɖ <code>d`</code></span></td>
-                                <td><span class="symbol-code nonipa">ȶ <code>t\</code></span> <span class="symbol-code nonipa">ȡ <code>d\</code></span></td>
-                                <td><span class="symbol-code has-superscript">c <code>c</code></span> <span class="symbol-code has-superscript">ɟ <code>J\</code></span></td>
-                                <td><span class="symbol-code has-superscript">k <code>k</code></span> <span class="symbol-code has-superscript">ɡ <code>g</code></span></td>
-                                <td><span class="symbol-code">q <code>q</code></span> <span class="symbol-code">ɢ <code>G\</code></span></td>
-                                <td><span class="symbol-code">ʡ <code>&gt;\</code></span></td>
+                                <th rowspan="2">破裂音</th>
+                                <td><span class="symbol-code has-superscript">p <code>p</code></span></td>
+                                <td><span class="symbol-code">p̪ <code>p_d</code> <span class="nonipa">ȹ <code>P\</code></span></span></td>
+                                <td colspan="3"><span class="symbol-code has-superscript">t <code>t</code></span></td>
+                                <td><span class="symbol-code">ʈ <code>t`</code></span></td>
+                                <td><span class="symbol-code nonipa">ȶ <code>t\</code></span></td>
+                                <td><span class="symbol-code has-superscript">c <code>c</code></span></td>
+                                <td><span class="symbol-code has-superscript">k <code>k</code></span></td>
+                                <td><span class="symbol-code">q <code>q</code></span></td>
+                                <td rowspan="2"><span class="symbol-code">ʡ <code>&gt;\</code></span></td>
                                 <td><span class="symbol-code has-superscript">ʔ <code>?</code></span></td>
                             </tr>
                             <tr>
-                                <th>摩擦音</th>
-                                <td><span class="symbol-code has-superscript">ɸ <code>p\</code></span> <span class="symbol-code has-superscript">β <code>B</code></span></td>
-                                <td><span class="symbol-code has-superscript">f <code>f</code></span> <span class="symbol-code has-superscript">v <code>v</code></span></td>
-                                <td><span class="symbol-code has-superscript">θ <code>T</code></span> <span class="symbol-code has-superscript">ð <code>D</code></span></td>
-                                <td><span class="symbol-code has-superscript">s <code>s</code></span> <span class="symbol-code has-superscript">z <code>z</code></span></td>
-                                <td><span class="symbol-code has-superscript">ʃ <code>S</code></span> <span class="symbol-code has-superscript">ʒ <code>Z</code></span></td>
-                                <td><span class="symbol-code has-superscript">ʂ <code>s`</code></span> <span class="symbol-code has-superscript">ʐ <code>z`</code></span></td>
-                                <td><span class="symbol-code has-superscript">ɕ <code>s\</code></span> <span class="symbol-code has-superscript">ʑ <code>z\</code></span></td>
-                                <td><span class="symbol-code">ç <code>C</code></span> <span class="symbol-code has-superscript">ʝ <code>j\</code></span></td>
-                                <td><span class="symbol-code has-superscript">x <code>x</code></span> <span class="symbol-code has-superscript">ɣ <code>G</code></span></td>
-                                <td><span class="symbol-code has-superscript">χ <code>X</code></span> <span class="symbol-code has-superscript">ʁ <code>R</code></span></td>
-                                <td><span class="symbol-code">ħ <code>X\</code></span> <span class="symbol-code has-superscript">ʕ <code>?\</code></span></td>
-                                <td rowspan="2"><span class="symbol-code has-superscript">h <code>h</code></span> <span class="symbol-code has-superscript">ɦ <code>h\</code></span></td>
+                                <td><span class="symbol-code has-superscript">b <code>b</code></span></td>
+                                <td><span class="symbol-code">b̪ <code>b_d</code> <span class="nonipa">ȸ <code>D\</code></span></span></td>
+                                <td colspan="3"><span class="symbol-code has-superscript">d <code>d</code></span></td>
+                                <td><span class="symbol-code">ɖ <code>d`</code></span></td>
+                                <td><span class="symbol-code nonipa">ȡ <code>d\</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɟ <code>J\</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɡ <code>g</code></span></td>
+                                <td><span class="symbol-code">ɢ <code>G\</code></span></td>
+                                <td colspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">摩擦音</th>
+                                <td><span class="symbol-code has-superscript">ɸ <code>p\</code></span></td>
+                                <td><span class="symbol-code has-superscript">f <code>f</code></span></td>
+                                <td><span class="symbol-code has-superscript">θ <code>T</code></span></td>
+                                <td><span class="symbol-code has-superscript">s <code>s</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʃ <code>S</code></span></td>
+                                <td><span class="symbol-code has-superscript">ʂ <code>s`</code></span></td>
+                                <td><span class="symbol-code has-superscript">ɕ <code>s\</code></span></td>
+                                <td><span class="symbol-code">ç <code>C</code></span></td>
+                                <td><span class="symbol-code has-superscript">x <code>x</code></span></td>
+                                <td><span class="symbol-code has-superscript">χ <code>X</code></span></td>
+                                <td><span class="symbol-code">ħ <code>X\</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">h <code>h</code></span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><span class="symbol-code has-superscript">β <code>B</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">v <code>v</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ð <code>D</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">z <code>z</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ʒ <code>Z</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ʐ <code>z`</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ʑ <code>z\</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ʝ <code>j\</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ɣ <code>G</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ʁ <code>R</code></span></td>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ʕ <code>?\</code></span></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><span class="symbol-code has-superscript">ɦ <code>h\</code></span></td>
                             </tr>
                             <tr>
                                 <th>接近音</th>
                                 <td><span class="symbol-code">β̞ <code>B_o</code></span></td>
                                 <td><span class="symbol-code has-superscript">ʋ <code>v\</code> <code>P</code></span></td>
-                                <td colspan="3"><span class="symbol-code"><span class="has-superscript">ɹ <code>r\</code></span><br><span class="nonipa">(ɿ <code>4\</code>)</span><br><span class="nonipa">(ʮ <code>y\</code>)</span></span></td>
-                                <td><span class="symbol-code"><span class="has-superscript">ɻ <code>r\`</code></span><br><span class="nonipa">(ʅ <code>4\`</code>)</span><br><span class="nonipa">(ʯ <code>y\`</code>)</span></span></td>
+                                <td colspan="3"><span class="symbol-code"><span class="has-superscript">ɹ <code>r\</code></span> <span class="nonipa">ɿ <code>4\</code></span> <span class="nonipa">ʮ <code>y\</code></span></span></td>
+                                <td><span class="symbol-code"><span class="has-superscript">ɻ <code>r\`</code></span> <span class="nonipa">ʅ <code>4\`</code></span> <span class="nonipa">ʯ <code>y\`</code></span></span></td>
                                 <td></td>
                                 <td><span class="symbol-code has-superscript">j <code>j</code></span></td>
                                 <td><span class="symbol-code has-superscript">ɰ <code>M\</code></span></td>
@@ -132,15 +159,23 @@
                                 <td class="impossible"></td>
                             </tr>
                             <tr>
-                                <th>側面摩擦音</th>
-                                <td colspan="2" class="impossible"></td>
-                                <td colspan="3"><span class="symbol-code">ɬ <code>K</code><br><span class="nonipa">ƛ <code>S\</code></span></span> <span class="symbol-code">ɮ <code>K\</code></span></td>
-                                <td><span class="symbol-code">ꞎ <code class="nonxsampa">K`</code></span> <span class="symbol-code unimplemented">&#122629; <code class="nonxsampa">K\`</code></span></td>
+                                <th rowspan="2">側面摩擦音</th>
+                                <td colspan="2" rowspan="2" class="impossible"></td>
+                                <td colspan="3"><span class="symbol-code">ɬ <code>K</code><br><span class="nonipa">ƛ <code>S\</code> (破擦音)</span></span></td>
+                                <td><span class="symbol-code">ꞎ <code class="nonxsampa">K`</code></span></td>
                                 <td></td>
                                 <td><span class="symbol-code unimplemented">&#122630; <code class="nonxsampa">k\</code></span></td>
                                 <td>𝼄</td>
                                 <td></td>
-                                <td colspan="2" class="impossible"></td>
+                                <td colspan="2" rowspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><span class="symbol-code">ɮ <code>K\</code></span></td>
+                                <td><span class="symbol-code unimplemented">&#122629; <code class="nonxsampa">K\`</code></span></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <th>側面接近音</th>
@@ -165,16 +200,26 @@
                                 <td colspan="2" class="impossible"></td>
                             </tr>
                             <tr>
-                                <th>入破音</th>
-                                <td><span class="symbol-code nonipa">ƥ <code>p_&lt;</code></span> <span class="symbol-code">ɓ <code>b_&lt;</code></span></td>
+                                <th rowspan="2">入破音</th>
+                                <td><span class="symbol-code nonipa">ƥ <code>p_&lt;</code></span></td>
                                 <td class="impossible"></td>
-                                <td colspan="3"><span class="symbol-code nonipa">ƭ <code>t_&lt;</code></span> <span class="symbol-code">ɗ <code>d_&lt;</code></span></td>
-                                <td><span class="symbol-code nonipa">ʈ <code>t`_&lt;</code></span> <span class="symbol-code">ᶑ <code>d`_&lt;</code></span></td>
+                                <td colspan="3"><span class="symbol-code nonipa">ƭ <code>t_&lt;</code></span></td>
+                                <td><span class="symbol-code nonipa">ʈ <code>t`_&lt;</code></span></td>
                                 <td></td>
-                                <td><span class="symbol-code nonipa">ƈ <code>c_&lt;</code></span> <span class="symbol-code">ʄ <code>J\_&lt;</code></span></td>
-                                <td><span class="symbol-code nonipa">ƙ <code>k_&lt;</code></span> <span class="symbol-code">ɠ <code>g_&lt;</code></span></td>
-                                <td><span class="symbol-code nonipa">ʠ <code>q_&lt;</code></span> <span class="symbol-code">ʛ <code>G\_&lt;</code></span></td>
-                                <td colspan="2" class="impossible"></td>
+                                <td><span class="symbol-code nonipa">ƈ <code>c_&lt;</code></span></td>
+                                <td><span class="symbol-code nonipa">ƙ <code>k_&lt;</code></span></td>
+                                <td><span class="symbol-code nonipa">ʠ <code>q_&lt;</code></span></td>
+                                <td colspan="2" rowspan="2" class="impossible"></td>
+                            </tr>
+                            <tr>
+                                <td><span class="symbol-code">ɓ <code>b_&lt;</code></span></td>
+                                <td class="impossible"></td>
+                                <td colspan="3"><span class="symbol-code">ɗ <code>d_&lt;</code></span></td>
+                                <td><span class="symbol-code">ᶑ <code>d`_&lt;</code></span></td>
+                                <td></td>
+                                <td><span class="symbol-code">ʄ <code>J\_&lt;</code></span></td>
+                                <td><span class="symbol-code">ɠ <code>g_&lt;</code></span></td>
+                                <td><span class="symbol-code">ʛ <code>G\_&lt;</code></span></td>
                             </tr>
                             <tr>
                                 <th>吸着音</th>
@@ -372,12 +417,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th>両唇軟口蓋</th>
-                                    <td><span class="symbol-code has-superscript">ʍ <code>W</code></span> <span class="symbol-code has-superscript">w <code>w</code></span></td>
+                                    <th rowspan="2">両唇軟口蓋</th>
+                                    <td><span class="symbol-code has-superscript">ʍ <code>W</code></span></td>
                                 </tr>
                                 <tr>
-                                    <th>両唇硬口蓋</th>
-                                    <td><span class="symbol-code">ɥ̥ <code>H_0</code></span> <span class="symbol-code has-superscript">ɥ <code>H</code></span></td>
+                                    <td><span class="symbol-code has-superscript">w <code>w</code></span></td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">両唇硬口蓋</th>
+                                    <td><span class="symbol-code">ɥ̥ <code>H_0</code></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="symbol-code has-superscript">ɥ <code>H</code></span></td>
                                 </tr>
                                 <tr>
                                     <th>暗いL</th>

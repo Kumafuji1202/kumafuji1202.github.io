@@ -117,6 +117,7 @@
             padding: 3px;
             border-radius: 2px;
             text-decoration: inherit;
+            font-feature-settings: "zero";
         }
 
         span.symbol-code{
