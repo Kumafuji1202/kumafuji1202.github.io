@@ -1,15 +1,3 @@
-@charset "utf-8";
-
-/*@font-face {
-    font-family: "FdSans";
-    src: url(../resources/FDSans.otf) format("opentype");
-}
-
-html {
-    font-family: "FdSans";
-    line-height: 1.5em;
-}*/
-
 button,
 input,
 a.button{
@@ -24,6 +12,7 @@ a.button{
     margin: auto 2px auto;
     text-decoration: none;
     padding: 0.2em;
+    min-width: 2em;
 }
 
 button:hover,

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="../../js-global/utils.js"></script>
+        <script src="../main.js"></script>
+        <script src="main.js"></script>
+        <link rel="stylesheet" href="../math.css" />
+        <title>デ</title>
+        <style>
+            main {
+                display: flex;
+            }
+            main > * {
+                margin: 10px;
+            }
+            .width-det {
+                min-width: 7em;
+            }
+            input[type="number"] {
+                width: 7em;
+            }
+            tr{
+                height: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>デ</h1>
+        <main>
+            <section>
+                <h2>データ</h2>
+                <p>
+                    セルをクリックして編集
+                    <button id="add-data-row">エントリーを追加</button>
+                    <button id="remove-data-rows">すべてのエントリーを削除</button>
+                </p>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="width-det">X</th>
+                                <th>編集用ボタン</th>
+                                <th class="width-det">x-x̄</th>
+                                <th class="width-det">(x-x̄)²</th>
+                                <th class="width-det">x²</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table"></tbody>
+                    </table>
+                </div>
+            </section>
+            <section>
+                <h2>統計(?)</h2>
+                <p>s² = (Σ(x-x̄)²)/n; σ̃² = (Σ(x-x̄)²)/(n-1)</p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th title="データの個数">n</th>
+                            <td id="data-entries" class="number"></td>
+                            <th title="最小値">min</th>
+                            <td id="data-min" class="number"></td>
+                            <th title="最大値">max</th>
+                            <td id="data-max" class="number"></td>
+                        </tr>
+                        <tr>
+                            <th title="総和">Σx</th>
+                            <td id="data-sum" class="width-det number"></td>
+                            <th title="平均">x̄</th>
+                            <td id="data-avg" class="width-det number">平均</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <th title="偏差の平方の和">Σ(x-x̄)²</th>
+                            <td id="sum-squared-deviation" class="number"></td>
+                            <th title="分散">s²</th>
+                            <td id="variance" class="number"></td>
+                            <th title="標準偏差">s</th>
+                            <td id="data-sd" class="width-det number"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <th title="不偏分散">σ̃²</th>
+                            <td id="data-uv" class="number"></td>
+                            <th title="不偏分散の平方根">σ̃</th>
+                            <td id="data-ud" class="number"></td>
+                        </tr>
+                        <tr>
+                            <th>σ̃/sqrt(n)</th>
+                            <td id="data-unc" class="number"></td>
+                            <th title="平方の和">Σ(x²)</th>
+                            <td id="data-sqsum" class="number"></td>
+                            <th title="平方の和の平方根">sqrt(Σ(x²))</th>
+                            <td id="data-sqrtsqsum" class="number"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        <!--四分位偏差・値、中央値、外れ値考慮、不確かさ計算、箱ひげ図-->
+    </body>
+</html>

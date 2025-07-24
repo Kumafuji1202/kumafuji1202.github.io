@@ -16,8 +16,8 @@ onPageLoad(() => {
             },
             {
                 name: "ZESE",
-                code: "zse",
-                lang: "art-x-zese-Latn"
+                lang: "zse",
+                code: "art-x-zese-Latn"
             }
         ],
         translations: {
@@ -55,7 +55,6 @@ onPageLoad(() => {
                 en: "Select Language",
                 "en-Shaw": "𐑕𐑩𐑤𐑧𐑒𐑑 𐑤𐑨𐑙𐑜𐑢𐑦𐑡",
                 ja: "言語を選ぶ",
-                tok: "toki",
                 zse: "Kage kabo zese"
             },
             aboutMe: {
@@ -65,11 +64,11 @@ onPageLoad(() => {
                 zse: "Kaka dide kike"
             },
             "aboutMe.content": {
-                en: "Hi, I'm Kumafuji1202. I'm an university student who lives in Japan. I speak Japanese (my native language) and English. I'm currently studying Russian, Ainu and Cantonese. I like to code, listen to music, and compose music. Recently I've been interested in chemistry and Touhou Project. Please contact me if there are anything you want to be fixed in this site.",
+                en: "Hi, I'm Kumafuji1202. I'm an university student who lives in Japan. I speak Japanese (my native language) and English. I'm currently studying Russian and Classical Greek. I like to code, listen to music, and compose music. Recently I've been interested in linguistics and Touhou Project. Please contact me if you want to have anything fixed in this site.",
                 "en-Shaw":
-                    "𐑣𐑲, 𐑲𐑥 Kumafuji1202 (·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦). 𐑲𐑥 𐑩𐑯 𐑿𐑯𐑦𐑝𐑻𐑕𐑼𐑰 𐑕𐑑𐑿𐑛𐑩𐑯𐑑 𐑣𐑵 𐑤𐑦𐑝𐑟 𐑦𐑯 ·𐑡𐑩𐑐𐑨𐑯. 𐑲 𐑕𐑐𐑰𐑒 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 (𐑥𐑲 𐑯𐑱𐑑𐑦𐑝 𐑤𐑨𐑙𐑜𐑢𐑦𐑡) 𐑯 ·𐑦𐑙𐑜𐑤𐑦𐑖. 𐑲𐑥 𐑒𐑳𐑮𐑩𐑯𐑑𐑤𐑦 𐑕𐑑𐑳𐑛𐑦𐑦𐑙 ·𐑮𐑳𐑖𐑩𐑯, ·𐑲𐑯𐑵 𐑯 ·𐑒𐑨𐑯𐑑𐑩𐑯𐑰𐑟. 𐑲 𐑤𐑲𐑒 𐑑 𐑒𐑴𐑛, 𐑤𐑦𐑕𐑯 𐑑 𐑥𐑿𐑟𐑦𐑒, 𐑯𐑒𐑩𐑥𐑐𐑴𐑟 𐑥𐑿𐑟𐑦𐑒. 𐑮𐑰𐑕𐑯𐑑𐑤𐑦, 𐑲𐑝 𐑚𐑦𐑯 𐑦𐑯𐑑𐑮𐑩𐑕𐑑𐑩𐑛 𐑦𐑯 𐑒𐑧𐑥𐑦𐑕𐑑𐑮𐑰 𐑯 ·𐑑𐑴𐑣𐑴 𐑐𐑮𐑪𐑡𐑧𐑒𐑑.",
-                ja: "どうも、Kumafuji1202 (クマフジ、低高高高-高 or 低高低低) です。日本在住の大学生です。日本語(母語)と英語を喋ります。ロシア語、アイヌ語と広東語を勉強中です。プログラミングや音楽が趣味です。最近は化学とか東方にハマっています。",
-                zse: "Gogi [biki]! Kike diza Kumafuji1202. diza kita [godi tuti kapa] popi Nihon dudu. Goto Nihon kabo zese diku English kabo zese. Kike godi tuti kapa Russkij kabo zese diku Gwongdung kabo zese. Kike gota [tuko [tuku tose] kabo], diku [saki kata kaza sasa], diku [tuko kaza sasa]. Kike gota [tuti kapa kaka dide pupu [budu] [godi tuti kapa] diku Touhou Project]. Goku kasa dopi kike, diko [kiku gopa [kike tuko [susu popi topa diza deko gogi]]]."
+                    "𐑣𐑲, 𐑲𐑥 Kumafuji1202 (·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦). 𐑲𐑥 𐑩𐑯 𐑿𐑯𐑦𐑝𐑻𐑕𐑼𐑰 𐑕𐑑𐑿𐑛𐑩𐑯𐑑 𐑣𐑵 𐑤𐑦𐑝𐑟 𐑦𐑯 ·𐑡𐑩𐑐𐑨𐑯. 𐑲 𐑕𐑐𐑰𐑒 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 (𐑥𐑲 𐑯𐑱𐑑𐑦𐑝 𐑤𐑨𐑙𐑜𐑢𐑦𐑡) 𐑯 ·𐑦𐑙𐑜𐑤𐑦𐑖. 𐑲 𐑤𐑲𐑒 𐑑 𐑒𐑴𐑛, 𐑤𐑦𐑕𐑯 𐑑 𐑥𐑿𐑟𐑦𐑒, 𐑯𐑒𐑩𐑥𐑐𐑴𐑟 𐑥𐑿𐑟𐑦𐑒. 𐑮𐑰𐑕𐑯𐑑𐑤𐑦, 𐑲𐑝 𐑚𐑦𐑯 𐑦𐑯𐑑𐑮𐑩𐑕𐑑𐑩𐑛 𐑦𐑯 𐑒𐑧𐑥𐑦𐑕𐑑𐑮𐑰 𐑯 ·𐑑𐑴𐑣𐑴 𐑐𐑮𐑪𐑡𐑧𐑒𐑑.",
+                ja: "どうも、Kumafuji1202 (クマフジ、低高高高-高 or 低高低低) です。日本在住の大学生です。日本語(母語)と英語を喋ります。ロシア語と古典ギリシア語を勉強中です。プログラミングや音楽が趣味です。最近は言語学とか東方にハマっています。",
+                zse: "Gogi [biki]! Kike diza Kumafuji1202. diza kita [godi tuti kapa] popi Nihon dudu. Goto Nihon kabo zese diku English kabo zese. Kike godi tuti kapa Russian kabo zese diku gegu tata (?) kabo zese. Kike gota [tuko [tuku tose] kabo], diku [saki kata kaza sasa], diku [tuko kaza sasa]. Kike gota [tuti kapa kaka dide kabo zese [godi tuti kapa] diku Touhou Project]. Goku kasa dopi kike, diko [kiku gopa [kike tuko [susu popi topa diza deko gogi]]]."
             },
             janPonaMi: {
                 en: "My Friends",
@@ -97,10 +96,10 @@ onPageLoad(() => {
                 zse: "Sci-Tech"
             },
             "friends.mamushi": {
-                en: "Mamushi",
-                "en-Shaw": "·𐑥𐑩𐑥𐑵𐑖𐑦",
-                ja: "まむしさん",
-                zse: "Mamushi"
+                en: "Tera",
+                "en-Shaw": "·",
+                ja: "てーらさん",
+                zse: "Tera"
             },
             "friends.mawario": {
                 en: "Mawario",
@@ -109,10 +108,10 @@ onPageLoad(() => {
                 zse: "Mawario"
             },
             "friends.motohari": {
-                en: "Motohari (formerly Menn)",
-                "en-Shaw": "·𐑥𐑪𐑑𐑩𐑣𐑭 (𐑓𐑹𐑥𐑼𐑤𐑰 ·𐑥𐑧𐑯)",
-                ja: "モトハリ(旧めん)さん",
-                zse: 'Motohari (kabo tasu diza "Menn")'
+                en: "Motohari",
+                "en-Shaw": "·𐑥𐑪𐑑𐑩𐑣𐑭",
+                ja: "モトハリさん",
+                zse: 'Motohari'
             },
             "friends.shin": {
                 en: "SHIN",
@@ -162,6 +161,18 @@ onPageLoad(() => {
                 "en-Shaw": "𐑩 𐑥𐑳𐑤𐑑𐑰-𐑓𐑳𐑙𐑒𐑖𐑯𐑤 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟-𐑤𐑨𐑙𐑜𐑢𐑦𐑡 ·𐑛𐑦𐑕𐑒𐑹𐑛 𐑚𐑪𐑑.",
                 ja: "多機能Discord bot",
                 zse: "Kuzu kida goto kidu Discord tose."
+            },
+            "partnerAds.rsit": {
+                en: "Rolling Sky Information Table by Qwert",
+                "en-Shaw": "·𐑮𐑴𐑤𐑦𐑣 𐑕𐑒𐑲 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯 𐑑𐑱𐑚𐑩𐑤 𐑚𐑲 ·𐑒𐑢𐑻𐑑",
+                ja: "Rolling Sky Information Table v2 by Qwert",
+                zse: "Rolling Sky Information Table by Qwert"
+            },
+            "partnerAds.rsit.introduction": {
+                en: "Shows the information of Rolling Sky levels (up to date and previous versions) visually and statistically.",
+                "en-Shaw": "𐑖𐑴𐑟 𐑞 𐑦𐑯𐑓𐑼𐑥𐑱𐑖𐑩𐑯 𐑝 ·𐑮𐑴𐑤𐑦𐑣 𐑕𐑒𐑲  𐑤𐑧𐑝𐑩𐑤𐑟 (𐑩𐑐 𐑑 𐑛𐑱𐑑 𐑯 𐑐𐑮𐑰𐑝𐑽𐑕 𐑝𐑻𐑠𐑩𐑯𐑟) 𐑝𐑦𐑠𐑵𐑩𐑤𐑰 𐑯 𐑕𐑑𐑩𐑑𐑦𐑕𐑑𐑦𐑒𐑩𐑤𐑰.",
+                ja: "最新のRolling Sky のレベルの情報をわかりやすく表示します。",
+                zse: "Tugi [kiku katu biki kaka dide Rolling Sky kuko popo (take popo diku tasu popo) kaka]."
             },
             recentUpds: {
                 en: "Recent Updates",

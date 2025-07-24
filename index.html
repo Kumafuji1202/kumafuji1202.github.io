@@ -13,10 +13,10 @@
         <link rel="stylesheet" href="css-global/centered-contents.css" />
         <link rel="stylesheet" href="css-global/global.css" />
         <link rel="stylesheet" href="css-global/windows.css" />
-        <script src="js-global/lang.js"></script>
         <script src="js-global/utils.js"></script>
-        <script src="js-global/windows.js"></script>
+        <script src="js-global/lang.js"></script>
         <script src="index.locale.js"></script>
+        <script src="js-global/windows.js"></script>
         <script src="js-global/langSupport.js"></script>
         <script id="querything">
             var params = new URL(document.location).searchParams;
@@ -89,6 +89,71 @@
                     document.location = "https://youtu.be/" + selectedID;
                 }
             }
+        </script>
+        <script id="modifylinks">
+            function dangerousSiteLastConfirm(e) {
+                if (
+                    !confirm(
+                        "Press OK to confirm that you did not accidentally answer OK to the previous question. この前の質問でOKを押したのが操作ミスでないことを確認するために、「OK」を押してください。"
+                    )
+                ) {
+                    e.preventDefault();
+                    closeAllWindows();
+                }
+            }
+            onPageLoad(() => {
+                for (let elem of Array.from(document.querySelectorAll('a[href^="http"]:empty'))) {
+                    elem.setAttribute("target", "_blank");
+                    let hre = elem.getAttribute("href");
+                    if (hre.match(/^(https:\/\/)?twitter\.com\//)) {
+                        elem.setAttribute("href", "#");
+                        elem.setAttribute("data-opens-window", "confirm-1");
+                        elem.setClick((e) => {
+                            getElem("dangerous-site-last-link").removeEventListener("click", dangerousSiteLastConfirm);
+                            console.log(hre);
+                            getElem("dangerous-site-last-link").setAttribute("href", hre);
+                            getElem("dangerous-site-last-link").setClick(dangerousSiteLastConfirm);
+                        });
+                        elem.style.content = "url(resources/icons8-twitter-16.png)";
+                    } else {
+                        elem.style.content = `url(https://www.google.com/s2/favicons?domain=${hre})`;
+                        if (hre.match(/^(https:\/\/)?(www\.)?tiktok\.com\//)) {
+                            elem.setClick((e) => {
+                                for (let msg of twitterConfirmMsgList) {
+                                    if (!confirm(msg.replaceAll("Twitter", "TikTok").replaceAll("TWITTER", "TIKTOK"))) {
+                                        e.preventDefault();
+                                        return;
+                                    }
+                                }
+                                if (
+                                    confirm(
+                                        "Press Cancel to confirm that you did not accidentally answer OK to the previous question. この前の質問でOKを押したのが操作ミスでないことを確認するためには、「キャンセル」を押してください。"
+                                    )
+                                ) {
+                                    e.preventDefault();
+                                    return;
+                                }
+                            });
+                        }
+                    }
+                    /*if (hre.includes("www.youtube.com")) {
+                    elem.setAttribute("title", langMgr.callText("siteNames.youTube"));
+                    continue;
+                }
+                if (hre.includes("scratch.mit.edu")) {
+                    elem.setAttribute("title", langMgr.callText("siteNames.scratch"));
+                    continue;
+                }
+                if (hre.includes(".itch.io")) {
+                    elem.setAttribute("title", "Itch.io");
+                    continue;
+                }
+                if (hre.includes("github.com")) {
+                    elem.setAttribute("title", langMgr.callText("siteNames.gitHub"));
+                    continue;
+                }*/
+                }
+            });
         </script>
         <style>
             html {
@@ -284,7 +349,7 @@
                                     <span data-translation-key="friends.mamushi"></span>:
                                     <a href="https://www.youtube.com/@mamuc_"></a>
                                     <a href="https://ma-mushi.itch.io/"></a>
-                                    <a href="https://twitter.com/mamushi_daze/photo"></a>
+                                    <a href="https://twitter.com/tera_aaea/photo"></a>
                                 </li>
                                 <li>
                                     <span data-translation-key="friends.motohari"></span>:
@@ -345,6 +410,16 @@
                                         <span data-language-support="ja"></span>
                                     </h4>
                                     <p data-translation-key="partnerAds.qb.introduction"></p>
+                                </li>
+                                <li>
+                                    <h4>
+                                        <a
+                                            href="https://qwertrs82.itch.io/rsit"
+                                            data-translation-key="partnerAds.rsit"
+                                            target="_blank"></a>
+                                        <span data-language-support="ja, en"></span>
+                                    </h4>
+                                    <p data-translation-key="partnerAds.rsit.introduction"></p>
                                 </li>
                                 <li>
                                     <h4>
@@ -773,70 +848,4 @@
             </window-positioner>
         </window-group>
     </body>
-    <script defer id="modifylinks">
-        function dangerousSiteLastConfirm(e) {
-            if (
-                !confirm(
-                    "Press OK to confirm that you did not accidentally answer OK to the previous question. この前の質問でOKを押したのが操作ミスでないことを確認するために、「OK」を押してください。"
-                )
-            ) {
-                e.preventDefault();
-                closeAllWindows();
-            }
-        }
-        onPageLoad(() => {
-            for (let elem of Array.from(document.querySelectorAll('a[href^="http"]:empty'))) {
-                elem.setAttribute("target", "_blank");
-                let hre = elem.getAttribute("href");
-                if (hre.match(/^(https:\/\/)?twitter\.com\//)) {
-                    elem.setAttribute("href", "#");
-                    elem.setAttribute("data-opens-window", "confirm-1");
-                    elem.setClick((e) => {
-                        e.preventDefault();
-                        getElem("dangerous-site-last-link").removeEventListener("click", dangerousSiteLastConfirm);
-                        console.log("fdsa");
-                        getElem("dangerous-site-last-link").setAttribute("href", hre);
-                        getElem("dangerous-site-last-link").setClick(dangerousSiteLastConfirm);
-                    });
-                    elem.style.content = "url(resources/icons8-twitter-16.png)";
-                } else {
-                    elem.style.content = `url(https://www.google.com/s2/favicons?domain=${hre})`;
-                    if (hre.match(/^(https:\/\/)?(www\.)?tiktok\.com\//)) {
-                        elem.setClick((e) => {
-                            for (let msg of twitterConfirmMsgList) {
-                                if (!confirm(msg.replaceAll("Twitter", "TikTok").replaceAll("TWITTER", "TIKTOK"))) {
-                                    e.preventDefault();
-                                    return;
-                                }
-                            }
-                            if (
-                                confirm(
-                                    "Press Cancel to confirm that you did not accidentally answer OK to the previous question. この前の質問でOKを押したのが操作ミスでないことを確認するためには、「キャンセル」を押してください。"
-                                )
-                            ) {
-                                e.preventDefault();
-                                return;
-                            }
-                        });
-                    }
-                }
-                /*if (hre.includes("www.youtube.com")) {
-                    elem.setAttribute("title", langMgr.callText("siteNames.youTube"));
-                    continue;
-                }
-                if (hre.includes("scratch.mit.edu")) {
-                    elem.setAttribute("title", langMgr.callText("siteNames.scratch"));
-                    continue;
-                }
-                if (hre.includes(".itch.io")) {
-                    elem.setAttribute("title", "Itch.io");
-                    continue;
-                }
-                if (hre.includes("github.com")) {
-                    elem.setAttribute("title", langMgr.callText("siteNames.gitHub"));
-                    continue;
-                }*/
-            }
-        });
-    </script>
 </html>
