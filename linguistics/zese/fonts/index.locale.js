@@ -30,7 +30,7 @@ onPageLoad(() => {
             },
             intro: {
                 en: "This section of this website is dedicated to a font I made for the conlang Zese.",
-                ja: "このサイトのこの部分には僕が作ったゼセという名の人工言語のためのフォントを置いておきます。",
+                ja: "このサイトのこの部分にはゼセという名の人工言語のための僕が作ったフォントを置いておきます。",
                 "zse-Latn": "",
                 "zse-Zese": ""
             },
