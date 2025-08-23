@@ -32,7 +32,6 @@
         .hex{
             font-family: monospace;
         }
-
     </style>
     <script src="../js-global/utils.js"></script>
     <script>
@@ -126,14 +125,20 @@
             return retstr;
         }
 
+        var lastConvertedText = "";
         function u2tconvert(utf8) {
+            lastConvertedText = "";
             document.getElementById("u2tcodepoints").innerHTML = "";
             document.getElementById("u2tstring").innerHTML = "";
             splitutf8binary(hextobin(utf8)).forEach(function(char) {
                 let unic = utf8bintounicode(char);
                 document.getElementById("u2tcodepoints").innerHTML += "u+" + bintohex(unic) + " ";
-                document.getElementById("u2tstring").innerHTML += String.fromCodePoint(eval("0b" + unic));
+                lastConvertedText += String.fromCodePoint(eval("0b" + unic));
             });
+            document.getElementById("u2tstring").innerHTML = lastConvertedText
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;");
         }
 
         function t2uconvert(text) {
@@ -156,41 +161,43 @@
 <body>
     <div id="container-flex">
         <div id="contents">
-            <h1>UTF-8 Converter</h1>
+            <h1>UTF-8 Converter <small>1.1</small></h1>
             <a href="../">Back</a>
             <h2>Text to UTF-8 hex</h2>
             <form>
-                <input type="text" value="💺ぬüs" placeholder="Input text to convert..." id="text" size="30">
+                <input type="text" value="💺ぬüs" placeholder="Input text to convert..." id="text" spellcheck="false" size="30">
                 <input type="submit" value="Convert to Hex" id="convert2hex">
             </form>
-            <output id="t2uOut">
+            <div id="t2uOut">
                 <div>
                     <span>Codepoints:</span>
-                    <span id="t2ucodepoints" class="hex"></span>
+                    <output id="t2ucodepoints" class="hex"></output>
                 </div>
                 <div>
                     <span>UTF-8 hex:</span>
-                    <span id="t2uutf8hex" class="hex"></span>
+                    <output id="t2uutf8hex" class="hex"></output>
                 </div>
-            </output>
+            </div>
             <h2>UTF-8 hex to Codepoints/Text</h2>
             <form>
-                <input type="text" value="f09f92ba e381ac c3bc 73" placeholder="Input UTF-8 hex..." id="utf8hex" class="hex" size="30">
+                <input type="text" value="f09f92ba e381ac c3bc 73" placeholder="Input UTF-8 hex..." spellcheck="false" id="utf8hex" class="hex" size="30">
                 <input type="submit" value="Convert to Unicode" id="convert2utf8">
             </form>
-            <output id="u2tOut">
+            <div id="u2tOut">
                 <div>
                     <span>Codepoints:</span>
-                    <span id="u2tcodepoints" class="hex"></span>
+                    <output id="u2tcodepoints" class="hex"></output>
                 </div>
                 <div>
                     <span>String:</span>
-                    <span id="u2tstring"></span>
+                    <output id="u2tstring"></output>
                 </div>
-            </output>
+            </div>
             <form>
                 <input type="button" value="Copy output string" id="copy">
+                <input type="button" value="Copy normalized string" id="copynormalized">
             </form>
+            <small>2025 Aug 23: fixed one issue (unexpected character references in copied string), added "Copy normalized string" button</small>
             <script>
                 document.getElementById("convert2utf8").addEventListener("click", function(e) {
                     e.preventDefault();
@@ -201,7 +208,10 @@
                     t2uconvert(document.getElementById('text').value);
                 })
                 document.getElementById("copy").addEventListener("click", function() {
-                    navigator.clipboard.writeText(document.getElementById("u2tstring").innerHTML);
+                    navigator.clipboard.writeText(lastConvertedText);
+                });
+                document.getElementById("copynormalized").addEventListener("click", function() {
+                    navigator.clipboard.writeText(lastConvertedText.normalize());
                 });
 
             </script>
