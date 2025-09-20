@@ -1,0 +1,123 @@
+@charset "utf-8";
+html{
+    background-color: #001020;
+    color: #ccf8ff;
+    --control-bg: #001020;
+    --control-text: #ccf8ff;
+    --control-line: #ccf8ff;
+    font-family: Calibri, HGSKyokashotai;
+}
+canvas {
+    border: 1px solid #ccf8ff;
+}
+a {
+    color: #ffffff;
+}
+button,
+input,
+a.button{
+    display: inline-block;
+    background: var(--control-bg);
+    color: var(--control-text);
+    border-color: var(--control-line);
+    font-family: inherit;
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    margin: auto 2px auto;
+    text-decoration: none;
+    padding: 0.2em;
+    min-width: 2em;
+}
+button:hover,
+input[type=button]:hover,
+input[type=submit]:hover,
+a.button:hover{
+    background: var(--button-hover-bg);
+    color: inherit;
+    color: var(--button-hover-text);
+    color: var(--button-hover-line);
+    transform: scale(1.1);
+}
+table{
+    border-collapse: collapse;
+}
+table.no-border,
+table.no-border td,
+table.no-border th{
+    border: none;
+}
+td, th{
+    border: 1px solid #ccf8ff;
+    padding: 5px;
+}/*
+
+html{
+    background-color: #C6C3C6;
+    color: #000000;
+    --control-bg: #C6C3C6;
+    --control-text: #000000;
+    --control-line: 5px inset #000000;
+    font-family: "W95font", Bahnschrift, "ＭＳ ゴシック";
+    --d-border: 3px solid #363636;
+    --m-border: 3px solid #afafaf;
+    --l-border: 3px solid #f1f1f1;
+}
+button,
+input,
+a.button{
+    display: inline-block;
+    background: var(--control-bg);
+    color: var(--control-text);
+    font-family: inherit;
+    margin: auto 2px auto;
+    text-decoration: none;
+    padding: 0.2em;
+    min-width: 2em;
+}
+
+button, input[type="button"], input[type="submit"]{
+    border-top: var(--l-border);
+    border-left: var(--l-border);
+    border-right: var(--d-border);
+    border-bottom: var(--d-border);
+}
+canvas, input, button:active, input[type="button"]:active, input[type="submit"]:active {
+    border-top: var(--d-border);
+    border-left: var(--d-border);
+    border-right: var(--l-border);
+    border-bottom: var(--l-border);
+}
+td:not(:empty), section{
+    border-top: var(--m-border);
+    border-left: var(--m-border);
+    border-right: var(--l-border);
+    border-bottom: var(--l-border);
+}
+table{
+    border-top: var(--l-border);
+    border-left: var(--l-border);
+    border-right: var(--m-border);
+    border-bottom: var(--m-border);
+}
+th, h1, h2{
+    font-weight: normal;
+}
+section{
+    padding: 5px;
+}
+td{
+    padding: 2px;
+}
+canvas{
+    background: #848284;
+}
+
+*/
+input[type="number"]{
+    max-width: 6.5em;
+}
+
+.number, input[type="number"] {
+    text-align: end;
+}
