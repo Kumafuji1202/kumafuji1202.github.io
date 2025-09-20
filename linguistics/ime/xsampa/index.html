@@ -10,6 +10,7 @@
     <meta name="twitter:description" content="X-SAMPAを基本にしたハードキーボード用の入力補助ツール。">
     <title>X-SAMPA 発音記号入力ツール</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="themes/purple.css">
     <script src="../../../js-global/utils.js"></script>
     <script src="main.js"></script>
 </head>
@@ -18,23 +19,33 @@
     <div id="ui">
         <div id="input">
             <header>
-                <h1>X-SAMPA 発音記号入力ツール <small>1.3</small></h1>
+                <h1>X-SAMPA 発音記号入力ツール <small>1.4</small></h1>
                 <p><a href="https://ja.wikipedia.org/wiki/X-SAMPA">X-SAMPA</a>をベースにした発音記号入力補助ツールです。<a href="../../">トップページに戻る</a></p>
             </header>
+            <form>
+                <input type="button" id="copy-raw" value="コピー">
+                <input type="button" id="copy-normalized" value="Unicode正規化形式をコピー">
+            </form>
             <textarea id="area" spellcheck="false" placeholder="ここに入力..."></textarea>
         </div>
         <div id="symbol-list-section">
             <div id="symbol-list-header">
                 <h2>入力コード表</h2>
-                <p>それぞれの記号の横のコードの通りに左のテキストボックスに入力(IMEはOFFで)して入力します。<br><span class="nonipa">この色</span>でマークされた記号はIPAの規格外です。 <code class="nonxsampa">この色</code>のコードはX-SAMPAの規格外です。<br> <span class="has-superscript">太字</span>の記号は<code class="nonxsampa">_s</code>で上付き文字に変換できます。</p>
-                <small>背景: Rolling Fanmade「洞窟」より</small>
+                <p>
+                    それぞれの記号の横のコードの通りに左のテキストボックスに入力(IMEはOFFで)して入力します。<br>
+                    <span class="nonipa">この色</span>でマークされた記号はIPAの規格外です。
+                    <code class="nonxsampa">この色</code>のコードはX-SAMPAの規格外です。<br>
+                    <span class="has-superscript">コードの右に</span>が付いている記号は<!--
+                    --><code class="nonxsampa">_s</code>で上付き文字に変換できます。
+                </p>
+                <!--<small>背景: Rolling Fanmade「洞窟」より</small>-->
             </div>
             <div id="symbol-list-scrollbox">
                 <div id="symbol-list">
                     <table class="list" id="consonant-list">
                         <thead>
                             <tr>
-                                <th colspan="12">子音</th>
+                                <th colspan="13">子音</th>
                             </tr>
                             <tr>
                                 <th></th>
@@ -447,7 +458,7 @@
                         <table class="list" id="suprasegmental-list">
                             <thead>
                                 <tr>
-                                    <th colspan="14">超分節要素</th>
+                                    <th colspan="15">超分節要素</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -1,222 +1,199 @@
+/* 時雨UIレイアウト */
 
-        html {
-            font-family: Andika, "Segoe UI";
-            font-feature-settings: "ss13" 1;
-            --ui-bg-image: url(../../../resources/Background117.png);
-            --ui-area-separator-color: #fff;
-            --outer-ui-text-color: #fff;
-            --link-color: #ff0;
-            --input-area-bg-color: #fff4;
-            --input-area-text-color: #fff;
-            --code-table-bg-color: #0008;
-            --table-border-color: #fff;
-            --table-head-cell-bg-color1-tone1: none;
-            --table-head-cell-bg-color1-tone2: none;
-            --table-head-cell-bg-color2-tone1: none;
-            --table-head-cell-bg-color2-tone2: none;
-            --table-head-cell-text-color1-tone1: #0fa;
-            --table-head-cell-text-color1-tone2: #8fb;
-            --table-head-cell-text-color2-tone1: #88f;
-            --table-head-cell-text-color2-tone2: #bbf;
-            --table-cell-bg-color: none;
-            --table-cell-text-color: #fff;
-            --table-cell-border-color: #fff;
-            --filler-cell-bg-color: none;
-            --nonxsampa-code-text-color: #0f0;
-            --nonxsampa-code-bg-color: inherit;
-            --nonipa-code-text-color: #88f;
-            --unimplemented-color: gray;
-        }
+#ui {
+    background-image: var(--ui-bg-image);
+    background-size: cover;
+    background-position: top;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: space-between;
+}
 
-        /* 時雨UIレイアウト */
+#input {
+    display: flex;
+    overflow-y: hidden;
+    flex-grow: 1;
+    flex-direction: column;
+}
 
-        #ui {
-            color: var(--outer-ui-text-color);
-            background-color: #aca;
-            background-image: var(--ui-bg-image);
-            background-size: cover;
-            background-position: top;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            justify-content: space-between;
-        }
+#symbol-list-section {
+    border-left: 3px solid var(--ui-area-separator-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: calc(100vw - 200px);
+    background-color: var(--code-table-bg-color);
+}
 
-        #input {
-            display: flex;
-            overflow-y: hidden;
-            flex-grow: 1;
-            flex-direction: column;
-        }
+a {
+    color: var(--link-color);
+}
 
-        #symbol-list-section {
-            border-left: 3px solid var(--ui-area-separator-color);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            max-width: calc(100vw - 200px);
-            background-color: var(--code-table-bg-color);
-        }
-        
-        a{
-            color: var(--link-color);
-        }
+/* 入力部分のUIの奥山 */
 
-        /* 入力部分のUIの奥山 */
+header {
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+}
 
-        header {
-            margin: 0;
-            padding: 10px;
-            box-sizing: border-box;
-        }
+textarea {
+    background-color: var(--input-area-bg-color);
+    color: var(--input-area-text-color);
+    font-size: 25px;
+    font-family: inherit;
+    font-feature-settings: inherit;
+    resize: none;
+    width: 100%;
+    flex-grow: 1;
+    box-sizing: border-box;
+}
 
-        textarea {
-            background-color: var(--input-area-bg-color);
-            color: var(--input-area-text-color);
-            font-size: 25px;
-            font-family: inherit;
-            font-feature-settings: inherit;
-            resize: none;
-            width: 100%;
-            flex-grow: 1;
-            box-sizing: border-box;
-        }
+/* コード表の配置 */
 
-        /* コード表の配置 */
+#symbol-list-header{
+    padding: 10px;
+}
 
-        #symbol-list-scrollbox {
-            border-top: 3px solid var(--ui-area-separator-color);
-            overflow-x: auto;
-            overflow-y: scroll;
-            /*background: var(--background-color);*/
-        }
+#symbol-list-scrollbox {
+    border-top: 3px solid var(--ui-area-separator-color);
+    overflow-x: auto;
+    overflow-y: scroll;
+    /*background: var(--background-color);*/
+}
 
-        .list-row-flex {
-            display: flex;
-        }
+.list-row-flex {
+    display: flex;
+}
 
-        .list-row-flex>table {
-            flex-grow: 1;
-        }
+.list-row-flex > table {
+    flex-grow: 1;
+}
+input[type=button]{
+    color: inherit;
+    font-family: inherit;
+}
+form{
+    margin-bottom: 5px;
+}
 
-        /* コード表のスタイル */
+/* コード表のスタイル */
 
-        table {
-            border-radius: 5px;
-            border-collapse: collapse;
-            border: 1px solid var(--table-border-color);
-        }
+table {
+    border: var(--table-border);
+}
 
-        code {
-            display: inline-block;
-            font-weight: normal;
-            border: 1px solid gray;
-            padding: 3px;
-            border-radius: 2px;
-            text-decoration: inherit;
-            font-feature-settings: "zero";
-        }
+code {
+    display: inline-block;
+    font-family: "Courier New", monospace;
+    font-weight: normal;
+    padding: 3px;
+    text-decoration: inherit;
+    font-feature-settings: "zero";
+}
 
-        span.symbol-code{
-            display: inline-block;
-            vertical-align: middle;
-        }
-        
-        .nonipa code:not(.xsampa){
-            color: var(--nonxsampa-code-text-color);
-        }
-        
-        thead>tr:nth-of-type(2n+1)>th {
-            background-color: var(--table-head-cell-bg-color1-tone1);
-            color: var(--table-head-cell-text-color1-tone1);
-        }
+span.symbol-code {
+    display: inline-block;
+    vertical-align: middle;
+}
 
-        thead>tr:nth-of-type(2n)>th {
-            background-color: var(--table-head-cell-bg-color1-tone2);
-            color: var(--table-head-cell-text-color1-tone2);
-        }
+.nonipa code:not(.xsampa) {
+    color: var(--nonxsampa-code-text-color);
+}
 
-        tbody>tr:nth-of-type(2n+1)>th {
-            background-color: var(--table-head-cell-bg-color2-tone1);
-            color: var(--table-head-cell-text-color2-tone1);
-        }
+thead > tr:nth-of-type(2n + 1) > th {
+    background-color: var(--table-head-cell-bg-color1-tone1);
+    color: var(--table-head-cell-text-color1-tone1);
+}
 
-        tbody>tr:nth-of-type(2n)>th {
-            background-color: var(--table-head-cell-bg-color2-tone2);
-            color: var(--table-head-cell-text-color2-tone2);
-        }
+thead > tr:nth-of-type(2n) > th {
+    background-color: var(--table-head-cell-bg-color1-tone2);
+    color: var(--table-head-cell-text-color1-tone2);
+}
 
-        table td {
-            padding: 2px;
-            text-align: center;
-            color: var(--table-cell-text-color);
-        }
+tbody > tr:nth-of-type(2n + 1) > th {
+    background-color: var(--table-head-cell-bg-color2-tone1);
+    color: var(--table-head-cell-text-color2-tone1);
+}
 
-        table td:not(.impossible) {
-            background-color: var(--table-cell-bg-color);
-            border: 1px solid var(--table-cell-border-color);
-        }
+tbody > tr:nth-of-type(2n) > th {
+    background-color: var(--table-head-cell-bg-color2-tone2);
+    color: var(--table-head-cell-text-color2-tone2);
+}
 
-        table td.impossible {
-            background-color: var(--filler-cell-bg-color);
-        }
+table td {
+    padding: 2px;
+    text-align: center;
+    color: var(--table-cell-text-color);
+}
 
-        .nonxsampa {
-            background-color: var(--nonxsampa-code-bg-color);
-            color: var(--nonxsampa-code-text-color);
-        }
+table td:not(.impossible) {
+    background-color: var(--table-cell-bg-color);
+}
 
-        .nonipa {
-            color: var(--nonipa-code-text-color);
-        }
-        
-        .has-superscript{
-            font-weight: bold;
-        }
-        .unimplemented{
-            display: none;
-            text-decoration: line-through;
-            color: var(--unimplemented-color);
-        }
+table td.impossible {
+    background-color: var(--filler-cell-bg-color);
+}
 
-        /* 母音図のフォーマッティング */
+.nonxsampa {
+    background-color: var(--nonxsampa-code-bg-color);
+    color: var(--nonxsampa-code-text-color);
+}
 
-        #vowel-list {
-            width: 25em;
-            height: 23em;
-        }
+.nonipa {
+    color: var(--nonipa-code-text-color);
+}
 
-        td#vowel-space-cell {
-            align-content: center;
-            text-align: center;
-        }
+.has-superscript::after {
+    font-family: "Courier New", "", monospace;
+    content: "ˢ";
+    font-weight: bold;
+}
+.unimplemented {
+    display: none;
+    text-decoration: line-through;
+    color: var(--unimplemented-color);
+}
 
-        #vowel-space {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: space-around;
-            flex-direction: column;
-        }
+/* 母音図のフォーマッティング */
 
-        #vowel-space>div {
-            /*高さごとの母音グループ外側*/
-            padding-right: 10px;
-        }
+#vowel-list {
+    width: 25em;
+    height: 23em;
+}
 
-        #vowel-space>div>div {
-            /*高さごとの母音グループ内側*/
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
+td#vowel-space-cell {
+    align-content: center;
+    text-align: center;
+}
 
-        #vowel-space>div>div>div {
-            /*各母音対*/
-            width: 75px;
-            align-content: center;
-        }
+#vowel-space {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#vowel-space > div {
+    /*高さごとの母音グループ外側*/
+    padding-right: 10px;
+}
+
+#vowel-space > div > div {
+    /*高さごとの母音グループ内側*/
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#vowel-space > div > div > div {
+    /*各母音対*/
+    width: 75px;
+    align-content: center;
+}

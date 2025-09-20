@@ -1,5 +1,13 @@
 onPageLoad(() => {
     var area = getElem("area");
+    getElem("copy-raw").setClick(e => {
+        navigator.clipboard.writeText(area.value).then(() => {alert("コピーしました");});
+        e.preventDefault();
+    });
+    getElem("copy-normalized").setClick(e => {
+        navigator.clipboard.writeText(area.value.normalize()).then(() => {alert("Unicode正規化形式をコピーしました");});
+        e.preventDefault();
+    });
     area.addEventListener("keydown", (e) => {
         if (e.key.length > 1) return;
 

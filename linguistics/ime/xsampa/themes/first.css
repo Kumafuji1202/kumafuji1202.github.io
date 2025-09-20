@@ -1,0 +1,54 @@
+
+td, textarea{
+    font-family: Andika, "Segoe UI";
+    font-feature-settings: "ss13" 1;
+}
+html {
+    font-family: "游ゴシック";
+    font-feature-settings: "ss13" 1;
+    --ui-bg-image: url(../../../resources/Background117.png);
+    --ui-area-separator-color: #fff;
+    --outer-ui-text-color: #fff;
+    --link-color: #ff0;
+    --input-area-bg-color: #fff4;
+    --input-area-text-color: #fff;
+    --code-table-bg-color: #0008;
+    --table-border-color: 1px solid #fff;
+    --table-head-cell-bg-color1-tone1: none;
+    --table-head-cell-bg-color1-tone2: none;
+    --table-head-cell-bg-color2-tone1: none;
+    --table-head-cell-bg-color2-tone2: none;
+    --table-head-cell-text-color1-tone1: #0fa;
+    --table-head-cell-text-color1-tone2: #8fb;
+    --table-head-cell-text-color2-tone1: #88f;
+    --table-head-cell-text-color2-tone2: #bbf;
+    --table-cell-bg-color: none;
+    --table-cell-text-color: #fff;
+    --table-cell-border-color: #fff;
+    --filler-cell-bg-color: none;
+    --nonxsampa-code-text-color: #0f0;
+    --nonxsampa-code-bg-color: inherit;
+    --nonipa-code-text-color: #88f;
+    --unimplemented-color: gray;
+}
+#ui{
+    color: var(--outer-ui-text-color);
+    background-color: #aca;
+}
+
+textarea::placeholder{
+    color: gray;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table td:not(.impossible) {
+    background-color: var(--table-cell-bg-color);
+    border: 1px solid var(--table-cell-border-color);
+}
+code{
+    border: 1px solid gray;
+    border-radius: 2px;
+}

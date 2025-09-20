@@ -1,0 +1,72 @@
+html {
+    --bg-depth0: #360482;/*8241e5*//*4b10a5*//*9051ef*/
+    --bg-depth1: #6424c4;
+    --bg-depth2: #7736d9;
+    --bg-depth3: #a56aff;
+    --bg-depth4: #c7a2ff;
+    --text-tone0: #460c9c;
+}
+td, textarea{
+    font-family: Andika, "Segoe UI";
+    font-feature-settings: "ss13" 1;
+}
+html {
+    font-family: "游ゴシック";
+    --ui-area-separator-color: var(--bg-depth0);
+    --outer-ui-text-color: #fff;
+    --link-color: #c8ffc7;
+    --input-area-bg-color: var(--bg-depth2);
+    --input-area-text-color: #fff;
+    --code-table-bg-color: var(--bg-depth1);
+    --table-border: none;
+    --table-head-cell-bg-color1-tone1: var(--bg-depth4);
+    --table-head-cell-bg-color1-tone2: var(--bg-depth4);
+    --table-head-cell-bg-color2-tone1: var(--bg-depth4);
+    --table-head-cell-bg-color2-tone2: var(--bg-depth4);
+    --table-head-cell-text-color1-tone1: var(--text-tone0);
+    --table-head-cell-text-color1-tone2: var(--text-tone0);
+    --table-head-cell-text-color2-tone1: var(--text-tone0);
+    --table-head-cell-text-color2-tone2: var(--text-tone0);
+    --table-cell-bg-color: var(--bg-depth2);
+    --table-cell-text-color: #fff;
+    --table-cell-border-color: #fff;
+    --filler-cell-bg-color: none;
+    --nonxsampa-code-text-color: #ff0;
+    --nonxsampa-code-bg-color: inherit;
+    --nonipa-code-text-color: #ff0083;
+    --unimplemented-color: black;
+}
+#ui{
+    color: var(--outer-ui-text-color);
+    background-color: var(--bg-depth1);
+}
+input[type="button"]{
+    background-color: var(--bg-depth2);
+    border: none;
+    border-radius: 3px;
+}
+textarea{
+    border: none;
+}
+textarea::placeholder{
+    color: #ddc7ff;
+}
+
+table {
+    border-collapse: separate;
+}
+
+table td:not(.impossible) {
+    background-color: var(--table-cell-bg-color);
+    border-radius: 6px;
+    border: none;
+}
+table th{
+    border-radius: 6px;
+    border: none;
+}
+
+code{
+    border: 1px solid var(--bg-depth3);
+    border-radius: 3px;
+}
