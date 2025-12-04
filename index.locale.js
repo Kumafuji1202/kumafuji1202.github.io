@@ -27,6 +27,12 @@ onPageLoad(() => {
                 ja: "くまふじの部屋",
                 zse: "Kumafuji1202 POTE"
             },
+            "lastUpdateOn": {
+                en: "Last updated on:",
+                en: "Last updated on:",
+                ja: "最終更新:",
+                en: "Last updated on:",
+            },
             "siteNames.youTube": {
                 en: "YouTube",
                 "en-Shaw": "·𐑿𐑑𐑿𐑚",
@@ -64,10 +70,10 @@ onPageLoad(() => {
                 zse: "Kaka dide kike"
             },
             "aboutMe.content": {
-                en: "Hi, I'm Kumafuji1202. I'm an university student who lives in Japan. I speak Japanese (my native language) and English. I'm currently studying Russian and Classical Greek. I like to code, listen to music, and compose music. Recently I've been interested in linguistics and Touhou Project. Please contact me if you want to have anything fixed in this site.",
+                en: "Hi, I'm Kumafuji1202. I'm an university student who lives in Japan. I speak Japanese (my native language) and English (poorly). I'm currently studying Spanish, Russian and Classical Greek. (good planning? what kind of food is that?) I like to code, listen to music, and compose music. Recently I've been interested in linguistics and Touhou Project and several other things. Please contact me if you want to have anything fixed in this site.",
                 "en-Shaw":
                     "𐑣𐑲, 𐑲𐑥 Kumafuji1202 (·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦). 𐑲𐑥 𐑩𐑯 𐑿𐑯𐑦𐑝𐑻𐑕𐑼𐑰 𐑕𐑑𐑿𐑛𐑩𐑯𐑑 𐑣𐑵 𐑤𐑦𐑝𐑟 𐑦𐑯 ·𐑡𐑩𐑐𐑨𐑯. 𐑲 𐑕𐑐𐑰𐑒 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 (𐑥𐑲 𐑯𐑱𐑑𐑦𐑝 𐑤𐑨𐑙𐑜𐑢𐑦𐑡) 𐑯 ·𐑦𐑙𐑜𐑤𐑦𐑖. 𐑲 𐑤𐑲𐑒 𐑑 𐑒𐑴𐑛, 𐑤𐑦𐑕𐑯 𐑑 𐑥𐑿𐑟𐑦𐑒, 𐑯𐑒𐑩𐑥𐑐𐑴𐑟 𐑥𐑿𐑟𐑦𐑒. 𐑮𐑰𐑕𐑯𐑑𐑤𐑦, 𐑲𐑝 𐑚𐑦𐑯 𐑦𐑯𐑑𐑮𐑩𐑕𐑑𐑩𐑛 𐑦𐑯 𐑒𐑧𐑥𐑦𐑕𐑑𐑮𐑰 𐑯 ·𐑑𐑴𐑣𐑴 𐑐𐑮𐑪𐑡𐑧𐑒𐑑.",
-                ja: "どうも、Kumafuji1202 (クマフジ、低高高高-高 or 低高低低) です。日本在住の大学生です。日本語(母語)と英語を喋ります。ロシア語と古典ギリシア語を勉強中です。プログラミングや音楽が趣味です。最近は言語学とか東方にハマっています。",
+                ja: "どうも、Kumafuji1202 (クマフジ、低高高高-高 or 低高低低) です。日本在住の大学生です。日本語(母語)と英語を喋ります。スペイン語とロシア語と古典ギリシア語を勉強中です。(ケーカク? 何それ格の名前?) プログラミングや音楽が趣味です。最近音楽と言語学と東方と連縁が僕の脳内で陣取り合戦してます。",
                 zse: "Gogi [biki]! Kike diza Kumafuji1202. diza kita [godi tuti kapa] popi Nihon dudu. Goto Nihon kabo zese diku English kabo zese. Kike godi tuti kapa Russian kabo zese diku gegu tata (?) kabo zese. Kike gota [tuko [tuku tose] kabo], diku [saki kata kaza sasa], diku [tuko kaza sasa]. Kike gota [tuti kapa kaka dide kabo zese [godi tuti kapa] diku Touhou Project]. Goku kasa dopi kike, diko [kiku gopa [kike tuko [susu popi topa diza deko gogi]]]."
             },
             janPonaMi: {
@@ -132,10 +138,10 @@ onPageLoad(() => {
                 zse: "Buzzle by Mawario"
             },
             "partnerAds.buzzle.introduction": {
-                en: 'Buzzle is a 2D top-down, high difficulty action game. Help the main character "Mawario" escape from a mysterious room!',
+                en: '"Give me that ability of yours." Buzzle is a 2D top-down puzzle / action game. Guide the protagonist, trapped underground, back to the surface.',
                 "en-Shaw":
                     "·𐑚𐑳𐑟𐑤 𐑦𐑟 𐑩 2D 𐑑𐑪𐑐-𐑛𐑬𐑯, 𐑣𐑲 𐑛𐑦𐑓𐑦𐑒𐑩𐑤𐑦 𐑨𐑒𐑖𐑯 𐑜𐑱𐑥. 𐑣𐑧𐑤𐑐 𐑞 𐑥𐑱𐑯 𐑒𐑨𐑮𐑩𐑒𐑑𐑼 ·𐑥𐑩𐑢𐑸𐑦𐑴 𐑦𐑕𐑒𐑱𐑐 𐑓𐑮𐑪𐑥 𐑩 𐑥𐑦𐑕𐑑𐑽𐑾𐑕 𐑮𐑵𐑥!",
-                ja: "Buzzleは2Dトップダウン高難度アクションゲーム。主人公の「マワリオ」の不思議な部屋からの脱出を助けよう!",
+                ja: "Buzzleは2Dトップダウン高難度アクションゲーム。地下に閉じ込められた主人公の脱出を助けよう!",
                 zse: "Buzzle diza desa katu, kuzu tepo kito [gota] dide zota dodo keke. Goku pupo godi kida zeku zoto peka Mawario popi desa dopi tozu popi kidu!"
             },
             "partnerAds.mamuBox": {
