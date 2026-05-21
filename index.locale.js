@@ -23,15 +23,15 @@ onPageLoad(() => {
         translations: {
             pageName: {
                 en: "Kumafuji1202's Room",
-                "en-Shaw": "·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦1202-𐑟 𐑤𐑵𐑥",
+                "en-Shaw": "·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦1202-𐑟 𐑮𐑵𐑥",
                 ja: "くまふじの部屋",
                 zse: "Kumafuji1202 POTE"
             },
             "lastUpdateOn": {
                 en: "Last updated on:",
-                en: "Last updated on:",
+                "en-Shaw": "Last updated on:",
                 ja: "最終更新:",
-                en: "Last updated on:",
+                zse: "Last updated on:",
             },
             "siteNames.youTube": {
                 en: "YouTube",
@@ -61,6 +61,7 @@ onPageLoad(() => {
                 en: "Select Language",
                 "en-Shaw": "𐑕𐑩𐑤𐑧𐑒𐑑 𐑤𐑨𐑙𐑜𐑢𐑦𐑡",
                 ja: "言語を選ぶ",
+                tok: "toki",
                 zse: "Kage kabo zese"
             },
             aboutMe: {
@@ -70,11 +71,11 @@ onPageLoad(() => {
                 zse: "Kaka dide kike"
             },
             "aboutMe.content": {
-                en: "Hi, I'm Kumafuji1202. I'm an university student who lives in Japan. I speak Japanese (my native language) and English (poorly). I'm currently studying Spanish, Russian and Classical Greek. (good planning? what kind of food is that?) I like to code, listen to music, and compose music. Recently I've been interested in linguistics and Touhou Project and several other things. Please contact me if you want to have anything fixed in this site.",
+                en: "Hi, I'm Kumafuji1202. I'm an university student who lives in Japan. I speak Japanese (my native language) and English. I'm currently studying Spanish, Russian and Classical Greek. (good planning? what kind of food is that?) I like to code, listen to music, and compose music. Recently I've been interested in linguistics and Touhou Project and several other things. Please contact me if you want to have anything fixed in this site.",
                 "en-Shaw":
-                    "𐑣𐑲, 𐑲𐑥 Kumafuji1202 (·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦). 𐑲𐑥 𐑩𐑯 𐑿𐑯𐑦𐑝𐑻𐑕𐑼𐑰 𐑕𐑑𐑿𐑛𐑩𐑯𐑑 𐑣𐑵 𐑤𐑦𐑝𐑟 𐑦𐑯 ·𐑡𐑩𐑐𐑨𐑯. 𐑲 𐑕𐑐𐑰𐑒 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 (𐑥𐑲 𐑯𐑱𐑑𐑦𐑝 𐑤𐑨𐑙𐑜𐑢𐑦𐑡) 𐑯 ·𐑦𐑙𐑜𐑤𐑦𐑖. 𐑲 𐑤𐑲𐑒 𐑑 𐑒𐑴𐑛, 𐑤𐑦𐑕𐑯 𐑑 𐑥𐑿𐑟𐑦𐑒, 𐑯𐑒𐑩𐑥𐑐𐑴𐑟 𐑥𐑿𐑟𐑦𐑒. 𐑮𐑰𐑕𐑯𐑑𐑤𐑦, 𐑲𐑝 𐑚𐑦𐑯 𐑦𐑯𐑑𐑮𐑩𐑕𐑑𐑩𐑛 𐑦𐑯 𐑒𐑧𐑥𐑦𐑕𐑑𐑮𐑰 𐑯 ·𐑑𐑴𐑣𐑴 𐑐𐑮𐑪𐑡𐑧𐑒𐑑.",
+                    "𐑣𐑲, 𐑲𐑥 Kumafuji1202 (·𐑒𐑫𐑥𐑭𐑓𐑫𐑡𐑦). 𐑲𐑥 𐑩𐑯 𐑿𐑯𐑦𐑝𐑻𐑕𐑩𐑑𐑰 𐑕𐑑𐑿𐑛𐑩𐑯𐑑 𐑣𐑵 𐑤𐑦𐑝𐑟 𐑦𐑯 ·𐑡𐑩𐑐𐑨𐑯. 𐑲 𐑕𐑐𐑰𐑒 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 (𐑥𐑲 𐑯𐑱𐑑𐑦𐑝 𐑤𐑨𐑙𐑜𐑢𐑦𐑡) 𐑯 ·𐑦𐑙𐑜𐑤𐑦𐑖. 𐑲 𐑤𐑲𐑒 𐑑 𐑒𐑴𐑛, 𐑤𐑦𐑕𐑯 𐑑 𐑥𐑿𐑟𐑦𐑒, 𐑯 𐑒𐑩𐑥𐑐𐑴𐑟 𐑥𐑿𐑟𐑦𐑒. 𐑮𐑰𐑕𐑯𐑑𐑤𐑦, 𐑲𐑝 𐑚𐑦𐑯 𐑦𐑯𐑑𐑮𐑩𐑕𐑑𐑩𐑛 𐑦𐑯 ·𐑑𐑴𐑣𐑴 𐑐𐑮𐑪𐑡𐑧𐑒𐑑 𐑯 𐑤𐑦𐑙𐑜𐑢𐑦𐑕𐑑𐑦𐑒𐑕.",
                 ja: "どうも、Kumafuji1202 (クマフジ、低高高高-高 or 低高低低) です。日本在住の大学生です。日本語(母語)と英語を喋ります。スペイン語とロシア語と古典ギリシア語を勉強中です。(ケーカク? 何それ格の名前?) プログラミングや音楽が趣味です。最近音楽と言語学と東方と連縁が僕の脳内で陣取り合戦してます。",
-                zse: "Gogi [biki]! Kike diza Kumafuji1202. diza kita [godi tuti kapa] popi Nihon dudu. Goto Nihon kabo zese diku English kabo zese. Kike godi tuti kapa Russian kabo zese diku gegu tata (?) kabo zese. Kike gota [tuko [tuku tose] kabo], diku [saki kata kaza sasa], diku [tuko kaza sasa]. Kike gota [tuti kapa kaka dide kabo zese [godi tuti kapa] diku Touhou Project]. Goku kasa dopi kike, diko [kiku gopa [kike tuko [susu popi topa diza deko gogi]]]."
+                zse: "Gogi [biki]! Kike diza Kumafuji1202. diza kita [godi tuti kapa] popi Nihon dudu. Goto Nihon kabo zese diku English kabo zese. Kike godi tuti kapa Russkij kabo zese diku gegu tata (?) kabo zese. Kike gota [tuko [tuku tose] kabo], diku [saki kata kaza sasa], diku [tuko kaza sasa]. Kike gota [tuti kapa kaka dide kabo zese [godi tuti kapa] diku Touhou Project]. Goku kasa dopi kike, diko [kiku gopa [kike tuko [susu popi topa diza deko gogi]]]."
             },
             janPonaMi: {
                 en: "My Friends",
@@ -132,16 +133,16 @@ onPageLoad(() => {
                 zse: "Didi peka kito [godi]"
             },
             "partnerAds.buzzle": {
-                en: "Buzzle by Mawario",
-                "en-Shaw": "·𐑚𐑳𐑟𐑤 𐑚𐑲 ·𐑥𐑩𐑢𐑸𐑦𐑴",
-                ja: "Buzzle by Mawario",
-                zse: "Buzzle by Mawario"
+                en: "Buzzle 2.0 by Mawario",
+                "en-Shaw": "·𐑚𐑳𐑟𐑤 2.0 𐑚𐑲 ·𐑥𐑩𐑢𐑸𐑦𐑴",
+                ja: "Buzzle 2.0 by Mawario",
+                zse: "Buzzle 2.0 by Mawario"
             },
             "partnerAds.buzzle.introduction": {
-                en: '"Give me that ability of yours." Buzzle is a 2D top-down puzzle / action game. Guide the protagonist, trapped underground, back to the surface.',
+                en: '"Give me that ability of yours." Buzzle is a 2D top-down puzzle / action game. Guide the protagonist, trapped underground, back to the surface',
                 "en-Shaw":
                     "·𐑚𐑳𐑟𐑤 𐑦𐑟 𐑩 2D 𐑑𐑪𐑐-𐑛𐑬𐑯, 𐑣𐑲 𐑛𐑦𐑓𐑦𐑒𐑩𐑤𐑦 𐑨𐑒𐑖𐑯 𐑜𐑱𐑥. 𐑣𐑧𐑤𐑐 𐑞 𐑥𐑱𐑯 𐑒𐑨𐑮𐑩𐑒𐑑𐑼 ·𐑥𐑩𐑢𐑸𐑦𐑴 𐑦𐑕𐑒𐑱𐑐 𐑓𐑮𐑪𐑥 𐑩 𐑥𐑦𐑕𐑑𐑽𐑾𐑕 𐑮𐑵𐑥!",
-                ja: "Buzzleは2Dトップダウン高難度アクションゲーム。地下に閉じ込められた主人公の脱出を助けよう!",
+                ja: "Buzzleは2Dトップダウン高難度アクションゲーム。地下に閉じ込められた主人公の脱出を助けよ",
                 zse: "Buzzle diza desa katu, kuzu tepo kito [gota] dide zota dodo keke. Goku pupo godi kida zeku zoto peka Mawario popi desa dopi tozu popi kidu!"
             },
             "partnerAds.mamuBox": {
@@ -282,14 +283,14 @@ onPageLoad(() => {
                 ja: "アラビア文字Unicodeブロック → アラビア文字表示形B 変換器"
             },
             "siteMap.webTools.arabic2presB.introduction": {
-                en: "This tool converts Arabic script Unicode block text into Arabic Presentation Forms-B text so that the letters look all connected and in the right order even in environments that do not support LTR layout / IMFI letter shapes.",
+                en: "This tool converts Arabic script Unicode block text into Arabic Presentation Forms-B text so that the letters look all connected and in the right order even in environments that do not support LTR layout / IMFI letter shape changes.",
                 "en-Shaw":
-                    "𐑞𐑦𐑕 𐑑𐑵𐑤 𐑒𐑩𐑯𐑝𐑻𐑑𐑕 ·𐑨𐑮𐑩𐑚𐑦𐑒 𐑕𐑒𐑮𐑦𐑐𐑑 ·𐑿𐑯𐑦𐑒𐑴𐑛 𐑚𐑤𐑪𐑒 𐑑𐑧𐑒𐑕𐑑 𐑦𐑯𐑑𐑵 ·𐑨𐑮𐑩𐑚𐑦𐑒 𐑐𐑮𐑧𐑟𐑩𐑯𐑑𐑱𐑖𐑩𐑯 𐑓𐑹𐑥𐑟-B 𐑑𐑧𐑒𐑕𐑑 𐑕𐑴 𐑞𐑨𐑑 𐑞 𐑤𐑧𐑑𐑼𐑟 𐑤𐑫𐑒 𐑷𐑤 𐑒𐑩𐑯𐑧𐑒𐑑𐑦𐑛 𐑯 𐑦𐑯 𐑞 𐑮𐑲𐑑 𐑹𐑛𐑼 𐑰𐑝𐑩𐑯 𐑦𐑯 𐑦𐑯𐑝𐑲𐑤𐑩𐑥𐑧𐑯𐑑𐑕 𐑞𐑨𐑑 𐑛𐑵 𐑯𐑪𐑑 𐑕𐑳𐑐𐑹𐑑 𐑤.𐑑.𐑮. 𐑤𐑱𐑬𐑑 / ⸰𐑦𐑥𐑓𐑲 (IMFI) 𐑤𐑧𐑑𐑼 𐑖𐑱𐑐𐑕.",
+                    "𐑞𐑦𐑕 𐑑𐑵𐑤 𐑒𐑩𐑯𐑝𐑻𐑑𐑕 ·𐑨𐑮𐑩𐑚𐑦𐑒 𐑕𐑒𐑮𐑦𐑐𐑑 ·𐑿𐑯𐑦𐑒𐑴𐑛 𐑚𐑤𐑪𐑒 𐑑𐑧𐑒𐑕𐑑 𐑦𐑯𐑑𐑵 ·𐑨𐑮𐑩𐑚𐑦𐑒 𐑐𐑮𐑧𐑟𐑩𐑯𐑑𐑱𐑖𐑩𐑯 𐑓𐑹𐑥𐑟-B 𐑑𐑧𐑒𐑕𐑑 𐑕𐑴 𐑞𐑨𐑑 𐑞 𐑤𐑧𐑑𐑼𐑟 𐑤𐑫𐑒 𐑷𐑤 𐑒𐑩𐑯𐑧𐑒𐑑𐑦𐑛 𐑯 𐑦𐑯 𐑞 𐑮𐑲𐑑 𐑹𐑛𐑼 𐑰𐑝𐑩𐑯 𐑦𐑯 𐑦𐑯𐑝𐑲𐑮𐑩𐑥𐑧𐑯𐑑𐑕 𐑞𐑨𐑑 𐑛𐑵 𐑯𐑪𐑑 𐑕𐑳𐑐𐑹𐑑 𐑤.𐑑.𐑮. 𐑤𐑱𐑬𐑑 / ⸰𐑦𐑥𐑓𐑲 (IMFI) 𐑤𐑧𐑑𐑼 𐑖𐑱𐑐 𐑗𐑱𐑯𐑡𐑩𐑟.",
                 ja: "アラビア文字Unicodeブロックを使用したテキストをアラビア文字表示形Bに変換して、右横書きや位置による字形変化に対応していない環境でも文字を正しい形・順番で表示させるようにします。"
             },
             "siteMap.webTools.mcadc": {
                 en: "Minecraft Armor Damage Calculator",
-                "en-Shaw": "·𐑥𐑲𐑯𐑒𐑮𐑨𐑓𐑑 𐑸𐑥𐑼 𐑛𐑨𐑥𐑦𐑡 𐑒𐑨𐑤𐑒𐑿𐑤𐑱𐑑𐑼",
+                "en-Shaw": "·𐑥𐑲𐑯𐑒𐑮𐑨𐑓𐑑 𐑸𐑥𐑼 𐑛𐑨𐑥𐑦𐑡 𐑒𐑨𐑤𐑒𐑘𐑩𐑤𐑱𐑑𐑼",
                 ja: "Minecraft防具ダメージ計算機",
                 zse: "Kita kida Toto Kake Minecraft kida Gebu kidu kidu"
             },
@@ -307,7 +308,7 @@ onPageLoad(() => {
             },
             "siteMap.webTools.xsampaInput.introduction": {
                 en: "An input assistance tool for hard keyboards with input codes based on X-SAMPA.",
-                "en-Shaw": "𐑩𐑯 𐑦𐑯𐑐𐑫𐑑 𐑩𐑕𐑦𐑕𐑑𐑩𐑯𐑕 𐑑𐑵𐑤 𐑓 𐑣𐑸𐑛 𐑒𐑰𐑚𐑹𐑛𐑟 𐑢𐑦𐑞 𐑦𐑯𐑐𐑫𐑑 𐑒𐑴𐑛𐑟 𐑚𐑱𐑕𐑑 𐑷𐑯 ⸰𐑦-𐑕𐑩𐑥𐑓𐑨.",
+                "en-Shaw": "𐑩𐑯 𐑦𐑯𐑐𐑫𐑑 𐑩𐑕𐑦𐑕𐑑𐑩𐑯𐑕 𐑑𐑵𐑤 𐑓 𐑣𐑸𐑛 𐑒𐑰𐑚𐑹𐑛𐑟 𐑢𐑦𐑞 𐑦𐑯𐑐𐑫𐑑 𐑒𐑴𐑛𐑟 𐑚𐑱𐑕𐑑 𐑪𐑯 ⸰𐑦-𐑕𐑩𐑥𐑓𐑨.",
                 ja: "X-SAMPAを基本にしたハードキーボード用の入力補助ツール。"
             },
             "siteMap.webTools.shavianKbd": {
@@ -339,7 +340,7 @@ onPageLoad(() => {
             "siteMap.webTools.directionCvt.introduction": {
                 en: "This tool reformats a normal text written using 方塊字(Chinese characters, Kana, Hangul etc) to vertical text.",
                 "en-Shaw":
-                    "𐑞𐑦𐑕 𐑑𐑵𐑤 𐑮𐑦𐑓𐑹𐑥𐑩𐑑𐑕 𐑩 𐑯𐑹𐑥𐑩𐑤 𐑑𐑧𐑒𐑕𐑑 𐑮𐑦𐑑𐑩𐑯 𐑿𐑟𐑦𐑙 方塊字(·𐑗𐑲𐑯𐑰𐑟 𐑒𐑨𐑮𐑩𐑒𐑑𐑼𐑟, 𐑒𐑭𐑯𐑩, 𐑣𐑭𐑯𐑜𐑵𐑤 𐑥𐑥𐑥) 𐑑 𐑝𐑻𐑑𐑦𐑒𐑩𐑤 𐑑𐑧𐑒𐑕𐑑.",
+                    "𐑞𐑦𐑕 𐑑𐑵𐑤 𐑮𐑦𐑓𐑹𐑥𐑩𐑑𐑕 𐑩 𐑯𐑹𐑥𐑩𐑤 𐑑𐑧𐑒𐑕𐑑 𐑮𐑦𐑑𐑩𐑯 𐑿𐑟𐑦𐑙 方塊字(·𐑗𐑲𐑯𐑰𐑟 𐑒𐑨𐑮𐑩𐑒𐑑𐑼𐑟, 𐑒𐑭𐑯𐑩, 𐑣𐑭𐑯𐑜𐑵𐑤 𐑯𐑯𐑯) 𐑑 𐑝𐑻𐑑𐑦𐑒𐑩𐑤 𐑑𐑧𐑒𐑕𐑑.",
                 ja: "横書きの文章の文字を並べ替えて縦読みに変換します(1行最大1000文字)。変換後の文章は縦書きが使えない環境にコピペなどをして使えます。"
             },
             "siteMap.otherPages": {
@@ -357,7 +358,7 @@ onPageLoad(() => {
             "siteMap.otherPages.rs.rsrqh.introduction": {
                 en: "A list of all 20 questions from RSR Trivia Quiz required to answer to use RSR on 2024/Apr/01, shown with their answers and Japanese translations.",
                 "en-Shaw":
-                    "𐑩 𐑤𐑦𐑕𐑑 𐑝 𐑷𐑤 20 𐑒𐑢𐑧𐑕𐑗𐑩𐑯𐑟 𐑓𐑮𐑷𐑥 ⸰𐑮𐑕𐑮 𐑑𐑮𐑦𐑝𐑾 𐑒𐑢𐑦𐑟 𐑞𐑩𐑑 𐑢𐑩𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑨𐑯𐑕𐑼 𐑑 𐑿𐑟 ⸰𐑮𐑕𐑮 𐑷𐑥 2024/𐑱𐑐𐑮/01, 𐑖𐑴𐑯 𐑢𐑦𐑞 𐑞𐑺 𐑨𐑯𐑕𐑼𐑟 𐑯 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 𐑑𐑮𐑩𐑯𐑕𐑤𐑱𐑖𐑯𐑟.",
+                    "𐑩 𐑤𐑦𐑕𐑑 𐑝 𐑷𐑤 20 𐑒𐑢𐑧𐑕𐑗𐑩𐑯𐑟 𐑓𐑮𐑷𐑥 ⸰𐑮𐑕𐑮 𐑑𐑮𐑦𐑝𐑾 𐑒𐑢𐑦𐑟 𐑞𐑩𐑑 𐑢𐑩𐑟 𐑮𐑦𐑒𐑢𐑲𐑼𐑛 𐑑 𐑨𐑯𐑕𐑼 𐑑 𐑿𐑟 ⸰𐑮𐑕𐑮 𐑪𐑯 2024/𐑱𐑐𐑮/01, 𐑖𐑴𐑯 𐑢𐑦𐑞 𐑞𐑺 𐑨𐑯𐑕𐑼𐑟 𐑯 ·𐑡𐑨𐑐𐑩𐑯𐑰𐑟 𐑑𐑮𐑨𐑯𐑕𐑤𐑱𐑖𐑩𐑯𐑟.",
                 ja: "2024年4月1日にRSRで出題された20個の「RSRトリビアクイズ」問題の日本語訳と答えを併記した一覧。",
                 zse: "Kuda kida kazi kidu popi RSR pobi tado 2024/4/1 diku Nihon kabo zese diku kida tusi kidu."
             },

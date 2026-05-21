@@ -4,11 +4,41 @@ Number.prototype.clamp = function (min, max) {
     if (this < min) return min;
     return this;
 };
-String.prototype.isSurrogate = function () {
-    return String.fromCharCode(0xd800) <= this.charAt(0) && this.charAt(0) < String.fromCharCode(0xe000);
+Number.prototype.mod = function (mod) {
+    if (this >= 0) return this % mod;
+    if (this % mod == 0) return 0;
+    return this % mod + mod;
+};
+String.prototype.isSurrogate = function () { // 上位・下位両方のサロゲートを検知する
+    return String.fromCharCode(0xd800) <= this.charAt(0) && this.charAt(0) <= String.fromCharCode(0xdfff);
+};
+String.prototype.isHighSurrogate = function () { // 上位サロゲートを検知する
+    return String.fromCharCode(0xd800) <= this.charAt(0) && this.charAt(0) < String.fromCharCode(0xdbff);
+};
+String.prototype.isLowSurrogate = function () { // 下位サロゲートを検知する
+    return String.fromCharCode(0xdc00) <= this.charAt(0) && this.charAt(0) < String.fromCharCode(0xdfff);
 };
 String.prototype.lengthAt = function (position) {
     return (this.charAt(position).isSurrogate()) ? 2 : 1;
+};
+String.prototype.charAtRev = function (position) {
+    return this.charAt(this.length - 1 - position);
+};
+String.prototype.substrSdw = function (from, toRev){
+    return this.substring(from, this.length - toRev);
+};
+String.prototype.cutAt = function (places = []){
+    if (this == "") return [];
+    let q = [0].concat(places.map(m => {
+        if (m < 0) return 0;
+        if (m > this.length) return this.length;
+        return m;
+    }).concat(this.length));
+    let p = [];
+    for (let i = 0; i < q.length - 1; i++){
+        p.push(this.substring(q[i], q[i + 1]));
+    }
+    return p;
 };
 
 class Col {
@@ -57,11 +87,25 @@ Element.prototype.setAttributes = function (attributeData) {
 //HTMLInputElement.prototype.v = HTMLInputElement.prototype.value;
 
 document.newSVGElem = name => document.createElementNS('http://www.w3.org/2000/svg', name);
+document.crelt = name => document.createElement(name);
 
 var turn = (x, y, angle) => ({
     x: x * Math.cos(angle) - y * Math.sin(angle),
     y: x * Math.sin(angle) + y * Math.cos(angle)
 });
+
+function commaListFrom(list){
+    return list.reduce((p, q) => p + ", " + q);
+}
+function pack(tagname, innerHTML, classes = []){
+    let e = document.crelt(tagname);
+    e.innerHTML = innerHTML;
+    if (classes) for (let c of classes){
+        e.classList.add(c);
+    }
+    return e;
+}
+
 //wiop
 Number.prototype.compress = function(middle){
     return Math.acos(8 / (4 + this * this) - 1) / Math.PI;

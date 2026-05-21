@@ -153,6 +153,11 @@ table td.impossible {
     content: "ˢ";
     font-weight: bold;
 }
+.has-pos-var::after {
+    font-family: "Courier New", "", monospace;
+    content: "↕";
+    font-weight: bold;
+}
 .unimplemented {
     display: none;
     text-decoration: line-through;

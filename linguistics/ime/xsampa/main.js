@@ -1,11 +1,11 @@
 onPageLoad(() => {
     var area = getElem("area");
     getElem("copy-raw").setClick(e => {
-        navigator.clipboard.writeText(area.value).then(() => {alert("コピーしました");});
+        navigator.clipboard.writeText(area.value).then(() => {alert("Copied!");});
         e.preventDefault();
     });
     getElem("copy-normalized").setClick(e => {
-        navigator.clipboard.writeText(area.value.normalize()).then(() => {alert("Unicode正規化形式をコピーしました");});
+        navigator.clipboard.writeText(area.value.normalize()).then(() => {alert("Copied!");});
         e.preventDefault();
     });
     area.addEventListener("keydown", (e) => {
@@ -30,7 +30,7 @@ onPageLoad(() => {
 
         //"iyɨᵿɯueøɘɵɤo"
         //
-        const implosiveConvertBase = "bdɖɟɡɢptckq";
+        const implosiveConvertBase = "bdɖɟɡɢptʈckq";
         const underscoreDiacriticCode = '"+-0=>^}~AabcdeGhjklmNnOoqrtuvwXxy12345?';
         console.log("xibgus");
         if (underscoreJoin) {
@@ -39,7 +39,16 @@ onPageLoad(() => {
                 //入破音に変化
                 if (!implosiveConvertBase.includes(area.value.charAt(cursorAfterPos - 2))) invalidInput = true; //前に変化させられる文字がない
 
-                newLet = "ɓɗᶑʄɠʛƥƭƈƙʠ"[implosiveConvertBase.indexOf(area.value.charAt(cursorAfterPos - 2))];
+                newLet = ("ɓɗᶑʄɠʛƥƭ𝼉ƈƙʠ").toArray()[implosiveConvertBase.indexOf(area.value.charAt(cursorAfterPos - 2))];
+                consumeLetters = 2;
+            } else if (e.key == "@") {
+                //_@で上下の方向を変換
+                const posConvBase = String.fromCharCode(0x033A, 0x033B, 0x032A, 0x0306, 0x0318, 0x0319, 0x031D, 0x031E, 0x031F, 0x0320, 0x0325, 0x0329, 0x032F, 0x033C, 0x033D, 0x0361);
+                const posConvTarg = String.fromCharCode(0x1AE3, 0x1AE4, 0x0346, 0x032E, 0x1AE0, 0x1AE1, 0x1DF5, 0x1ADB, 0x1AC8, 0x1AE2, 0x030A, 0x030D, 0x0311, 0x1AE5, 0x0353, 0x035C);
+                if (!posConvBase.includes(area.value.charAt(cursorAfterPos - 2))) invalidInput = true; //前に変化させられる文字がない
+                newLet = posConvTarg[
+                    posConvBase.indexOf(area.value.charAt(cursorAfterPos - 2))
+                ];
                 consumeLetters = 2;
             } else if (e.key == "s") {
                 //_sで上付きに変換
@@ -136,15 +145,15 @@ onPageLoad(() => {
             };
             if (e.key == "\\") {
                 //\で通常派生
-                formula.bfore = "abcdehjklnoprstvxyzβðɣɥɪɲɬʎɯŋɔʋʁʃθʊχːəɜɾɫʔ⟨⟩ꜜ|-ʰˀ" + String.fromCharCode(0x0329);
-                formula.after = "ᴀⱱʗȡᴇɦʝʞɺȵꭥɸɹɕȶʋɧʮʑʙȸɢʜᵻɟɮʟɰɴʘȹʀƛʇᵿħˑɘɞɿȴʕʢʡǃǀ‿ʱˁǂ";
+                formula.bfore = "abcçdeɡhjklnoprstvxyzβðɣɥɪɲɬʎɯŋɔʋʁʃθʊχːəɜɾɫʔ⟨⟩ꜜ|-ʰˀ" + String.fromCharCode(0x0329);
+                formula.after = ("ᴀⱱʗ𝼆ȡᴇ𝼄ɦʝʞɺȵꭥɸɹɕȶʋɧʮʑʙȸɢʜᵻɟɮʟɰɴʘȹʀƛʇᵿħˑɘɞɿȴʕʢʡǃǀ‿ʱˁǂ").toArray();
             } else if (e.key == "`") {
                 //そり舌音
-                formula.bfore = "dnrɹstzəɜlɬɿʮ";
-                formula.after = "ɖɳɽɻʂʈʐɚɝɭꞎʅʯ";
+                formula.bfore = "dnrɹstzəɜlɬɮɺɿʮǃ";
+                formula.after = ("ɖɳɽɻʂʈʐɚɝɭꞎ𝼅𝼈ʅʯ𝼊").toArray();
             }
-            let predLet = area.value.charAt(cursorAfterPos - 1);
-            consumeLetters = 1;
+            let predLet = area.value.fullCharAt(cursorAfterPos - 1);
+            consumeLetters = predLet.length;
 
             if (!formula.bfore.includes(predLet)) {
                 //変換対象にないとき
