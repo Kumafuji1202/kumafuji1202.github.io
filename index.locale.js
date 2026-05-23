@@ -324,9 +324,9 @@ onPageLoad(() => {
                 zse: "[Bude] Gaku goko Shavian [Kabi] Zese"
             },
             "siteMap.webTools.shavianKbd.introduction": {
-                en: "A soft keyboard for the Shavian alphabet, a 1960 proposed phonemic writing system for English.",
-                "en-Shaw": "𐑩 𐑕𐑪𐑓𐑑 𐑒𐑰𐑚𐑹𐑛 𐑓 𐑞 ·𐑖𐑱𐑝𐑾𐑯 𐑨𐑤𐑓𐑩𐑚𐑧𐑑, 𐑩 1960 𐑐𐑮𐑩𐑐𐑴𐑟𐑛 𐑓𐑴𐑯𐑰𐑥𐑦𐑒 𐑮𐑲𐑑𐑦𐑙 𐑕𐑦𐑕𐑑𐑩𐑥 𐑓𐑹 ·𐑦𐑙𐑜𐑤𐑦𐑖.",
-                ja: "1960年に開発された英語の音素的文字、ショー文字のための入力ツール。",
+                en: "A soft keyboard for the Shavian alphabet, a 1960 proposed alternative alphabet for English.",
+                "en-Shaw": "𐑩 𐑕𐑪𐑓𐑑 𐑒𐑰𐑚𐑹𐑛 𐑓 𐑞 ·𐑖𐑱𐑝𐑾𐑯 𐑨𐑤𐑓𐑩𐑚𐑧𐑑, 𐑩 1960 𐑐𐑮𐑩𐑐𐑴𐑟𐑛 𐑷𐑤𐑑𐑻𐑯𐑩𐑑𐑦𐑝 𐑨𐑤𐑓𐑩𐑚𐑧𐑑 𐑓𐑹 ·𐑦𐑙𐑜𐑤𐑦𐑖.",
+                ja: "1960年に開発された英語の表音文字、ショー文字のための入力ツール。",
                 zse: "Suga [bude] gaku goko Shavian [kabi] zese, kito [tuko [kabi] zese goko English kabo zese tapi 1960]."
             },
             "siteMap.webTools.utf8Cvt": {
