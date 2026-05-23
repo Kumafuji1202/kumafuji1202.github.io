@@ -33,6 +33,12 @@ onPageLoad(() => {
                 ja: "最終更新:",
                 zse: "Last updated on:",
             },
+            "fdsafdsa": {
+                en: "fdsafdsfddfssaasfdadfas",
+                "en-Shaw": "fdsafdsfddfssaasfdadfas",
+                ja: "fdさfdさdfさfdsfd",
+                zse: "fdsafdsfddfssaasfdadfas",
+            },
             "siteNames.youTube": {
                 en: "YouTube",
                 "en-Shaw": "·𐑿𐑑𐑿𐑚",

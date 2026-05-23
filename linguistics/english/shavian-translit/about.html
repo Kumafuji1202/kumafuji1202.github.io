@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <title>Simple Shavian auto-transliteration tool</title>
+  <link rel="stylesheet" href="../../../css-global/global.css" />
+  <script src="../../../js-global/utils.js"></script>
+  <script src="../../../js-global/utf16-string.js"></script>
+  <script src="systems.js"></script>
+  <script>
+   onPageLoad(() => {
+    getElem("orth").appendChild(pack("th", shavianTranslit[0].name));
+    getElem("ipa").appendChild(pack("th", shavianTranslit[1].name));
+    //getElem("orig").appendChild(pack("th", shavianTranslit[2].name));
+    for (let letter of "𐑒𐑜𐑙𐑣𐑗𐑡𐑖𐑠𐑘𐑑𐑛𐑕𐑟𐑯𐑮𐑔𐑞𐑤𐑐𐑚𐑓𐑝𐑥𐑢𐑰𐑵𐑦𐑫𐑱𐑴𐑧𐑷𐑨𐑪𐑭𐑳𐑩𐑾𐑿𐑲𐑬𐑶𐑽𐑺𐑸𐑹𐑼𐑻".toArray()) {
+     getElem("header").appendChild(pack("th", letter).setAttributes({ lang: "en-Shaw" }));
+     getElem("orth").appendChild(pack("td", shavianTranslit[0][letter]));
+     getElem("ipa").appendChild(pack("td", shavianTranslit[1][letter]));
+     //getElem("orig").appendChild(pack("td", shavianTranslit[2][letter]));
+    }
+    for (let letter of extEscape) {
+     getElem("header").appendChild(pack("th", letter[0] + "\ufe00").setAttributes({ lang: "en-Shaw" }));
+     getElem("orth").appendChild(pack("td", shavianTranslit[0][letter[1]]));
+     getElem("ipa").appendChild(pack("td", shavianTranslit[1][letter[1]]));
+     //getElem("orig").appendChild(pack("td", shavianTranslit[2][letter[1]]));
+    }
+   });
+  </script>
+  <style>
+   :lang(en-shaw) {
+    font-family: "Inter Alia";
+   }
+  </style>
+ </head>
+ <body>
+  <h1>About this thing</h1>
+  <small>Last updated: 2026 May 22nd</small>
+  <h2>Purpose</h2>
+  <p>
+   I made this converter to check my own Shavian spelling from several years ago when I was really into the Shavian
+   script. I was surprised to learn that the Shavian version of the top page of this site was full of typos and errors,
+   so I think this tool will be helpful to both those who already know Shavian and those who don't.
+  </p>
+  <h2>The transcription systems used</h2>
+  <p>
+   The last 6 letters are the extended Shavian letters. Not all fonts support them, so they might look identical to
+   the letters they are derived from in your environment.
+  </p>
+  <table>
+   <tr id="header">
+    <th>Shavian</th>
+   </tr>
+   <tr id="orth"></tr>
+   <tr id="ipa"></tr>
+   <!--<tr id="orig"></tr>-->
+  </table>
+  <p>The “orthodox‐like” system is meant to be readable by those who don't know how to read IPA.</p>
+  <p>The “conventional IPA‐like” system is meant to resemble the conventional diaphonemic IPA transcriptions of English words.</p>
+  <h2>Abbreviations</h2>
+  <p>Five basic word abbreviations to keep in mind:</p>
+  <ul>
+   <li><span lang="en-Shaw">𐑞</span> (d͜h, ð) for <em>the</em>;</li>
+   <li><span lang="en-Shaw">𐑝</span> (v) for <em>of</em>;</li>
+   <li><span lang="en-Shaw">𐑯</span> (n) for <em>and</em>;</li>
+   <li><span lang="en-Shaw">𐑑</span> (t) for <em>to</em> (but not for <em>two</em> and <em>too</em>);</li>
+   <li><span lang="en-Shaw">𐑓</span> (f) for <em>for</em>;</li>
+  </ul>
+  <span lang="en-Shaw">𐑯𐑯𐑯</span> (nnn) stands for <em>etc.</em>
+  <p>
+   There are also a number of abbreviations listed and recommended at
+   <a target="_blank" href="https://www.shavian.info/spelling/">https://www.shavian.info/spelling/</a> that differ from
+   standard Latin‐script spelling.
+  </p>
+  <h2>Punctuation</h2>
+  <ul>
+   <li>the middle dot <span lang="en-Shaw">·</span> is placed before proper nouns when distinction is necessary.</li>
+  </ul>
+  <p>Please report any errors to me or ask any questions through Discord. The profile ID is at the top page.</p>
+  <a href="index.html">Back</a>
+ </body>
+</html>

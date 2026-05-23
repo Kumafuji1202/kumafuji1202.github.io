@@ -34,7 +34,16 @@ var movedFiles = [
             "ja": "ショー文字ソフトキーボード",
         },
         "from": "/shavian-keyboard",
-        "to": "/linguistics/shavian-keyboard"
+        "to": "/linguistics/english/shavian-keyboard"
+    },
+    {
+        "name": {
+            "en": "Shavian Soft Keyboard",
+            "en-Shaw": "·𐑖𐑱𐑝𐑾𐑯 𐑕𐑪𐑓𐑑 𐑒𐑰𐑚𐑹𐑛",
+            "ja": "ショー文字ソフトキーボード",
+        },
+        "from": "/linguistics/shavian-keyboard",
+        "to": "/linguistics/english/shavian-keyboard"
     },
     {
         "name": {
