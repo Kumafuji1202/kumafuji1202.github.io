@@ -3,6 +3,9 @@ html, body{
     padding: 0;
     height: 100vh;
 }
+#out{
+    line-height: 1.5em;
+}
 :lang(en-shaw){
     font-family: "Inter Alia";
 }
