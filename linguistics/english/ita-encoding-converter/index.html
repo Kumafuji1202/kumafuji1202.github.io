@@ -14,7 +14,7 @@
      getElem("output").setAttribute("class", destid + "-ita");
      let origid = getElem("originsystem").value;
      let output = "";
-     if (origid == destid){
+     if (origid == destid) {
       output = getElem("input").value;
      } else {
       let origtext = getElem("input").value;
@@ -38,13 +38,16 @@
         origtext = origtext.replaceAll(pair[0], pair[1]);}
       }*/
       let lastCharWasCap = false;
-      for (let char of origtext.toArray()){
-       let lowchar = char.toLowerCase();
-       let thisCharIsCap = (lowchar != char);
-       if (thisCharIsCap && (!lastCharWasCap)) output += getElem("startcaps").value;
-       if ((!thisCharIsCap) && lastCharWasCap) output += getElem("endcaps").value;
-       
-       if (systems[origid].letters.includes(char.toLowerCase())){
+      for (let char of origtext.toArray()) {
+       let lowchar = char;
+       if (origid == "pit" && destid != "pit") {
+        lowchar = lowchar.toLowerCase();
+       }
+       let thisCharIsCap = lowchar != char;
+       if (thisCharIsCap && !lastCharWasCap) output += getElem("startcaps").value;
+       if (!thisCharIsCap && lastCharWasCap) output += getElem("endcaps").value;
+
+       if (systems[origid].letters.includes(lowchar)) {
         output += systems[destid].letters[systems[origid].letters.indexOf(lowchar)];
        } else {
         output += lowchar;
@@ -113,7 +116,7 @@
     display: flex;
     flex-direction: column;
    }
-   #head{
+   #head {
     padding: 5px;
    }
    #input,
@@ -146,6 +149,7 @@
       <select id="destsystem"></select>
      </label>
     </form>
+    <p><a href="table.html">see encoding correspondence table</a></p>
    </div>
    <textarea id="input" placeholder="input some ITA text..." spellcheck="false"></textarea>
    <div id="output"></div>

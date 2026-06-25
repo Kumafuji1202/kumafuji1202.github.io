@@ -2,26 +2,26 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../../../css-global/global.css">
+  <link rel="stylesheet" href="../../../css-global/global.css" />
   <script src="../../../js-global/utils.js"></script>
   <script src="data.js"></script>
   <title>ITA encoding comparison table</title>
   <script>
    onPageLoad(() => {
-    for (let system in systems){
-     let c = pack("th", systems[system].name)
+    for (let system in systems) {
+     let c = pack("th", systems[system].name);
      if (systems[system].font) c.setAttribute("style", "font-family: " + systems[system].font);
      c.setAttribute("colspan", "2");
      c.addTo(getElem("thead"));
     }
-    for (let index = 0; index < systems["pit"].letters.length; index++){
+    for (let index = 0; index < systems["pit"].letters.length; index++) {
      let r = pack("tr");
-     for (let system in systems){
+     for (let system in systems) {
       let sys = systems[system];
-      let c = pack("td", sys.letters[index])
+      let c = pack("td", sys.letters[index]);
       if (systems[system].font) c.setAttribute("style", "font-family: " + sys.font);
       c.addTo(r);
-      c = pack("td", "u+" + sys.letters[index].codePointAt(0).toString(16).padStart(4, "0"))
+      c = pack("td", "u+" + sys.letters[index].codePointAt(0).toString(16).padStart(4, "0"));
       c.classList.add("hex");
       c.addTo(r);
      }
@@ -30,10 +30,10 @@
    });
   </script>
   <style>
-   .hex{
+   .hex {
     font-family: monospace;
    }
-   th{
+   th {
     font-weight: normal;
     background-color: lightgray;
    }
@@ -41,14 +41,17 @@
  </head>
  <body>
   <h2>ITA encoding comparison table</h2>
-  <p>I couldn’t find two-storey bottom-connected ꜷ in Nishiki-teki</p>
+  <p>I couldn’t find two-storey bottom-connected ꜷ in Nishiki-teki.</p>
+  <p>
+   All “half a”-’s are replaced with a two-storey a when converting to Phonemics’ encoding because it doesn’t have a
+   codepoint for the “half a”.
+  </p>
+  <p><a href="./">go back</a></p>
   <table>
    <thead>
-    <tr id="thead">
-    </tr>
+    <tr id="thead"></tr>
    </thead>
-   <tbody id="ita-table" lang="en-Qaai">
-   </tbody>
+   <tbody id="ita-table" lang="en-Qaai"></tbody>
   </table>
  </body>
 </html>
