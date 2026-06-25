@@ -8,54 +8,76 @@
   <script src="../../../js-global/utf16-string.js"></script>
   <script src="data.js"></script>
   <script>
+   // 内部的に使用する非文字:
+   // u+fdd0: half a 用
+   // u+fdd1: 大文字セクション開始
+   // u+fdd2: 大文字セクション終了
+   function convert(text, origid, destid, startcaps, endcaps) {
+    if (origid == destid) return text;
+    let detectCaps = !systems[origid].supportsCaps && systems[destid].supportsCaps;
+    let encloseCaps = systems[origid].supportsCaps && !systems[destid].supportsCaps;
+    let capStartMarkAndEndMarkAreIdentical = startcaps == endcaps;
+    if (detectCaps) {
+     // 大文字を検知して大文字に変換
+     if (startcaps.length < endcaps.length) {
+      text = text.replaceAll(endcaps, "\ufdd2");
+      text = text.replaceAll(startcaps, "\ufdd1");
+     } else {
+      text = text.replaceAll(startcaps, "\ufdd1");
+      text = text.replaceAll(endcaps, "\ufdd2");
+     }
+    }
+    let output = "";
+    let origtext = text;
+    let lastCharWasCap = false;
+    let useCapsIfPossible = false;
+    for (let rawchar of origtext.toArray()) {
+     let char = rawchar;
+
+     // 大文字と小文字の返還を確認
+     if (detectCaps) {
+      if (char == "\ufdd1") {
+       if (startcaps == endcaps) useCapsIfPossible = !useCapsIfPossible;
+       else useCapsIfPossible = true;
+       continue;
+      }
+      if (char == "\ufdd2") {
+       useCapsIfPossible = false;
+       continue;
+      }
+     }
+     // 小文字に変換
+     if (encloseCaps) {
+      char = char.toLowerCase();
+      let thisCharIsCap = char != rawchar;
+      if (thisCharIsCap && !lastCharWasCap) output += startcaps;
+      if (!thisCharIsCap && lastCharWasCap) output += endcaps;
+      lastCharWasCap = thisCharIsCap;
+     }
+
+     if (systems[origid].letters.includes(char)) {
+      let corr = systems[destid].letters[systems[origid].letters.indexOf(char)];
+      console.log(corr);
+      if (detectCaps && useCapsIfPossible) output += corr.toUpperCase();
+      else output += corr;
+     } else {
+      if (detectCaps && useCapsIfPossible) output += char.toUpperCase();
+      else output += char;
+     }
+    }
+    // 大文字で終わった場合
+    if (lastCharWasCap) output += endcaps;
+    return output;
+   }
    onPageLoad(() => {
     function updateOutput() {
      let destid = getElem("destsystem").value;
      getElem("output").setAttribute("class", destid + "-ita");
      let origid = getElem("originsystem").value;
-     let output = "";
-     if (origid == destid) {
-      output = getElem("input").value;
-     } else {
-      let origtext = getElem("input").value;
-      /*if (destid == "pit") {
-       for (let pair of
-        [
-         ["á", "a\u0301"],
-         ["à", "a\u0300"],
-         ["ǽ", "æ\u0301"],
-         ["æ̀", "æ\u0300"],
-         ["é", "e\u0301"],
-         ["è", "e\u0300"],
-         ["í", "i\u0301"],
-         ["ì", "i\u0300"],
-         ["ó", "o\u0301"],
-         ["ò", "o\u0300"],
-         ["ú", "u\u0301"],
-         ["ù", "u\u0300"],
-        ]
-       ) {
-        origtext = origtext.replaceAll(pair[0], pair[1]);}
-      }*/
-      let lastCharWasCap = false;
-      for (let char of origtext.toArray()) {
-       let lowchar = char;
-       if (origid == "pit" && destid != "pit") {
-        lowchar = lowchar.toLowerCase();
-       }
-       let thisCharIsCap = lowchar != char;
-       if (thisCharIsCap && !lastCharWasCap) output += getElem("startcaps").value;
-       if (!thisCharIsCap && lastCharWasCap) output += getElem("endcaps").value;
-
-       if (systems[origid].letters.includes(lowchar)) {
-        output += systems[destid].letters[systems[origid].letters.indexOf(lowchar)];
-       } else {
-        output += lowchar;
-       }
-       lastCharWasCap = thisCharIsCap;
-      }
-      if (lastCharWasCap) output += getElem("endcaps").value;
-     }
+     let output = convert(getElem("input").value, origid, destid, getElem("startcaps").value, getElem("endcaps").value);
+     if (getElem("bath").value == "trap") output = output.replaceAll("\ufdd0", "a");
+     else output = output.replaceAll("\ufdd0", "q");
+     // HTMLに出力
      getElem("output").innerHTML = output.cleanse();
     }
     function updateInputFont() {
@@ -72,6 +94,7 @@
     getElem("destsystem").addEventListener("change", updateOutput);
     getElem("startcaps").addEventListener("change", updateOutput);
     getElem("endcaps").addEventListener("change", updateOutput);
+    getElem("bath").addEventListener("change", updateOutput);
     updateInputFont();
     updateOutput();
     getElem("input").addEventListener("input", updateOutput);
@@ -129,25 +152,43 @@
     flex-grow: 1;
     margin: 0;
    }
+   small {
+    display: block;
+   }
   </style>
  </head>
  <body>
   <div id="container">
    <div id="head">
     <h1>Initial Teaching Alphabet encoding converter</h1>
+    <small>version 1.0.4, last updated <time datetime="2026-06-25">2026 Jun 25th</time></small>
+    <label>
+     Convert from:
+     <select id="originsystem"></select>
+    </label>
+    <label>
+     Convert to:
+     <select id="destsystem"></select> </label
+    ><br />
+    <h2>options</h2>
     <form>
-     Enclose capitals in non-PitmanITA encoding with: <input type="text" id="startcaps" value="{" />~<input
-      type="text"
-      id="endcaps"
-      value="}" /><br />
-     <label>
-      Convert from:
-      <select id="originsystem"></select>
-     </label>
-     <label>
-      Convert to:
-      <select id="destsystem"></select>
-     </label>
+     <ul>
+      <li>
+       Enclose capitals in non-PitmanITA encoding with: <input type="text" id="startcaps" value="{" />~<input
+        type="text"
+        id="endcaps"
+        value="}" />
+      </li>
+      <li>
+       <label>
+        When converting to Phonemics’ encoding, replace “half a”-’s with:
+        <select id="bath">
+         <option value="trap">two-storey A’s</option>
+         <option value="palm">one-storey A’s</option>
+        </select>
+       </label>
+      </li>
+     </ul>
     </form>
     <p><a href="table.html">see encoding correspondence table</a></p>
    </div>
