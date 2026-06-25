@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../../../css-global/global.css" />
+  <title>ITA encoding converter</title>
+  <script src="../../../js-global/utils.js"></script>
+  <script src="../../../js-global/utf16-string.js"></script>
+  <script src="data.js"></script>
+  <script>
+   onPageLoad(() => {
+    function updateOutput() {
+     let destid = getElem("destsystem").value;
+     getElem("output").setAttribute("class", destid + "-ita");
+     let origid = getElem("originsystem").value;
+     let output = "";
+     if (origid == destid){
+      output = getElem("input").value;
+     } else {
+      let origtext = getElem("input").value;
+      /*if (destid == "pit") {
+       for (let pair of
+        [
+         ["á", "a\u0301"],
+         ["à", "a\u0300"],
+         ["ǽ", "æ\u0301"],
+         ["æ̀", "æ\u0300"],
+         ["é", "e\u0301"],
+         ["è", "e\u0300"],
+         ["í", "i\u0301"],
+         ["ì", "i\u0300"],
+         ["ó", "o\u0301"],
+         ["ò", "o\u0300"],
+         ["ú", "u\u0301"],
+         ["ù", "u\u0300"],
+        ]
+       ) {
+        origtext = origtext.replaceAll(pair[0], pair[1]);}
+      }*/
+      let lastCharWasCap = false;
+      for (let char of origtext.toArray()){
+       let lowchar = char.toLowerCase();
+       let thisCharIsCap = (lowchar != char);
+       if (thisCharIsCap && (!lastCharWasCap)) output += getElem("startcaps").value;
+       if ((!thisCharIsCap) && lastCharWasCap) output += getElem("endcaps").value;
+       
+       if (systems[origid].letters.includes(char.toLowerCase())){
+        output += systems[destid].letters[systems[origid].letters.indexOf(lowchar)];
+       } else {
+        output += lowchar;
+       }
+       lastCharWasCap = thisCharIsCap;
+      }
+      if (lastCharWasCap) output += getElem("endcaps").value;
+     }
+     getElem("output").innerHTML = output.cleanse();
+    }
+    function updateInputFont() {
+     getElem("input").setAttribute("class", getElem("originsystem").value + "-ita");
+     updateOutput();
+    }
+
+    for (let sysid in systems) {
+     let sys = systems[sysid];
+     pack("option", sys.name).setAttributes({ value: sysid }).addTo(getElem("originsystem"));
+     pack("option", sys.name).setAttributes({ value: sysid }).addTo(getElem("destsystem"));
+    }
+    getElem("originsystem").addEventListener("change", updateInputFont);
+    getElem("destsystem").addEventListener("change", updateOutput);
+    getElem("startcaps").addEventListener("change", updateOutput);
+    getElem("endcaps").addEventListener("change", updateOutput);
+    updateInputFont();
+    updateOutput();
+    getElem("input").addEventListener("input", updateOutput);
+   });
+  </script>
+  <style>
+   .uni-ita {
+    font-family: inherit;
+    font-feature-settings: "ss02";
+   }
+   .pit-ita {
+    font-family: "PitmanITA";
+   }
+   .nish-ita {
+    font-family: "Nishiki-teki";
+   }
+   .cat-ita {
+    font-family: "Catrinity";
+   }
+   .xim-ita {
+    font-family: "Xim Sans Handwritten";
+   }
+   .fnmk-ita {
+    font-family: "Phonemics";
+   }
+   #startcaps {
+    text-align-last: end;
+   }
+   input[type="text"] {
+    min-width: 1.5em;
+    width: 2em;
+   }
+   html,
+   body,
+   #container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+   }
+   #container {
+    display: flex;
+    flex-direction: column;
+   }
+   #head{
+    padding: 5px;
+   }
+   #input,
+   #output {
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+    font-size: inherit;
+    flex-grow: 1;
+    margin: 0;
+   }
+  </style>
+ </head>
+ <body>
+  <div id="container">
+   <div id="head">
+    <h1>Initial Teaching Alphabet encoding converter</h1>
+    <form>
+     Enclose capitals in non-PitmanITA encoding with: <input type="text" id="startcaps" value="{" />~<input
+      type="text"
+      id="endcaps"
+      value="}" /><br />
+     <label>
+      Convert from:
+      <select id="originsystem"></select>
+     </label>
+     <label>
+      Convert to:
+      <select id="destsystem"></select>
+     </label>
+    </form>
+   </div>
+   <textarea id="input" placeholder="input some ITA text..."></textarea>
+   <div id="output"></div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../../../css-global/global.css">
+  <script src="../../../js-global/utils.js"></script>
+  <script src="data.js"></script>
+  <title>ITA encoding comparison table</title>
+  <script>
+   onPageLoad(() => {
+    for (let system in systems){
+     let c = pack("th", systems[system].name)
+     if (systems[system].font) c.setAttribute("style", "font-family: " + systems[system].font);
+     c.setAttribute("colspan", "2");
+     c.addTo(getElem("thead"));
+    }
+    for (let index = 0; index < systems["pit"].letters.length; index++){
+     let r = pack("tr");
+     for (let system in systems){
+      let sys = systems[system];
+      let c = pack("td", sys.letters[index])
+      if (systems[system].font) c.setAttribute("style", "font-family: " + sys.font);
+      c.addTo(r);
+      c = pack("td", "u+" + sys.letters[index].codePointAt(0).toString(16).padStart(4, "0"))
+      c.classList.add("hex");
+      c.addTo(r);
+     }
+     r.addTo(getElem("ita-table"));
+    }
+   });
+  </script>
+  <style>
+   .hex{
+    font-family: monospace;
+   }
+   th{
+    font-weight: normal;
+    background-color: lightgray;
+   }
+  </style>
+ </head>
+ <body>
+  <h2>ITA encoding comparison table</h2>
+  <p>I couldn’t find two-storey bottom-connected ꜷ in Nishiki-teki</p>
+  <table>
+   <thead>
+    <tr id="thead">
+    </tr>
+   </thead>
+   <tbody id="ita-table" lang="en-Qaai">
+   </tbody>
+  </table>
+ </body>
+</html>

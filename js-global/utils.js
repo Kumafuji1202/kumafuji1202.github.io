@@ -22,6 +22,7 @@ String.prototype.isLowSurrogate = function () {
     return String.fromCharCode(0xdc00) <= this.charAt(0) && this.charAt(0) < String.fromCharCode(0xdfff);
 };
 String.prototype.lengthAt = function (position) {
+    if (position < 0 || position >= this.length) return 0;
     return this.charAt(position).isSurrogate() ? 2 : 1;
 };
 String.prototype.charAtRev = function (position) {
@@ -103,6 +104,7 @@ function onPageLoad(func) {
 
 HTMLElement.prototype.setClick = function (callback, bubble = false) {
     this.addEventListener("click", callback, bubble);
+    return this;
 };
 Element.prototype.setAttributes = function (attributeData) {
     for (let set in attributeData) {
@@ -110,6 +112,10 @@ Element.prototype.setAttributes = function (attributeData) {
     }
     return this;
 };
+Element.prototype.addTo = function (parent) {
+    parent.appendChild(this);
+    return this;
+}
 //HTMLInputElement.prototype.v = HTMLInputElement.prototype.value;
 
 document.newSVGElem = (name) => document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -123,9 +129,9 @@ var turn = (x, y, angle) => ({
 function commaListFrom(list) {
     return list.reduce((p, q) => p + ", " + q);
 }
-function pack(tagname, innerHTML, classes = []) {
+function pack(tagname, innerHTML = null, classes = []) {
     let e = document.crelt(tagname);
-    e.innerHTML = innerHTML;
+    if (innerHTML) e.innerHTML = innerHTML;
     if (classes)
         for (let c of classes) {
             e.classList.add(c);

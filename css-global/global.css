@@ -46,11 +46,11 @@ option {
     font: inherit;
 }
 
-ul:not(.has-markers) {
+ul.semantic {
     list-style-type: none;
     padding-inline-start: 0;
 }
-ul:not(.has-markers) > li{
+ul.semantic > li{
     display: block;
 }
 
