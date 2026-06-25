@@ -14,7 +14,7 @@
    // u+fdd2: 大文字セクション終了
    function convert(text, origid, destid, startcaps, endcaps) {
     if (origid == destid) return text;
-    let detectCaps = !systems[origid].supportsCaps && systems[destid].supportsCaps;
+    let detectCaps = (!systems[origid].supportsCaps && systems[destid].supportsCaps && startcaps != "" && endcaps != "");
     let encloseCaps = systems[origid].supportsCaps && !systems[destid].supportsCaps;
     let capStartMarkAndEndMarkAreIdentical = startcaps == endcaps;
     if (detectCaps) {
@@ -161,7 +161,7 @@
   <div id="container">
    <div id="head">
     <h1>Initial Teaching Alphabet encoding converter</h1>
-    <small>version 1.1.1, last updated <time datetime="2026-06-25">2026 Jun 25th</time></small>
+    <small>version 1.1.2, last updated <time datetime="2026-06-25">2026 Jun 25th</time></small>
     <label>
      Convert from:
      <select id="originsystem"></select>
