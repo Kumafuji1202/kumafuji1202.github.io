@@ -34,7 +34,7 @@
     for (let rawchar of origtext.toArray()) {
      let char = rawchar;
 
-     // 大文字と小文字の返還を確認
+     // 大文字と小文字の変換が必要かを確認
      if (detectCaps) {
       if (char == "\ufdd1") {
        if (startcaps == endcaps) useCapsIfPossible = !useCapsIfPossible;
@@ -162,7 +162,7 @@
   <div id="container">
    <div id="head">
     <h1>Initial Teaching Alphabet encoding converter</h1>
-    <small>version 1.1.3, last updated <time datetime="2026-06-29">2026 Jun 29th</time></small>
+    <small>version 1.1.4, last updated <time datetime="2026-06-29">2026 Jun 29th</time></small>
     <label>
      Convert from:
      <select id="originsystem"></select>
