@@ -31,7 +31,7 @@ var systems = {
     },
     "uni": {
         name: "Unicode proposal",
-        font: "",
+        font: "Fairfax HD",
         supportsCaps: false,
         letters: ['d', '\ud837\udf5c', '\ud837\udf5d', 'ᵫ', 'œ', '\ud837\udf66', '\ud837\udf65', '\ud837\udf5b', '\ud837\udf63', '\ud837\udf64', '\ud837\udf62', 'g', 'ŋ', '\ud837\udf61', 'a', '\ud837\udf5a', 'ꜷ', '\ud837\udf60', '\ud837\udf5f', '\ud837\udf5e', 'ꞷ', 'ʒ', 'ɑ', 'æ', '’', '‘', '“', '”']
     },
