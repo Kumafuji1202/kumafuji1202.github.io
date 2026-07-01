@@ -12,9 +12,9 @@
    // u+fdd0: half a 用
    // u+fdd1: 大文字セクション開始
    // u+fdd2: 大文字セクション終了
-   function convert(text, origid, destid = 0, startcaps = "", endcaps = "") {
+   function convert(text, origid, destid = 0, startcaps = "", endcaps = "", scriptGInOutput = false) {
     if (origid == destid) return text;
-    let detectCaps = (!systems[origid].supportsCaps && systems[destid].supportsCaps && startcaps != "" && endcaps != "");
+    let detectCaps = !systems[origid].supportsCaps && systems[destid].supportsCaps && startcaps != "" && endcaps != "";
     let encloseCaps = systems[origid].supportsCaps && !systems[destid].supportsCaps;
     let capStartMarkAndEndMarkAreIdentical = startcaps == endcaps;
     if (detectCaps) {
@@ -28,7 +28,8 @@
      }
     }
     let output = "";
-    let origtext = text;
+    let origtext = text.replaceAll("ɡ", "g");
+    // 上の行は、万が一 U+0067 と U+0261 に別の ITA 文字を当てるフォントをサポートしなくてはならなくなった場合、書き換える
     let lastCharWasCap = false;
     let useCapsIfPossible = false;
     for (let rawchar of origtext.toArray()) {
@@ -67,6 +68,7 @@
     }
     // 大文字で終わった場合
     if (lastCharWasCap) output += endcaps;
+    if (scriptGInOutput & systems[destid].supportsU0261) output = output.replaceAll("g", "ɡ");
     return output;
    }
    onPageLoad(() => {
@@ -74,7 +76,8 @@
      let destid = getElem("destsystem").value;
      getElem("output").setAttribute("class", destid + "-ita");
      let origid = getElem("originsystem").value;
-     let output = convert(getElem("input").value, origid, destid, getElem("startcaps").value, getElem("endcaps").value);
+     let output = convert(getElem("input").value, origid, destid, getElem("startcaps").value, getElem("endcaps").value,
+                          (getElem("gay").value == "u0261"));
      if (getElem("bath").value == "trap") output = output.replaceAll("\ufdd0", "a");
      else output = output.replaceAll("\ufdd0", "q");
      // HTMLに出力
@@ -82,7 +85,10 @@
     }
     function updateInputFont() {
      getElem("input").setAttribute("class", getElem("originsystem").value + "-ita");
-     getElem("input").setAttribute("placeholder", convert("inpõt sum ITA tekst...", "pit", getElem("originsystem").value));
+     getElem("input").setAttribute(
+      "placeholder",
+      convert("inpõt sum ITA tekst...", "pit", getElem("originsystem").value)
+     );
      updateOutput();
     }
 
@@ -96,6 +102,7 @@
     getElem("startcaps").addEventListener("change", updateOutput);
     getElem("endcaps").addEventListener("change", updateOutput);
     getElem("bath").addEventListener("change", updateOutput);
+    getElem("gay").addEventListener("change", updateOutput);
     updateInputFont();
     updateOutput();
     getElem("input").addEventListener("input", updateOutput);
@@ -152,7 +159,9 @@
     box-sizing: border-box;
     width: 100%;
     resize: none;
+    overflow: auto;
     font-size: inherit;
+    height: 0;
     flex-grow: 1;
     margin: 0;
    }
@@ -165,7 +174,7 @@
   <div id="container">
    <div id="head">
     <h1>Initial Teaching Alphabet encoding converter</h1>
-    <small>version 1.1.5, last updated <time datetime="2026-06-29">2026 Jun 29th</time></small>
+    <small>version 1.2.0, last updated <time datetime="2026-06-29">2026 Jun 29th</time></small>
     <label>
      Convert from:
      <select id="originsystem"></select>
@@ -191,6 +200,19 @@
          <option value="palm">one-storey A’s</option>
         </select>
        </label>
+      </li>
+      <li>
+       <label>
+        In the output, the codepoint for the letter <em>gay</em> is:
+        <select id="gay">
+         <option value="u0067">U+0067 LATIN SMALL LETTER G (g)</option>
+         <option value="u0261">U+0261 LATIN SMALL LETTER SCRIPT G (ɡ)</option>
+        </select>
+       </label>
+       <small
+        >This has no effects when converting to encodings for fonts that do not support U+0261 and when converting from
+        encodings for fonts that have a two-storey g glyph for U+0067</small
+       >
       </li>
      </ul>
     </form>
