@@ -3,197 +3,21 @@
  <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../../../css-global/global.css" />
+  <link rel="stylesheet" href="main.css" />
+  <meta name="author" content="Kumafuji1202" />
+  <meta name="twitter:url" content="https://kumafuji1202.github.io/linguistics/english/ita-encoding-converter/" />
+  <link rel="canonical" href="https://kumafuji1202.github.io/linguistics/english/ita-encoding-converter/" />
   <title>ITA encoding converter</title>
   <script src="../../../js-global/utils.js"></script>
   <script src="../../../js-global/utf16-string.js"></script>
   <script src="data.js"></script>
-  <script>
-   // 内部的に使用する非文字:
-   // u+fdd0: half a 用
-   // u+fdd1: 大文字セクション開始
-   // u+fdd2: 大文字セクション終了
-   function convert(
-    text,
-    origid,
-    destid = 0,
-    startcaps = "",
-    endcaps = "",
-    scriptGInOutput = false,
-    tailedDInOutput = false
-   ) {
-    let output = "";
-    if (origid != destid) {
-     let detectCaps = !systems[origid].supportsCaps && systems[destid].supportsCaps && startcaps != "" && endcaps != "";
-     let encloseCaps = systems[origid].supportsCaps && !systems[destid].supportsCaps;
-     let capStartMarkAndEndMarkAreIdentical = startcaps == endcaps;
-     if (detectCaps) {
-      // 大文字を検知して大文字に変換
-      if (startcaps.length < endcaps.length) {
-       text = text.replaceAll(endcaps, "\ufdd2");
-       text = text.replaceAll(startcaps, "\ufdd1");
-      } else {
-       text = text.replaceAll(startcaps, "\ufdd1");
-       text = text.replaceAll(endcaps, "\ufdd2");
-      }
-     }
-     let origtext = text.replaceAll("ɡ", "g").replaceAll("ɖ", "d");
-     // 上の行は、万が一 U+0067 と U+0261 に別の ITA 文字を当てるフォントをサポートしなくてはならなくなった場合、書き換える
-     let lastCharWasCap = false;
-     let useCapsIfPossible = false;
-     for (let rawchar of [...origtext]) {
-      let char = rawchar;
-
-      // 大文字と小文字の変換が必要かを確認
-      if (detectCaps) {
-       if (char == "\ufdd1") {
-        if (startcaps == endcaps) useCapsIfPossible = !useCapsIfPossible;
-        else useCapsIfPossible = true;
-        continue;
-       }
-       if (char == "\ufdd2") {
-        useCapsIfPossible = false;
-        continue;
-       }
-      }
-      // 小文字に変換
-      if (encloseCaps) {
-       char = char.toLowerCase();
-       let thisCharIsCap = char != rawchar;
-       if (thisCharIsCap && !lastCharWasCap) output += startcaps;
-       if (!thisCharIsCap && lastCharWasCap) output += endcaps;
-       lastCharWasCap = thisCharIsCap;
-      }
-
-      if (systems[origid].letters.includes(char)) {
-       let corr = systems[destid].letters[systems[origid].letters.indexOf(char)];
-       if (detectCaps && useCapsIfPossible) output += corr.toUpperCase();
-       else output += corr;
-      } else {
-       if (detectCaps && useCapsIfPossible) output += char.toUpperCase();
-       else output += char;
-      }
-     }
-     // 大文字で終わった場合
-     if (lastCharWasCap) output += endcaps;
-    } else {
-     output = text;
-    }
-    if (scriptGInOutput & systems[destid].supportsU0261) output = output.replaceAll("g", "ɡ");
-    if (tailedDInOutput & systems[destid].supportsU0256) output = output.replaceAll("d", "ɖ");
-    return output;
-   }
-   onPageLoad(() => {
-    function updateOutput() {
-     let destid = getElem("destsystem").value;
-     getElem("output").setAttribute("class", destid + "-ita");
-     let origid = getElem("originsystem").value;
-     let output = convert(
-      getElem("input").value,
-      origid,
-      destid,
-      getElem("startcaps").value,
-      getElem("endcaps").value,
-      getElem("gay").value == "u0261",
-      getElem("did").value == "u0256"
-     );
-     if (getElem("bath").value == "trap") output = output.replaceAll("\ufdd0", "a");
-     else output = output.replaceAll("\ufdd0", "q");
-     // HTMLに出力
-     getElem("output").innerHTML = output.cleanse();
-    }
-    function updateInputFont() {
-     getElem("input").setAttribute("class", getElem("originsystem").value + "-ita");
-     getElem("input").setAttribute(
-      "placeholder",
-      convert("inpõt sum ITA tekst...", "pit", getElem("originsystem").value)
-     );
-     updateOutput();
-    }
-
-    for (let sysid in systems) {
-     let sys = systems[sysid];
-     pack("option", sys.name).setAttributes({ value: sysid }).addTo(getElem("originsystem"));
-     pack("option", sys.name).setAttributes({ value: sysid }).addTo(getElem("destsystem"));
-    }
-    getElem("originsystem").addEventListener("change", updateInputFont);
-    getElem("destsystem").addEventListener("change", updateOutput);
-    getElem("startcaps").addEventListener("change", updateOutput);
-    getElem("endcaps").addEventListener("change", updateOutput);
-    getElem("bath").addEventListener("change", updateOutput);
-    getElem("gay").addEventListener("change", updateOutput);
-    getElem("did").addEventListener("change", updateOutput);
-    updateInputFont();
-    updateOutput();
-    getElem("input").addEventListener("input", updateOutput);
-   });
-  </script>
-  <style>
-   .uni-ita {
-    font-family: inherit;
-    font-feature-settings: "ss02";
-   }
-   .pit-ita {
-    font-family: "PitmanITA";
-   }
-   .nish-ita {
-    font-family: "Nishiki-teki";
-   }
-   .cat-ita {
-    font-family: "Catrinity";
-   }
-   .xim-ita {
-    font-family: "Xim Sans Handwritten";
-   }
-   .fnmk-ita {
-    font-family: "Phonemics";
-   }
-   .uni-ita {
-    font-family: "Fairfax HD", "Fairfax";
-   }
-   #startcaps {
-    text-align-last: end;
-   }
-   input[type="text"] {
-    min-width: 1.5em;
-    width: 2em;
-   }
-   html,
-   body,
-   #container {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-   }
-   #container {
-    display: flex;
-    flex-direction: column;
-   }
-   #head {
-    padding: 5px;
-   }
-   #input,
-   #output {
-    padding: 5px;
-    box-sizing: border-box;
-    width: 100%;
-    resize: none;
-    overflow: auto;
-    font-size: inherit;
-    height: 0;
-    flex-grow: 1;
-    margin: 0;
-   }
-   small {
-    display: block;
-   }
-  </style>
+  <script src="main.js"></script>
  </head>
  <body>
   <div id="container">
    <div id="head">
     <h1>Initial Teaching Alphabet encoding converter</h1>
-    <small>version 1.2.1, last updated <time datetime="2026-08-03">2026 Aug 3rd</time></small>
+    <small>version 1.3.0, last updated <time datetime="2026-08-03">2026 Aug 7th</time></small>
     <label>
      Convert from:
      <select id="originsystem"></select>
@@ -202,8 +26,10 @@
      Convert to:
      <select id="destsystem"></select> </label
     ><br />
-    <h2>options</h2>
-    <form>
+    <button id="toClipboard">Copy text</button>
+    <h2 id="options-head"><label for="show-options" id="options-label">options</label></h2>
+    <form id="optionform">
+     <input id="show-options" type="checkbox" />
      <ul>
       <li>
        Enclose capitals in non-PitmanITA encoding with: <input type="text" id="startcaps" value="{" />~<input
@@ -225,33 +51,28 @@
         In the output, the codepoint for the letter <i>gay</i> is:
         <select id="gay">
          <option value="u0067">U+0067 LATIN SMALL LETTER G (g)</option>
-         <option value="u0261">U+0261 LATIN SMALL LETTER SCRIPT G (ɡ)</option>
+         <option id="opt-scriptg" value="u0261">U+0261 LATIN SMALL LETTER SCRIPT G (ɡ)</option>
         </select>
        </label>
-       <small
-        >This has no effects when converting to encodings for fonts that do not support U+0261 or have a two-storey g
-        glyph for U+0067</small
-       >
       </li>
       <li>
        <label>
         In the output, the codepoint for the letter <i>did</i> is:
         <select id="did">
-         <option value="u0064">U+0064 LATIN SMALL LETTER D (d)</option>
-         <option value="u0256">U+0256 LATIN SMALL LETTER D WITH TAIL (ɖ)</option>
+         <option id="opt-d" value="u0064">U+0064 LATIN SMALL LETTER D (d)</option>
+         <option id="opt-dtail" value="u0256">U+0256 LATIN SMALL LETTER D WITH TAIL (ɖ)</option>
+         <option id="opt-dedic" value="dedic" disabled>(Use encoding’s dedicated codepoint)</option>
         </select>
        </label>
-       <small
-        >This has no effects when converting to encodings for fonts that do not support U+0256 or have a dedicated
-        codepoint for ITA’s <i>did</i></small
-       >
       </li>
      </ul>
     </form>
     <p><a href="table.html">see encoding correspondence table</a></p>
    </div>
-   <textarea id="input" placeholder="input some ITA text..." spellcheck="false"></textarea>
-   <div id="output"></div>
+   <div id="io">
+    <textarea id="input" placeholder="input some ITA text here..." spellcheck="false"></textarea>
+    <div id="output"></div>
+   </div>
   </div>
  </body>
 </html>

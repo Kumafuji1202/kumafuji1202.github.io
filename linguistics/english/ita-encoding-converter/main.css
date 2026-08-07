@@ -1,0 +1,122 @@
+.uni-ita {
+    font-family: inherit;
+    font-feature-settings: "ss02";
+}
+.pit-ita {
+    font-family: "PitmanITA";
+}
+.nish-ita {
+    font-family: "Nishiki-teki";
+}
+.cat-ita {
+    font-family: "Catrinity";
+}
+.xim-ita {
+    font-family: "Xim Sans Handwritten";
+}
+.fnmk-ita {
+    font-family: "Phonemics";
+}
+.uni-ita {
+    font-family: "Fairfax HD", "Fairfax";
+}
+#startcaps {
+    text-align-last: end;
+}
+input[type="text"] {
+    min-width: 1.5em;
+    width: 2em;
+}
+html,
+body,
+#container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#container {
+    display: flex;
+}
+@media screen and (max-width: 700px) {
+    #container {
+        flex-direction: column;
+    }
+    #head {
+        border-bottom: 2px solid black;
+    }
+    #optionform:not(:has(#show-options:checked)) {
+        display: none;
+    }
+    #options-head {
+        cursor: pointer;
+    }
+    #options-label::after {
+        content: " (click to hide/show)";
+        font-size: smaller;
+        font-weight: normal;
+    }
+    #options-head:hover {
+        background-color: lightgray;
+    }
+}
+@media screen and (min-width: 700px) {
+    #container {
+        flex-direction: row;
+    }
+    #head {
+        height: 100%;
+        overflow: auto;
+        border-right: 2px solid black;
+    }
+    #io {
+        min-width: 50%;
+        height: 100%;
+    }
+}
+#options-head {
+    transition-duration: 0.2s;
+}
+#options-label {
+    cursor: inherit;
+    display: block;
+}
+#head {
+    box-sizing: border-box;
+    padding: 5px;
+}
+#io {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    flex-grow: 1;
+}
+#input,
+#output {
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+    overflow: auto;
+    font-size: inherit;
+    height: 0;
+    flex-grow: 1;
+    margin: 0;
+}
+#output:empty {
+    color: lightgray;
+}
+#input {
+    border: none;
+    border-bottom: 1px solid black;
+}
+#show-options {
+    display: none;
+}
+small {
+    display: block;
+}
+option:disabled{
+    color: #e0e0e0;
+}
