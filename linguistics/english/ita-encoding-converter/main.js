@@ -93,15 +93,18 @@ onPageLoad(() => {
         getElem("output").innerHTML = output.cleanse();
     }
     function updateInputEncoding() {
-        getElem("input").setAttribute("class", getElem("originsystem").value + "-ita");
+        let system = getElem("originsystem").value;
+        getElem("input").setAttribute("class", system + "-ita");
         getElem("input").setAttribute(
             "placeholder",
-            convert("inpõt sum ITA tekst hér...", "pit", getElem("originsystem").value)
+            convert("inpõt sum ITA tekst hér...", "pit", system)
         );
+        if (systems[system].font) getElem("input").setAttribute("style", "font-family: " + systems[system].font);
         updateOutput();
     }
     function updateOutputEncoding() {
         let destsys = systems[getElem("destsystem").value];
+        if (destsys.font) getElem("output").setAttribute("style", "font-family: " + destsys.font);
         getElem("output").setAttribute("class", getElem("destsystem").value + "-ita");
         if (destsys.supportsU0261) {
             getElem("opt-scriptg").removeAttribute("disabled");

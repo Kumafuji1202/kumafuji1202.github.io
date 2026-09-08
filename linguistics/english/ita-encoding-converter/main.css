@@ -2,24 +2,6 @@
     font-family: inherit;
     font-feature-settings: "ss02";
 }
-.pit-ita {
-    font-family: "PitmanITA";
-}
-.nish-ita {
-    font-family: "Nishiki-teki";
-}
-.cat-ita {
-    font-family: "Catrinity";
-}
-.xim-ita {
-    font-family: "Xim Sans Handwritten";
-}
-.fnmk-ita {
-    font-family: "Phonemics";
-}
-.uni-ita {
-    font-family: "Fairfax HD", "Fairfax";
-}
 #startcaps {
     text-align-last: end;
 }

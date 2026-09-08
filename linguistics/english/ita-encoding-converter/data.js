@@ -35,14 +35,23 @@ var systems = {
         supportsU0256: true,
         letters: ['\ue990', '\ue991', '\ue992', '\ue993', 'œ', '\ue994', '\ue995', '\ue996', '\ue997', '\ue998', '\ue999', '\ue99a', '\ue99b', '\uee50', '\ue99c', '\ue99d', '\ue99e', '\ue99f', '\ue9a0', 'ꞷ', 'ʒ', 'ɑ', '\uee57', '’', '‘', '“', '”']
     },
-    "cat": {
-        name: "Catrinity",
+    "cat-old": {
+        name: "Catrinity 2.18–2.24",
         font: "Catrinity",
         supportsCaps: false,
         supportsU0261: true,
         defaultU0261: true,
         supportsU0256: true,
         letters: ['\ue4c0', '\ue4c1', '\ue4c2', '\ue4c3', 'œ', '\ue4c4', '\ue4c5', '\ue4c6', '\ue4c7', '\ue4c8', '\ue4c9', '\ue4ca', '\ue4cb', 'a', '\ue4cc', '\ue4cd', '\ue4ce', '\ue4cf', '\ue4d0', 'ꞷ', 'ʒ', 'ɑ', 'æ', '’', '‘', '“', '”']
+    },
+    "cat-new": {
+        name: "Catrinity 2.25+",
+        font: "Catrinity",
+        supportsCaps: false,
+        supportsU0261: true,
+        defaultU0261: true,
+        supportsU0256: true,
+        letters: ['\ue4c0', '\ud837\udf5c', '\ud837\udf5d', '\ue4c3', 'œ', '\ud837\udf66', '\ud837\udf65', '\ud837\udf5b', '\ud837\udf63', '\ud837\udf64', '\ud837\udf62', '\ue4ca', '\ud837\udf61', 'a', '\ud837\udf5a', '\ue4cd', '\ud837\udf60', '\ud837\udf5f', '\ud837\udf5e', 'ꞷ', 'ʒ', 'ɑ', 'æ', '’', '‘', '“', '”']
     },
     "uni": {
         name: "Unicode proposal",
