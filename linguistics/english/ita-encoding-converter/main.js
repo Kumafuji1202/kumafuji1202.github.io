@@ -2,15 +2,7 @@
 // u+fdd0: half a 用
 // u+fdd1: 大文字セクション開始
 // u+fdd2: 大文字セクション終了
-function convert(
-    text,
-    origid,
-    destid = 0,
-    startcaps = "",
-    endcaps = "",
-    scriptGInOutput = false,
-    dInOutput = "u0064"
-) {
+function convert(text, origid, destid = 0, startcaps = "", endcaps = "", scriptGInOutput = false, dInOutput = "u0064") {
     let output = "";
     if (origid != destid) {
         let detectCaps =
@@ -70,7 +62,8 @@ function convert(
         output = text;
     }
     if (scriptGInOutput) output = output.replaceAll("g", "ɡ");
-    if (dInOutput != "dedic") output = output.replaceAll(systems[destid].letters[systems["pit"].letters.indexOf("d")], "d");
+    if (dInOutput != "dedic")
+        output = output.replaceAll(systems[destid].letters[systems["pit"].letters.indexOf("d")], "d");
     if (dInOutput == "u0256") output = output.replaceAll("d", "ɖ");
     return output;
 }
@@ -95,10 +88,7 @@ onPageLoad(() => {
     function updateInputEncoding() {
         let system = getElem("originsystem").value;
         getElem("input").setAttribute("class", system + "-ita");
-        getElem("input").setAttribute(
-            "placeholder",
-            convert("inpõt sum ITA tekst hér...", "pit", system)
-        );
+        getElem("input").setAttribute("placeholder", convert("inpõt sum ITA tekst hér...", "pit", system));
         if (systems[system].font) getElem("input").setAttribute("style", "font-family: " + systems[system].font);
         updateOutput();
     }
@@ -146,5 +136,13 @@ onPageLoad(() => {
     updateInputEncoding();
     updateOutputEncoding();
     getElem("input").addEventListener("input", updateOutput);
-    getElem("toClipboard").setClick(() => navigator.clipboard.writeText(getElem("output").innerHTML));
+    getElem("toClipboard").setClick(() =>
+        navigator.clipboard.writeText(
+            getElem("output")
+                .innerHTML.replaceAll("&lt;", "<")
+                .replaceAll("&gt;", ">")
+                .replaceAll("&amp;", "&")
+                .replaceAll("<br>", "\n")
+        )
+    );
 });
