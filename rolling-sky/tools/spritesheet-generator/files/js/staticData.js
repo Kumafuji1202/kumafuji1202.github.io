@@ -79,7 +79,7 @@ var langDataRaw = {
             "en": "Import colors",
             "ja": "色を抽出"
         },
-        "recentUpdates": {
+        "recentUpdate": {
             "en": "Recent update",
             "ja": "最新のアップデート"
         },
