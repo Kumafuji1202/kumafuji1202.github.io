@@ -848,5 +848,30 @@ var changeLogs = [
                 }
             ]
         }
+    },
+    {
+        "versionNumber": "1.2.5",
+        "releaseDate": {
+            "year": 2026,
+            "month": 10,
+            "day": 30
+        
+        },
+        "changes": {
+            "bugfixes": [
+                {
+                    "en": "Fixed text not loading at all when viewed without visiting my other pages before",
+                    "ja": "ウェブサイトの別のページを既に見ていない状態で閲覧するとテキストが殆ど全て表示されない問題を修正"
+                },
+                {
+                    "en": "Improved the design of the changelog page",
+                    "ja": "変更ログのデザインを改善"
+                },
+                {
+                    "en": "Changed the changelog display in the main page, so that only the most recent update is shown",
+                    "ja": "最新のアップデートの情報のみが表示されるように、メインページの変更ログの表示を変更"
+                }
+            ]
+        }
     }
 ];

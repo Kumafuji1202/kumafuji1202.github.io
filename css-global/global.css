@@ -1,7 +1,20 @@
-html {
-    font-family: Arial, Helvetica, Yu Gothic, sans-serif;
+/* フォント指定 */
+@font-face {
+    font-family: "FdSans";
+    src: url(../resources/FDSans.otf) format("opentype");
+}
+@font-face {
+    font-family: FDSA;
+    src: url(../linguistics/fonts/fdsansround/fdsansround.otf) format("opentype");
 }
 
+html {
+    font-family: FDSA, Arial, Helvetica, Yu Gothic, sans-serif;
+    /*font-family: "FdSans";
+    line-height: 1.5em;*/
+}
+
+/* フォーム要素を周囲と調和させる */
 button,
 input,
 a.button{
@@ -30,6 +43,17 @@ a.button:hover{
     transform: scale(1.1);
 }
 
+button:active,
+input[type=button]:active,
+input[type=submit]:active,
+a.button:active{
+    background: var(--button-hover-bg);
+    color: inherit;
+    color: var(--button-hover-text);
+    color: var(--button-hover-line);
+    transform: scale(0.9);
+}
+
 select {
     background-color: inherit;
     color: inherit;
@@ -46,32 +70,59 @@ option {
     font: inherit;
 }
 
-ul.semantic {
-    list-style-type: none;
-    padding-inline-start: 0;
-}
-ul.semantic > li{
+textarea {
+    font-family: inherit;
+    font-size: inherit;
     display: block;
 }
 
-table, th, td{
+/* 意味優先 html の ul を一覧として表示されなくする */
+ul.semantic, ol.semantic {
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin: 0;
+}
+ul.semantic > li, ol.semantic > li{
+    display: block;
+}
+
+/* 表 */
+table{
     border-collapse: collapse;
+    border: 1px solid;
+}
+th, td{
     padding: 0.25em;
 }
-th, td, tbody, thead, tr{
-    border: inherit;
+th{
+    font-weight: normal;
+    background-color: lightgray;
 }
-table:not(.no-border){
+table:not(.no-border) th,
+table:not(.no-border) td{
     border: 1px solid;
 }
 
 table.no-border, table.no-border th, table.no-border td{
     border: none;
 }
+
+.vertical-block-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+/* 隠す奴 */
 *.hidden {
     display: none;
 }
 
 button, a.button{
     cursor: pointer;
+}
+
+q.no-q-marks::before,
+q.no-q-marks::after{
+    content: "";
 }

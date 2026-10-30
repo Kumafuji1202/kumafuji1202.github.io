@@ -2,8 +2,9 @@
 <html>
 
 <head>
-    <title>アップデート情報</title>
+    <title>Changelog</title>
     <link rel="stylesheet" href="../../../../../css-global/global.css">
+    <link rel="stylesheet" href="../../../../rs.css">
     <script src="../../../../../js-global/lang.js"></script>
     <script src="changelogs.js"></script>
     <style>
@@ -11,13 +12,23 @@
             background-image: url(../graphics/backgrounds/Background96.png);
             background-size: 100vw;
             background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        body{
+            padding: 10px;
+        }
+        .version, h1{
+            background-color: #ffffff80;
+            padding: 5px 15px 5px;
+            border-radius: 5px;
+            margin: 10px;
         }
     </style>
 </head>
 
 <body>
-    <h1>アップデート情報</h1>
-    <ol id="versions">
+    <h1>Changelog</h1>
+    <ol id="versions" class="semantic">
     </ol>
 </body>
 <script>
@@ -34,10 +45,11 @@
         ],
         translations: {}
     };
-    changeLogs.forEach(version => {
+    changeLogs.reverse().forEach(version => {
         //翻訳データを生成
         //htmlを生成
         let versionElem = document.createElement("li");
+        versionElem.classList.add("version");
         versionElem.innerHTML += "<h2>" + version.versionNumber + "</h2>";
         switch(localStorage.getItem("language")){
             case "ja":

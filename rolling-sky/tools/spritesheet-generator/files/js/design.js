@@ -6,7 +6,7 @@ setInterval(function () {
     document.getElementById("globeEmoji").innerHTML = globeEmojis[globeRotat++ % 3];
 }, 500);
 
-//デザインモード切替
+// 色モード切替
 
 document.getElementById("designSelectBox").addEventListener("change", function () {
     document.documentElement.setAttribute("data-theme", document.getElementById("designSelectBox").value);
@@ -18,15 +18,16 @@ if (themCol) {
     document.getElementById("designSelectBox").value = themCol;
 }
 
+// 言語切替
+
 document.getElementById("languageSelectBox").addEventListener("change", function () {
     localStorage.setItem("language", document.getElementById("languageSelectBox").value);
 }, true);
 var langSet = localStorage.getItem("language");
-if (langSet) {
-    lang.initSite(getElem("languageSelectBox"));
-    console.log(langSet);
-    getElem("languageSelectBox").value = langSet;
-}
+if (!langSet) langSet = "en";
+lang.initSite(getElem("languageSelectBox"));
+console.log(langSet);
+getElem("languageSelectBox").value = langSet;
 
 //TODO
 /*アプデ通知*/{

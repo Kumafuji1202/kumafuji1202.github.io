@@ -1,6 +1,6 @@
 // Version data
-var versionName = "v1.2.4";
-var versionNum = 24;
+var versionName = "v1.2.5";
+var versionNum = 25;
 
 // Language data
 var langDataRaw = {
@@ -80,8 +80,8 @@ var langDataRaw = {
             "ja": "色を抽出"
         },
         "recentUpdates": {
-            "en": "Recent updates",
-            "ja": "最近のアップデート"
+            "en": "Recent update",
+            "ja": "最新のアップデート"
         },
         "openImportOrigin": {
             "en": "Open Enemy spritesheet file to import colors from",
