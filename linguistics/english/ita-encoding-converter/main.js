@@ -121,10 +121,13 @@ onPageLoad(() => {
         updateOutput();
     }
 
+    /* UIを生成 */
     for (let sysid in systems) {
         let sys = systems[sysid];
-        pack("option", sys.name).setAttributes({ value: sysid }).addTo(getElem("originsystem"));
-        pack("option", sys.name).setAttributes({ value: sysid }).addTo(getElem("destsystem"));
+        let dispName = sys.name;
+        if (sys.encoVersion) dispName += " (" + sys.encoVersion + ")";
+        pack("option", dispName).setAttributes({ value: sysid }).addTo(getElem("originsystem"));
+        pack("option", dispName).setAttributes({ value: sysid }).addTo(getElem("destsystem"));
     }
     getElem("originsystem").addEventListener("change", updateInputEncoding);
     getElem("destsystem").addEventListener("change", updateOutputEncoding);
@@ -136,13 +139,16 @@ onPageLoad(() => {
     updateInputEncoding();
     updateOutputEncoding();
     getElem("input").addEventListener("input", updateOutput);
-    getElem("toClipboard").setClick(() =>
+    getElem("toClipboard").setClick(() => {
         navigator.clipboard.writeText(
             getElem("output")
                 .innerHTML.replaceAll("&lt;", "<")
                 .replaceAll("&gt;", ">")
                 .replaceAll("&amp;", "&")
                 .replaceAll("<br>", "\n")
-        )
-    );
+        ).then(
+            () => window.alert("copy successful"),
+            () => window.alert("copy failed")
+        );
+    });
 });

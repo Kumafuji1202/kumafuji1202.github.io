@@ -1,6 +1,7 @@
 var systems = {
     "pit": {
         name: "PitmanITA",
+        encoVersion: "",
         font: "PitmanITA",
         supportsCaps: true,
         supportsU0261: false,
@@ -10,6 +11,7 @@ var systems = {
     },
     "fnmk": {
         name: "Phonemics",
+        encoVersion: "",
         font: "Phonemics",
         supportsCaps: false,
         supportsU0261: false,
@@ -19,7 +21,8 @@ var systems = {
     },
     "xim": {
         name: "Xim Sans",
-        font: "Xim Sans Handwritten",
+        encoVersion: "",
+        font: "Xim Sans Handwritten, Xim Sans Conlang",
         supportsCaps: false,
         supportsU0261: true,
         defaultU0261: false,
@@ -28,6 +31,7 @@ var systems = {
     },
     "nish": {
         name: "Nishiki-teki",
+        encoVersion: "2.50+",
         font: "Nishiki-teki",
         supportsCaps: false,
         supportsU0261: true,
@@ -36,7 +40,8 @@ var systems = {
         letters: ['\ue990', '\ue991', '\ue992', '\ue993', 'œ', '\ue994', '\ue995', '\ue996', '\ue997', '\ue998', '\ue999', '\ue99a', '\ue99b', '\uee50', '\ue99c', '\ue99d', '\ue99e', '\ue99f', '\ue9a0', 'ꞷ', 'ʒ', 'ɑ', '\uee57', '’', '‘', '“', '”']
     },
     "cat-old": {
-        name: "Catrinity 2.18–2.24",
+        name: "Catrinity",
+        encoVersion: "2.18–2.24",
         font: "Catrinity",
         supportsCaps: false,
         supportsU0261: true,
@@ -45,7 +50,8 @@ var systems = {
         letters: ['\ue4c0', '\ue4c1', '\ue4c2', '\ue4c3', 'œ', '\ue4c4', '\ue4c5', '\ue4c6', '\ue4c7', '\ue4c8', '\ue4c9', '\ue4ca', '\ue4cb', 'a', '\ue4cc', '\ue4cd', '\ue4ce', '\ue4cf', '\ue4d0', 'ꞷ', 'ʒ', 'ɑ', 'æ', '’', '‘', '“', '”']
     },
     "cat-new": {
-        name: "Catrinity 2.25+",
+        name: "Catrinity",
+        encoVersion: "2.25+",
         font: "Catrinity",
         supportsCaps: false,
         supportsU0261: true,
@@ -55,7 +61,8 @@ var systems = {
     },
     "uni": {
         name: "Unicode",
-        font: "Fairfax HD",
+        encoVersion: "18.0",
+        font: "Fairfax HD, TH-Tshyn, Catrinity",
         supportsCaps: false,
         supportsU0261: true,
         defaultU0261: false,

@@ -20,7 +20,8 @@ body,
 #container {
     display: flex;
 }
-@media screen and (max-width: 700px) {
+/* 縦長用 */
+@media screen and (max-aspect-ratio: 1) {
     #container {
         flex-direction: column;
     }
@@ -34,7 +35,7 @@ body,
         cursor: pointer;
     }
     #options-label::after {
-        content: " (click to hide/show)";
+        content: " (click/tap to hide/show)";
         font-size: smaller;
         font-weight: normal;
     }
@@ -42,7 +43,8 @@ body,
         background-color: lightgray;
     }
 }
-@media screen and (min-width: 700px) {
+/* 横長用 */
+@media screen and not (max-aspect-ratio: 1) {
     #container {
         flex-direction: row;
     }

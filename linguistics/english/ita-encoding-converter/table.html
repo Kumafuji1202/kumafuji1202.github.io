@@ -9,20 +9,26 @@
   <script>
    onPageLoad(() => {
     for (let system in systems) {
-     let c = pack("th", systems[system].name);
-     if (systems[system].font) c.setAttribute("style", "font-family: " + systems[system].font);
+     let sys = systems[system];
+     let c = pack("th", sys.name);
      c.setAttribute("colspan", "2");
-     c.addTo(getElem("thead"));
+     c.addTo(getElem("enco-names"));
+     if (!sys.encoVersion) c.setAttribute("rowspan", "2");
+     else {
+      c = pack("th", sys.encoVersion);
+      c.setAttribute("colspan", "2");
+      c.addTo(getElem("enco-version"));
+     }
     }
     for (let index = 0; index < systems["pit"].letters.length; index++) {
      let r = pack("tr");
      for (let system in systems) {
       let sys = systems[system];
       let letter = sys.letters[index];
-      let c = pack("td", (letter == "\ufdd0") ? "*" : letter);
+      let c = pack("td", letter == "\ufdd0" ? "*" : letter);
       if (systems[system].font) c.setAttribute("style", "font-family: " + sys.font);
       c.addTo(r);
-      c = pack("td", (letter == "\ufdd0") ? "*" : ("u+" + sys.letters[index].codePointAt(0).toString(16).padStart(4, "0")));
+      c = pack("td", letter == "\ufdd0" ? "*" : "u+" + sys.letters[index].codePointAt(0).toString(16).padStart(4, "0"));
       c.classList.add("hex");
       c.addTo(r);
      }
@@ -41,15 +47,20 @@
   </style>
  </head>
  <body>
-  <h2>ITA encoding comparison table</h2>
-  <p>I couldn’t find two-storey bottom-connected ꜷ in Nishiki-teki.</p>
+  <h1>ITA encoding comparison table</h1>
   <p><a href="./">go back</a></p>
   <table>
    <thead>
-    <tr id="thead"></tr>
+    <tr id="enco-names"></tr>
+    <tr id="enco-version"></tr>
    </thead>
    <tbody id="ita-table" lang="en-Qaai"></tbody>
   </table>
   <small>* Phonemics’ encoding doesn’t have a codepoint for the “half a”.</small>
+  <small>** I couldn’t find a two-storey bottom-connected a-u ligature in Nishiki-teki.</small>
+  <p>
+   Pitman ITA Capitals are only supported by PitmanITA’s encoding. Other letters are encoded the same in all of the
+   encoding schemes.
+  </p>
  </body>
 </html>

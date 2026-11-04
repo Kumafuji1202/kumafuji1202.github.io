@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../../../css-global/global.css" />
+  <meta name="author" content="Kumafuji1202" />
+  <title>About - Initial Teaching Alphabet encoding converter</title>
+  <link rel="canonical" href="https://kumafuji1202.github.io/linguistics/english/ita-encoding-converter/" />
+ </head>
+ <body>
+  <h1>What even is this?</h1>
+  <p><a href="./">go back</a></p>
+  <p>
+   The Initial Teaching Alphabet (ITA) is an alternative English alphabet and spelling systems* (not a spelling reform,
+   which attempts to displace the current traditional orthography (abbreviated “TO” in ITA materials)) devised by Sir
+   James Pitman. It attempts to work as a stepping stone for children to literacy in TO, albeit not without controversy.
+   Children were supposed to read and write first in ITA, and then transition to reading and writing in TO.
+  </p>
+  <p>
+   To serve this purpose, the ITA is designed to be far easier than TO to learn, while not being too drastically
+   different from TO:
+  </p>
+  <ul>
+   <li>
+    The pronunciation is far easier to derive from the spelling, with only word stress and some cases involving the “r”
+    sound remaining ambiguous.
+   </li>
+   <li>
+    There are some letters with the same sounds, which is deliberately done to facilitate transition to TO.
+   </li>
+   <li>
+    Unlike the Shavian and Deseret alphabets, ITA is an extended version of the Latin script, and not an entirely new
+    writing system. The letters all represent one of its primary sound value in TO (for example, the letter “u” in ITA
+    represents the sound of “u” as in “hut”).
+   </li>
+   <li>
+    <strong>New, unambiguous letters</strong> are added for sounds that lack single letters for them, and they resemble
+    the usual TO spelling of the sounds (for example, the letter for the “aw” sound of “fraud” is shaped like “au”).
+   </li>
+   <li>
+    There are fewer letter-forms to memorize:
+    <ul>
+     <li>The letters Q and X are not used.</li>
+     <li>Cursive script is not used.</li>
+     <li>
+      Capitals, whose shapes can differ considerably from minuscules, are either replaced with enlarged minuscules or the
+      minuscules themselves.
+     </li>
+     <li>
+      <strong>There are stricter restriction of letter-forms</strong> (for example, the letter “g” must have a
+      one-storey form) and essential shapes of letters differ across fonts by no more than serifs.
+     </li>
+    </ul>
+   </li>
+  </ul>
+  <p>
+   The ITA was not supported by Unicode until recently (ver 18.0, released 2026 September), and fonts with ITA support
+   used their own encoding schemes in the Private Use Area (PUA) for the missing ITA-specific letters.
+   <strong>This webtool converts text written in ITA between these encoding schemes.</strong>
+  </p>
+  <p>
+   While Unicode 18.0 officially added support for all the letters used in ITA, some of them have been unified (that is,
+   assigned the same codepoints) with pre-existing characters with different and uninterchangeable forms (e.g. ŋ
+   (common) with ŋ with a ring inside (used in ITA)), so some fonts with ITA support keep their PUA encoding for these
+   problematic characters. Because of this unification, some (as of now) fonts that support all unaffected letters
+   unique to ITA with perfectly acceptable letter-forms nevertheless remain unusable as ITA fonts.
+  </p>
+  <small
+   >* Yes, there are multiple spelling standards for ITA. The version initially used and the version
+   currently promoted by the Initial Teaching Alphabet Foundation (not to be confused with the Initial Teaching Alphabet
+   Association) differ significantly, although the set of the letters and the assignment of letters to phonemes largely
+   stay the same.</small
+  >
+ </body>
+</html>
