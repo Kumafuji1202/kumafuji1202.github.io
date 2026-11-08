@@ -2,6 +2,9 @@
 #header {
     background-position: center top;
 }
+html[data-theme=dark]{
+    background-color: black;
+}
 
 html[data-theme=light] #header {
     background-image: url(../graphics/backgrounds/Background84%20-%20repeatable.png);

@@ -16,7 +16,7 @@ var changeLogs = [
             "day": 25
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "",
                     "ja": "出力部分が縦長になるレイアウト時に出力部分の背景の下1/3が白色になる"
@@ -36,7 +36,7 @@ var changeLogs = [
             "day": 27
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "",
                     "ja": "Enemyの左下の帯部分をデフォルトの状態のままで保存したテーマプロジェクトを再び読み込んだ時に帯部分が消える"
@@ -68,7 +68,7 @@ var changeLogs = [
             "day": 27
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Enemy bottom-left stripe settings sometimes not saved in JSON",
                     "ja": "Enemyの左下の帯部分の変更が保存されないことがある"
@@ -522,7 +522,7 @@ var changeLogs = [
             "day": 19
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed 3rd Anniversary top-right color setting not being saved to JSON theme files",
                     "ja": "JSONファイルに三周年系の色設定が保存されないバグを修正"
@@ -656,7 +656,7 @@ var changeLogs = [
             "day": 6
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed portrait mode UI not being applied... hopefully",
                     "ja": "縦画面UIが適用されないバグを修正"
@@ -684,7 +684,7 @@ var changeLogs = [
             "day": 30
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed Enemy middle color extractor not working",
                     "ja": "Enemy中段の色抽出が使えない問題を修正"
@@ -717,7 +717,7 @@ var changeLogs = [
         
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed Enemy top-right presets not working",
                     "ja": "Enemyのプリセットが使えない問題を修正"
@@ -754,7 +754,7 @@ var changeLogs = [
         
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed Enemy bottom-left stripe settings",
                     "ja": "Enemy下左の細い線の保存システムが壊れている問題を修正"
@@ -783,7 +783,7 @@ var changeLogs = [
         
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed 'Sunshine' Enemy top-right patterns being out of place by 1-2 pxs (I fricking hate my past self)",
                     "ja": "「陽光」テーマのEnemy右上が1~2pxズレていた問題を修正(過去の自分マヅィで嫌い)"
@@ -824,7 +824,7 @@ var changeLogs = [
         
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed Enemy bottom-right region becoming transparent and uneditable when primary theme region is set to a type that uses the secondary theme region while secondary theme region is internally set to the Candy type",
                     "ja": "Enemy第二テーマ領域が飴用に設定されている状態で第二テーマ領域を使う右上設定に切り替えると右下が透明になり編集ができなくなる問題を修正"
@@ -858,7 +858,7 @@ var changeLogs = [
         
         },
         "changes": {
-            "bugfixes": [
+            "fixes": [
                 {
                     "en": "Fixed text not loading at all when viewed without visiting my other pages before",
                     "ja": "ウェブサイトの別のページを既に見ていない状態で閲覧するとテキストが殆ど全て表示されない問題を修正"
@@ -870,6 +870,30 @@ var changeLogs = [
                 {
                     "en": "Changed the changelog display in the main page, so that only the most recent update is shown",
                     "ja": "最新のアップデートの情報のみが表示されるように、メインページの変更ログの表示を変更"
+                }
+            ]
+        }
+    },
+    {
+        "versionNumber": "1.2.6",
+        "releaseDate": {
+            "year": 2026,
+            "month": 11,
+            "day": 9
+        },
+        "changes": {
+            "fixes": [
+                {
+                    "en": "Fixed the UI being shown in the Light Mode briefly before switching to Dark Mode when the color mode of user preference is set to Dark Mode",
+                    "ja": "ダークモードの設定で読み込んだ時、画面が一瞬ライトモードで表示される問題を修正"
+                },
+                {
+                    "en": "Fixed some space remaining under the UI when viewed in tall screen",
+                    "ja": "縦画面時に画面の下端にスペースが余る問題を修正"
+                },
+                {
+                    "en": "Enclosed the dates in the changelog page in <code>time</code> tags",
+                    "ja": "変更ログページの日付を<code>time</code>タグで囲んだ"
                 }
             ]
         }

@@ -86,6 +86,7 @@ html{
     }
 }
 #formContainer{
+    flex-grow: 1;
     overflow: hidden;
     border-right-width: 5px;
     border-right-style: ridge;
@@ -97,7 +98,7 @@ html{
 }
 
 #formBody{
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 100%;
     height: calc(100% - 30px);
 }
