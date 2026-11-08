@@ -1,3 +1,6 @@
+// サイト全体で使う機能群
+
+// 数値絡み
 Number.prototype.clamp = function (min, max) {
     if (min > max) throw new Error("Argument min is larger than max");
     if (this > max) return max;
@@ -9,6 +12,8 @@ Number.prototype.mod = function (mod) {
     if (this % mod == 0) return 0;
     return (this % mod) + mod;
 };
+
+// 文字列絡み (一部はutf16-string.jsと重複)
 String.prototype.isSurrogate = function () {
     // 上位・下位両方のサロゲートを検知する
     return String.fromCharCode(0xd800) <= this.charAt(0) && this.charAt(0) <= String.fromCharCode(0xdfff);
@@ -26,6 +31,7 @@ String.prototype.lengthAt = function (position) {
     return this.charAt(position).isSurrogate() ? 2 : 1;
 };
 String.prototype.charAtRev = function (position) {
+    // charAt reversed
     return this.charAt(this.length - 1 - position);
 };
 String.prototype.substrSdw = function (from, toRev) {
@@ -52,6 +58,7 @@ String.prototype.cleanse = function () {
     return this.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
 };
 
+// 色操作
 class Col {
     constructor(r, g, b) {
         this.red = Math.round(Number(r));
@@ -94,9 +101,28 @@ Col.fromColorCode = (colorCode) => {
     }
 };
 
-function getElem(id) {
-    return document.getElementById(id);
+function dateString(date, lang = "en") {
+    switch (lang) {
+        case "ja":
+            return date.year + "年" + date.month + "月" + date.day + "日";
+        default:
+            return (
+                date.year +
+                " " +
+                ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][date.month - 1] +
+                " " +
+                date.day
+            );
+    }
 }
+function dateElem(date, lang = "en") {
+    let q = pack("time", dateString(date, lang));
+    q.setAttribute("datetime", date.year + "-" + date.month + "-" + date.day);
+    return q;
+}
+
+// DOM関連のショートカット
+const getElem = document.getElementById.bind(document);
 
 function onPageLoad(func) {
     return window.addEventListener("load", func);
@@ -112,10 +138,14 @@ Element.prototype.setAttributes = function (attributeData) {
     }
     return this;
 };
-Element.prototype.addTo = function (parent) {
+Node.prototype.gets = function (child) {
+    this.appendChild(child);
+    return this;
+};
+Node.prototype.addTo = function (parent) {
     parent.appendChild(this);
     return this;
-}
+};
 //HTMLInputElement.prototype.v = HTMLInputElement.prototype.value;
 
 document.newSVGElem = (name) => document.createElementNS("http://www.w3.org/2000/svg", name);
@@ -129,6 +159,7 @@ var turn = (x, y, angle) => ({
 function commaListFrom(list) {
     return list.reduce((p, q) => p + ", " + q);
 }
+
 function pack(tagname, innerHTML = null, classes = []) {
     let e = document.crelt(tagname);
     if (innerHTML) e.innerHTML = innerHTML;
@@ -139,7 +170,7 @@ function pack(tagname, innerHTML = null, classes = []) {
     return e;
 }
 
-//wiop
+//WIP
 Number.prototype.compress = function (middle) {
     return Math.acos(8 / (4 + this * this) - 1) / Math.PI;
 };
