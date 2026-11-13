@@ -2,7 +2,7 @@
 // u+fdd0: half a 用
 // u+fdd1: 大文字セクション開始
 // u+fdd2: 大文字セクション終了
-function convert(text, origid, destid = 0, startcaps = "", endcaps = "", scriptGInOutput = false, dInOutput = "u0064") {
+function convert(text, origid, destid, startcaps = "", endcaps = "", scriptGInOutput = false, dInOutput = "u0064") {
     let output = "";
     if (origid != destid) {
         let detectCaps =
@@ -19,7 +19,7 @@ function convert(text, origid, destid = 0, startcaps = "", endcaps = "", scriptG
                 text = text.replaceAll(endcaps, "\ufdd2");
             }
         }
-        let origtext = text.replaceAll("ɡ", "g").replaceAll("ɖ", "d");
+        let origtext = text.replaceAll("ɡ", "g").replaceAll("ɖ", "d").replaceAll("ꬼ", "d");
         // 上の行は、万が一 U+0067 と U+0261 に別の ITA 文字を当てるフォントをサポートしなくてはならなくなった場合、書き換える
         let lastCharWasCap = false;
         let useCapsIfPossible = false;
@@ -65,6 +65,7 @@ function convert(text, origid, destid = 0, startcaps = "", endcaps = "", scriptG
     if (dInOutput != "dedic")
         output = output.replaceAll(systems[destid].letters[systems["pit"].letters.indexOf("d")], "d");
     if (dInOutput == "u0256") output = output.replaceAll("d", "ɖ");
+    if (getElem("uAB3C").checked && destid == "uni") output = output.replaceAll("ŋ", "ꬼ");
     return output;
 }
 onPageLoad(() => {
@@ -136,6 +137,7 @@ onPageLoad(() => {
     getElem("bath").addEventListener("change", updateOutput);
     getElem("gay").addEventListener("change", updateOutput);
     getElem("did").addEventListener("change", updateOutput);
+    getElem("uAB3C").addEventListener("change", updateOutput);
     updateInputEncoding();
     updateOutputEncoding();
     getElem("input").addEventListener("input", updateOutput);
