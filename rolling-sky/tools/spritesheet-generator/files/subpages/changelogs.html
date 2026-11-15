@@ -10,16 +10,31 @@
     <script src="changelogs.js"></script>
     <style>
         html{
-            background-image: url(../graphics/backgrounds/Background96.png);
-            background-size: 100vw;
+            background-image: url(../graphics/backgrounds/Background12.png);
+            background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
         }
         body{
             padding: 10px;
+            color: black;
+        }
+        time{
+            font-size: 17px;
+        }
+        h2{
+            margin: 3px 0 0;
+        }
+        h3{
+            margin: 0;
+        }
+        section{
+            border-left: 3px solid white;
+            margin: 8px 0 8px;
+            padding: 2px 5px 2px;
         }
         .version, h1{
-            background-color: #ffffff80;
+            background-color: #ffffffa0;
             padding: 5px 15px 5px;
             border-radius: 5px;
             margin: 10px;
@@ -45,18 +60,38 @@
                 code: "ja"
             }
         ],
-        translations: {}
+        translations: {
+            "changes": {
+                "en": "Changes",
+                "ja": "変更要素"
+            },
+            "additions": {
+                "en": "Additions",
+                "ja": "追加要素"
+            },
+            "fixes": {
+                "en": "Fixes",
+                "ja": "修正"
+            }
+        }
     };
     changeLogs.reverse().forEach(version => {
         //翻訳データを生成
         //htmlを生成
         let versionElem = document.createElement("li");
         versionElem.classList.add("version");
-        versionElem.innerHTML += "<h2>" + version.versionNumber + "</h2>";
-        versionElem.appendChild(pack("h3").gets(dateElem(version.releaseDate, language)));
-        let changesList = document.createElement("ul");
+        versionElem.gets(
+            pack("h2", version.versionNumber + " ")
+            .gets(dateElem(version.releaseDate, language))
+        );
+        let categElem;
+        let changesList;
         //各追加項目ごとに
         if (version.changes.additions) {
+            categElem = versionElem.appendChild(pack("section"));
+            categElem.gets(pack("h3", "").setAttributes({"data-translation-key": "additions"}));
+            changesList = categElem.appendChild(pack("ul"));
+            
             version.changes.additions.forEach((addition, additionNumber) => {
                 let translationKey = version.versionNumber + "-Addition#" + additionNumber;
                 translationData.translations[translationKey] = addition;
@@ -67,6 +102,9 @@
         }
         //各変更項目ごとに
         if (version.changes.changes) {
+            categElem = versionElem.appendChild(pack("section"));
+            categElem.gets(pack("h3", "").setAttributes({"data-translation-key": "changes"}));
+            changesList = categElem.appendChild(pack("ul"));
             version.changes.changes.forEach((change, changeNumber) => {
                 let translationKey = version.versionNumber + "-Change#" + changeNumber;
                 translationData.translations[translationKey] = change;
@@ -77,6 +115,9 @@
         }
         //各修正項目ごとに
         if (version.changes.fixes) {
+            categElem = versionElem.appendChild(pack("section"));
+            categElem.gets(pack("h3", "").setAttributes({"data-translation-key": "fixes"}));
+            changesList = categElem.appendChild(pack("ul"));
             version.changes.fixes.forEach((bugfix, bugfixNumber) => {
                 let translationKey = version.versionNumber + "-Bugfix#" + bugfixNumber;
                 translationData.translations[translationKey] = bugfix;
@@ -85,7 +126,6 @@
                 changesList.appendChild(changeElem);
             });
         }
-        versionElem.appendChild(changesList);
         versionListElem.appendChild(versionElem);
     });
     let langObj = new LanguageManager(translationData);

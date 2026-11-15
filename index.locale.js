@@ -235,10 +235,10 @@ onPageLoad(() => {
                 zse: "Rolling Sky"
             },
             "siteMap.webTools.rs.rssg": {
-                en: "Spritesheet Generator v1.2.6",
-                "en-Shaw": "·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼 𐑝1.2.6",
-                ja: "テクスチャメーカー v1.2.6",
-                zse: "Kida Tuko Bika kaka kidu Toto v1.2.6"
+                en: "Spritesheet Generator v1.2.7",
+                "en-Shaw": "·𐑕𐑐𐑮𐑲𐑑𐑖𐑰𐑑 𐑡𐑧𐑯𐑼𐑱𐑑𐑼 𐑝1.2.7",
+                ja: "テクスチャメーカー v1.2.7",
+                zse: "Kida Tuko Bika kaka kidu Toto v1.2.7"
             },
             "siteMap.webTools.rs.rssg.introduction": {
                 en: "A web tool made by me to make spritesheets for Rolling Sky edits / Rolling Sky Remake levels easier.",

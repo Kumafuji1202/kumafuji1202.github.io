@@ -136,7 +136,7 @@
                                                 </select>
                                             </label>
                                         </legend>
-                                        <div id="groundInnerDecoDefaultContent" data-translation-key="fragileCustomizationDefaultContent" class="selectedForm">
+                                        <div id="groundInnerDecoDefaultContent" data-translation-key="groundInnerDefaultContent" class="selectedForm">
                                         </div>
                                         <div id="groundInnerDecoSingleColor">
                                             <label><span data-translation-key="usedColor"></span><input type="color" id="groundInnerDecoColor" value="#E9A442"></label><br>
@@ -989,7 +989,7 @@
                                     </table>
                                     <h3 data-translation-key="objName257A"></h3>
                                     <label><span data-translation-key="1UpBeeEyes"></span><input type="color" id="1UpBeeEyes" value="#FFFFFF" data-preset-1up="#FFFFFF" data-preset-8bits="#FFFFFF" data-preset-bluegame="#FFFFFF"></label><br>
-                                    <span data-translation-key="1UpBeeWings"></span>:<br>
+                                    <span data-translation-key="1UpBeeWings"></span>:
                                     <label><span data-translation-key="front"></span><input type="color" id="1UpBeeWingsFront" value="#E0DFDB" data-preset-1up="#E0DFDB" data-preset-8bits="#DCF79D" data-preset-bluegame="#D1FFF3"></label>
                                     <label><span data-translation-key="side"></span><input type="color" id="1UpBeeWingsEdge" value="#ACA9A4" data-preset-1up="#ACA9A4" data-preset-8bits="#A8F301" data-preset-bluegame="#59FFE0"></label>
                                 </div>
@@ -998,7 +998,7 @@
                                     <span data-translation-key="presets"></span>:
                                     <input type="button" data-translation-key="TRPresetRelics" data-preset="relics">
                                     <input type="button" data-translation-key="TRPresetFairyTale" data-preset="fairytale">
-                                    <h3 data-translation-key="relicsOwl"></h3>
+                                    <h3 data-translation-key="ObjName347"></h3>
                                     <ul>
                                         <li><label><span data-translation-key="relicsOwlFaceY"></span><input type="color" id="relicsOwlFaceY" value="#363E44" data-preset-relics="#363E44" data-preset-fairytale="#372A28"></label></li>
                                         <li><label><span data-translation-key="relicsOwlEyeOuter"></span><input type="color" id="relicsOwlEyeOuter" value="#7F8A86" data-preset-relics="#7F8A86" data-preset-fairytale="#C1793E"></label></li>
@@ -2273,8 +2273,9 @@
                                 </legend>
                                 <div id="outlinedRiserForm">
                                     <label><span data-translation-key="riserTopMain"></span><input type="color" id="riserTopMain" value="#AFA69C"></label><br>
-                                    <label><span data-translation-key="riserTopInactiveLine"></span><input type="color" id="riserTopInactiveLine" value="#23B3B2"></label><br>
-                                    <label><span data-translation-key="riserTopActiveLine"></span><input type="color" id="riserTopActiveLine" value="#31EFEF"></label><br>
+                                    <span data-translation-key="riserTopLine"></span>
+                                    <label><span data-translation-key="riserInactive"></span><input type="color" id="riserTopInactiveLine" value="#23B3B2"></label>
+                                    <label><span data-translation-key="riserActive"></span><input type="color" id="riserTopActiveLine" value="#31EFEF"></label><br>
                                     <label><span data-translation-key="riserLine"></span><input type="color" id="riserLine" value="#847D73"></label>
                                 </div>
                                 <div id="roundRiserForm">
@@ -2402,17 +2403,8 @@
                         Send feedbacks and recieve update information in this tool's <a href="https://discord.com/channels/400983101507108874/1125786002330505367" target="_blank">official discord thread</a> in <a href="https://discord.gg/rolling-world-400983101507108874" target="_blank">Rolling Lounge</a> server!
                     </p>
                     <div id="updateInfo">
-                        <h1><a href="files/subpages/changelogs.html" target="_blank" data-translation-key="changelogLink"></a></h1>
                         <h1 data-translation-key="recentUpdate"></h1>
-                        <ol id="recentVersionList">
-                            <li>
-                                <h2>1.2.6 (2026 Nov 9)</h2>
-                                <ul>
-                                    <li>Fixed the UI being shown in the Light Mode briefly before switching to Dark Mode when the color mode of user preference is set to Dark Mode</li>
-                                    <li>Fixed some space remaining below the UI when viewed in tall screen</li>
-                                </ul>
-                            </li>
-                        </ol>
+                        <h1><a href="files/subpages/changelogs.html" target="_blank" data-translation-key="changelogLink"></a></h1>
                     </div>
                 </window-content>
                 <a href="#" data-window-close-button class="button">Close</a>
@@ -2423,7 +2415,7 @@
                 <h2 data-translation-key="colorImportWindow"></h2>
                 <window-content>
                     <h3 data-translation-key="openImportOrigin"></h3>
-                    id: <code id="colorExtractorDatasetId"></code>
+                    <span data-translation-key="colorExtractorDatasetId"></span>: <code id="colorExtractorDatasetId"></code>
                     <div>
                         <label for="enemyColorImport"><a class="button" data-translation-key="openFileControl"></a></label>
                         <input id="enemyColorImport" type="file" accept="image/*" data-loading-process="enemyColorImportControlLoadingProgress" data-load-destination="enemyColorImportImg"><br>

@@ -24,7 +24,7 @@ getElem("extractTextureColors").setClick(() => {
 });
 getElem("useExtractedColors").setClick(() => {
     if (!window.confirm(lang.callText("settingChangeConfirmation"))) return;
-    closeAllWindow();
+    closeAllWindows();
     for (let colorRow of getElem("extractColorTableBody").children) {
         getElem(colorRow.children[0].innerHTML).value = colorRow.children[1].innerHTML;
     }

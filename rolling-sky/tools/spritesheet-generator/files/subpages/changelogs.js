@@ -882,6 +882,12 @@ var changeLogs = [
             "day": 9
         },
         "changes": {
+            "changes": [
+                {
+                    "en": "Enclosed the dates in the changelog page in <code>time</code> tags",
+                    "ja": "変更ログページの日付を<code>time</code>タグで囲んだ"
+                }
+            ],
             "fixes": [
                 {
                     "en": "Fixed the UI being shown in the Light Mode briefly before switching to Dark Mode when the color mode of user preference is set to Dark Mode",
@@ -890,10 +896,40 @@ var changeLogs = [
                 {
                     "en": "Fixed some space remaining under the UI when viewed in tall screen",
                     "ja": "縦画面時に画面の下端にスペースが余る問題を修正"
+                }
+            ]
+        }
+    },
+    {
+        "versionNumber": "1.2.7",
+        "releaseDate": {
+            "year": 2026,
+            "month": 11,
+            "day": 15
+        },
+        "changes": {
+            "changes": [
+                {
+                    "en": "Improved English translation",
+                    "ja": "英語の翻訳を改善"
                 },
                 {
-                    "en": "Enclosed the dates in the changelog page in <code>time</code> tags",
-                    "ja": "変更ログページの日付を<code>time</code>タグで囲んだ"
+                    "en": "Improved the design of the changelog page",
+                    "ja": "変更ログのデザインを改善"
+                },
+                {
+                    "en": "Added tile ID reference (not Geobuffer IDs) to most references of objects in the forms",
+                    "ja": "オブジェクト名が登場する部分の多くにステージデータ上のIDを併記 (GeobufferのIDではなく)"
+                },
+                {
+                    "en": "Removed changelog extract in the main page",
+                    "ja": "メインページのウインドウの変更ログ欄を削除"
+                }
+            ],
+            "fixes": [
+                {
+                    "en": "Fixed the color extraction tool not working",
+                    "ja": "色抽出機能が機能していない問題を修正"
                 }
             ]
         }

@@ -1,6 +1,6 @@
 // Version data
-var versionName = "v1.2.6";
-var versionNum = 26;
+var versionName = "v1.2.7";
+var versionNum = 27;
 
 // Language data
 var langDataRaw = {
@@ -56,11 +56,11 @@ var langDataRaw = {
             "ja": "ダークモード"
         },
         "localStorageDataClearButton": {
-            "en": "Clear theme data in local storage and reload",
+            "en": "Clear theme data auto-save in local storage and reload the page",
             "ja": "ローカルストレージに保存されたテーマデータを削除してリロード"
         },
         "localStorageClearConfirmation": {
-            "en": "Are you sure you want to remove theme data cached in local storage? This action can't be restored",
+            "en": "Are you sure you want to remove theme data cached in local storage? This action can't be undone",
             "ja": "ローカルストレージのテーマデータを削除しますか? この操作は復元できません"
         },
         "saveLoadWindow": {
@@ -76,7 +76,7 @@ var langDataRaw = {
             "ja": "変更ログページ(作成中)を見る"
         },
         "colorImportWindow": {
-            "en": "Import colors",
+            "en": "Import colors from existent spritesheet",
             "ja": "色を抽出"
         },
         "recentUpdate": {
@@ -84,7 +84,7 @@ var langDataRaw = {
             "ja": "最新のアップデート"
         },
         "openImportOrigin": {
-            "en": "Open Enemy spritesheet file to import colors from",
+            "en": "Open the Enemy spritesheet file to import colors from",
             "ja": "色をインポートするファイルを開く"
         },
         "openFileControl": {
@@ -92,8 +92,12 @@ var langDataRaw = {
             "ja": "ファイルを開く"
         },
         "extractColorsControl": {
-            "en": "Get colors",
+            "en": "Extract colors",
             "ja": "色を抽出"
+        },
+        "colorExtractorDatasetId": {
+            "en": "Internal ID of concerned region (you can safely ignore this)",
+            "ja": "抽出先領域の内部的ID (無視して大丈夫)"
         },
         "colorPartId": {
             "en": "Color part ID",
@@ -253,6 +257,8 @@ var langDataRaw = {
             "en": "You can extract Rolling Sky spritesheets from <a href=\"https://mega.nz/file/4iEmzQrA#C1aniTxKeDZg2pUuLabl8mOkBhK8teP1juIgbdP45Ds\" target=\"_blank\">the IPA of the <b>Dinosaur Valley</b> version</a> or <a href=\"https://mega.nz/file/QSMVzAZa#6eZ0SXw6FGLwom7M7wtDv_4hCbtCyk5DhEnCgnSu14o\" target=\"_blank\">APK of the <b>Chess Fortress</b> version(better quality)</a>, Rolling Universe spritesheets (including General and Background for the Rolling World theme) from the IPA of v2.2.1 (no decryption needed), and Rolling Fanmade spritesheets (excluding Pharaoh spritesheets, which can be found in Rolling Sky instead) from Rolling Sky Remake <a class=\"ae\" href=\"https://www.mediafire.com/file/t8pivs9totk3pj6/RSR0.6.5b.zip/file\" target=\"_blank\">v0.6b</a> PC version.",
             "ja": "Rolling Skyのオリジナルテクスチャは<a href=\"https://mega.nz/file/4iEmzQrA#C1aniTxKeDZg2pUuLabl8mOkBhK8teP1juIgbdP45Ds\" target=\"_blank\"><b>恐竜谷</b>のバージョンのIPA</a>または<a href=\"https://mega.nz/file/QSMVzAZa#6eZ0SXw6FGLwom7M7wtDv_4hCbtCyk5DhEnCgnSu14o\" target=\"_blank\"><b>割拠(以下略</b>のバージョンのTapTap版</a>(より画像品質が良い)から取り出せます。Rolling Universeのテクスチャ(Rolling WorldテーマのGeneralとBackgroundを含む)はv2.2.1のIPAから(暗号化解除の必要はありません)、Rolling Fanmadeのテクスチャ(ファラオ系以外。ファラオ系はRSにも入っている)はRolling Sky Remake <a class=\"ae\" href=\"https://www.mediafire.com/file/t8pivs9totk3pj6/RSR0.6.5b.zip/file\" target=\"_blank\">v0.6b</a> PC版からそれぞれ取り出せます。"
         },
+        
+        // Ground
         "groundSettingsHeading": {
             "en": "Ground settings",
             "ja": "普通床の設定"
@@ -286,12 +292,16 @@ var langDataRaw = {
             "ja": "縁取り有り"
         },
         "groundEdgeStyleCutNoEdge": {
-            "en": "Cut corners (no thick edge)",
+            "en": "Cut corners (without thick edge)",
             "ja": "角落ち(枠線無し)"
         },
         "groundEdgeDefaultContent": {
             "en": "No extra customization for this ground pattern available",
             "ja": "この通常床の模様にはカスタマイズオプションがありません"
+        },
+        "groundInnerDefaultContent": {
+            "en": "No extra customization for this ground inner pattern available",
+            "ja": "この通常床内部の模様にはカスタマイズオプションがありません"
         },
         "outlinedGroundOutlineColor": {
             "en": "Outline",
@@ -510,7 +520,7 @@ var langDataRaw = {
             "ja": "非起動時のジャンプ床面部分の発光"
         },
         "jumpTextureUsageExpl": {
-            "en": "Only the bottom-left half of the jumppad texture will be used. For the jumppads in the actual gameplay, a 180-degree-rotated copy of the said part will fill the rest. This makes the jumppad designs forcedly point-symmetrical.",
+            "en": "Only the bottom-left half of the jumppad texture will be used. For the jumppads in the actual gameplay, a 180-degree-rotated copy of the said part will fill the rest. This forces the jumppad designs to be point-symmetrical.",
             "ja": "ジャンプ床テクスチャは左下の1/2部分しか使われません。実際のジャンプ床では使用される部分が180度回転して複製されて残りの半分を埋めるので、ジャンプ床のデザインは強制的に点対称になります。"
         },
         "generalVariationHeading": {
@@ -610,7 +620,7 @@ var langDataRaw = {
             "ja": "連動床"
         },
         "moverSameColor": {
-            "en": "Use the same color for movers/automovers and ground",
+            "en": "Use the same base color for movers/automovers and ground",
             "ja": "移動床の色に通常床の色を流用する"
         },
         "moverOutlineColor": {
@@ -645,6 +655,8 @@ var langDataRaw = {
             "en": "No outlines",
             "ja": "強制線消し"
         },
+        
+        // MidGround
         "midGroundSettingHeading": {
             "en": "MidGround settings",
             "ja": "通過オブジェクトの設定"
@@ -658,8 +670,8 @@ var langDataRaw = {
             "ja": "下端の色"
         },
         "midGroundWindows": {
-            "en": "Add windows",
-            "ja": "窓の追加"
+            "en": "Add windows (as in City)",
+            "ja": "都市風の窓の追加"
         },
         "midGroundWindowsTop": {
             "en": "Windows top color",
@@ -702,17 +714,19 @@ var langDataRaw = {
             "ja": "低/中品質ジェムの設定"
         },
         "gemColor": {
-            "en": "Gem color",
+            "en": "Base color",
             "ja": "基本色"
         },
         "gemLineColor": {
-            "en": "Gem line color",
+            "en": "Edge color",
             "ja": "線の色"
         },
         "gemLightColor": {
-            "en": "Gem lighter color",
+            "en": "Lighter base color",
             "ja": "明るい色"
         },
+        
+        // Enemy
         "useNeonbox": {
             "en": "Use Neonboxes",
             "ja": "ネオンボックスを使用"
@@ -721,6 +735,8 @@ var langDataRaw = {
             "en": "Object preview",
             "ja": "プレヴュー"
         },
+        
+        // A
         "lightSettingHeading": {
             "en": "Light settings (A)",
             "ja": "光の設定 (A)"
@@ -738,7 +754,7 @@ var langDataRaw = {
             "ja": "内側",
         },
         "linearLightSettingHeading": {
-            "en": "Linear Light (A2~4)",
+            "en": "Linear Light (A2–4)",
             "ja": "線形の光 (A2~4)",
         },
         "linearLightStyle": {
@@ -754,16 +770,16 @@ var langDataRaw = {
             "ja": "Scratch風",
         },
         "linearLightSameColor": {
-            "en": "Use the same color for all types of lights",
-            "ja": "全種類の光を同じ色にする(電子迷宮レーザーを使用する場合はオフ推奨)",
+            "en": "Use the same color as the Radial Light",
+            "ja": "円形の光と同じ色を使用する (電子迷宮レーザーを使用する場合はオフ推奨)",
         },
         "linearLightASettingHeading": {
-            "en": "Linear Light A(A2): Used for laser",
+            "en": "Linear Light A(A2): Used for normal lasers",
             "ja": "線形の光A (A2): 通常レーザーで使用",
         },
         "linearLightBSettingHeading": {
-            "en": "Linear Light B(A3): Used for spotlight, UFO, Sci-Tech laser",
-            "ja": "線形の光B (A3): スポットライト, UFO, 科学技術レーザーで使用",
+            "en": "Linear Light B(A3): Used for spotlight (161 etc.), UFO (118), Sci-Tech turrets (121–134), E-Lab laser (55, 56)",
+            "ja": "線形の光B (A3): スポットライト (161等), UFO (118), 科学技術レーザー (121~134), 電子迷宮レーザー (55, 56) で使用",
         },
         "topRightSettingHeading": {
             "en": "Primary theme area settings (B)",
@@ -778,12 +794,12 @@ var langDataRaw = {
             "ja": "追加パレット",
         },
         "topRightFloater": {
-            "en": "Floater (fl)",
-            "ja": "星 (fl)",
+            "en": "Floater (45–47) (fl)",
+            "ja": "星 (45~47) (fl)",
         },
         "RSRFloaterInfo": {
-            "en": "This top-right setting is only useful in RS edits, since the Floater texture assignment are modified in RSR.",
-            "ja": "RSRでは星の使用するEnemyテクスチャ部分が変更されているのでこの右上設定はRSエディットでのみ意味を成します。",
+            "en": "This top-right setting has no effect in RSR because texture assignment of Floater is modified.",
+            "ja": "RSRでは星の使用するEnemyテクスチャ部分が変更されているのでこの右上設定はRSエディットでのみ効果を持ちます。",
         },
         "floaterMainColor": {
             "en": "Main color (fl1)",
@@ -887,7 +903,7 @@ var langDataRaw = {
         },
         "iceCube": {
             "en": "Ice cube",
-            "ja": "出現氷塊",
+            "ja": "出現する氷塊",
         },
         "crystalTree": {
             "en": "Crystal trees",
@@ -910,8 +926,8 @@ var langDataRaw = {
             "ja": "行列 (Enemy28)",
         },
         "cubeStructure": {
-            "en": "Cube structure",
-            "ja": "構造物キューブ",
+            "en": "Cube structure (274–277)",
+            "ja": "キューブ構造物 (274~277)",
         },
         "cubeStructureType": {
             "en": "Pattern",
@@ -934,8 +950,8 @@ var langDataRaw = {
             "ja": "枠",
         },
         "largeOctahedronSettingHeading": {
-            "en": "Large octahedron",
-            "ja": "巨大八面体",
+            "en": "Large octahedron (280)",
+            "ja": "巨大八面体 (280)",
         },
         "largeOctahedronTriangleSideA": {
             "en": "Triangle inner side color A",
@@ -946,8 +962,8 @@ var langDataRaw = {
             "ja": "上側の面の内部三角形の色 B",
         },
         "spinCubeSettingHeading": {
-            "en": "Spinning Cubes",
-            "ja": "回転立方体",
+            "en": "Spinning Cubes (272, 273)",
+            "ja": "回転立方体 (272, 273)",
         },
         "spinCubeType": {
             "en": "Front rhombus pattern",
@@ -1023,8 +1039,8 @@ var langDataRaw = {
             "ja": "ゲーム機微小ビット",
         },
         "objName257A": {
-            "en": "Bee",
-            "ja": "蜂",
+            "en": "Bee (257)",
+            "ja": "蜂 (257)",
         },
         "1UpBeeEyes": {
             "en": "Eyes",
@@ -1046,9 +1062,9 @@ var langDataRaw = {
             "en": "Fairy Tale (Enemy35)",
             "ja": "童話 (Enemy35)",
         },
-        "relicsOwl": {
-            "en": "Owl",
-            "ja": "フクロウ",
+        "ObjName347": {
+            "en": "Owl (347)",
+            "ja": "フクロウ (347)",
         },
         "relicsOwlFaceY": {
             "en": "Face dark part",
@@ -1075,8 +1091,8 @@ var langDataRaw = {
             "ja": "羽",
         },
         "relicsJumpDome": {
-            "en": "Jump dome",
-            "ja": "ジャンプドーム",
+            "en": "Jump dome (345, 346)",
+            "ja": "ジャンプドーム (345, 346)",
         },
         "relicsJumpDomeDome": {
             "en": "Dome",
@@ -1091,12 +1107,12 @@ var langDataRaw = {
             "ja": "ドーム部分の底",
         },
         "relicsCrystal": {
-            "en": "Crystal",
-            "ja": "結晶の棘",
+            "en": "Crystal spikes (343)",
+            "ja": "結晶の棘 (343)",
         },
         "relicsTree": {
-            "en": "Tree",
-            "ja": "木",
+            "en": "Tree (348)",
+            "ja": "木 (348)",
         },
         "relicsTreeLeaves": {
             "en": "Leaves",
@@ -1144,16 +1160,16 @@ var langDataRaw = {
             "ja": "細い線",
         },
         "objName424": {
-            "en": "Frisbee",
-            "ja": "▽",
+            "en": "Frisbee (424)",
+            "ja": "▽ (424)",
         },
         "neonObjCore": {
             "en": "core",
-            "ja": "核",
+            "ja": "中心部",
         },
         "objName426": {
-            "en": "Speaker",
-            "ja": "スピーカー",
+            "en": "Speaker (426)",
+            "ja": "スピーカー (426)",
         },
         "neonObjUpperLines": {
             "en": "upper part lines",
@@ -1168,8 +1184,8 @@ var langDataRaw = {
             "ja": "下部の光る線",
         },
         "objName427": {
-            "en": "Robot",
-            "ja": "ロボット",
+            "en": "Robot (427)",
+            "ja": "ロボット (427)",
         },
         "neonObjEye": {
             "en": "eye",
@@ -1180,16 +1196,16 @@ var langDataRaw = {
             "ja": "放出物",
         },
         "objName429": {
-            "en": "Gate",
-            "ja": "門",
+            "en": "Gate (429)",
+            "ja": "門 (429)",
         },
         "neonObjWing": {
             "en": "wing",
             "ja": "ウイング",
         },
         "objName430": {
-            "en": "Keyboard",
-            "ja": "キーボード",
+            "en": "Keyboard (430)",
+            "ja": "キーボード (430)",
         },
         "neonObjFrontSquareLines": {
             "en": "front square lines",
@@ -1200,12 +1216,12 @@ var langDataRaw = {
             "ja": "点滅部分",
         },
         "objName431": {
-            "en": "Gear",
-            "ja": "＜◇＞",
+            "en": "Gear (431)",
+            "ja": "＜◇＞ (431)",
         },
         "neonObjOtherGlow": {
             "en": "other glowing parts",
-            "ja": "その他発光部分",
+            "ja": "その他の発光部分",
         },
 
         "topRightHBD": {
@@ -1501,7 +1517,7 @@ var langDataRaw = {
             "ja": "右下追加パレット",
         },
         "neonBoxSign": {
-            "en": "Neonbox signs",
+            "en": "Neonbox icons",
             "ja": "ネオンボックスのマーク",
         },
         "flipTileSettingHeading": {
@@ -1741,7 +1757,7 @@ var langDataRaw = {
             "ja": "基本縞模様の設定 (C)",
         },
         "mainStripeThickness": {
-            "en": "Main stripe thickness",
+            "en": "Stripe thickness",
             "ja": "縞の太さ",
         },
         "mainStripeThick": {
@@ -1761,12 +1777,12 @@ var langDataRaw = {
             "ja": "カスタム",
         },
         "mainStripeCustomThickness": {
-            "en": "Thickness",
-            "ja": "太さ",
+            "en": "Thickness (T)",
+            "ja": "太さ (T)",
         },
         "mainStripeCustomInterval": {
-            "en": "Interval",
-            "ja": "周期",
+            "en": "Interval (I)",
+            "ja": "周期 (I)",
         },
         "mainStripeCustomStart": {
             "en": "Start position",
@@ -1937,7 +1953,7 @@ var langDataRaw = {
             "ja": "一般",
         },
         "bottomLeftSkyCastle": {
-            "en": "Sky castle",
+            "en": "Cast in the Sky",
             "ja": "天空の城式",
         },
         "BLGradation": {
@@ -1981,36 +1997,36 @@ var langDataRaw = {
             "ja": "右下の設定 (G)",
         },
         "bottomRightRiserOutlined": {
-            "en": "Outlined riser",
-            "ja": "線の入ったRiser",
+            "en": "Top face of outlined riser",
+            "ja": "線の入ったRiserの上面",
         },
         "bottomRightRiserRound": {
-            "en": "Round riser",
-            "ja": "滑らかなRiser",
+            "en": "Top face of round riser",
+            "ja": "滑らかなRiserの上面",
         },
         "riserTopMain": {
-            "en": "Riser top primary color",
-            "ja": "Riser上面基本色",
+            "en": "Primary color",
+            "ja": "基本色",
         },
         "riserTopInactiveLine": {
-            "en": "Riser top secondary color (inactive)",
-            "ja": "Riser上面アクセント色(未起動)",
+            "en": "Secondary color (inactive)",
+            "ja": "アクセント色(未起動)",
         },
         "riserTopActiveLine": {
-            "en": "Riser top secondary color (active)",
-            "ja": "Riser上面アクセント色(起動)",
+            "en": "Secondary color (active)",
+            "ja": "アクセント色(起動)",
         },
         "riserTopInner": {
-            "en": "Riser top inner:",
-            "ja": "Riser上面内側:",
+            "en": "Primary color inner:",
+            "ja": "上面の内側:",
         },
         "riserTopLine": {
-            "en": "Riser top middle line:",
-            "ja": "Riser上面帯:",
+            "en": "Top middle line:",
+            "ja": "上面の帯:",
         },
         "riserTopOuter": {
             "en": "Riser top outer",
-            "ja": "Riser上面外側:",
+            "ja": "Riser上面の外側:",
         },
         "riserLine": {
             "en": "Riser line",
@@ -2028,6 +2044,8 @@ var langDataRaw = {
             "en": "Add octagonal edge line",
             "ja": "Riserの縁に線を描画",
         },
+        
+        
         "filenameGeneral": {
             "en": "General",
             "ja": "General<br>(通常床・立体)",
@@ -2136,7 +2154,7 @@ var langDataRaw = {
 };
 
 //Marking new features with a 🆕
-["flipTileNewborn", "flipTileBreaking"].forEach(each => {
+[].forEach(each => {
     langDataRaw.translations[each].ja = "🆕 " + langDataRaw.translations[each].ja;
     langDataRaw.translations[each].en = "🆕 " + langDataRaw.translations[each].en;
 });
