@@ -3,12 +3,15 @@
 // u+fdd1: 大文字セクション開始
 // u+fdd2: 大文字セクション終了
 function convert(text, origid, destid, startcaps = "", endcaps = "", scriptGInOutput = false, dInOutput = "u0064") {
-    let output = "";
+    let output = ""; // 出力
     if (origid != destid) {
         let detectCaps =
             !systems[origid].supportsCaps && systems[destid].supportsCaps && startcaps != "" && endcaps != "";
+                // 変換元が大文字をサポートせず、変換先が大文字をサポートしていて、変換元のテキストで大文字が何かで囲まれている場合
         let encloseCaps = systems[origid].supportsCaps && !systems[destid].supportsCaps;
+            // 変換元が大文字をサポートしていて、変換先が大文字をサポートせず、従って大文字を小文字に変換し、それを囲まなければならない場合
         let capStartMarkAndEndMarkAreIdentical = startcaps == endcaps;
+            // 大文字開始マークと大文字終了マークが同じである場合
         if (detectCaps) {
             // 大文字を検知して大文字に変換
             if (startcaps.length < endcaps.length) {
@@ -23,13 +26,35 @@ function convert(text, origid, destid, startcaps = "", endcaps = "", scriptGInOu
         // 上の行は、万が一 U+0067 と U+0261 に別の ITA 文字を当てるフォントをサポートしなくてはならなくなった場合、書き換える
         let lastCharWasCap = false;
         let useCapsIfPossible = false;
+            // 現在の位置で大文字を使用する指示があるか
         for (let rawchar of [...origtext]) {
-            let char = rawchar;
+            // 元テキストの文字毎に
+            let char = rawchar; // 個々の文字
+            
+            //　変換前の文字を特定
+            let charIndex = -1;
+            let thisCharIsCap = false;
+            if (systems[origid].letters.includes(char)) {
+                // 小文字である
+                charIndex = systems[origid].letters.indexOf(char);
+            } else if (systems[origid].capsEnco == "o"){
+                // 変換元が大文字をサポートしている
+                if (systems[origid].capitals.includes(char)) {
+                    charIndex = systems[origid].capitals.indexOf(char);
+                    thisCharIsCap = true;
+                }
+            } else if (systems[origid].capsEnco == "u"){
+                // 変換元が大文字をサポートしている
+                if (systems[origid].letters.includes(char.toLowerCase())) {
+                    charIndex = systems[origid].letters.indexOf(char.toLowerCase());
+                    thisCharIsCap = true;
+                }
+            }
 
-            // 大文字と小文字の変換が必要かを確認
+            // 小文字→大文字の変換が必要かを確認
             if (detectCaps) {
                 if (char == "\ufdd1") {
-                    if (startcaps == endcaps) useCapsIfPossible = !useCapsIfPossible;
+                    if (startcaps == endcaps) thisCharIsCap = !thisCharIsCap;
                     else useCapsIfPossible = true;
                     continue;
                 }
@@ -38,22 +63,24 @@ function convert(text, origid, destid, startcaps = "", endcaps = "", scriptGInOu
                     continue;
                 }
             }
-            // 小文字に変換
+            
+            // 大文字を小文字に変換
             if (encloseCaps) {
-                char = char.toLowerCase();
-                let thisCharIsCap = char != rawchar;
                 if (thisCharIsCap && !lastCharWasCap) output += startcaps;
                 if (!thisCharIsCap && lastCharWasCap) output += endcaps;
                 lastCharWasCap = thisCharIsCap;
             }
 
-            if (systems[origid].letters.includes(char)) {
-                let corr = systems[destid].letters[systems[origid].letters.indexOf(char)];
-                if (detectCaps && useCapsIfPossible) output += corr.toUpperCase();
-                else output += corr;
+            // 小文字を大文字に変換
+            if (charIndex != -1) {
+                // 対応している文字
+                let corr = systems[destid].letters[charIndex];
+                if (systems[destid].capsEnco == "n" || (!useCapsIfPossible && !thisCharIsCap)) output += systems[destid].letters[charIndex];
+                else if (systems[destid].capsEnco == "u") output += systems[destid].letters[charIndex].toUpperCase();
+                else if (systems[destid].capsEnco == "o") output += systems[destid].capitals[charIndex];
             } else {
-                if (detectCaps && useCapsIfPossible) output += char.toUpperCase();
-                else output += char;
+                // 対応表に無い文字
+                output += char;
             }
         }
         // 大文字で終わった場合
@@ -62,6 +89,7 @@ function convert(text, origid, destid, startcaps = "", endcaps = "", scriptGInOu
         output = text;
     }
     if (scriptGInOutput) output = output.replaceAll("g", "ɡ");
+    else output = output.replaceAll("ɡ", "g");
     if (dInOutput != "dedic")
         output = output.replaceAll(systems[destid].letters[systems["pit"].letters.indexOf("d")], "d");
     if (dInOutput == "u0256") output = output.replaceAll("d", "ɖ");

@@ -8,7 +8,25 @@
   <title>ITA encoding comparison table</title>
   <script>
    onPageLoad(() => {
+    let countEncos = 0;
+    let encosWithCaps = [];
     for (let system in systems) {
+     countEncos++;
+     let sys = systems[system];
+     
+     if (sys.supportsCaps) encosWithCaps.push(system);
+     
+     let c = pack("th", sys.name);
+     c.setAttribute("colspan", "2");
+     c.addTo(getElem("enco-names"));
+     if (!sys.encoVersion) c.setAttribute("rowspan", "2");
+     else {
+      c = pack("th", sys.encoVersion);
+      c.setAttribute("colspan", "2");
+      c.addTo(getElem("enco-version"));
+     }
+    }
+    for (let system of encosWithCaps) {
      let sys = systems[system];
      let c = pack("th", sys.name);
      c.setAttribute("colspan", "2");
@@ -21,43 +39,149 @@
      }
     }
     for (let index = 0; index < systems["pit"].letters.length; index++) {
+     // 文字毎に繰り返す
      let r = pack("tr");
+     r.gets(pack("td", names[index]));
+
      for (let system in systems) {
+      // エンコーディング毎に繰り返す
       let sys = systems[system];
-      let letter = sys.letters[index];
-      let c = pack("td", letter == "\ufdd0" ? "*" : letter);
-      if (systems[system].font) c.setAttribute("style", "font-family: " + sys.font);
-      c.addTo(r);
-      c = pack("td", letter == "\ufdd0" ? "*" : "u+" + sys.letters[index].codePointAt(0).toString(16).padStart(4, "0"));
-      c.classList.add("hex");
-      c.addTo(r);
+
+      cells(r, sys.letters[index], sys.font, systems["uni"].letters[index]);
+     }
+     for (let system of encosWithCaps) {
+      // エンコーディング毎に繰り返す
+      let sys = systems[system];
+      if (sys.capsEnco == "o") cells(r, sys.capitals[index], sys.font, systems["uni"].letters[index]);
+      if (sys.capsEnco == "u") cells(r, sys.letters[index].toUpperCase(), sys.font, systems["uni"].letters[index]);
      }
      r.addTo(getElem("ita-table"));
     }
+    
+    getElem("majhead").setAttribute("colspan", encosWithCaps.length * 2);
+    getElem("minhead").setAttribute("colspan", countEncos * 2);
    });
+   function cells(parent, letter, font, unicode) {
+    let codepoint = letter.codePointAt(0);
+    if (codepoint == 0xfdd0) {
+     let c = pack("td", "N/A");
+     c.setAttribute("colspan", "2");
+     c.classList.add("no-code");
+     c.addTo(parent);
+     return;
+    }
+    let rangeType = "?";
+    if ([0x014b, 0x1d6b, 0xa737].includes(codepoint))
+     rangeType = "problematic"; // 問題のある統合
+    else if (0xe000 <= codepoint && codepoint <= 0xf8ff)
+     rangeType = "pua"; // BMP 私用領域
+    else if (0xf0000 <= codepoint && codepoint <= 0x10fffd)
+     rangeType = "puaext"; // 拡張私用領域
+    else if (0x1df5a <= codepoint && codepoint <= 0x1df66)
+     rangeType = "newuni"; // Unicode 18.0
+    else {
+     if (letter != unicode && codepoint != 0x0261) rangeType = "nonuni";
+     else if (codepoint < 0x0080)
+      rangeType = "ascii"; // ASCII
+     else if (codepoint <= 0xffff) rangeType = "olderuni"; // 18.0 以前のUnicode
+    }
+    // 文字のセル
+    let c = pack("td", letter);
+    c.setAttribute("style", "font-family: " + font);
+    c.classList.add("region-" + rangeType);
+    c.addTo(parent);
+
+    // コードポイントのセル
+    c = pack("td", "u+" + codepoint.toString(16).padStart(4, "0"));
+    c.classList.add("hex");
+    c.classList.add("region-" + rangeType);
+    c.addTo(parent);
+   }
   </script>
   <style>
    .hex {
     font-family: monospace;
    }
+   .region-ascii {
+    background-color: none;
+   }
+   .region-nonuni {
+    background-color: #f0f0f0;
+   }
+   .region-problematic {
+    background-color: #ffe0e0;
+   }
+   .region-newuni {
+    background-color: #e0ffa0;
+   }
+   .region-pua {
+    background-color: #d0f0ff;
+   }
+   .region-puaext {
+    background-color: #d0f0ff;
+   }
+   .no-code {
+    background-color: #808080;
+    color: white;
+    text-align: center;
+   }
    th {
     font-weight: normal;
     background-color: lightgray;
+   }
+   td {
+    vertical-align: text-top;
+   }
+   @font-face {
+    font-family: "ITAImpact";
+    src: url("itaimpact.otf");
+   }
+   #legend {
+    display: inline;
+   }
+   #legend > li {
+    display: inline;
    }
   </style>
  </head>
  <body>
   <h1>ITA encoding comparison table</h1>
   <p><a href="./">go back</a></p>
+  <ul>
+   <li>
+    <span class="region-olderuni">white</span> background signifies that the character was present in pre-18.0 Unicode
+    and the scheme maps the characters according to Unicode.
+   </li>
+   <li>
+    <span class="region-nonuni">gray</span> background signifies that the codepoint is mapped to a different character
+    in Unicode.
+   </li>
+   <li>
+    <span class="region-problematic">red</span> background signifies that the character is problematically unified in
+    Unicode 18.0 with a character already present in pre-18.0 Unicode.
+   </li>
+   <li>
+    <span class="region-newuni">green</span> background signifies that the character is added to Unicode in Unicode 18.0
+    and the scheme encodes the character as in Unicode.
+   </li>
+   <li>
+    <span class="region-pua">cyan</span> background signifies that the character is mapped to a codepoint in the Private
+    Use Area in the Basic Multilingual Plane of Unicode.
+   </li>
+  </ul>
   <table>
    <thead>
+    <tr id="enco-case">
+     <th rowspan="3">Letter Name</th>
+     <th id="minhead">Minuscules</th>
+     <th id="majhead">Majuscules</th>
+    </tr>
     <tr id="enco-names"></tr>
     <tr id="enco-version"></tr>
    </thead>
-   <tbody id="ita-table" lang="en-Qaai"></tbody>
+   <tbody id="ita-table" lang="en"></tbody>
   </table>
-  <small>* Phonemics’ encoding doesn’t have a codepoint for the “half a”.</small>
-  <small>** I couldn’t find a two-storey bottom-connected a-u ligature in Nishiki-teki.</small>
+  <small>* I couldn’t find a two-storey bottom-connected a-u ligature in Nishiki-teki.</small>
   <p>
    Pitman ITA Capitals are only supported by PitmanITA’s encoding. Other letters are encoded the same in all of the
    encoding schemes.
