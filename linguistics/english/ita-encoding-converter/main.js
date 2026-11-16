@@ -22,7 +22,7 @@ function convert(text, origid, destid, startcaps = "", endcaps = "", scriptGInOu
                 text = text.replaceAll(endcaps, "\ufdd2");
             }
         }
-        let origtext = text.replaceAll("ɡ", "g").replaceAll("ɖ", "d").replaceAll("ꬼ", "d");
+        let origtext = text.replaceAll("ɡ", "g").replaceAll("ɖ", "d").replaceAll("ꬼ", "ŋ");
         // 上の行は、万が一 U+0067 と U+0261 に別の ITA 文字を当てるフォントをサポートしなくてはならなくなった場合、書き換える
         let lastCharWasCap = false;
         let useCapsIfPossible = false;
