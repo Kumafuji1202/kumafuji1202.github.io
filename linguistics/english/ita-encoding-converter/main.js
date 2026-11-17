@@ -73,7 +73,14 @@ function convert(text, origid, destid, startcaps = "", endcaps = "", scriptGInOu
 
             // 小文字を大文字に変換
             if (charIndex != -1) {
-                // 対応している文字
+                if (!systems[destid].letters[charIndex]){
+                    if (names[charIndex] == "ask") {
+                        // ask が無いエンコーディングの場合
+                        if (getElem("bath").value == "trap") charIndex = names.indexOf("at");
+                        else charIndex = names.indexOf("ahd");
+                    }
+                }
+                // 対応表にある文字
                 let corr = systems[destid].letters[charIndex];
                 if (systems[destid].capsEnco == "n" || (!useCapsIfPossible && !thisCharIsCap)) output += systems[destid].letters[charIndex];
                 else if (systems[destid].capsEnco == "u") output += systems[destid].letters[charIndex].toUpperCase();
@@ -109,8 +116,6 @@ onPageLoad(() => {
             getElem("gay").value == "u0261",
             getElem("did").value
         );
-        if (getElem("bath").value == "trap") output = output.replaceAll("\ufdd0", "a");
-        else output = output.replaceAll("\ufdd0", "q");
         // HTMLに出力
         getElem("output").innerHTML = output.cleanse();
     }

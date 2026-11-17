@@ -21,7 +21,7 @@ var systems = {
         supportsU0256: false,
         supportsU0261: false,
         defaultU0261: false,
-        letters: ["a", "﷐", "q", "A", "Q", "b", "c", "C", "d", "e", "E", "f", "g", "h", "i", "I", "j", "k", "l", "m", "n", "N", "o", "O", "K", "L", "F", "G", "p", "r", "R", "s", "S", "t", "H", "T", "u", "U", "v", "w", "W", "y", "z", "Z", "x"],
+        letters: ["a", null, "q", "A", "Q", "b", "c", "C", "d", "e", "E", "f", "g", "h", "i", "I", "j", "k", "l", "m", "n", "N", "o", "O", "K", "L", "F", "G", "p", "r", "R", "s", "S", "t", "H", "T", "u", "U", "v", "w", "W", "y", "z", "Z", "x"],
     },
     "xim": {
         name: "Xim Sans",
@@ -83,4 +83,6 @@ var systems = {
         defaultU0261: false,
         letters: ["a", "𝽚", "ɑ", "æ", "ꜷ", "b", "c", "𝽛", "d", "e", "𝽜", "f", "g", "h", "i", "𝽝", "j", "k", "l", "m", "n", "ŋ", "o", "œ", "𝽞", "𝽟", "𝽠", "ꞷ", "p", "r", "𝽡", "s", "𝽢", "t", "𝽣", "𝽤", "u", "ᵫ", "v", "w", "𝽥", "y", "z", "𝽦", "ʒ"],
     },
-};var names = ["at", "half a", "ahd", "ain", "aud", "bee", "kee", "chay", "did", "et", "een", "ef", "gay", "hay", "it", "ide", "jay", "kay", "el", "em", "en", "ing", "og", "ode", "oin", "oun", "ood", "oot", "pee", "ray", "er", "ess", "ish", "tee", "ith", "thee", "ug", "une", "vee", "way", "whee", "yay", "zed", "zess", "zhee"];
+};
+var names = ["at", "ask", "ahd", "ain", "aud", "bee", "kee", "chay", "did", "et", "een", "ef", "gay", "hay", "it", "ide", "jay", "kay", "el", "em", "en", "ing", "og", "ode", "oin", "oun", "ood", "oot", "pee", "ray", "er", "ess", "ish", "tee", "ith", "thee", "ug", "une", "vee", "way", "whee", "yay", "zed", "zess", "zhee"];
+var charnames = ["a", "half a", "script a", "ae", "au tied at baseline", "b", "c", "stretched c-h ligature", "d with short descender", "e", "double lunate e", "f", "script g", "h", "i", "ie tied at half-x-height", "j", "k", "l", "m", "n", "eng with script g inside", "o", "oe", "oi tied at x-height", "ou tied at x-height", "latin omega with loop inside", "latin omega", "p", "r", "r with left tie", "s", "esh-h ligature", "t", "stretched t-h ligature", "reversed t-h ligature", "u", "ue tied at half-x-height", "v", "w", "w-h ligature", "y", "z", "reversed z", " ezh"];

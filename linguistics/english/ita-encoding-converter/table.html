@@ -10,6 +10,8 @@
    onPageLoad(() => {
     let countEncos = 0;
     let encosWithCaps = [];
+    
+    // 表のヘッダー
     for (let system in systems) {
      countEncos++;
      let sys = systems[system];
@@ -38,10 +40,13 @@
       c.addTo(getElem("enco-version"));
      }
     }
+    
+    // 表の本体
     for (let index = 0; index < systems["pit"].letters.length; index++) {
      // 文字毎に繰り返す
      let r = pack("tr");
      r.gets(pack("td", names[index]));
+     r.gets(pack("td", charnames[index]));
 
      for (let system in systems) {
       // エンコーディング毎に繰り返す
@@ -62,14 +67,14 @@
     getElem("minhead").setAttribute("colspan", countEncos * 2);
    });
    function cells(parent, letter, font, unicode) {
-    let codepoint = letter.codePointAt(0);
-    if (codepoint == 0xfdd0) {
+    if (!letter) {
      let c = pack("td", "N/A");
      c.setAttribute("colspan", "2");
      c.classList.add("no-code");
      c.addTo(parent);
      return;
     }
+    let codepoint = letter.codePointAt(0);
     let rangeType = "?";
     if ([0x014b, 0x1d6b, 0xa737].includes(codepoint))
      rangeType = "problematic"; // 問題のある統合
@@ -106,7 +111,7 @@
     background-color: none;
    }
    .region-nonuni {
-    background-color: #f0f0f0;
+    background-color: #e8e8e8;
    }
    .region-problematic {
     background-color: #ffe0e0;
@@ -173,6 +178,7 @@
    <thead>
     <tr id="enco-case">
      <th rowspan="3">Letter Name</th>
+     <th rowspan="3">Unicode-like Character Name</th>
      <th id="minhead">Minuscules</th>
      <th id="majhead">Majuscules</th>
     </tr>
@@ -181,11 +187,7 @@
    </thead>
    <tbody id="ita-table" lang="en"></tbody>
   </table>
-  <small>* I couldn’t find a two-storey bottom-connected a-u ligature in Nishiki-teki.</small>
-  <p>
-   Pitman ITA Capitals are only supported by PitmanITA’s encoding. Other letters are encoded the same in all of the
-   encoding schemes.
-  </p>
+  <small>Note on letter-forms: Some fonts have <i>bee</i> with a round bottom, modelled on the way of writing it peculiar to ITA. One source by proponents of the ITA implied that the descender of the letter <i>did</i> is optional.</small>
   <p>
    As for the letterforms, as of now (<time datetime="2026-11-07">2026 Nov 7th</time>), PitmanITA, Phonemics, Xim Sans
    and Catrinity support all correct letterforms. Other fonts used here have incomplete support of correct letterforms.
