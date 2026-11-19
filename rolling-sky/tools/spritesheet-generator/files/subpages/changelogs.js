@@ -928,8 +928,24 @@ var changeLogs = [
             ],
             "fixes": [
                 {
-                    "en": "Fixed the color extraction tool not working",
-                    "ja": "色抽出機能が機能していない問題を修正"
+                    "en": "Fixed the color extraction tool not working (ETA: see 1.2.8)",
+                    "ja": "色抽出機能が機能していない問題を修正 (追記: 1.2.8 参照)"
+                }
+            ]
+        }
+    },
+    {
+        "versionNumber": "1.2.8",
+        "releaseDate": {
+            "year": 2026,
+            "month": 11,
+            "day": 19
+        },
+        "changes": {
+            "fixes": [
+                {
+                    "en": "Fixed the fix of the color extraction tool not working not working",
+                    "ja": "色抽出機能が機能していない問題が修正されていない問題を修正"
                 }
             ]
         }

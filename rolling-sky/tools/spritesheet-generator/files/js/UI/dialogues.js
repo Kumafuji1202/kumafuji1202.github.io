@@ -1,15 +1,15 @@
 /*ダイアログウィンドウ用*/
-window.closeAllWindow = () => {
+function openWindowButtonOnClick(e){
+    getElem(e.target.getAttribute("data-window-open-button")).setAttribute("opened", "");
+    getElem("windowGroup").setAttribute("opened", "settings");
+    getElem(e.target.getAttribute("data-window-open-button")).dispatchEvent(new Event("windowopened"));
+}
+window.closeAllWindows = () => {
     getElem("windowGroup").removeAttribute("opened");
     for (let each of document.querySelectorAll("window-positioner[opened]")) each.removeAttribute("opened");
 };
-for (let each of document.querySelectorAll("[data-window-close-button]")) each.setClick(closeAllWindow);
-for (let each of document.querySelectorAll("[data-window-open-button]")) {
-    each.setClick(function () {
-        getElem(each.getAttribute("data-window-open-button")).setAttribute("opened", "");
-        getElem("windowGroup").setAttribute("opened", "settings");
-    });
-}
+for (let each of document.querySelectorAll("[data-window-close-button]")) each.setClick(closeAllWindows);
+for (let each of document.querySelectorAll("[data-window-open-button]")) each.setClick(openWindowButtonOnClick);
 
 document.getElementById("themeName").addEventListener("input", function () {
     document.getElementById("saveTheme").setAttribute("download", document.getElementById("themeName").value + ".rstheme");
