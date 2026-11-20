@@ -97,6 +97,7 @@ const lineThickness = {
     }
 };
 
+// こいつを使う場面を減らしていきたい
 function multipleLines(lineWidthArray, alphaArray, context, path) {
     context.save();
     for (var i = 0; i < lineWidthArray.length; i++) {
@@ -356,6 +357,16 @@ function theSunsetGlowThing(left, top, mainCol, darkCol, accCol, type) {
             contextEnemy.strokeRect(left + 20, top + 26, 24, 12);
             break;
     }
+}
+
+function putColorByTemplate(id, fillStyle, destinationContext) {
+    let offscreen = new OffscreenCanvas(512, 512);
+    let cxt = offscreen.getContext("2d");
+    cxt.drawImage(templateImgs[id], 0, 0);
+    cxt.globalCompositeOperation = "source-in";
+    cxt.fillStyle = fillStyle;
+    cxt.fillRect(0, 0, 512, 512);
+    destinationContext.drawImage(offscreen, 0, 0);
 }
 
 var groundLinesPath;
@@ -1709,30 +1720,10 @@ function generateMovers() {
     contextMover.fillRect(0, 0, 170, 170);
     contextMoverAuto.fillRect(0, 0, 170, 170);
 
-    var moverInactiveArrowPath = new Path2D();
-    var moverActiveArrowPath = new Path2D();
-    moverActiveArrowPath.moveTo(85, 14);
-    moverActiveArrowPath.lineTo(21, 140);
-    moverActiveArrowPath.lineTo(35, 158);
-    moverActiveArrowPath.lineTo(136, 158);
-    moverActiveArrowPath.lineTo(150, 140);
-    moverActiveArrowPath.closePath();
-    moverInactiveArrowPath.moveTo(255, 14);
-    moverInactiveArrowPath.lineTo(191, 140);
-    moverInactiveArrowPath.lineTo(205, 158);
-    moverInactiveArrowPath.lineTo(306, 158);
-    moverInactiveArrowPath.lineTo(320, 140);
-    moverInactiveArrowPath.closePath();
-
-    contextMover.strokeStyle = getElem("moverOutlineBorderColor").value;
-    multipleLines([9, 7, 5], [0.25, 0.375, 1], contextMover, moverInactiveArrowPath);
-    contextMoverAuto.strokeStyle = getElem("moverAutoOutlineBorderColor").value;
-    multipleLines([9, 7, 5], [0.25, 0.375, 1], contextMoverAuto, moverInactiveArrowPath);
-
-    contextMover.strokeStyle = getElem("moverActiveArrowBorderColor").value;
-    multipleLines([40, 30, 17, 9, 7, 5], [0.125, 0.125, 0.125, 0.25, 0.375, 1], contextMover, moverActiveArrowPath);
-    contextMoverAuto.strokeStyle = getElem("moverAutoActiveArrowBorderColor").value;
-    multipleLines([40, 30, 17, 9, 7, 5], [0.125, 0.125, 0.125, 0.25, 0.375, 1], contextMoverAuto, moverActiveArrowPath);
+    putColorByTemplate("active-mover-glow", getElem("moverActiveArrowBorderColor").value, contextMover);
+    putColorByTemplate("active-mover-glow", getElem("moverAutoActiveArrowBorderColor").value, contextMoverAuto);
+    putColorByTemplate("inactive-mover-glow", getElem("moverOutlineBorderColor").value, contextMover);
+    putColorByTemplate("inactive-mover-glow", getElem("moverAutoOutlineBorderColor").value, contextMoverAuto);
 
     //四角部分A
     contextMover.fillStyle = getElem("moverActiveArrowBorderColor").value;

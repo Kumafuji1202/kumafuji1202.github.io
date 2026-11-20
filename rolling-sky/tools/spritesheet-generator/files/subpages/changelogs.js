@@ -944,8 +944,24 @@ var changeLogs = [
         "changes": {
             "fixes": [
                 {
-                    "en": "Fixed the fix of the color extraction tool not working not working",
-                    "ja": "色抽出機能が機能していない問題が修正されていない問題を修正"
+                    "en": "Fixed the fix of the color extraction tool not working not working (ETA: bug reported by @sussahhguy_44866 on Discord)",
+                    "ja": "色抽出機能が機能していない問題が修正されていない問題を修正 (追記: Discord より @sussahhguy_44866 さんの指摘による)"
+                }
+            ]
+        }
+    },
+    {
+        "versionNumber": "1.2.9",
+        "releaseDate": {
+            "year": 2026,
+            "month": 11,
+            "day": 20
+        },
+        "changes": {
+            "changes": [
+                {
+                    "en": "Smoothened the glow of mover arrows (change suggested and asset created by @sussahhguy_44866 on Discord)",
+                    "ja": "移動床の矢印の発光を滑らかにした (Discord より @sussahhguy_44866 さんの提案と画像情報提供による)"
                 }
             ]
         }
