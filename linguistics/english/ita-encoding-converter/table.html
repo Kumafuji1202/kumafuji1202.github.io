@@ -10,14 +10,14 @@
    onPageLoad(() => {
     let countEncos = 0;
     let encosWithCaps = [];
-    
+
     // 表のヘッダー
     for (let system in systems) {
      countEncos++;
      let sys = systems[system];
-     
+
      if (sys.supportsCaps) encosWithCaps.push(system);
-     
+
      let c = pack("th", sys.name);
      c.setAttribute("colspan", "2");
      c.addTo(getElem("enco-names"));
@@ -40,7 +40,7 @@
       c.addTo(getElem("enco-version"));
      }
     }
-    
+
     // 表の本体
     for (let index = 0; index < systems["pit"].letters.length; index++) {
      // 文字毎に繰り返す
@@ -62,7 +62,7 @@
      }
      r.addTo(getElem("ita-table"));
     }
-    
+
     getElem("majhead").setAttribute("colspan", encosWithCaps.length * 2);
     getElem("minhead").setAttribute("colspan", countEncos * 2);
    });
@@ -177,7 +177,7 @@
   <table>
    <thead>
     <tr id="enco-case">
-     <th rowspan="3">Letter Name</th>
+     <th rowspan="3">Letter Name<br />(Pitman 1969, p.119)</th>
      <th rowspan="3">Unicode-like Character Name</th>
      <th id="minhead">Minuscules</th>
      <th id="majhead">Majuscules</th>
@@ -187,10 +187,24 @@
    </thead>
    <tbody id="ita-table" lang="en"></tbody>
   </table>
-  <small>Note on letter-forms: Some fonts have <i>bee</i> with a round bottom, modelled on the way of writing it peculiar to ITA. One source by proponents of the ITA implied that the descender of the letter <i>did</i> is optional.</small>
+  <small
+   >Note on letter-forms: Some fonts have <i>bee</i> with a round bottom, modelled on the way of writing it (Pitman
+   1969, p.154) peculiar to ITA. One source by proponents of the ITA (Downing 1964, p.81) implied that the descender of
+   the letter <i>did</i> is optional.</small
+  >
   <p>
-   As for the letterforms, as of now (<time datetime="2026-11-07">2026 Nov 7th</time>), PitmanITA, Phonemics, Xim Sans
+   As for the letterforms, as of now (<time datetime="2026-11-22">2026 Nov 22th</time>), PitmanITA, Phonemics, Xim Sans
    and Catrinity support all correct letterforms. Other fonts used here have incomplete support of correct letterforms.
   </p>
+  <h2>Source</h2>
+  <ul>
+   <li>
+    Sir James Pitman and John St. John (1969). <i>Alphabets and Reading: The Initial Teaching Alphabet</i>. p.119. ISBN
+    0-273-43343-1. Pitman.
+   </li>
+   <li>
+    John Downing (1964). <i>The Initial Teaching Alphabet, Explained and Illustrated</i>. p.81. New York, Macmillan.
+   </li>
+  </ul>
  </body>
 </html>

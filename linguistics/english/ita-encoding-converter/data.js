@@ -26,7 +26,7 @@ var systems = {
     "xim": {
         name: "Xim Sans",
         encoVersion: "",
-        font: "Xim Sans Handwritten, Xim Sans Conlang",
+        font: "\"Xim Sans Handwritten\", \"Xim Sans Conlang\"",
         supportsCaps: false,
         capsEnco: "n",
         supportsUnicodePuncts: true,
@@ -74,7 +74,7 @@ var systems = {
     "uni": {
         name: "Unicode",
         encoVersion: "18.0",
-        font: "Fairfax HD, TH-Tshyn, Catrinity",
+        font: "\"Fairfax HD\", TH-Tshyn, Catrinity",
         supportsCaps: false,
         capsEnco: "n",
         supportsUnicodePuncts: true,
@@ -82,6 +82,30 @@ var systems = {
         supportsU0261: true,
         defaultU0261: false,
         letters: ["a", "𝽚", "ɑ", "æ", "ꜷ", "b", "c", "𝽛", "d", "e", "𝽜", "f", "g", "h", "i", "𝽝", "j", "k", "l", "m", "n", "ŋ", "o", "œ", "𝽞", "𝽟", "𝽠", "ꞷ", "p", "r", "𝽡", "s", "𝽢", "t", "𝽣", "𝽤", "u", "ᵫ", "v", "w", "𝽥", "y", "z", "𝽦", "ʒ"],
+    },
+    "cani": {
+        name: "CanidruITA",
+        encoVersion: "",
+        font: "canidruita",
+        supportsCaps: true,
+        capsEnco: "u",
+        supportsUnicodePuncts: true,
+        supportsU0256: false,
+        supportsU0261: false,
+        defaultU0261: false,
+        letters: ["a", "á", "à", "ä", "â", "b", "c", "ç", "d", "e", "ë", "f", "g", "h", "i", "ï", "j", "k", "l", "m", "n", "ñ", "o", "ö", "ó", "ô", "ù", "ò", "p", "r", "ŕ", "s", "x", "t", "þ", "ð", "u", "ü", "v", "w", "ŵ", "y", "z", "ź", "Q"],
+    },
+    "gsuni": {
+        name: "GS Unicode 2.0",
+        encoVersion: "2023 Nov",
+        font: "\"GS Unicode 2.0 (Plane 0)\"",
+        supportsCaps: false,
+        capsEnco: "n",
+        supportsUnicodePuncts: true,
+        supportsU0256: true,
+        supportsU0261: true,
+        defaultU0261: true,
+        letters: ["a", "", "ɑ", "æ", "", "b", "c", "", "", "e", "", "f", "ɡ", "h", "i", "", "j", "k", "l", "m", "n", "", "o", "œ", "", "", "", "ꞷ", "p", "r", "", "s", "", "t", "", "", "u", "", "v", "w", "", "y", "z", "", "ʒ"],
     },
 };
 var names = ["at", "ask", "ahd", "ain", "aud", "bee", "kee", "chay", "did", "et", "een", "ef", "gay", "hay", "it", "ide", "jay", "kay", "el", "em", "en", "ing", "og", "ode", "oin", "oun", "ood", "oot", "pee", "ray", "er", "ess", "ish", "tee", "ith", "thee", "ug", "une", "vee", "way", "whee", "yay", "zed", "zess", "zhee"];
